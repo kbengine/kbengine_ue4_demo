@@ -1,0 +1,13 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{9120450D-406E-67E7-B4DA-F18BA31C47DC}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "kbengine_ue4_demo",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}

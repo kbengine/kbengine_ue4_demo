@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "KBECommon.h"
 #include "Components/ActorComponent.h"
 #include "KBEMain.generated.h"
 

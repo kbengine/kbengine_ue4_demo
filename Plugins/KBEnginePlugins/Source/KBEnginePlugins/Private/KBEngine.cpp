@@ -424,6 +424,18 @@ void KBEngineApp::onServerDigest()
 
 bool KBEngineApp::login(FString& username, FString& password, TArray<uint8>& datas)
 {
+	if (username.Len() == 0)
+	{
+		ERROR_MSG("username is empty!");
+		return false;
+	}
+
+	if (password.Len() == 0)
+	{
+		ERROR_MSG("password is empty!");
+		return false;
+	}
+
 	username_ = username;
 	password_ = password;
 	clientdatas_ = datas;

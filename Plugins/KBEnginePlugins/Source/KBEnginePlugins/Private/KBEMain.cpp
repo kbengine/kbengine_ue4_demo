@@ -80,7 +80,7 @@ bool UKBEMain::destroyKBEngine()
 	return true;
 }
 
-bool UKBEMain::login(FString& username, FString& password, TArray<uint8>& datas)
+bool UKBEMain::login(FString username, FString password, TArray<uint8> datas)
 {
 	if (!KBEngineApp::getSingleton().isInitialized())
 		return false;

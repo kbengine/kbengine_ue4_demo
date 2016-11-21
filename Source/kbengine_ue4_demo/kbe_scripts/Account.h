@@ -15,6 +15,13 @@ public:
 	virtual ~Account();
 
 public:
+	virtual void __init__() override;
+	virtual void onDestroy() override;
+
+	void reqCreateAvatar(uint8 roleType, const FString& name);
+	void reqRemoveAvatar(const FString& name);
+	void reqRemoveAvatar(uint64 dbid);
+
 	void set_spaceID(uint32 oldVal) {
 
 	}

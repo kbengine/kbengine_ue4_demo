@@ -3,6 +3,7 @@
 #pragma once
 
 #include "KBECommon.h"
+#include "Event.h"
 #include "Components/ActorComponent.h"
 #include "KBEMain.generated.h"
 
@@ -21,7 +22,7 @@ class KBENGINEPLUGINS_API UKBEMain : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UKBEMain();
-	
+
 	/**
 	* Initializes the component.  Occurs at level startup. This is before BeginPlay (Actor or Component).
 	* All Components in the level will be Initialized on load before any Actor/Component gets BeginPlay
@@ -46,6 +47,24 @@ public:
 
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	FString getClientVersion();
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	FString getClientScriptVersion();
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	FString getServerVersion();
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	FString getServerScriptVersion();
+
+	/*
+		客户端属于KBE框架中的一个功能组件，这里获取将固定返回client
+	*/
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	FString getComponentName();
 
 	/**
 		在程序关闭时需要主动调用, 彻底销毁KBEngine

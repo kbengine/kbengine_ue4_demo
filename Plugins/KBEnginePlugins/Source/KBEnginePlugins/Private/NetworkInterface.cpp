@@ -4,7 +4,7 @@
 #include "PacketReceiver.h"
 #include "PacketSender.h"
 #include "MemoryStream.h"
-
+#include "Event.h"
 
 NetworkInterface::NetworkInterface():
 	socket_(NULL),
@@ -36,6 +36,7 @@ void NetworkInterface::close()
 		socket_->Close();
 		INFO_MSG("network closed!");
 		ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(socket_);
+		KBENGINE_EVENT_FIRE("onDisableConnect", FKEventData_onDisableConnect());
 	}
 
 	socket_ = NULL;
@@ -142,6 +143,7 @@ void NetworkInterface::process()
 void NetworkInterface::tickConnecting()
 {
 	ESocketConnectionState state = socket_->GetConnectionState();
+
 	if (state == SCS_Connected)
 	{
 		TSharedRef<FInternetAddr> addr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
@@ -150,6 +152,8 @@ void NetworkInterface::tickConnecting()
 		INFO_MSG("connect to %s success!", *addr->ToString(true));
 		connectCB_->onLoginCallback(connectIP_, connectPort_, true, connectUserdata_);
 		connectCB_ = NULL;
+
+		KBENGINE_EVENT_FIRE("onConnectStatus", FKEventData_onConnectStatus(true));
 	}
 	else
 	{
@@ -160,6 +164,7 @@ void NetworkInterface::tickConnecting()
 			ERROR_MSG("connect to %s:%d timeout!", *connectIP_, connectPort_);
 			connectCB_->onLoginCallback(connectIP_, connectPort_, false, connectUserdata_);
 			connectCB_ = NULL;
+			KBENGINE_EVENT_FIRE("onConnectStatus", FKEventData_onConnectStatus(false));
 		}
 	}
 }

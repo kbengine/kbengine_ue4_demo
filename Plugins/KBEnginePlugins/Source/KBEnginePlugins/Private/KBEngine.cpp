@@ -138,17 +138,46 @@ bool KBEngineApp::initialize(KBEngineArgs* pArgs)
 
 void KBEngineApp::installEvents()
 {
-	/*
-	Event.registerIn("createAccount", this, "createAccount");
-	Event.registerIn("login", this, "login");
-	Event.registerIn("reLoginBaseapp", this, "reLoginBaseapp");
-	Event.registerIn("resetPassword", this, "resetPassword");
-	Event.registerIn("bindAccountEmail", this, "bindAccountEmail");
-	Event.registerIn("newPassword", this, "newPassword");
+	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("login", "login", [this](const FKEventData& eventData)
+	{
+		const FKEventData_login& data = static_cast<const FKEventData_login&>(eventData);
+		login(data.username, data.password, data.datas);
+	});
+
+	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("createAccount", "createAccount", [this](const FKEventData& eventData)
+	{
+		const FKEventData_createAccount& data = static_cast<const FKEventData_createAccount&>(eventData);
+		createAccount(data.username, data.password, data.datas);
+	});
+
+	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("reLoginBaseapp", "reLoginBaseapp", [this](const FKEventData& eventData)
+	{
+		reLoginBaseapp();
+	});
+
+	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("resetPassword", "resetPassword", [this](const FKEventData& eventData)
+	{
+		const FKEventData_resetPassword& data = static_cast<const FKEventData_resetPassword&>(eventData);
+		resetPassword(data.username);
+	});
+
+	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("bindAccountEmail", "bindAccountEmail", [this](const FKEventData& eventData)
+	{
+		const FKEventData_bindAccountEmail& data = static_cast<const FKEventData_bindAccountEmail&>(eventData);
+		bindAccountEmail(data.email);
+	});
+
+	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("newPassword", "newPassword", [this](const FKEventData& eventData)
+	{
+		const FKEventData_newPassword& data = static_cast<const FKEventData_newPassword&>(eventData);
+		newPassword(data.old_password, data.new_password);
+	});
 
 	// 内部事件
-	Event.registerIn("_closeNetwork", this, "_closeNetwork");
-	*/
+	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("_closeNetwork", "_closeNetwork", [this](const FKEventData& eventData)
+	{
+		_closeNetwork();
+	});
 }
 
 void KBEngineApp::destroy()
@@ -227,6 +256,12 @@ bool KBEngineApp::initNetwork()
 
 	pNetworkInterface_ = new NetworkInterface();
 	return true;
+}
+
+void KBEngineApp::_closeNetwork()
+{
+	if (pNetworkInterface_)
+		pNetworkInterface_->close();
 }
 
 bool KBEngineApp::validEmail(FString strEmail)
@@ -361,7 +396,11 @@ void KBEngineApp::Client_onVersionNotMatch(MemoryStream& stream)
 	stream >> serverVersion_;
 
 	ERROR_MSG("verInfo=%s(server: %s)", *clientVersion_, *serverVersion_);
-	//Event.fireAll("onVersionNotMatch", new object[]{ clientVersion_, serverVersion_ });
+
+	FKEventData_onVersionNotMatch eventData;
+	eventData.clientVersion = clientVersion_;
+	eventData.serverVersion = serverVersion_;
+	KBENGINE_EVENT_FIRE("onVersionNotMatch", eventData);
 
 	if (persistentInfos_)
 		persistentInfos_->onVersionNotMatch(clientVersion_, serverVersion_);
@@ -372,7 +411,11 @@ void KBEngineApp::Client_onScriptVersionNotMatch(MemoryStream& stream)
 	stream >> serverScriptVersion_;
 
 	ERROR_MSG("verInfo=%s(server: %s)", *clientScriptVersion_, *serverScriptVersion_);
-	//Event.fireAll("onScriptVersionNotMatch", new object[]{ clientScriptVersion, serverScriptVersion });
+
+	FKEventData_onScriptVersionNotMatch eventData;
+	eventData.clientScriptVersion = clientScriptVersion_;
+	eventData.serverScriptVersion = serverScriptVersion_;
+	KBENGINE_EVENT_FIRE("onScriptVersionNotMatch", eventData);
 
 	if (persistentInfos_)
 		persistentInfos_->onScriptVersionNotMatch(clientScriptVersion_, serverScriptVersion_);
@@ -381,7 +424,10 @@ void KBEngineApp::Client_onScriptVersionNotMatch(MemoryStream& stream)
 void KBEngineApp::Client_onKicked(uint16 failedcode)
 {
 	DEBUG_MSG("failedcode=%d, %s", failedcode, *serverErr(failedcode));
-	//Event.fireAll("onKicked", new object[]{ failedcode });
+
+	FKEventData_onKicked eventData;
+	eventData.failedcode = failedcode;
+	KBENGINE_EVENT_FIRE("onKicked", eventData);
 }
 
 void KBEngineApp::Client_onImportServerErrorsDescr(MemoryStream& stream)
@@ -422,7 +468,7 @@ void KBEngineApp::onServerDigest()
 		persistentInfos_->onServerDigest(currserver_, serverProtocolMD5_, serverEntitydefMD5_);
 }
 
-bool KBEngineApp::login(FString& username, FString& password, TArray<uint8>& datas)
+bool KBEngineApp::login(const FString& username, const FString& password, const TArray<uint8>& datas)
 {
 	if (username.Len() == 0)
 	{
@@ -503,7 +549,8 @@ void KBEngineApp::onLogin_loginapp()
 		pBundle->send(pNetworkInterface_);
 
 		DEBUG_MSG("send importClientMessages ...");
-	//	Event.fireOut("Loginapp_importClientMessages", new object[]{});
+
+		KBENGINE_EVENT_FIRE("Loginapp_importClientMessages", FKEventData_Loginapp_importClientMessages());
 	}
 	else
 	{
@@ -517,7 +564,10 @@ void KBEngineApp::Client_onLoginFailed(MemoryStream& stream)
 	stream >> failedcode;
 	stream.readBlob(serverdatas_);
 	ERROR_MSG("failedcode(%d:%s), datas(%d)!", failedcode, *serverErr(failedcode), serverdatas_.Num());
-	//Event.fireAll("onLoginFailed", new object[]{ failedcode });
+
+	FKEventData_onLoginFailed eventData;
+	eventData.failedcode = failedcode;
+	KBENGINE_EVENT_FIRE("onLoginFailed", eventData);
 }
 
 void KBEngineApp::Client_onLoginSuccessfully(MemoryStream& stream)
@@ -539,7 +589,7 @@ void KBEngineApp::login_baseapp(bool noconnect)
 {
 	if (noconnect)
 	{
-		//Event.fireOut("onLoginBaseapp", new object[]{});
+		KBENGINE_EVENT_FIRE("onLoginBaseapp", FKEventData_onLoginBaseapp());
 
 		pNetworkInterface_->destroy();
 		pNetworkInterface_ = NULL;
@@ -584,7 +634,7 @@ void KBEngineApp::onLogin_baseapp()
 		pBundle->newMessage(Messages::getSingleton().messages[TEXT("Baseapp_importClientMessages"]));
 		pBundle->send(pNetworkInterface_);
 		DEBUG_MSG("send importClientMessages ...");
-	//	Event.fireOut("Baseapp_importClientMessages", new object[]{});
+		KBENGINE_EVENT_FIRE("Baseapp_importClientMessages", FKEventData_Baseapp_importClientMessages());
 	}
 	else
 	{
@@ -594,27 +644,33 @@ void KBEngineApp::onLogin_baseapp()
 
 void KBEngineApp::reLoginBaseapp()
 {
-	//Event.fireAll("onReLoginBaseapp", new object[]{});
+	KBENGINE_EVENT_FIRE("onReLoginBaseapp", FKEventData_onReLoginBaseapp());
 	pNetworkInterface_->connectTo(baseappIP_, baseappPort_, this, 1);
 }
 
 void KBEngineApp::Client_onLoginBaseappFailed(uint16 failedcode)
 {
 	ERROR_MSG("failedcode(%d:%s)!", failedcode, *serverErr(failedcode));
-	//Event.fireAll("onLoginBaseappFailed", new object[]{ failedcode });
+
+	FKEventData_onLoginBaseappFailed eventData;
+	eventData.failedcode = failedcode;
+	KBENGINE_EVENT_FIRE("onLoginBaseappFailed", eventData);
 }
 
 void KBEngineApp::Client_onReLoginBaseappFailed(uint16 failedcode)
 {
 	ERROR_MSG("failedcode(%d:%s)!", failedcode, *serverErr(failedcode));
-	//Event.fireAll("onReLoginBaseappFailed", new object[]{ failedcode });
+
+	FKEventData_onReLoginBaseappFailed eventData;
+	eventData.failedcode = failedcode;
+	KBENGINE_EVENT_FIRE("onReLoginBaseappFailed", eventData);
 }
 
 void KBEngineApp::Client_onReLoginBaseappSuccessfully(MemoryStream& stream)
 {
 	stream >> entity_uuid_;
 	ERROR_MSG("name(%s)!", *username_);
-	//Event.fireAll("onReLoginBaseappSuccessfully", new object[]{});
+	KBENGINE_EVENT_FIRE("onReLoginBaseappSuccessfully", FKEventData_onReLoginBaseappSuccessfully());
 }
 
 void KBEngineApp::Client_onCreatedProxies(uint64 rndUUID, int32 eid, FString& entityType)
@@ -861,7 +917,7 @@ void KBEngineApp::onImportClientMessagesCompleted()
 			Bundle* pBundle = Bundle::createObject();
 			pBundle->newMessage(Messages::getSingleton().messages[TEXT("Baseapp_importClientEntityDef"]));
 			pBundle->send(pNetworkInterface_);
-			//Event.fireOut("Baseapp_importClientEntityDef", new object[]{});
+			KBENGINE_EVENT_FIRE("Baseapp_importClientEntityDef", FKEventData_Baseapp_importClientEntityDef());
 		}
 		else
 		{
@@ -1344,12 +1400,37 @@ void KBEngineApp::onImportClientMessages(MemoryStream& stream)
 	onImportClientMessagesCompleted();
 }
 
+void KBEngineApp::resetPassword(const FString& username)
+{
+	username_ = username;
+	resetpassword_loginapp(true);
+}
+
 void KBEngineApp::resetpassword_loginapp(bool noconnect)
 {
 
 }
 
+void KBEngineApp::createAccount(const FString& username, const FString& password, const TArray<uint8>& datas)
+{
+	username_ = username;
+	password_ = password;
+	clientdatas_ = datas;
+
+	createAccount_loginapp(true);
+}
+
 void KBEngineApp::createAccount_loginapp(bool noconnect)
+{
+
+}
+
+void KBEngineApp::bindAccountEmail(const FString& emailAddress)
+{
+
+}
+
+void KBEngineApp::newPassword(const FString& old_password, const FString& new_password)
 {
 
 }

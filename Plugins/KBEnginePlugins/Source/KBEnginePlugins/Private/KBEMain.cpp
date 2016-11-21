@@ -7,6 +7,7 @@
 #include "MemoryStream.h"
 #include "Bundle.h"
 
+
 // Sets default values for this component's properties
 UKBEMain::UKBEMain(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -71,6 +72,46 @@ void UKBEMain::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 	KBEngineApp::getSingleton().process();
 }
 
+FString UKBEMain::getClientVersion()
+{
+	if (!KBEngineApp::getSingleton().isInitialized())
+		return TEXT("");
+
+	return KBEngineApp::getSingleton().clientVersion();
+}
+
+FString UKBEMain::getClientScriptVersion()
+{
+	if (!KBEngineApp::getSingleton().isInitialized())
+		return TEXT("");
+
+	return KBEngineApp::getSingleton().clientScriptVersion();
+}
+
+FString UKBEMain::getServerVersion()
+{
+	if (!KBEngineApp::getSingleton().isInitialized())
+		return TEXT("");
+
+	return KBEngineApp::getSingleton().serverVersion();
+}
+
+FString UKBEMain::getServerScriptVersion()
+{
+	if (!KBEngineApp::getSingleton().isInitialized())
+		return TEXT("");
+
+	return KBEngineApp::getSingleton().serverScriptVersion();
+}
+
+FString UKBEMain::getComponentName()
+{
+	if (!KBEngineApp::getSingleton().isInitialized())
+		return TEXT("");
+
+	return KBEngineApp::getSingleton().component();
+}
+
 bool UKBEMain::destroyKBEngine()
 {
 	if (!KBEngineApp::getSingleton().isInitialized())
@@ -85,5 +126,10 @@ bool UKBEMain::login(FString username, FString password, TArray<uint8> datas)
 	if (!KBEngineApp::getSingleton().isInitialized())
 		return false;
 
-	return KBEngineApp::getSingleton().login(username, password, datas);
+	FKEventData_login eventData;
+	eventData.username = username;
+	eventData.password = password;
+	eventData.datas = datas;
+	KBENGINE_EVENT_FIRE("login", eventData);
+	return true;
 }

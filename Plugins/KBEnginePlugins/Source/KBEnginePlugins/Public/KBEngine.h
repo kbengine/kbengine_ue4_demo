@@ -42,6 +42,8 @@ public:
 		return pNetworkInterface_;
 	}
 
+	void _closeNetwork();
+
 	const TArray<uint8>& serverdatas() const
 	{
 		return serverdatas_;
@@ -79,8 +81,28 @@ public:
 	/**
 		登录到服务端，必须登录完成loginapp与网关(baseapp)，登录流程才算完毕
 	*/
-	bool login(FString& username, FString& password, TArray<uint8>& datas);
+	bool login(const FString& username, const FString& password, const TArray<uint8>& datas);
 	virtual void onLoginCallback(FString ip, uint16 port, bool success, int userdata) override;
+
+	/*
+		创建账号
+	*/
+	void createAccount(const FString& username, const FString& password, const TArray<uint8>& datas);
+
+	/*
+		重置密码, 通过loginapp
+	*/
+	void resetPassword(const FString& username);
+
+	/*
+		绑定Email，通过baseapp
+	*/
+	void bindAccountEmail(const FString& emailAddress);
+
+	/*
+		设置新密码，通过baseapp， 必须玩家登录在线操作所以是baseapp。
+	*/
+	void newPassword(const FString& old_password, const FString& new_password);
 
 	/*
 	重登录到网关(baseapp)
@@ -220,7 +242,25 @@ public:
 		return entity_type_;
 	}
 
+	const FString& serverVersion() const {
+		return serverVersion_;
+	}
 
+	const FString& clientVersion() const {
+		return clientVersion_;
+	}
+
+	const FString& serverScriptVersion() const {
+		return serverScriptVersion_;
+	}
+
+	const FString& clientScriptVersion() const {
+		return clientScriptVersion_;
+	}
+
+	const FString& component() const {
+		return component_;
+	}
 
 protected:
 	KBEngineArgs* pArgs_;

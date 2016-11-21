@@ -43,14 +43,14 @@ struct FKServerErr
 	{
 	}
 
-	UPROPERTY(Category = ServerErr, EditAnywhere)
+	UPROPERTY(Category = ServerErr, BlueprintReadWrite, EditAnywhere)
 	FString name;
 
-	UPROPERTY(Category = ServerErr, EditAnywhere)
+	UPROPERTY(Category = ServerErr, BlueprintReadWrite, EditAnywhere)
 	FString descr;
 
-	UPROPERTY(Category = ServerErr, EditAnywhere)
-	uint16 id;
+	UPROPERTY(Category = ServerErr, BlueprintReadWrite, EditAnywhere)
+	int32 id;
 };
 
 // 客户端的类别

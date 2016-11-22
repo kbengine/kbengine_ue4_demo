@@ -127,7 +127,6 @@ public:
 
 	FString c_str()
 	{
-		
 		if (GetType() == EKBVarTypes::Empty)
 		{
 			return FString::Printf(TEXT("Empty"));
@@ -223,7 +222,7 @@ public:
 		{
 			return FString::Printf(TEXT("KBVarArray"));
 		}
-		else if (GetType() == EKBVarTypes::KBVarArray)
+		else if (GetType() == EKBVarTypes::KBVarMap)
 		{
 			return FString::Printf(TEXT("KBVarMap"));
 		}

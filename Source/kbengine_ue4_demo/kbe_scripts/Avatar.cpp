@@ -3,7 +3,7 @@
 #include "interfaces/GameObject.h"
 #include "Avatar.h"
 
-ENTITYDEF_CLASS_REGISTER(Avatar)
+ENTITYDEF_CLASS_REGISTER(Avatar, GameObject)
 
 Avatar::Avatar():
 	GameObject()

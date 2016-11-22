@@ -49,6 +49,11 @@ public:
 		return serverdatas_;
 	}
 
+	void entityServerPos(const FVector& pos)
+	{
+		entityServerPos_ = pos;
+	}
+
 	KBEngineArgs* getInitArgs() const
 	{
 		return pArgs_;
@@ -262,6 +267,14 @@ public:
 		return component_;
 	}
 
+	const FString& currserver() const {
+		return currserver_;
+	}
+
+	const FString& currstate() const {
+		return currstate_;
+	}
+
 protected:
 	KBEngineArgs* pArgs_;
 	NetworkInterface* pNetworkInterface_;
@@ -310,6 +323,9 @@ protected:
 	uint64 entity_uuid_;
 	ENTITY_ID entity_id_;
 	FString entity_type_;
+
+	// 当前服务端最后一次同步过来的玩家位置
+	FVector entityServerPos_;
 
 	// space的数据，具体看API手册关于spaceData
 	// https://github.com/kbengine/kbengine/tree/master/docs/api

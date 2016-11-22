@@ -14,6 +14,7 @@ typedef uint16 MessageLength;
 typedef uint32 MessageLengthEx;
 typedef int32 ENTITY_ID;
 typedef uint32 SPACE_ID;
+typedef uint64 DBID;
 
 /** 安全的释放一个指针内存 */
 #define SAFE_RELEASE(i)										\

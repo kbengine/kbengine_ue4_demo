@@ -4,6 +4,8 @@
 
 #include "KBECommon.h"
 
+class Bundle;
+
 /*
 	实体的Mailbox
 	关于Mailbox请参考API手册中对它的描述
@@ -32,8 +34,19 @@ public:
 		return type == MAILBOX_TYPE_CELL;
 	}
 
+	/*
+		创建新的mail
+	*/
+	Bundle* newMail();
+
+	/*
+		向服务端发送这个mail
+	*/
+	void postMail(Bundle* inBundle);
+
 public:
 	ENTITY_ID id;
 	FString className;
 	MAILBOX_TYPE type;
+	Bundle* pBundle;
 };

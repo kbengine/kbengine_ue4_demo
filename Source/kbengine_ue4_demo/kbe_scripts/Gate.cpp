@@ -3,7 +3,7 @@
 #include "interfaces/GameObject.h"
 #include "Gate.h"
 
-ENTITYDEF_CLASS_REGISTER(Gate)
+ENTITYDEF_CLASS_REGISTER(Gate, GameObject)
 
 Gate::Gate():
 	GameObject()

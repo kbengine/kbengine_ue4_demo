@@ -2,6 +2,8 @@
 #include "Entity.h"
 #include "SkillBox.h"
 
+ENTITYDEF_CLASS_REGISTER(SkillBox)
+
 SkillBox::SkillBox()
 {
 }

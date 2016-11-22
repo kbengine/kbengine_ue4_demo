@@ -15,4 +15,10 @@ public:
 	virtual ~GameObject();
 
 public:
+	// def中定义的客户端涉及属性
+	FString name;
+	uint32 uid;
+	uint32 utype;
+	uint32 modelID;
+	uint8 modelScale;
 };

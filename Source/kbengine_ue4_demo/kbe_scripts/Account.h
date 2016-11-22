@@ -22,9 +22,22 @@ public:
 	void reqRemoveAvatar(const FString& name);
 	void reqRemoveAvatar(uint64 dbid);
 
-	void set_spaceID(uint32 oldVal) {
+	struct AVATAR_DATA
+	{
+		int8 param1;
+		TArray<uint8> param2;
+	};
 
-	}
+	struct AVATAR_INFOS
+	{
+		uint64 dbid;
+		FString name;
+		uint8 roleType;
+		uint16 level;
+		AVATAR_DATA data;
+	};
 
-	uint32 spaceID;
+	// def中定义的客户端涉及属性
+	TArray<AVATAR_INFOS> characters;
+	DBID lastSelCharacter;
 };

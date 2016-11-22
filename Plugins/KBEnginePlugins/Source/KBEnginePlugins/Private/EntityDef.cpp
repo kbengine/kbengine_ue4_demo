@@ -3,6 +3,7 @@
 #include "EntityDef.h"
 #include "ScriptModule.h"
 #include "DataTypes.h"
+#include "Entity.h"
 
 TMap<FString, uint16> EntityDef::datatype2id;
 TMap<FString, KBEDATATYPE_BASE*> EntityDef::datatypes;
@@ -15,6 +16,7 @@ TMap<uint16, ScriptModule*> EntityDef::idmoduledefs;
 
 void EntityDef::initialize()
 {
+	EntityFactory::initialize();
 	initDataType();
 	bindMessageDataType();
 }

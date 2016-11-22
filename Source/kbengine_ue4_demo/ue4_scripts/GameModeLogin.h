@@ -24,97 +24,81 @@ public:
 	/* KBE事件
 		玩家被踢出服务器
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onKicked(const FKEventData& eventData);
-	void onKicked_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onDisableConnect(const FKEventData& eventData);
-	void onDisableConnect_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onConnectStatus(const FKEventData& eventData);
-	void onConnectStatus_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onCreateAccountResult(const FKEventData& eventData);
-	void onCreateAccountResult_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onLoginFailed(const FKEventData& eventData);
-	void onLoginFailed_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onVersionNotMatch(const FKEventData& eventData);
-	void onVersionNotMatch_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onScriptVersionNotMatch(const FKEventData& eventData);
-	void onScriptVersionNotMatch_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onLoginBaseappFailed(const FKEventData& eventData);
-	void onLoginBaseappFailed_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onLoginSuccessfully(const FKEventData& eventData);
-	void onLoginSuccessfully_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onLoginBaseapp(const FKEventData& eventData);
-	void onLoginBaseapp_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void Loginapp_importClientMessages(const FKEventData& eventData);
-	void Loginapp_importClientMessages_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void Baseapp_importClientMessages(const FKEventData& eventData);
-	void Baseapp_importClientMessages_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void Baseapp_importClientEntityDef(const FKEventData& eventData);
-	void Baseapp_importClientEntityDef_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onReqAvatarList(const FKEventData& eventData);
-	void onReqAvatarList_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onCreateAvatarResult(const FKEventData& eventData);
-	void onCreateAvatarResult_Implementation(const FKEventData& eventData);
 
 	/* KBE事件
 	*/
-	UFUNCTION(BlueprintNativeEvent, Category = "KBEngine")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onRemoveAvatar(const FKEventData& eventData);
-	void onRemoveAvatar_Implementation(const FKEventData& eventData);
 };

@@ -5,12 +5,12 @@
 #include "KBEngine.h"
 #include "Event.h"
 
-ENTITYDEF_CLASS_REGISTER(Account)
-ENTITYDEF_METHOD_REGISTER(Account, set_spaceID)
-ENTITYDEF_PROPERTY_REGISTER(Account, spaceID)
+ENTITYDEF_CLASS_REGISTER(Account, GameObject)
 
 Account::Account():
-	GameObject()
+	GameObject(),
+	characters(),
+	lastSelCharacter(0)
 {
 }
 
@@ -24,6 +24,9 @@ void Account::__init__()
 	eventData.entity_uuid = KBEngineApp::getSingleton().entity_uuid();
 	eventData.entity_id = id();
 	KBENGINE_EVENT_FIRE("onLoginSuccessfully", eventData);
+
+	// 向服务端请求获得角色列表
+	baseCall("reqAvatarList");
 }
 
 void Account::onDestroy()

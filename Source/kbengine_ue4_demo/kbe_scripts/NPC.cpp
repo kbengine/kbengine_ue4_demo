@@ -3,7 +3,7 @@
 #include "interfaces/GameObject.h"
 #include "NPC.h"
 
-ENTITYDEF_CLASS_REGISTER(NPC)
+ENTITYDEF_CLASS_REGISTER(NPC, GameObject)
 
 NPC::NPC():
 	GameObject()

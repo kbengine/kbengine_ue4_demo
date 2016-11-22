@@ -2,6 +2,7 @@
 
 
 
+
 #pragma once
 
 #include "KBVar.h"
@@ -81,6 +82,13 @@ public:
 		cell_ = v;
 	}
 
+	float velocity() const {
+		return velocity_;
+	}
+
+	void velocity(float v) {
+		velocity_ = v;
+	}
 
 	bool isPlayer();
 
@@ -110,12 +118,20 @@ public:
 
 	}
 
+	virtual void onUpdateVolatileData()
+	{
+	}
+
+	virtual void set_position(const FVector& old);
+	virtual void set_direction(const FVector& old);
+
+public:
+	void baseCall(FString methodName, const TArray<KBVar*>& arguments = TArray<KBVar*>());
+	void cellCall(FString methodName, const TArray<KBVar*>& arguments = TArray<KBVar*>());
+
 protected:
 	ENTITY_ID id_;
 	FString className_;
-
-	FVector position_;
-	FVector direction_;
 
 	bool isOnGround_;
 
@@ -130,6 +146,13 @@ protected:
 	bool isControlled_;
 
 	bool inited_;
+
+	float velocity_;
+
+public:
+	FVector position;
+	FVector direction;
+	uint32 spaceID;
 };
 
 /*
@@ -144,6 +167,11 @@ public:
 	virtual ~EntityCreator();
 
 	virtual Entity* create() = 0;
+
+	virtual FString parentClasses()
+	{	
+		return FString(TEXT("Entity"));	
+	}	
 };
 
 /*
@@ -152,6 +180,9 @@ public:
 class KBENGINEPLUGINS_API EntityFactory
 {
 public:
+	static void initialize();
+	static void finishDefs(const FString& scriptName, const FString& parentScriptName);
+
 	static Entity* create(const FString& scriptName);
 	EntityCreator* addEntityCreator(const FString& scriptName, EntityCreator* pEntityCreator);
 
@@ -207,33 +238,37 @@ public:
 
 
 // 注册定义的实体类
-#define ENTITYDEF_CLASS_REGISTER(ENTITY_SCRIPTMODULE_NAME)	\
-	class ENTITY_SCRIPTMODULE_NAME##Creator : public EntityCreator {	\
+#define ENTITYDEF_CLASS_REGISTER(ENTITY_SCRIPTMODULE_NAME, .../*The name of the parent classes*/)	\
+	class _##ENTITY_SCRIPTMODULE_NAME##Creator : public EntityCreator {	\
 		public:	\
-			ENTITY_SCRIPTMODULE_NAME##Creator(const FString& scriptName):	\
+			_##ENTITY_SCRIPTMODULE_NAME##Creator(const FString& scriptName):	\
 			EntityCreator(scriptName)	\
 			{	\
 			}	\
-			virtual ~ENTITY_SCRIPTMODULE_NAME##Creator()	\
+			virtual ~_##ENTITY_SCRIPTMODULE_NAME##Creator()	\
 			{	\
 			}	\
 			virtual Entity* create() override	\
 			{	\
-				return new ENTITY_SCRIPTMODULE_NAME();	\
+				return (Entity*)(new ENTITY_SCRIPTMODULE_NAME());	\
+			}	\
+			virtual FString parentClasses() override	\
+			{	\
+				return FString(#__VA_ARGS__);	\
 			}	\
 	};\
-	ENTITY_SCRIPTMODULE_NAME##Creator g_ENTITY_SCRIPTMODULE_NAME##Creator(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)));	\
+	_##ENTITY_SCRIPTMODULE_NAME##Creator g_ENTITY_SCRIPTMODULE_NAME##Creator(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)));	\
 
 
 // 注册定义的方法
 #define ENTITYDEF_METHOD_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
-	class ENTITY_SCRIPTMODULE_NAME##DefMethodHandle : public EntityDefMethodHandle {	\
+	class _##ENTITY_SCRIPTMODULE_NAME##DEF_METHOD_NAME##DefMethodHandle : public EntityDefMethodHandle {	\
 		public:	\
-			ENTITY_SCRIPTMODULE_NAME##DefMethodHandle(const FString& scriptName, const FString& defMethodName):	\
+			_##ENTITY_SCRIPTMODULE_NAME##DEF_METHOD_NAME##DefMethodHandle(const FString& scriptName, const FString& defMethodName):	\
 			EntityDefMethodHandle(scriptName, defMethodName)	\
 			{	\
 			}	\
-			virtual ~ENTITY_SCRIPTMODULE_NAME##DefMethodHandle()	\
+			virtual ~_##ENTITY_SCRIPTMODULE_NAME##DEF_METHOD_NAME##DefMethodHandle()	\
 			{	\
 			}	\
 			virtual void callMethod(Entity* pEntity, KBVar* oldVal) override	\
@@ -241,18 +276,18 @@ public:
 				static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME(*oldVal);	\
 			}	\
 	};\
-	ENTITY_SCRIPTMODULE_NAME##DefMethodHandle g_ENTITY_SCRIPTMODULE_NAME##DefMethodHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_METHOD_NAME)));	\
+	_##ENTITY_SCRIPTMODULE_NAME##DEF_METHOD_NAME##DefMethodHandle g_ENTITY_SCRIPTMODULE_NAME##DEF_METHOD_NAME##DefMethodHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_METHOD_NAME)));	\
 
 
 // 注册定义的属性
 #define ENTITYDEF_PROPERTY_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_PROPERTY_NAME)	\
-	class ENTITY_SCRIPTMODULE_NAME##DefPropertyHandle : public EntityDefPropertyHandle {	\
+	class _##ENTITY_SCRIPTMODULE_NAME##DEF_PROPERTY_NAME##DefPropertyHandle : public EntityDefPropertyHandle {	\
 		public:	\
-			ENTITY_SCRIPTMODULE_NAME##DefPropertyHandle(const FString& scriptName, const FString& defPropertyName):	\
+			_##ENTITY_SCRIPTMODULE_NAME##DEF_PROPERTY_NAME##DefPropertyHandle(const FString& scriptName, const FString& defPropertyName):	\
 			EntityDefPropertyHandle(scriptName, defPropertyName)	\
 			{	\
 			}	\
-			virtual ~ENTITY_SCRIPTMODULE_NAME##DefPropertyHandle()	\
+			virtual ~_##ENTITY_SCRIPTMODULE_NAME##DEF_PROPERTY_NAME##DefPropertyHandle()	\
 			{	\
 			}	\
 			virtual void setPropertyValue(Entity* pEntity, KBVar* oldVal) override	\
@@ -264,13 +299,13 @@ public:
 				return new KBVar(static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_PROPERTY_NAME);	\
 			}	\
 	};\
-	ENTITY_SCRIPTMODULE_NAME##DefPropertyHandle g_ENTITY_SCRIPTMODULE_NAME##DefPropertyHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_PROPERTY_NAME)));	\
+	_##ENTITY_SCRIPTMODULE_NAME##DEF_PROPERTY_NAME##DefPropertyHandle g_##ENTITY_SCRIPTMODULE_NAME##DEF_PROPERTY_NAME##DefPropertyHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_PROPERTY_NAME)));	\
 
 
 // 注册定义的属性，并且属性包含一个set_*方法，属性被更新后改方法被调用
-#define ENTITYDEF_PROPERTY_AND_SETMETHOD_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_PROPERTY_NAME)	\
+#define ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_PROPERTY_NAME)	\
 	ENTITYDEF_PROPERTY_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_PROPERTY_NAME)	\
-	ENTITYDEF_METHOD_REGISTER(ENTITY_SCRIPTMODULE_NAME, set_DEF_PROPERTY_NAME)	\
+	ENTITYDEF_METHOD_REGISTER(ENTITY_SCRIPTMODULE_NAME, set_##DEF_PROPERTY_NAME)	\
 
 	
 

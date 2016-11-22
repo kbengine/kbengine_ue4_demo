@@ -3,7 +3,7 @@
 #include "interfaces/GameObject.h"
 #include "Monster.h"
 
-ENTITYDEF_CLASS_REGISTER(Monster)
+ENTITYDEF_CLASS_REGISTER(Monster, GameObject)
 
 Monster::Monster():
 	GameObject()

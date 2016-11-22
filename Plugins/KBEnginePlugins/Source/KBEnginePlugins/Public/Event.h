@@ -28,6 +28,7 @@ enum class KEventDataTypes : uint8
 	onControlled								UMETA(DisplayName = "onControlled"),
 	onLoseControlledEntity						UMETA(DisplayName = "onLoseControlledEntity"),
 	updatePosition								UMETA(DisplayName = "updatePosition"),
+	set_position								UMETA(DisplayName = "set_position"),
 	set_direction								UMETA(DisplayName = "set_direction"),
 	onCreateAccountResult						UMETA(DisplayName = "onCreateAccountResult"),
 	addSpaceGeometryMapping						UMETA(DisplayName = "addSpaceGeometryMapping"),
@@ -360,9 +361,38 @@ struct FKEventData_updatePosition : public FKEventData
 	GENERATED_USTRUCT_BODY()
 
 	FKEventData_updatePosition() :
-	FKEventData(KEventDataTypes::updatePosition)
+	FKEventData(KEventDataTypes::updatePosition),
+	position()
 	{
 	}
+
+	FKEventData_updatePosition(const FVector& v) :
+	FKEventData(KEventDataTypes::updatePosition),
+	position(v)
+	{
+	}
+
+	FVector position;
+};
+
+USTRUCT(BlueprintType)
+struct FKEventData_set_position : public FKEventData
+{
+	GENERATED_USTRUCT_BODY()
+
+	FKEventData_set_position() :
+	FKEventData(KEventDataTypes::set_position),
+	position()
+	{
+	}
+
+	FKEventData_set_position(const FVector& v) :
+	FKEventData(KEventDataTypes::set_position),
+	position(v)
+	{
+	}
+
+	FVector position;
 };
 
 USTRUCT(BlueprintType)
@@ -371,9 +401,18 @@ struct FKEventData_set_direction : public FKEventData
 	GENERATED_USTRUCT_BODY()
 
 	FKEventData_set_direction() :
-	FKEventData(KEventDataTypes::set_direction)
+	FKEventData(KEventDataTypes::set_direction),
+	direction()
 	{
 	}
+
+	FKEventData_set_direction(const FRotator& v) :
+	FKEventData(KEventDataTypes::set_direction),
+	direction(v)
+	{
+	}
+
+	FRotator direction;
 };
 
 USTRUCT(BlueprintType)

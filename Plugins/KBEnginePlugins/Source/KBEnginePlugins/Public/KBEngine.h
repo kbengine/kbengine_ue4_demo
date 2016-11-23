@@ -189,9 +189,14 @@ public:
 	void Client_onUpdatePropertys(MemoryStream& stream);
 
 	/*
-		服务端更新实体属性数据
+		服务端使用优化的方式调用实体方法
 	*/
-	void onUpdatePropertys_(ENTITY_ID eid, MemoryStream& stream);
+	void Client_onRemoteMethodCallOptimized(MemoryStream& stream);
+
+	/*
+		服务端调用实体方法
+	*/
+	void Client_onRemoteMethodCall(MemoryStream& stream);
 
 private:
 	bool initNetwork();
@@ -233,6 +238,13 @@ private:
 		通过流数据获得AOI实体的ID
 	*/
 	ENTITY_ID getAoiEntityIDFromStream(MemoryStream& stream);
+
+	/*
+	服务端更新实体属性数据
+	*/
+	void onUpdatePropertys_(ENTITY_ID eid, MemoryStream& stream);
+
+	void onRemoteMethodCall_(ENTITY_ID eid, MemoryStream& stream);
 
 public:
 	ENTITY_ID entity_id() const {

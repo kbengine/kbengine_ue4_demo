@@ -6,8 +6,8 @@
 #include "Event.h"
 
 ENTITYDEF_CLASS_REGISTER(Account, GameObject)
-ENTITYDEF_PROPERTY_REGISTER(Account, characters);
 ENTITYDEF_PROPERTY_REGISTER(Account, lastSelCharacter);
+ENTITYDEF_METHOD_REGISTER(Account, onReqAvatarList);
 
 Account::Account():
 	GameObject(),
@@ -50,4 +50,8 @@ void Account::reqRemoveAvatar(const FString& name)
 void Account::reqRemoveAvatar(uint64 dbid)
 {
 	DEBUG_MSG("dbid=%lld", dbid);
+}
+
+void Account::onReqAvatarList(const KB_ARRAY& datas)
+{
 }

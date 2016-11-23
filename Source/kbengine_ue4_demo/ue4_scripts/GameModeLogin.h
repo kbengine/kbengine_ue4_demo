@@ -13,9 +13,26 @@
 UCLASS()
 class KBENGINE_UE4_DEMO_API AGameModeLogin : public AGameMode
 {
-	GENERATED_BODY()
+	GENERATED_UCLASS_BODY()
 	
 public:	
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+	/** Called once this actor has been deleted */
+	virtual void Destroyed() override;
+
+	/** Called when a Controller with a PlayerState leaves the match. */
+	virtual void Logout(AController* Exiting) override;
+
+	/**
+	* Initialize the game.
+	* The GameMode's InitGame() event is called before any other functions (including PreInitializeComponents() )
+	* and is used by the GameMode to initialize parameters and spawn its helper classes.
+	* @warning: this is called before actors' PreInitializeComponents.
+	*/
+	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
+
 	/*
 		安装登陆时需要监听的KBE事件
 	*/

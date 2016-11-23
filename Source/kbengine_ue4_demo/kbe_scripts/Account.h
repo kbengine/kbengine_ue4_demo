@@ -23,6 +23,8 @@ public:
 	void reqRemoveAvatar(const FString& name);
 	void reqRemoveAvatar(uint64 dbid);
 
+	void onReqAvatarList(const KB_ARRAY& datas);
+
 	struct AVATAR_DATA
 	{
 		int8 param1;
@@ -39,6 +41,6 @@ public:
 	};
 
 	// def中定义的客户端涉及属性
-	KB_FIXED_DICT characters;
+	AVATAR_INFOS characters;
 	DBID lastSelCharacter;
 };

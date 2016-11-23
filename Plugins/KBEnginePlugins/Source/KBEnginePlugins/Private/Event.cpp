@@ -16,10 +16,15 @@ bool KBEvent::registerEvent(const FString& eventName, const FString& funcName, T
 {
 	TArray<EventObj>* eo_array = NULL;
 	TArray<EventObj>* eo_array_find = events_.Find(eventName);
+
 	if (!eo_array_find)
 	{
 		events_.Add(eventName, TArray<EventObj>());
-		eo_array = &events_[eventName];
+		eo_array = &(*events_.Find(eventName));
+	}
+	else
+	{
+		eo_array = &(*eo_array_find);
 	}
 
 	EventObj eo;
@@ -44,7 +49,7 @@ bool KBEvent::deregister(void* objPtr, const FString& eventName, const FString& 
 		EventObj& item = (*eo_array_find)[i];
 		if (objPtr == item.objPtr && (funcName.Len() == 0 || funcName == item.funcName))
 		{
-			(*eo_array_find).RemoveAt(i, 1, false);
+			(*eo_array_find).RemoveAt(i, 1);
 		}
 	}
 

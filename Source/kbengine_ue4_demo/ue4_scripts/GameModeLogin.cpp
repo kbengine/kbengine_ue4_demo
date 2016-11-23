@@ -4,7 +4,37 @@
 #include "GameModeLogin.h"
 #include "Event.h"
 
+AGameModeLogin::AGameModeLogin(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+{
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+}
 
+void AGameModeLogin::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
+{
+	Super::InitGame(MapName, Options, ErrorMessage);
+}
+
+// Called when the game starts or when spawned
+void AGameModeLogin::BeginPlay()
+{
+	Super::BeginPlay();
+	installEvents();
+}
+
+
+void AGameModeLogin::Destroyed()
+{
+	KBENGINE_DEREGISTER_ALL_EVENT();
+	Super::Destroyed();
+}
+
+void AGameModeLogin::Logout(AController* Exiting)
+{
+	// 由于该场景只有玩家自己， 因此可以在这里理解为玩家编辑器Stop游戏或者离开了这个场景
+	KBENGINE_DEREGISTER_ALL_EVENT();
+	Super::Logout(Exiting);
+}
 
 void AGameModeLogin::installEvents()
 {
@@ -24,6 +54,10 @@ void AGameModeLogin::installEvents()
 	KBENGINE_REGISTER_EVENT("onReqAvatarList", onReqAvatarList);
 	KBENGINE_REGISTER_EVENT("onCreateAvatarResult", onCreateAvatarResult);
 	KBENGINE_REGISTER_EVENT("onRemoveAvatar", onRemoveAvatar);
+
+	KBVar xxx = KB_ARRAY();
+	KB_ARRAY s = xxx;
+
 }
 
 void AGameModeLogin::onKicked_Implementation(const FKEventData& eventData)

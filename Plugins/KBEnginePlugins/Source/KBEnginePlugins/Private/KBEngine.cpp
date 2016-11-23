@@ -185,6 +185,7 @@ void KBEngineApp::installEvents()
 void KBEngineApp::destroy()
 {
 	reset();
+	KBENGINE_DEREGISTER_ALL_EVENT();
 	resetMessages();
 
 	SAFE_RELEASE(pArgs_);
@@ -845,12 +846,12 @@ void KBEngineApp::onUpdatePropertys_(ENTITY_ID eid, MemoryStream& stream)
 			if (propertydata->isBase())
 			{
 				if (pEntity->inited())
-					pSetMethod->callMethod(pEntity, oldval);
+					pSetMethod->callMethod(pEntity, *oldval);
 			}
 			else
 			{
 				if (pEntity->inWorld())
-					pSetMethod->callMethod(pEntity, oldval);
+					pSetMethod->callMethod(pEntity, *oldval);
 			}
 		}
 
@@ -1435,4 +1436,65 @@ void KBEngineApp::bindAccountEmail(const FString& emailAddress)
 void KBEngineApp::newPassword(const FString& old_password, const FString& new_password)
 {
 
+}
+
+void KBEngineApp::Client_onRemoteMethodCallOptimized(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+	onRemoteMethodCall_(eid, stream);
+}
+
+void KBEngineApp::Client_onRemoteMethodCall(MemoryStream& stream)
+{
+	ENTITY_ID eid = 0;
+	stream >> eid;
+	onRemoteMethodCall_(eid, stream);
+}
+
+void KBEngineApp::onRemoteMethodCall_(ENTITY_ID eid, MemoryStream& stream)
+{
+	Entity** pEntityFind = entities_.Find(eid);
+
+	if (!pEntityFind)
+	{
+		ERROR_MSG("entity(%d) not found!", eid);
+		return;
+	}
+
+	Entity* pEntity = *pEntityFind;
+
+	uint16 methodUtype = 0;
+
+	ScriptModule** pModuleFind = EntityDef::moduledefs.Find(pEntity->className());
+	if (!pModuleFind)
+	{
+		ERROR_MSG("not found module(%s)!", *pEntity->className());
+		return;
+	}
+
+	ScriptModule* pModule = *pModuleFind;
+
+	if (pModule->useMethodDescrAlias)
+		methodUtype = stream.read<uint8>();
+	else
+		methodUtype = stream.read<uint16>();
+
+	Method* pMethodData = pModule->idmethods[methodUtype];
+
+	KBVar::KBVarArray args;
+	for (int i = 0; i<pMethodData->args.Num(); ++i)
+	{
+		KBVar* pVar = pMethodData->args[i]->createFromStream(stream);
+		args.Add(*pVar);
+		delete pVar;
+	}
+
+	if (pMethodData->pEntityDefMethodHandle)
+	{
+		pMethodData->pEntityDefMethodHandle->callMethod(pEntity, KBVar(args));
+	}
+	else
+	{
+		ERROR_MSG("%s(%d), not found method(%s::%s)!\n", *pEntity->className(), eid, *pEntity->className(), *pMethodData->name);
+	}
 }

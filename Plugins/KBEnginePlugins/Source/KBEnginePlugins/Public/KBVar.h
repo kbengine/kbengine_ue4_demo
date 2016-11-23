@@ -100,20 +100,24 @@ public:
 	*
 	* @param InValue- The initial value.
 	*/
-	KBVar(const TArray<uint8>& InArray)
+	KBVar(const KBVarBytes& InArray)
 		: Type(EKBVarTypes::ByteArray)
 		, Value(InArray)
 	{ }
 
-	KBVar(const TArray<KBVar>& InArray)
+	KBVar(const KBVarArray& InArray)
 		: Type(EKBVarTypes::KBVarArray)
 		, Value()
-	{ }
+	{
 
-	KBVar(const TMap<FString, KBVar>& InMap)
+	}
+
+	KBVar(const KBVarMap& InMap)
 		: Type(EKBVarTypes::KBVarMap)
 		, Value()
-	{ }
+	{
+
+	}
 
 	/**
 	* Creates and initializes a new instance from a TCHAR string.
@@ -277,7 +281,7 @@ public:
 	* @param InArray The byte array to assign.
 	* @return This instance.
 	*/
-	KBVar& operator=(const TArray<uint8> InArray)
+	KBVar& operator=(const KBVarBytes InArray)
 	{
 		Type = EKBVarTypes::ByteArray;
 		Value = MoveTemp(InArray);
@@ -371,7 +375,7 @@ public:
 	* @return Byte array.
 	* @see GetValue
 	*/
-	const TArray<uint8>& GetBytes() const
+	const KBVar::KBVarBytes& GetBytes() const
 	{
 		return Value;
 	}
@@ -440,8 +444,10 @@ private:
 	int32 Type;
 
 	/** Holds the serialized value. */
-	TArray<uint8> Value;
+	KBVar::KBVarBytes Value;
 };
+
+
 
 
 /**
@@ -457,7 +463,7 @@ private:
 * @see GetBytes
 */
 template<>
-FORCEINLINE TArray<uint8> KBVar::GetValue<TArray<uint8> >() const
+FORCEINLINE KBVar::KBVarBytes KBVar::GetValue<KBVar::KBVarBytes >() const
 {
 	check(Type == EKBVarTypes::ByteArray);
 
@@ -465,19 +471,19 @@ FORCEINLINE TArray<uint8> KBVar::GetValue<TArray<uint8> >() const
 }
 
 template<>
-FORCEINLINE TArray<KBVar> FVariant::GetValue<TArray<KBVar> >() const
+FORCEINLINE KBVar::KBVarArray KBVar::GetValue<KBVar::KBVarArray >() const
 {
 	check(Type == EKBVarTypes::KBVarArray);
 
-	return TArray<KBVar>();
+	return KBVar::KBVarArray();
 }
 
 template<>
-FORCEINLINE TMap<FString, KBVar> FVariant::GetValue<TMap<FString, KBVar> >() const
+FORCEINLINE KBVar::KBVarMap KBVar::GetValue<KBVar::KBVarMap >() const
 {
 	check(Type == EKBVarTypes::KBVarMap);
 
-	return TMap<FString, KBVar>();
+	return KBVar::KBVarMap();
 }
 
 

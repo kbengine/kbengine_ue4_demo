@@ -55,9 +55,25 @@ void AGameModeLogin::installEvents()
 	KBENGINE_REGISTER_EVENT("onCreateAvatarResult", onCreateAvatarResult);
 	KBENGINE_REGISTER_EVENT("onRemoveAvatar", onRemoveAvatar);
 
-	KBVar xxx = KB_ARRAY();
+	KB_ARRAY a;
+	KBVar a1 = 1;
+	KBVar a2 = FString(TEXT("aaa"));
+	a.Add(a1);
+	a.Add(a2);
+	KBVar xxx = a;
 	KB_ARRAY s = xxx;
+	int iii = s[0];
+	FString xxxxx = s[1];
 
+
+	KB_FIXED_DICT map;
+	map.Add("111", a1);
+	map.Add("222", a2);
+
+	KBVar mmm = map;
+	KB_FIXED_DICT map1 = mmm;
+	int iii1 = map1["111"];
+	FString xxxxx1 = map1["222"];
 }
 
 void AGameModeLogin::onKicked_Implementation(const FKEventData& eventData)

@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "KBVar.h"
 #include "GameFramework/Actor.h"
 #include "KBECommon.generated.h"
 
@@ -15,6 +16,9 @@ typedef uint32 MessageLengthEx;
 typedef int32 ENTITY_ID;
 typedef uint32 SPACE_ID;
 typedef uint64 DBID;
+typedef TArray<uint8> ByteArray;
+typedef TMap<FString, KBVar> KB_FIXED_DICT;
+typedef TArray<KBVar> KB_ARRAY;
 
 /** 安全的释放一个指针内存 */
 #define SAFE_RELEASE(i)										\

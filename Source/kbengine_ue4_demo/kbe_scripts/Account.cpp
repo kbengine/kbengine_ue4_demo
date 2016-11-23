@@ -6,7 +6,7 @@
 #include "Event.h"
 
 ENTITYDEF_CLASS_REGISTER(Account, GameObject)
-//ENTITYDEF_PROPERTY_REGISTER(Account, characters);
+ENTITYDEF_PROPERTY_REGISTER(Account, characters);
 ENTITYDEF_PROPERTY_REGISTER(Account, lastSelCharacter);
 
 Account::Account():

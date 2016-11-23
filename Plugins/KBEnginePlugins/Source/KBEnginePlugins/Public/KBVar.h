@@ -3,7 +3,6 @@
 #pragma once
 #include "Math/RandomStream.h"
 #include "Misc/NetworkGuid.h"
-#include "KBECommon.h"
 
 namespace EKBVarTypes
 {
@@ -65,6 +64,7 @@ class KBVar
 public:
 	typedef TMap<FString, KBVar> KBVarMap;
 	typedef TArray<KBVar> KBVarArray;
+	typedef TArray<uint8> KBVarBytes;
 
 	/** Default constructor. */
 	KBVar()

@@ -1,6 +1,7 @@
 // Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 
 #pragma once
+#include "KBECommon.h"
 
 class GameObject;
 
@@ -38,6 +39,6 @@ public:
 	};
 
 	// def中定义的客户端涉及属性
-	TArray<AVATAR_INFOS> characters;
+	KB_FIXED_DICT characters;
 	DBID lastSelCharacter;
 };

@@ -3,7 +3,7 @@
 #include "GameObject.h"
 
 ENTITYDEF_CLASS_REGISTER(GameObject, Entity)
-//ENTITYDEF_PROPERTY_REGISTER(GameObject, name);
+ENTITYDEF_PROPERTY_REGISTER(GameObject, name);
 ENTITYDEF_PROPERTY_REGISTER(GameObject, uid);
 ENTITYDEF_PROPERTY_REGISTER(GameObject, utype);
 ENTITYDEF_PROPERTY_REGISTER(GameObject, modelID);
@@ -17,14 +17,6 @@ GameObject::GameObject():
 	modelID(0),
 	modelScale(0)
 {
-	//KBVar s;
-	//FString sss = "sssxxx";
-	//s = sss;
-	//FString xxx = s;
-	//xxx = s;
-
-	//TArray<uint8> sssa;
-	//sssa = s;
 }
 
 GameObject::~GameObject()

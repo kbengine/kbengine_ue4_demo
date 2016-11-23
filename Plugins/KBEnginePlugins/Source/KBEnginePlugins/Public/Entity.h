@@ -223,8 +223,29 @@ public:
 
 	virtual ~EntityDefPropertyHandle();
 
-	virtual void setPropertyValue(Entity* pEntity, KBVar* oldVal) = 0;
+	virtual void setPropertyValue(Entity* pEntity, KBVar* val) = 0;
 	virtual KBVar* getPropertyValue(Entity* pEntity) = 0;
+
+protected:
+	void setPropertyValue_(int8* out, KBVar* val) { *out = (int8)(*val); }
+	void setPropertyValue_(int16* out, KBVar* val) { *out = (int16)(*val); }
+	void setPropertyValue_(int32* out, KBVar* val) { *out = (int32)(*val); }
+	void setPropertyValue_(int64* out, KBVar* val) { *out = (int64)(*val); }
+	void setPropertyValue_(uint8* out, KBVar* val) { *out = (uint8)(*val); }
+	void setPropertyValue_(uint16* out, KBVar* val) { *out = (uint16)(*val); }
+	void setPropertyValue_(uint32* out, KBVar* val) { *out = (uint32)(*val); }
+	void setPropertyValue_(uint64* out, KBVar* val) { *out = (uint64)(*val); }
+	void setPropertyValue_(FString* out, KBVar* val) { *out = (FString)(*val); }
+	void setPropertyValue_(float* out, KBVar* val) { *out = (float)(*val); }
+	void setPropertyValue_(double* out, KBVar* val) { *out = (double)(*val); }
+	void setPropertyValue_(bool* out, KBVar* val) { *out = (bool)(*val); }
+	void setPropertyValue_(FVector* out, KBVar* val) { *out = (*val); }
+	void setPropertyValue_(FVector2D* out, KBVar* val) { *out = (*val); }
+	void setPropertyValue_(FVector4* out, KBVar* val) { *out = (*val); }
+	void setPropertyValue_(ByteArray* out, KBVar* val) { *out = val->GetValue<ByteArray>(); }
+	void setPropertyValue_(KBVar::KBVarMap* out, KBVar* val) { *out = (*val); }
+	void setPropertyValue_(KBVar::KBVarArray* out, KBVar* val) { *out = val->GetValue<KBVar::KBVarArray>(); }
+	void setPropertyValue_(KBVar* out, KBVar* val) { *out = (*val); }
 };
 
 class KBENGINEPLUGINS_API EntityDefPropertyHandles
@@ -290,9 +311,9 @@ public:
 			virtual ~_##ENTITY_SCRIPTMODULE_NAME##DEF_PROPERTY_NAME##DefPropertyHandle()	\
 			{	\
 			}	\
-			virtual void setPropertyValue(Entity* pEntity, KBVar* oldVal) override	\
+			virtual void setPropertyValue(Entity* pEntity, KBVar* val) override	\
 			{	\
-				static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_PROPERTY_NAME = *oldVal;	\
+				setPropertyValue_(&static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_PROPERTY_NAME, val);	\
 			}	\
 			virtual KBVar* getPropertyValue(Entity* pEntity) override	\
 			{	\

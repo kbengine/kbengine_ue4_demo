@@ -2,18 +2,20 @@
 
 #pragma once
 
-#include "GameFramework/GameMode.h"
+#include "ue4_scripts/GameModeBase.h"
 #include "GameModeWorld.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class KBENGINE_UE4_DEMO_API AGameModeWorld : public AGameMode
+class KBENGINE_UE4_DEMO_API AGameModeWorld : public AGameModeBase
 {
-	GENERATED_BODY()
-	
-	
-	
-	
+	GENERATED_UCLASS_BODY()
+
+public:
+		/*
+		安装登陆时需要监听的KBE事件
+		*/
+		virtual void installEvents() override;
 };

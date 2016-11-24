@@ -3,7 +3,7 @@
 #include "interfaces/GameObject.h"
 #include "Account.h"
 #include "KBEngine.h"
-#include "Event.h"
+#include "KBEvent.h"
 
 ENTITYDEF_CLASS_REGISTER(Account, GameObject)
 ENTITYDEF_PROPERTY_REGISTER(Account, lastSelCharacter);
@@ -22,10 +22,10 @@ Account::~Account()
 
 void Account::__init__()
 {
-	FKEventData_onLoginSuccessfully eventData;
-	eventData.entity_uuid = KBEngineApp::getSingleton().entity_uuid();
-	eventData.entity_id = id();
-	KBENGINE_EVENT_FIRE("onLoginSuccessfully", eventData);
+	UKBEventData_onLoginSuccessfully* pEventData = NewObject<UKBEventData_onLoginSuccessfully>();
+	pEventData->entity_uuid = KBEngineApp::getSingleton().entity_uuid();
+	pEventData->entity_id = id();
+	KBENGINE_EVENT_FIRE("onLoginSuccessfully", pEventData);
 
 	// 向服务端请求获得角色列表
 	baseCall(TEXT("reqAvatarList"));

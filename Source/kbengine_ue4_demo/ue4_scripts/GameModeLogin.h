@@ -26,50 +26,50 @@ public:
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void onCreateAccountResult(const FKEventData& eventData);
+	void onCreateAccountResult(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void onLoginFailed(const FKEventData& eventData);
+	void onLoginFailed(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void onVersionNotMatch(const FKEventData& eventData);
+	void onVersionNotMatch(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void onScriptVersionNotMatch(const FKEventData& eventData);
+	void onScriptVersionNotMatch(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void onLoginBaseappFailed(const FKEventData& eventData);
+	void onLoginBaseappFailed(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void onLoginSuccessfully(const FKEventData& eventData);
+	void onLoginSuccessfully(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void onLoginBaseapp(const FKEventData& eventData);
+	void onLoginBaseapp(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void Loginapp_importClientMessages(const FKEventData& eventData);
+	void Loginapp_importClientMessages(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void Baseapp_importClientMessages(const FKEventData& eventData);
+	void Baseapp_importClientMessages(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void Baseapp_importClientEntityDef(const FKEventData& eventData);
+	void Baseapp_importClientEntityDef(const UKBEventData* pEventData);
 };

@@ -2,7 +2,7 @@
 #include "KBEnginePluginsPrivatePCH.h"
 #include "Entity.h"
 #include "KBEngine.h"
-#include "Event.h"
+#include "KBEvent.h"
 #include "DataTypes.h"
 #include "Method.h"
 #include "ScriptModule.h"
@@ -250,8 +250,8 @@ void Entity::enterWorld()
 
 	onEnterWorld();
 
-	FKEventData_onEnterWorld eventData;
-	KBENGINE_EVENT_FIRE("onEnterWorld", eventData);
+	UKBEventData_onEnterWorld* pEventData = NewObject<UKBEventData_onEnterWorld>();
+	KBENGINE_EVENT_FIRE("onEnterWorld", pEventData);
 }
 
 void Entity::onEnterWorld()
@@ -265,8 +265,8 @@ void Entity::leaveWorld()
 
 	onLeaveWorld();
 
-	FKEventData_onLeaveWorld eventData;
-	KBENGINE_EVENT_FIRE("onLeaveWorld", eventData);
+	UKBEventData_onLeaveWorld* pEventData = NewObject<UKBEventData_onLeaveWorld>();
+	KBENGINE_EVENT_FIRE("onLeaveWorld", pEventData);
 }
 
 void Entity::onLeaveWorld()
@@ -280,8 +280,8 @@ void Entity::enterSpace()
 
 	onEnterSpace();
 
-	FKEventData_onEnterSpace eventData;
-	KBENGINE_EVENT_FIRE("onEnterSpace", eventData);
+	UKBEventData_onEnterSpace* pEventData = NewObject<UKBEventData_onEnterSpace>();
+	KBENGINE_EVENT_FIRE("onEnterSpace", pEventData);
 }
 
 void Entity::onEnterSpace()
@@ -295,8 +295,8 @@ void Entity::leaveSpace()
 
 	onLeaveSpace();
 
-	FKEventData_onLeaveSpace eventData;
-	KBENGINE_EVENT_FIRE("onLeaveSpace", eventData);
+	UKBEventData_onLeaveSpace* pEventData = NewObject<UKBEventData_onLeaveSpace>();
+	KBENGINE_EVENT_FIRE("onLeaveSpace", pEventData);
 }
 
 void Entity::onLeaveSpace()
@@ -421,7 +421,9 @@ void Entity::set_position(const FVector& old)
 
 	if (inWorld_)
 	{
-		KBENGINE_EVENT_FIRE("set_position", FKEventData_set_position(position));
+		UKBEventData_set_position* pEventData = NewObject<UKBEventData_set_position>();
+		pEventData->position = position;
+		KBENGINE_EVENT_FIRE("set_position", pEventData);
 	}
 }
 
@@ -429,7 +431,9 @@ void Entity::set_direction(const FVector& old)
 {
 	if (inWorld_)
 	{
-		KBENGINE_EVENT_FIRE("set_direction", FKEventData_set_direction(FRotator()));
+		UKBEventData_set_direction* pEventData = NewObject<UKBEventData_set_direction>();
+		pEventData->direction = FRotator();
+		KBENGINE_EVENT_FIRE("set_direction", pEventData);
 	}
 }
 

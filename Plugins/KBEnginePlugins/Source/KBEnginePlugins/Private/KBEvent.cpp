@@ -1,6 +1,6 @@
 
 #include "KBEnginePluginsPrivatePCH.h"
-#include "Event.h"
+#include "KBEvent.h"
 
 TMap<FString, TArray<KBEvent::EventObj>> KBEvent::events_;
 
@@ -22,7 +22,7 @@ void KBEvent::clearFiredEvents()
 
 }
 
-bool KBEvent::registerEvent(const FString& eventName, const FString& funcName, TFunction<void(const FKEventData&)> func, void* objPtr)
+bool KBEvent::registerEvent(const FString& eventName, const FString& funcName, TFunction<void(const UKBEventData*)> func, void* objPtr)
 {
 	TArray<EventObj>* eo_array = NULL;
 	TArray<EventObj>* eo_array_find = events_.Find(eventName);
@@ -76,7 +76,7 @@ bool KBEvent::deregister(void* objPtr)
 	return true;
 }
 
-void KBEvent::fire(const FString& eventName, const FKEventData& eventData)
+void KBEvent::fire(const FString& eventName, UKBEventData* pEventData)
 {
 	TArray<EventObj>* eo_array_find = events_.Find(eventName);
 	if (!eo_array_find || (*eo_array_find).Num() == 0)
@@ -87,6 +87,9 @@ void KBEvent::fire(const FString& eventName, const FKEventData& eventData)
 
 	for (auto& item : (*eo_array_find))
 	{
-		item.method(eventData);
+		item.method(pEventData);
 	}
+
+	pEventData->ConditionalBeginDestroy();
+	//GetWorld()->ForceGarbageCollection(true);
 }

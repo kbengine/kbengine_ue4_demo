@@ -3,7 +3,7 @@
 #pragma once
 
 #include "KBECommon.h"
-#include "Event.h"
+#include "KBEvent.h"
 #include "Components/ActorComponent.h"
 #include "KBEMain.generated.h"
 

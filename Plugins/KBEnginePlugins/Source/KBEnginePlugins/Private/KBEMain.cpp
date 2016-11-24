@@ -126,10 +126,10 @@ bool UKBEMain::login(FString username, FString password, TArray<uint8> datas)
 	if (!KBEngineApp::getSingleton().isInitialized())
 		return false;
 
-	FKEventData_login eventData;
-	eventData.username = username;
-	eventData.password = password;
-	eventData.datas = datas;
-	KBENGINE_EVENT_FIRE("login", eventData);
+	UKBEventData_login* pEventData = NewObject<UKBEventData_login>();
+	pEventData->username = username;
+	pEventData->password = password;
+	pEventData->datas = datas;
+	KBENGINE_EVENT_FIRE("login", pEventData);
 	return true;
 }

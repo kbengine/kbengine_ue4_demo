@@ -22,15 +22,15 @@ public:
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-		void onReqAvatarList(const FKEventData& eventData);
+		void onReqAvatarList(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-		void onCreateAvatarResult(const FKEventData& eventData);
+		void onCreateAvatarResult(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-		void onRemoveAvatar(const FKEventData& eventData);
+		void onRemoveAvatar(const UKBEventData* pEventData);
 };

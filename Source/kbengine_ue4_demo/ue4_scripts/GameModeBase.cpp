@@ -36,14 +36,19 @@ void AGameModeBase::installEvents()
 	KBENGINE_REGISTER_EVENT("onConnectStatus", onConnectStatus);
 }
 
-void AGameModeBase::onKicked_Implementation(const FKEventData& eventData)
+void AGameModeBase::fire(const FString& eventName, UKBEventData* pEventData)
+{
+	KBENGINE_EVENT_FIRE(eventName, pEventData);
+}
+
+void AGameModeBase::onKicked_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeBase::onDisableConnect_Implementation(const FKEventData& eventData)
+void AGameModeBase::onDisableConnect_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeBase::onConnectStatus_Implementation(const FKEventData& eventData)
+void AGameModeBase::onConnectStatus_Implementation(const UKBEventData* pEventData)
 {
 }

@@ -33,43 +33,43 @@ void AGameModeLogin::installEvents()
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientEntityDef", Baseapp_importClientEntityDef);
 }
 
-void AGameModeLogin::onCreateAccountResult_Implementation(const FKEventData& eventData)
+void AGameModeLogin::onCreateAccountResult_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeLogin::onLoginFailed_Implementation(const FKEventData& eventData)
+void AGameModeLogin::onLoginFailed_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeLogin::onVersionNotMatch_Implementation(const FKEventData& eventData)
+void AGameModeLogin::onVersionNotMatch_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeLogin::onScriptVersionNotMatch_Implementation(const FKEventData& eventData)
+void AGameModeLogin::onScriptVersionNotMatch_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeLogin::onLoginBaseappFailed_Implementation(const FKEventData& eventData)
+void AGameModeLogin::onLoginBaseappFailed_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeLogin::onLoginSuccessfully_Implementation(const FKEventData& eventData)
+void AGameModeLogin::onLoginSuccessfully_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeLogin::onLoginBaseapp_Implementation(const FKEventData& eventData)
+void AGameModeLogin::onLoginBaseapp_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeLogin::Loginapp_importClientMessages_Implementation(const FKEventData& eventData)
+void AGameModeLogin::Loginapp_importClientMessages_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeLogin::Baseapp_importClientMessages_Implementation(const FKEventData& eventData)
+void AGameModeLogin::Baseapp_importClientMessages_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeLogin::Baseapp_importClientEntityDef_Implementation(const FKEventData& eventData)
+void AGameModeLogin::Baseapp_importClientEntityDef_Implementation(const UKBEventData* pEventData)
 {
 }
 

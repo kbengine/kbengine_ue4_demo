@@ -4,7 +4,7 @@
 #include "PacketReceiver.h"
 #include "PacketSender.h"
 #include "MemoryStream.h"
-#include "Event.h"
+#include "KBEvent.h"
 
 NetworkInterface::NetworkInterface():
 	socket_(NULL),
@@ -36,7 +36,7 @@ void NetworkInterface::close()
 		socket_->Close();
 		INFO_MSG("network closed!");
 		ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(socket_);
-		KBENGINE_EVENT_FIRE("onDisableConnect", FKEventData_onDisableConnect());
+		KBENGINE_EVENT_FIRE("onDisableConnect", NewObject<UKBEventData_onDisableConnect>());
 	}
 
 	socket_ = NULL;
@@ -153,7 +153,9 @@ void NetworkInterface::tickConnecting()
 		connectCB_->onLoginCallback(connectIP_, connectPort_, true, connectUserdata_);
 		connectCB_ = NULL;
 
-		KBENGINE_EVENT_FIRE("onConnectStatus", FKEventData_onConnectStatus(true));
+		UKBEventData_onConnectStatus* pEventData = NewObject<UKBEventData_onConnectStatus>();
+		pEventData->success = true;
+		KBENGINE_EVENT_FIRE("onConnectStatus", pEventData);
 	}
 	else
 	{
@@ -164,7 +166,10 @@ void NetworkInterface::tickConnecting()
 			ERROR_MSG("connect to %s:%d timeout!", *connectIP_, connectPort_);
 			connectCB_->onLoginCallback(connectIP_, connectPort_, false, connectUserdata_);
 			connectCB_ = NULL;
-			KBENGINE_EVENT_FIRE("onConnectStatus", FKEventData_onConnectStatus(false));
+
+			UKBEventData_onConnectStatus* pEventData = NewObject<UKBEventData_onConnectStatus>();
+			pEventData->success = false;
+			KBENGINE_EVENT_FIRE("onConnectStatus", pEventData);
 		}
 	}
 }

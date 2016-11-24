@@ -20,14 +20,14 @@ void AGameModeSelectAvatar::installEvents()
 	KBENGINE_REGISTER_EVENT("onRemoveAvatar", onRemoveAvatar);
 }
 
-void AGameModeSelectAvatar::onReqAvatarList_Implementation(const FKEventData& eventData)
+void AGameModeSelectAvatar::onReqAvatarList_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeSelectAvatar::onCreateAvatarResult_Implementation(const FKEventData& eventData)
+void AGameModeSelectAvatar::onCreateAvatarResult_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeSelectAvatar::onRemoveAvatar_Implementation(const FKEventData& eventData)
+void AGameModeSelectAvatar::onRemoveAvatar_Implementation(const UKBEventData* pEventData)
 {
 }

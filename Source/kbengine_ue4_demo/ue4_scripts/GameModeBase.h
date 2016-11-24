@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Event.h"
+#include "KBEvent.h"
 #include "GameFramework/GameMode.h"
 #include "GameModeBase.generated.h"
 
@@ -35,21 +35,25 @@ public:
 	*/
 	virtual void installEvents();
 
+
+	UFUNCTION(BlueprintCallable, Category = KBEngine)
+	void fire(const FString& eventName, UKBEventData* pEventData);
+
 	/* KBE事件
 		玩家被踢出服务器
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void onKicked(const FKEventData& eventData);
+	void onKicked(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void onDisableConnect(const FKEventData& eventData);
+	void onDisableConnect(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void onConnectStatus(const FKEventData& eventData);
+	void onConnectStatus(const UKBEventData* pEventData);
 	
 	
 };

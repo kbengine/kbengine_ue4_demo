@@ -200,25 +200,24 @@ void KBEngineApp::resetMessages()
 	baseappMessageImported_ = false;
 	entitydefImported_ = false;
 	isImportServerErrorsDescr_ = false;
+
 	serverErrs_.Empty();
+
 	Messages::getSingleton().clear();
 	EntityDef::clear();
 	Entity::clear();
+
 	INFO_MSG("done!");
 }
 
 void KBEngineApp::reset()
 {
+	KBEvent::clearFiredEvents();
+
 	clearEntities(true);
 
 	currserver_ = TEXT("");
 	currstate_ = TEXT("");
-
-	username_ = TEXT("kbengine");
-	password_ = TEXT("123456");
-
-	baseappIP_ = TEXT("");
-	baseappPort_ = 0;
 
 	serverdatas_.Empty();
 
@@ -226,8 +225,6 @@ void KBEngineApp::reset()
 	clientVersion_ = TEXT("0.9.0");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
-	serverProtocolMD5_ = TEXT("");
-	serverEntitydefMD5_ = TEXT("");
 
 	entity_uuid_ = 0;
 	entity_id_ = 0;
@@ -245,10 +242,7 @@ void KBEngineApp::reset()
 	spaceID_ = 0;
 	spaceResPath_ = TEXT("");
 	isLoadedGeometry_ = false;
-
-	component_ = TEXT("client");
 	
-
 	initNetwork();
 }
 
@@ -455,7 +449,7 @@ void KBEngineApp::onImportServerErrorsDescr(MemoryStream& stream)
 		size -= 1;
 
 		FKServerErr e;
-		stream >> e.id;
+		e.id = stream.read<uint16>();
 		stream.readUTF8String(e.name);
 		stream.readUTF8String(e.descr);
 
@@ -1009,8 +1003,8 @@ void KBEngineApp::createDataTypeFromStream(MemoryStream& stream, bool canprint)
 	else
 	{
 		// 可能会重复向map添加基本类型， 此时需要过滤掉
-		if (EntityDef::datatypes.Contains(valname))
-			return;
+		//if (EntityDef::datatypes.Contains(valname))
+		//	return;
 
 		KBEDATATYPE_BASE* val = NULL;
 		if (EntityDef::datatypes.Contains(name))
@@ -1018,6 +1012,10 @@ void KBEngineApp::createDataTypeFromStream(MemoryStream& stream, bool canprint)
 
 		EntityDef::datatypes.Add(valname, val);
 	}
+
+	// 可能会重复向map添加基本类型， 此时需要过滤掉
+	//if (EntityDef::id2datatypes.Contains(utype))
+	//	return;
 
 	EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[valname]);
 

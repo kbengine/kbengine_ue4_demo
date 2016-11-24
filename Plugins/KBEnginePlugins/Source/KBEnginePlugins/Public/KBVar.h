@@ -508,8 +508,6 @@ private:
 };
 
 
-
-
 /**
 * Gets the stored value for byte arrays.
 *

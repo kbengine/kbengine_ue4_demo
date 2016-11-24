@@ -40,7 +40,8 @@ public:
 		AVATAR_DATA data;
 	};
 
+	TMap<FString, AVATAR_INFOS> characters;
+
 	// def中定义的客户端涉及属性
-	AVATAR_INFOS characters;
 	DBID lastSelCharacter;
 };

@@ -88,6 +88,9 @@ public:
 
 		static void fire(const FString& eventName, const FKEventData& eventData);
 
+		static void clear();
+		static void clearFiredEvents();
+
 protected:
 	struct EventObj
 	{

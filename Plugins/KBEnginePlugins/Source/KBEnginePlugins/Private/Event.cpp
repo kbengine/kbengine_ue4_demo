@@ -12,6 +12,16 @@ KBEvent::~KBEvent()
 {
 }
 
+void KBEvent::clear()
+{
+	clearFiredEvents();
+}
+
+void KBEvent::clearFiredEvents()
+{
+
+}
+
 bool KBEvent::registerEvent(const FString& eventName, const FString& funcName, TFunction<void(const FKEventData&)> func, void* objPtr)
 {
 	TArray<EventObj>* eo_array = NULL;

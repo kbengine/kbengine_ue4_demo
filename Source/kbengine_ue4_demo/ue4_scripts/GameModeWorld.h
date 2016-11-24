@@ -15,7 +15,7 @@ class KBENGINE_UE4_DEMO_API AGameModeWorld : public AGameModeBase
 
 public:
 		/*
-		安装登陆时需要监听的KBE事件
+			安装登陆时需要监听的KBE事件
 		*/
 		virtual void installEvents() override;
 };

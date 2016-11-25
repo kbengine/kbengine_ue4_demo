@@ -264,12 +264,11 @@ void KBEngineApp::_closeNetwork()
 
 bool KBEngineApp::validEmail(const FString& strEmail)
 {
-	const FRegexPattern spattern(TEXT("^([\\w-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)"
-	"|(([\\w- ] + \\.) + ))([a - zA - Z]{ 2,4 } | [0 - 9]{ 1,3 })(\\] ? )$"));
+	const FRegexPattern spattern(FString(TEXT("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}")));
 
-	FRegexMatcher myMatcher(spattern, strEmail);
+	FRegexMatcher fMatcher(spattern, strEmail);
 
-	if (myMatcher.FindNext()) {
+	if (fMatcher.FindNext()) {
 		return true;
 	}
 

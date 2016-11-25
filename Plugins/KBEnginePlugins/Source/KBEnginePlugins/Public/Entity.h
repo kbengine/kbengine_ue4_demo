@@ -129,6 +129,9 @@ public:
 	void baseCall(FString methodName, const TArray<KBVar*>& arguments = TArray<KBVar*>());
 	void cellCall(FString methodName, const TArray<KBVar*>& arguments = TArray<KBVar*>());
 
+	void baseCall(FString methodName, KBVar arg1);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2);
+
 protected:
 	ENTITY_ID id_;
 	FString className_;

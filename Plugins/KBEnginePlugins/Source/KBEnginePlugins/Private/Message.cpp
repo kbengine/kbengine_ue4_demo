@@ -27,7 +27,7 @@ FString Message::c_str()
 
 void Message::handle(MemoryStream& s) 
 {
-	ERROR_MSG("interface(%s), handleMethod no implement!",
+	SCREEN_ERROR_MSG("interface(%s), handleMethod no implement!",
 		*c_str());
 }
 

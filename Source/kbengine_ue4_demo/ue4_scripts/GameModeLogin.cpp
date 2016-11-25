@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "kbengine_ue4_demo.h"
+#include "KBEngine.h"
 #include "GameModeLogin.h"
 
 AGameModeLogin::AGameModeLogin(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -31,6 +32,11 @@ void AGameModeLogin::installEvents()
 	KBENGINE_REGISTER_EVENT("Loginapp_importClientMessages", Loginapp_importClientMessages);
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientMessages", Baseapp_importClientMessages);
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientEntityDef", Baseapp_importClientEntityDef);
+}
+
+bool AGameModeLogin::validEmail(FString strEmail)
+{
+	return KBEngineApp::getSingleton().validEmail(strEmail);
 }
 
 void AGameModeLogin::onCreateAccountResult_Implementation(const UKBEventData* pEventData)

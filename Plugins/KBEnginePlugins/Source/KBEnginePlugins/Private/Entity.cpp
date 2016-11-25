@@ -146,7 +146,7 @@ EntityDefMethodHandle* EntityDefMethodHandles::add(const FString& scriptName, co
 
 	if (m->Contains(defMethodName))
 	{
-		ERROR_MSG("%s::%s exist!", *scriptName, *defMethodName);
+		SCREEN_ERROR_MSG("%s::%s exist!", *scriptName, *defMethodName);
 		return NULL;
 	}
 
@@ -177,7 +177,7 @@ EntityDefPropertyHandle* EntityDefPropertyHandles::add(const FString& scriptName
 
 	if (m->Contains(defPropertyName))
 	{
-		ERROR_MSG("%s::%s exist!", *scriptName, *defPropertyName);
+		SCREEN_ERROR_MSG("%s::%s exist!", *scriptName, *defPropertyName);
 		return NULL;
 	}
 
@@ -304,6 +304,21 @@ void Entity::onLeaveSpace()
 
 }
 
+void Entity::baseCall(FString methodName, KBVar arg1)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	baseCall(methodName, arguments);
+}
+
 void Entity::baseCall(FString methodName, const TArray<KBVar*>& arguments)
 {
 	if (KBEngineApp::getSingleton().currserver() == TEXT("loginapp"))
@@ -317,7 +332,7 @@ void Entity::baseCall(FString methodName, const TArray<KBVar*>& arguments)
 	Method** pMethodFind = EntityDef::moduledefs[className_]->base_methods.Find(methodName);
 	if (!pMethodFind)
 	{
-		ERROR_MSG("className=%s, not found methodName(%s)!",
+		SCREEN_ERROR_MSG("className=%s, not found methodName(%s)!",
 			*className_, *methodName);
 
 		return;
@@ -372,7 +387,7 @@ void Entity::cellCall(FString methodName, const TArray<KBVar*>& arguments)
 	Method** pMethodFind = EntityDef::moduledefs[className_]->cell_methods.Find(methodName);
 	if (!pMethodFind)
 	{
-		ERROR_MSG("className=%s, not found methodName(%s)!",
+		SCREEN_ERROR_MSG("className=%s, not found methodName(%s)!",
 			*className_, *methodName);
 
 		return;

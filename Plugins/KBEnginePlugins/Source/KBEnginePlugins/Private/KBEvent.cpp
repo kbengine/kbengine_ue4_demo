@@ -81,9 +81,11 @@ void KBEvent::fire(const FString& eventName, UKBEventData* pEventData)
 	TArray<EventObj>* eo_array_find = events_.Find(eventName);
 	if (!eo_array_find || (*eo_array_find).Num() == 0)
 	{
-		WARNING_MSG("KBEvent::fire: event(%s) not found!", *eventName);
+		SCREEN_WARNING_MSG("KBEvent::fire: event(%s) not found!", *eventName);
 		return;
 	}
+
+	pEventData->eventName = eventName;
 
 	for (auto& item : (*eo_array_find))
 	{

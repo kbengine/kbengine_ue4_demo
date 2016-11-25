@@ -23,6 +23,9 @@ public:
 	*/
 	virtual void installEvents() override;
 
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	bool validEmail(FString strEmail);
+
 	/* KBEÊÂ¼þ
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")

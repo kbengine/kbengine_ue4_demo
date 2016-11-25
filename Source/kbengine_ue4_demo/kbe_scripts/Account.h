@@ -6,8 +6,6 @@
 class GameObject;
 
 /*
-	KBEngine逻辑层的实体基础类
-	所有扩展出的游戏实体都应该继承于该模块
 */
 class Account : public GameObject
 {
@@ -22,8 +20,11 @@ public:
 	void reqCreateAvatar(uint8 roleType, const FString& name);
 	void reqRemoveAvatar(const FString& name);
 	void reqRemoveAvatar(uint64 dbid);
+	void selectAvatarGame(uint64 dbid);
 
 	void onReqAvatarList(const KB_ARRAY& datas);
+	void onCreateAvatarResult(uint8 retcode, KB_FIXED_DICT& info);
+	void onRemoveAvatar(uint64 dbid);
 
 	struct AVATAR_DATA
 	{
@@ -40,7 +41,7 @@ public:
 		AVATAR_DATA data;
 	};
 
-	TMap<FString, AVATAR_INFOS> characters;
+	TMap<uint64, AVATAR_INFOS> characters;
 
 	// def中定义的客户端涉及属性
 	DBID lastSelCharacter;

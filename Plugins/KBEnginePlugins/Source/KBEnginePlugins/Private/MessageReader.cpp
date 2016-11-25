@@ -37,7 +37,7 @@ void MessageReader::process(const uint8* datas, MessageLengthEx offset, MessageL
 				Message* pMsg = Messages::getSingleton().findClientMessage(msgid_);
 				if (pMsg == NULL)
 				{
-					ERROR_MSG("not found Message(%d)!", msgid_);
+					SCREEN_ERROR_MSG("not found Message(%d)!", msgid_);
 					break;
 				}
 
@@ -134,7 +134,7 @@ void MessageReader::process(const uint8* datas, MessageLengthEx offset, MessageL
 
 				if (pMsg == NULL)
 				{
-					ERROR_MSG("not found Message(%d)!", msgid_);
+					SCREEN_ERROR_MSG("not found Message(%d)!", msgid_);
 					break;
 				}
 

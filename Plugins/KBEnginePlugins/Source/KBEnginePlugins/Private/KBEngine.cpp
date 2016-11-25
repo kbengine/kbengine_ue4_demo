@@ -12,6 +12,7 @@
 #include "Property.h"
 #include "Method.h"
 #include "Mailbox.h"
+#include "Regex.h"
 
 TMap<uint16, FKServerErr> KBEngineApp::serverErrs_;
 
@@ -261,12 +262,17 @@ void KBEngineApp::_closeNetwork()
 		pNetworkInterface_->close();
 }
 
-bool KBEngineApp::validEmail(FString strEmail)
+bool KBEngineApp::validEmail(const FString& strEmail)
 {
-	/*
-	return Regex.IsMatch(strEmail, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)
-	|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
-	*/
+	const FRegexPattern spattern(TEXT("^([\\w-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)"
+	"|(([\\w- ] + \\.) + ))([a - zA - Z]{ 2,4 } | [0 - 9]{ 1,3 })(\\] ? )$"));
+
+	FRegexMatcher myMatcher(spattern, strEmail);
+
+	if (myMatcher.FindNext()) {
+		return true;
+	}
+
 	return false;
 }
 
@@ -301,7 +307,7 @@ void KBEngineApp::sendTick()
 		// 此时应该通知客户端掉线了
 		if (span < 0)
 		{
-			ERROR_MSG("Receive appTick timeout!");
+			SCREEN_ERROR_MSG("Receive appTick timeout!");
 			pNetworkInterface_->close();
 			return;
 		}
@@ -424,6 +430,7 @@ void KBEngineApp::Client_onKicked(uint16 failedcode)
 
 	UKBEventData_onKicked* pEventData = NewObject<UKBEventData_onKicked>();
 	pEventData->failedcode = failedcode;
+	pEventData->errorStr = serverErr(failedcode);
 	KBENGINE_EVENT_FIRE("onKicked", pEventData);
 }
 
@@ -565,6 +572,7 @@ void KBEngineApp::Client_onLoginFailed(MemoryStream& stream)
 
 	UKBEventData_onLoginFailed* pEventData = NewObject<UKBEventData_onLoginFailed>();
 	pEventData->failedcode = failedcode;
+	pEventData->errorStr = serverErr(failedcode);
 	KBENGINE_EVENT_FIRE("onLoginFailed", pEventData);
 }
 
@@ -653,6 +661,7 @@ void KBEngineApp::Client_onLoginBaseappFailed(uint16 failedcode)
 
 	UKBEventData_onLoginBaseappFailed* pEventData = NewObject<UKBEventData_onLoginBaseappFailed>();
 	pEventData->failedcode = failedcode;
+	pEventData->errorStr = serverErr(failedcode);
 	KBENGINE_EVENT_FIRE("onLoginBaseappFailed", pEventData);
 }
 
@@ -662,6 +671,7 @@ void KBEngineApp::Client_onReLoginBaseappFailed(uint16 failedcode)
 
 	UKBEventData_onReLoginBaseappFailed* pEventData = NewObject<UKBEventData_onReLoginBaseappFailed>();
 	pEventData->failedcode = failedcode;
+	pEventData->errorStr = serverErr(failedcode);
 	KBENGINE_EVENT_FIRE("onReLoginBaseappFailed", pEventData);
 }
 
@@ -690,7 +700,7 @@ void KBEngineApp::Client_onCreatedProxies(uint64 rndUUID, int32 eid, FString& en
 	ScriptModule** pModuleFind = EntityDef::moduledefs.Find(entityType);
 	if (!pModuleFind)
 	{
-		ERROR_MSG("not found module(%s)!", *entityType);
+		SCREEN_ERROR_MSG("not found module(%s)!", *entityType);
 		return;
 	}
 
@@ -828,7 +838,7 @@ void KBEngineApp::onUpdatePropertys_(ENTITY_ID eid, MemoryStream& stream)
 		EntityDefPropertyHandle* pEntityDefPropertyHandle = EntityDefPropertyHandles::find(pEntity->className(), propertydata->name);
 		if (!pEntityDefPropertyHandle)
 		{
-			ERROR_MSG("%s not found property(%s), update error! Please register with ENTITYDEF_PROPERTY_REGISTER(%s, %s) in %s.cpp", 
+			SCREEN_ERROR_MSG("%s not found property(%s), update error! Please register with ENTITYDEF_PROPERTY_REGISTER(%s, %s) in %s.cpp",
 				*pEntity->className(), *propertydata->name,
 				*pEntity->className(), *pEntity->className(), *propertydata->name);
 			delete val;
@@ -1257,7 +1267,7 @@ void KBEngineApp::onImportClientEntityDef(MemoryStream& stream)
 
 		if (!pEntityCreator)
 		{
-			ERROR_MSG("module(%s) not found!", *scriptmodule_name);
+			SCREEN_ERROR_MSG("module(%s) not found!", *scriptmodule_name);
 		}
 
 		for(auto& e : module->methods)
@@ -1266,7 +1276,7 @@ void KBEngineApp::onImportClientEntityDef(MemoryStream& stream)
 			
 			if (pEntityCreator && !EntityDefMethodHandles::find(scriptmodule_name, name))
 			{
-				WARNING_MSG("%s:: method(%s) no implement!", *scriptmodule_name, *name);
+				SCREEN_WARNING_MSG("%s:: method(%s) no implement!", *scriptmodule_name, *name);
 			}
 		};
 	};
@@ -1337,7 +1347,7 @@ void KBEngineApp::onImportClientMessages(MemoryStream& stream)
 		{
 			if (handler == NULL)
 			{
-				WARNING_MSG("currserver[%s]: interface(%s/%d/%d) no implement!",
+				SCREEN_WARNING_MSG("currserver[%s]: interface(%s/%d/%d) no implement!",
 					*currserver_, *msgname, msgid, msglen);
 			}
 			else
@@ -1429,6 +1439,29 @@ void KBEngineApp::createAccount_loginapp(bool noconnect)
 
 }
 
+void KBEngineApp::Client_onCreateAccountResult(MemoryStream& stream)
+{
+	uint16 retcode;
+	stream >> retcode;
+
+	TArray<uint8> datas;
+	stream.readBlob(datas);
+
+	UKBEventData_onCreateAccountResult* pEventData = NewObject<UKBEventData_onCreateAccountResult>();
+	pEventData->errorCode = retcode;
+	pEventData->errorStr = serverErr(retcode);
+	pEventData->datas = datas;
+	KBENGINE_EVENT_FIRE("onCreateAccountResult", pEventData);
+
+	if (retcode != 0)
+	{
+		WARNING_MSG("create(%s) failed! error=%d(%s)!", *username_, retcode, *serverErr(retcode));
+		return;
+	}
+
+	DEBUG_MSG("create(%s) is successfully!", *username_);
+}
+
 void KBEngineApp::bindAccountEmail(const FString& emailAddress)
 {
 
@@ -1469,7 +1502,7 @@ void KBEngineApp::onRemoteMethodCall_(ENTITY_ID eid, MemoryStream& stream)
 	ScriptModule** pModuleFind = EntityDef::moduledefs.Find(pEntity->className());
 	if (!pModuleFind)
 	{
-		ERROR_MSG("not found module(%s)!", *pEntity->className());
+		SCREEN_ERROR_MSG("not found module(%s)!", *pEntity->className());
 		return;
 	}
 
@@ -1496,6 +1529,6 @@ void KBEngineApp::onRemoteMethodCall_(ENTITY_ID eid, MemoryStream& stream)
 	}
 	else
 	{
-		ERROR_MSG("%s(%d), not found method(%s::%s)!\n", *pEntity->className(), eid, *pEntity->className(), *pMethodData->name);
+		SCREEN_ERROR_MSG("%s(%d), not found method(%s::%s)!\n", *pEntity->className(), eid, *pEntity->className(), *pMethodData->name);
 	}
 }

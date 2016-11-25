@@ -21,7 +21,7 @@ ScriptModule::ScriptModule(const FString& moduleName):
 {
 	pEntityCreator = EntityFactory::findCreator(moduleName);
 	if (!pEntityCreator)
-		ERROR_MSG("can't load scriptSodule(KBEngine.%s)!", *moduleName);
+		SCREEN_ERROR_MSG("can't load scriptSodule(KBEngine.%s)!", *moduleName);
 }
 
 ScriptModule::~ScriptModule()

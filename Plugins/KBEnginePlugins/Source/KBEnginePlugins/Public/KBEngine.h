@@ -63,7 +63,7 @@ public:
 
 	void resetMessages();
 
-	static bool validEmail(FString strEmail);
+	static bool validEmail(const FString& strEmail);
 
 	/*
 		通过错误id得到错误描述
@@ -88,6 +88,11 @@ public:
 	*/
 	bool login(const FString& username, const FString& password, const TArray<uint8>& datas);
 	virtual void onLoginCallback(FString ip, uint16 port, bool success, int userdata) override;
+
+	/*
+		账号创建返回结果
+	*/
+	void Client_onCreateAccountResult(MemoryStream& stream);
 
 	/*
 		创建账号

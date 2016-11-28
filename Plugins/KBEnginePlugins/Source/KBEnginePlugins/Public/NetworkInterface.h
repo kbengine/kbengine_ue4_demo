@@ -12,7 +12,7 @@
 class PacketSender;
 class PacketReceiver;
 class MemoryStream;
-class InterfaceLogin;
+class InterfaceConnect;
 
 /*
 	ÍøÂçÄ£¿é
@@ -35,7 +35,7 @@ public:
 	void close();
 	bool valid();
 
-	bool connectTo(FString ip, uint16 port, InterfaceLogin* callback, int userdata);
+	bool connectTo(FString ip, uint16 port, InterfaceConnect* callback, int userdata);
 	bool send(MemoryStream* pMemoryStream);
 
 	void destroy() {
@@ -50,7 +50,7 @@ protected:
 	PacketSender* pPacketSender_;
 	PacketReceiver* pPacketReceiver_;
 
-	InterfaceLogin* connectCB_;
+	InterfaceConnect* connectCB_;
 	FString connectIP_;
 	uint16 connectPort_;
 	int connectUserdata_;

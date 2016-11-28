@@ -19,7 +19,7 @@ class PersistentInfos;
 	http://www.kbengine.org/docs/programming/clientsdkprogramming.html
 	http://www.kbengine.org/docs/programming/kbe_message_format.html
 */
-class KBENGINEPLUGINS_API KBEngineApp : public InterfaceLogin
+class KBENGINEPLUGINS_API KBEngineApp : public InterfaceConnect
 {
 public:
 	KBEngineApp();
@@ -87,7 +87,7 @@ public:
 		登录到服务端，必须登录完成loginapp与网关(baseapp)，登录流程才算完毕
 	*/
 	bool login(const FString& username, const FString& password, const TArray<uint8>& datas);
-	virtual void onLoginCallback(FString ip, uint16 port, bool success, int userdata) override;
+	virtual void onConnectCallback(FString ip, uint16 port, bool success, int userdata) override;
 
 	/*
 		账号创建返回结果
@@ -97,7 +97,7 @@ public:
 	/*
 		创建账号
 	*/
-	void createAccount(const FString& username, const FString& password, const TArray<uint8>& datas);
+	bool createAccount(const FString& username, const FString& password, const TArray<uint8>& datas);
 
 	/*
 		重置密码, 通过loginapp
@@ -207,7 +207,7 @@ private:
 	bool initNetwork();
 
 	void login_loginapp(bool noconnect);
-	void onConnectTo_loginapp_callback(FString ip, uint16 port, bool success);
+	void onConnectTo_loginapp_login_callback(FString ip, uint16 port, bool success);
 	void onLogin_loginapp();
 
 	void login_baseapp(bool noconnect);
@@ -238,6 +238,8 @@ private:
 	void resetpassword_loginapp(bool noconnect);
 
 	void createAccount_loginapp(bool noconnect);
+	void onOpenLoginapp_createAccount();
+	void onConnectTo_loginapp_create_callback(FString ip, uint16 port, bool success);
 
 	/*
 		通过流数据获得AOI实体的ID

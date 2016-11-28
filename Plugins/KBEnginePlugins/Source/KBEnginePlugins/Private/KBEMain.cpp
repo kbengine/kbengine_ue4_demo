@@ -133,3 +133,16 @@ bool UKBEMain::login(FString username, FString password, TArray<uint8> datas)
 	KBENGINE_EVENT_FIRE("login", pEventData);
 	return true;
 }
+
+bool UKBEMain::createAccount(FString username, FString password, const TArray<uint8>& datas)
+{
+	if (!KBEngineApp::getSingleton().isInitialized())
+		return false;
+
+	UKBEventData_createAccount* pEventData = NewObject<UKBEventData_createAccount>();
+	pEventData->username = username;
+	pEventData->password = password;
+	pEventData->datas = datas;
+	KBENGINE_EVENT_FIRE("createAccount", pEventData);
+	return true;
+}

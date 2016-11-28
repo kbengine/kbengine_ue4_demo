@@ -75,6 +75,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "KBEngine")
 	bool login(FString username, FString password, TArray<uint8> datas);
 
+	/*
+		¥¥Ω®’À∫≈
+	*/
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	bool createAccount(FString username, FString password, const TArray<uint8>& datas);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	FString ip;
 

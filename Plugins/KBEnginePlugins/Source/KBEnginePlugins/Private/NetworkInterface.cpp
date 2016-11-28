@@ -56,7 +56,7 @@ bool NetworkInterface::valid()
 	return socket_ != NULL;
 }
 
-bool NetworkInterface::connectTo(FString ip, uint16 port, InterfaceLogin* callback, int userdata)
+bool NetworkInterface::connectTo(FString ip, uint16 port, InterfaceConnect* callback, int userdata)
 {
 	INFO_MSG("will connect to %s:%d ...", *ip, port);
 
@@ -98,7 +98,7 @@ bool NetworkInterface::connectTo(FString ip, uint16 port, InterfaceLogin* callba
 		ERROR_MSG("connect %s:%d error(%d)!", *ip, port,
 			(int32)ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->GetLastErrorCode());
 
-		callback->onLoginCallback(ip, port, false, userdata);
+		callback->onConnectCallback(ip, port, false, userdata);
 	}
 
 	return didConnect;
@@ -150,7 +150,7 @@ void NetworkInterface::tickConnecting()
 		socket_->GetPeerAddress(*addr);
 
 		INFO_MSG("connect to %s success!", *addr->ToString(true));
-		connectCB_->onLoginCallback(connectIP_, connectPort_, true, connectUserdata_);
+		connectCB_->onConnectCallback(connectIP_, connectPort_, true, connectUserdata_);
 		connectCB_ = NULL;
 
 		UKBEventData_onConnectStatus* pEventData = NewObject<UKBEventData_onConnectStatus>();
@@ -165,7 +165,7 @@ void NetworkInterface::tickConnecting()
 		if (currTime - startTime_ > 3)
 		{
 			ERROR_MSG("connect to %s:%d timeout!", *connectIP_, connectPort_);
-			connectCB_->onLoginCallback(connectIP_, connectPort_, false, connectUserdata_);
+			connectCB_->onConnectCallback(connectIP_, connectPort_, false, connectUserdata_);
 			connectCB_ = NULL;
 
 			UKBEventData_onConnectStatus* pEventData = NewObject<UKBEventData_onConnectStatus>();

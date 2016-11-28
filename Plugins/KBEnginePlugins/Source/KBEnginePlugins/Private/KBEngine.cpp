@@ -493,11 +493,15 @@ bool KBEngineApp::login(const FString& username, const FString& password, const 
 	return true;
 }
 
-void KBEngineApp::onLoginCallback(FString ip, uint16 port, bool success, int userdata)
+void KBEngineApp::onConnectCallback(FString ip, uint16 port, bool success, int userdata)
 {
 	if (userdata == 0)
 	{
-		onConnectTo_loginapp_callback(ip, port, success);
+		onConnectTo_loginapp_login_callback(ip, port, success);
+	}
+	else if (userdata == 1)
+	{
+		onConnectTo_loginapp_create_callback(ip, port, success);
 	}
 	else
 	{
@@ -525,7 +529,7 @@ void KBEngineApp::login_loginapp(bool noconnect)
 	}
 }
 
-void KBEngineApp::onConnectTo_loginapp_callback(FString ip, uint16 port, bool success)
+void KBEngineApp::onConnectTo_loginapp_login_callback(FString ip, uint16 port, bool success)
 {
 	if (!success)
 	{
@@ -599,7 +603,7 @@ void KBEngineApp::login_baseapp(bool noconnect)
 		pNetworkInterface_->destroy();
 		pNetworkInterface_ = NULL;
 		initNetwork();
-		pNetworkInterface_->connectTo(baseappIP_, baseappPort_, this, 1);
+		pNetworkInterface_->connectTo(baseappIP_, baseappPort_, this, 2);
 	}
 	else
 	{
@@ -1424,18 +1428,82 @@ void KBEngineApp::resetpassword_loginapp(bool noconnect)
 
 }
 
-void KBEngineApp::createAccount(const FString& username, const FString& password, const TArray<uint8>& datas)
+bool KBEngineApp::createAccount(const FString& username, const FString& password, const TArray<uint8>& datas)
 {
+	if (username.Len() == 0)
+	{
+		ERROR_MSG("username is empty!");
+		return false;
+	}
+
+	if (password.Len() == 0)
+	{
+		ERROR_MSG("password is empty!");
+		return false;
+	}
+
 	username_ = username;
 	password_ = password;
 	clientdatas_ = datas;
 
 	createAccount_loginapp(true);
+	return true;
 }
 
 void KBEngineApp::createAccount_loginapp(bool noconnect)
 {
+	if (noconnect)
+	{
+		reset();
+		pNetworkInterface_->connectTo(pArgs_->ip, pArgs_->port, this, 1);
+	}
+	else
+	{
+		INFO_MSG("send create! username=%s", *username_);
+		Bundle* pBundle = Bundle::createObject();
+		pBundle->newMessage(Messages::getSingleton().messages[TEXT("Loginapp_reqCreateAccount"]));
+		(*pBundle) << (uint8)pArgs_->clientType;
+		pBundle->appendBlob(clientdatas_);
+		(*pBundle) << username_;
+		(*pBundle) << password_;
+		pBundle->send(pNetworkInterface_);
+	}
+}
 
+void KBEngineApp::onOpenLoginapp_createAccount()
+{
+	DEBUG_MSG("successfully!");
+
+	currserver_ = TEXT("loginapp");
+	currstate_ = TEXT("createAccount");
+	lastTickCBTime_ = getTimeSeconds();
+
+	if (!loginappMessageImported_)
+	{
+		Bundle* pBundle = Bundle::createObject();
+		pBundle->newMessage(Messages::getSingleton().messages[TEXT("Loginapp_importClientMessages"]));
+		pBundle->send(pNetworkInterface_);
+		DEBUG_MSG("send importClientMessages ...");
+	}
+	else
+	{
+		onImportClientMessagesCompleted();
+	}
+}
+
+void KBEngineApp::onConnectTo_loginapp_create_callback(FString ip, uint16 port, bool success)
+{
+	lastTickCBTime_ = getTimeSeconds();
+
+	if (!success)
+	{
+		ERROR_MSG("connect %s:%d is error!", *ip, port);
+		return;
+	}
+
+	INFO_MSG("connect %s:%d is success!", *ip, port);
+
+	onOpenLoginapp_createAccount();
 }
 
 void KBEngineApp::Client_onCreateAccountResult(MemoryStream& stream)

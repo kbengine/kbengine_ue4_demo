@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
 #include "ue4_scripts/GameModeBase.h"
 #include "GameModeSelectAvatar.generated.h"
 
@@ -33,4 +32,14 @@ public:
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onRemoveAvatar(const UKBEventData* pEventData);
+
+	UFUNCTION(BlueprintCallable, Category = KBEngine)
+	void reqCreateAvatar(uint8 roleType, const FString& name);
+
+	UFUNCTION(BlueprintCallable, Category = KBEngine)
+	void reqRemoveAvatar(const FAVATAR_INFOS& avatarInfos);
+
+	UFUNCTION(BlueprintCallable, Category = KBEngine)
+	void selectAvatarGame(const FAVATAR_INFOS& avatarInfos);
+
 };

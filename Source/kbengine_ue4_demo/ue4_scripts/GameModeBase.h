@@ -3,6 +3,7 @@
 #pragma once
 
 #include "KBEvent.h"
+#include "kbe_scripts/LogicEvents.h"
 #include "GameFramework/GameMode.h"
 #include "GameModeBase.generated.h"
 

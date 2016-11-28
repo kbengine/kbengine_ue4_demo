@@ -15,9 +15,6 @@ class KBENGINE_UE4_DEMO_API AGameModeLogin : public AGameModeBase
 	GENERATED_UCLASS_BODY()
 	
 public:	
-	/** Called when a Controller with a PlayerState leaves the match. */
-	virtual void Logout(AController* Exiting) override;
-
 	/*
 		安装登陆时需要监听的KBE事件
 	*/

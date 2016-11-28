@@ -28,6 +28,17 @@ void AGameModeBase::Destroyed()
 	Super::Destroyed();
 }
 
+void AGameModeBase::Logout(AController* Exiting)
+{
+	// 可以在这里理解为玩家编辑器Stop游戏或者离开了这个场景
+	if (Exiting)
+	{
+		KBENGINE_DEREGISTER_ALL_EVENT();
+	}
+
+	Super::Logout(Exiting);
+}
+
 void AGameModeBase::installEvents()
 {
 	// common

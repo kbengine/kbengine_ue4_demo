@@ -10,13 +10,6 @@ AGameModeLogin::AGameModeLogin(const FObjectInitializer& ObjectInitializer) : Su
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-void AGameModeLogin::Logout(AController* Exiting)
-{
-	// 由于该场景只有玩家自己， 因此可以在这里理解为玩家编辑器Stop游戏或者离开了这个场景
-	KBENGINE_DEREGISTER_ALL_EVENT();
-	Super::Logout(Exiting);
-}
-
 void AGameModeLogin::installEvents()
 {
 	Super::installEvents();

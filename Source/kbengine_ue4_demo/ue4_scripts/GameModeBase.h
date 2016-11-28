@@ -30,6 +30,9 @@ public:
 	*/
 	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
 
+	/** Called when a Controller with a PlayerState leaves the match. */
+	virtual void Logout(AController* Exiting) override;
+
 	/*
 	安装登陆时需要监听的KBE事件
 	*/

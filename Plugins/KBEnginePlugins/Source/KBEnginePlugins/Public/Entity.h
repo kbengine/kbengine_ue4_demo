@@ -127,10 +127,68 @@ public:
 
 public:
 	void baseCall(FString methodName, const TArray<KBVar*>& arguments = TArray<KBVar*>());
-	void cellCall(FString methodName, const TArray<KBVar*>& arguments = TArray<KBVar*>());
-
 	void baseCall(FString methodName, KBVar arg1);
 	void baseCall(FString methodName, KBVar arg1, KBVar arg2);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17, KBVar arg18);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17, KBVar arg18, KBVar arg19);
+	void baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10, 
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17, KBVar arg18, KBVar arg19, KBVar arg20);
+
+	void cellCall(FString methodName, const TArray<KBVar*>& arguments = TArray<KBVar*>());
+	void cellCall(FString methodName, KBVar arg1);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17, KBVar arg18);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17, KBVar arg18, KBVar arg19);
+	void cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+		KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17, KBVar arg18, KBVar arg19, KBVar arg20);
 
 protected:
 	ENTITY_ID id_;

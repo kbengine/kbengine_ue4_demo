@@ -319,6 +319,331 @@ void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2)
 	baseCall(methodName, arguments);
 }
 
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	arguments.Add(&arg15);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	arguments.Add(&arg15);
+	arguments.Add(&arg16);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	arguments.Add(&arg15);
+	arguments.Add(&arg16);
+	arguments.Add(&arg17);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17, KBVar arg18)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	arguments.Add(&arg15);
+	arguments.Add(&arg16);
+	arguments.Add(&arg17);
+	arguments.Add(&arg18);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17, KBVar arg18, KBVar arg19)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	arguments.Add(&arg15);
+	arguments.Add(&arg16);
+	arguments.Add(&arg17);
+	arguments.Add(&arg18);
+	arguments.Add(&arg19);
+	baseCall(methodName, arguments);
+}
+
+void Entity::baseCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17, KBVar arg18, KBVar arg19, KBVar arg20)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	arguments.Add(&arg15);
+	arguments.Add(&arg16);
+	arguments.Add(&arg17);
+	arguments.Add(&arg18);
+	arguments.Add(&arg19);
+	arguments.Add(&arg20);
+	baseCall(methodName, arguments);
+}
+
 void Entity::baseCall(FString methodName, const TArray<KBVar*>& arguments)
 {
 	if (KBEngineApp::getSingleton().currserver() == TEXT("loginapp"))
@@ -372,6 +697,331 @@ void Entity::baseCall(FString methodName, const TArray<KBVar*>& arguments)
 	}
 
 	base_->postMail(NULL);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	arguments.Add(&arg15);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	arguments.Add(&arg15);
+	arguments.Add(&arg16);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	arguments.Add(&arg15);
+	arguments.Add(&arg16);
+	arguments.Add(&arg17);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17, KBVar arg18)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	arguments.Add(&arg15);
+	arguments.Add(&arg16);
+	arguments.Add(&arg17);
+	arguments.Add(&arg18);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17, KBVar arg18, KBVar arg19)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	arguments.Add(&arg15);
+	arguments.Add(&arg16);
+	arguments.Add(&arg17);
+	arguments.Add(&arg18);
+	arguments.Add(&arg19);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3, KBVar arg4, KBVar arg5, KBVar arg6, KBVar arg7, KBVar arg8, KBVar arg9, KBVar arg10,
+	KBVar arg11, KBVar arg12, KBVar arg13, KBVar arg14, KBVar arg15, KBVar arg16, KBVar arg17, KBVar arg18, KBVar arg19, KBVar arg20)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	arguments.Add(&arg3);
+	arguments.Add(&arg4);
+	arguments.Add(&arg5);
+	arguments.Add(&arg6);
+	arguments.Add(&arg7);
+	arguments.Add(&arg8);
+	arguments.Add(&arg9);
+	arguments.Add(&arg10);
+	arguments.Add(&arg11);
+	arguments.Add(&arg12);
+	arguments.Add(&arg13);
+	arguments.Add(&arg14);
+	arguments.Add(&arg15);
+	arguments.Add(&arg16);
+	arguments.Add(&arg17);
+	arguments.Add(&arg18);
+	arguments.Add(&arg19);
+	arguments.Add(&arg20);
+	cellCall(methodName, arguments);
 }
 
 void Entity::cellCall(FString methodName, const TArray<KBVar*>& arguments)

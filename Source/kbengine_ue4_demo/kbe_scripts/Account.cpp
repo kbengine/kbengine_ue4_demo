@@ -60,19 +60,19 @@ void Account::onDestroy()
 void Account::reqCreateAvatar(uint8 roleType, const FString& name)
 {
 	DEBUG_MSG("roleType=%d", roleType);
-	// baseCall("reqCreateAvatar", roleType, name);
+	baseCall("reqCreateAvatar", roleType, name);
 }
 
 void Account::reqRemoveAvatar(uint64 dbid)
 {
 	DEBUG_MSG("dbid=%lld", dbid);
-	// baseCall("selectAvatarGame", dbid);
+	baseCall("selectAvatarGame", dbid);
 }
 
 void Account::selectAvatarGame(uint64 dbid)
 {
 	DEBUG_MSG("name=%lld", dbid);
-	//baseCall("selectAvatarGame", dbid);
+	baseCall("selectAvatarGame", dbid);
 }
 
 void Account::onReqAvatarList(const KB_ARRAY& datas)

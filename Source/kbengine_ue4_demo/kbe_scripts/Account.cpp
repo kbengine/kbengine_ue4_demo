@@ -32,13 +32,13 @@ void Account::__init__()
 	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("reqRemoveAvatar", "reqRemoveAvatar", [this](const UKBEventData* pEventData)
 	{
 		const UKBEventData_reqRemoveAvatar& data = static_cast<const UKBEventData_reqRemoveAvatar&>(*pEventData);
-		reqRemoveAvatar(data.dbid);
+		reqRemoveAvatar(data.avatarInfos.dbid);
 	});
 
 	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("selectAvatarGame", "selectAvatarGame", [this](const UKBEventData* pEventData)
 	{
 		const UKBEventData_selectAvatarGame& data = static_cast<const UKBEventData_selectAvatarGame&>(*pEventData);
-		selectAvatarGame(data.dbid);
+		selectAvatarGame(data.avatarInfos.dbid);
 	});
 
 	// 触发登陆成功事件
@@ -61,12 +61,6 @@ void Account::reqCreateAvatar(uint8 roleType, const FString& name)
 {
 	DEBUG_MSG("roleType=%d", roleType);
 	// baseCall("reqCreateAvatar", roleType, name);
-}
-
-void Account::reqRemoveAvatar(const FString& name)
-{
-	DEBUG_MSG("name=%s", *name);
-	// baseCall("reqRemoveAvatar", name);
 }
 
 void Account::reqRemoveAvatar(uint64 dbid)

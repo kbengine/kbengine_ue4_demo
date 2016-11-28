@@ -65,7 +65,7 @@ class KBENGINE_UE4_DEMO_API UKBEventData_reqRemoveAvatar : public UKBEventData
 
 public:
 	UPROPERTY(Category = KBEngine, EditAnywhere)
-	uint64 dbid;
+	FAVATAR_INFOS avatarInfos;
 };
 
 UCLASS(Blueprintable, BlueprintType)
@@ -101,5 +101,5 @@ class KBENGINE_UE4_DEMO_API UKBEventData_selectAvatarGame : public UKBEventData
 
 public:
 	UPROPERTY(Category = KBEngine, EditAnywhere)
-	uint64 dbid;
+	FAVATAR_INFOS avatarInfos;
 };

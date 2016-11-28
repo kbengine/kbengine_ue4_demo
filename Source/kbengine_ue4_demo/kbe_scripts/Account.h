@@ -18,7 +18,6 @@ public:
 	virtual void onDestroy() override;
 
 	void reqCreateAvatar(uint8 roleType, const FString& name);
-	void reqRemoveAvatar(const FString& name);
 	void reqRemoveAvatar(uint64 dbid);
 	void selectAvatarGame(uint64 dbid);
 

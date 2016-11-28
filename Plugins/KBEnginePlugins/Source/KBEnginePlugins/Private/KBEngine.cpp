@@ -1462,10 +1462,9 @@ void KBEngineApp::createAccount_loginapp(bool noconnect)
 		INFO_MSG("send create! username=%s", *username_);
 		Bundle* pBundle = Bundle::createObject();
 		pBundle->newMessage(Messages::getSingleton().messages[TEXT("Loginapp_reqCreateAccount"]));
-		(*pBundle) << (uint8)pArgs_->clientType;
-		pBundle->appendBlob(clientdatas_);
 		(*pBundle) << username_;
 		(*pBundle) << password_;
+		pBundle->appendBlob(clientdatas_);
 		pBundle->send(pNetworkInterface_);
 	}
 }

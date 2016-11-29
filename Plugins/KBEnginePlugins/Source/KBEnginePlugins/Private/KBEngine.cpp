@@ -1139,12 +1139,12 @@ void KBEngineApp::addSpaceGeometryMapping(uint32 uspaceID, const FString& respat
 
 FString KBEngineApp::getSpaceData(const FString& key)
 {
-	FString** valFind = spacedatas_.Find(key);
+	FString* valFind = spacedatas_.Find(key);
 
 	if(!valFind)
 		return FString();
 
-	return *(*valFind);
+	return (*valFind);
 }
 
 void KBEngineApp::onImportClientMessagesCompleted()

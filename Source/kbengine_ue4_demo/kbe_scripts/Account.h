@@ -21,8 +21,8 @@ public:
 	void reqRemoveAvatar(uint64 dbid);
 	void selectAvatarGame(uint64 dbid);
 
-	void onReqAvatarList(const KB_ARRAY& datas);
-	void onCreateAvatarResult(uint8 retcode, KB_FIXED_DICT& info);
+	void onReqAvatarList(const KB_FIXED_DICT& datas);
+	void onCreateAvatarResult(uint8 retcode, const KB_FIXED_DICT& info);
 	void onRemoveAvatar(uint64 dbid);
 
 	struct AVATAR_DATA

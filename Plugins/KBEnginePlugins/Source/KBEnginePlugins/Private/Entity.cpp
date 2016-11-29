@@ -654,7 +654,16 @@ void Entity::baseCall(FString methodName, const TArray<KBVar*>& arguments)
 		return;
 	}
 
-	Method** pMethodFind = EntityDef::moduledefs[className_]->base_methods.Find(methodName);
+	ScriptModule** pScriptModuleFind = EntityDef::moduledefs.Find(className_);
+	if (!pScriptModuleFind)
+	{
+		SCREEN_ERROR_MSG("not found ScriptModule(%s)!",
+			*className_);
+
+		return;
+	}
+
+	Method** pMethodFind = (*pScriptModuleFind)->base_methods.Find(methodName);
 	if (!pMethodFind)
 	{
 		SCREEN_ERROR_MSG("className=%s, not found methodName(%s)!",
@@ -1034,7 +1043,16 @@ void Entity::cellCall(FString methodName, const TArray<KBVar*>& arguments)
 		return;
 	}
 
-	Method** pMethodFind = EntityDef::moduledefs[className_]->cell_methods.Find(methodName);
+	ScriptModule** pScriptModuleFind = EntityDef::moduledefs.Find(className_);
+	if (!pScriptModuleFind)
+	{
+		SCREEN_ERROR_MSG("not found ScriptModule(%s)!",
+			*className_);
+
+		return;
+	}
+
+	Method** pMethodFind = (*pScriptModuleFind)->cell_methods.Find(methodName);
 	if (!pMethodFind)
 	{
 		SCREEN_ERROR_MSG("className=%s, not found methodName(%s)!",

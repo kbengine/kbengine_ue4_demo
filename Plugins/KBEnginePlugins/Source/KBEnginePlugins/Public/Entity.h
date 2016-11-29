@@ -262,7 +262,12 @@ public:
 
 	virtual ~EntityDefMethodHandle();
 
-	virtual void callMethod(Entity* pEntity, const KBVar& oldVal) = 0;
+	virtual void callMethod(Entity* pEntity, const KBVar& val)
+	{
+
+	}
+
+	virtual void callMethod(Entity* pEntity, const TArray<KBVar*>& args) = 0;
 };
 
 class KBENGINEPLUGINS_API EntityDefMethodHandles
@@ -357,8 +362,93 @@ public:
 			{	\
 				static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME(val);	\
 			}	\
+			virtual void callMethod(Entity* pEntity, const TArray<KBVar*>& args) override	\
+			{	\
+				static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME(*args[0]);	\
+			}	\
 	};\
 	_##ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle g_ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_METHOD_NAME)));	\
+
+
+#define ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, CALLMETHOD)	\
+	class _##ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle : public EntityDefMethodHandle {	\
+		public:	\
+			_##ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle(const FString& scriptName, const FString& defMethodName):	\
+			EntityDefMethodHandle(scriptName, defMethodName)	\
+			{	\
+			}	\
+			virtual ~_##ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle()	\
+			{	\
+			}	\
+			virtual void callMethod(Entity* pEntity, const TArray<KBVar*>& args) override	\
+			{	\
+				static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME##CALLMETHOD;	\
+			}	\
+	};\
+	_##ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle g_ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_METHOD_NAME)));	\
+
+#define ENTITYDEF_METHOD_ARGS0_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, ())
+
+#define ENTITYDEF_METHOD_ARGS1_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0]))
+
+#define ENTITYDEF_METHOD_ARGS2_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1]))
+
+#define ENTITYDEF_METHOD_ARGS3_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2]))
+
+#define ENTITYDEF_METHOD_ARGS4_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3]))
+
+#define ENTITYDEF_METHOD_ARGS5_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4]))
+
+#define ENTITYDEF_METHOD_ARGS6_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5]))
+
+#define ENTITYDEF_METHOD_ARGS7_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6]))
+
+#define ENTITYDEF_METHOD_ARGS8_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7]))
+
+#define ENTITYDEF_METHOD_ARGS9_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7], *args[8]))
+
+#define ENTITYDEF_METHOD_ARGS10_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7], *args[8], *args[9]))
+
+#define ENTITYDEF_METHOD_ARGS11_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7], *args[8], *args[9], *args[10]))
+
+#define ENTITYDEF_METHOD_ARGS12_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7], *args[8], *args[9], *args[10], *args[11]))
+
+#define ENTITYDEF_METHOD_ARGS13_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7], *args[8], *args[9], *args[10], *args[11], *args[12]))
+
+#define ENTITYDEF_METHOD_ARGS14_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7], *args[8], *args[9], *args[10], *args[11], *args[12], *args[13]))
+
+#define ENTITYDEF_METHOD_ARGS15_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7], *args[8], *args[9], *args[10], *args[11], *args[12], *args[13], *args[14]))
+
+#define ENTITYDEF_METHOD_ARGS16_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7], *args[8], *args[9], *args[10], *args[11], *args[12], *args[13], *args[14], *args[15]))
+
+#define ENTITYDEF_METHOD_ARGS17_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7], *args[8], *args[9], *args[10], *args[11], *args[12], *args[13], *args[14], *args[15], *args[16]))
+
+#define ENTITYDEF_METHOD_ARGS18_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7], *args[8], *args[9], *args[10], *args[11], *args[12], *args[13], *args[14], *args[15], *args[16], *args[17]))
+
+#define ENTITYDEF_METHOD_ARGS19_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7], *args[8], *args[9], *args[10], *args[11], *args[12], *args[13], *args[14], *args[15], *args[16], *args[17], *args[18]))
+
+#define ENTITYDEF_METHOD_ARGS20_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME)	\
+	ENTITYDEF_METHOD_ARGS_TEMPLATE_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_METHOD_NAME, (*args[0], *args[1], *args[2], *args[3], *args[4], *args[5], *args[6], *args[7], *args[8], *args[9], *args[10], *args[11], *args[12], *args[13], *args[14], *args[15], *args[16], *args[17], *args[18], *args[19]))
 
 
 // 注册定义的属性

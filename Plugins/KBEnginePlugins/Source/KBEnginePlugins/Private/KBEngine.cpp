@@ -844,6 +844,7 @@ void KBEngineApp::onUpdatePropertys_(ENTITY_ID eid, MemoryStream& stream)
 			SCREEN_ERROR_MSG("%s not found property(%s), update error! Please register with ENTITYDEF_PROPERTY_REGISTER(%s, %s) in %s.cpp",
 				*pEntity->className(), *propertydata->name,
 				*pEntity->className(), *pEntity->className(), *propertydata->name);
+
 			delete val;
 			continue;
 		}
@@ -1568,7 +1569,7 @@ void KBEngineApp::onRemoteMethodCall_(ENTITY_ID eid, MemoryStream& stream)
 	ScriptModule** pModuleFind = EntityDef::moduledefs.Find(pEntity->className());
 	if (!pModuleFind)
 	{
-		SCREEN_ERROR_MSG("not found module(%s)!", *pEntity->className());
+		SCREEN_ERROR_MSG("not found ScriptModule(%s)!", *pEntity->className());
 		return;
 	}
 
@@ -1581,20 +1582,22 @@ void KBEngineApp::onRemoteMethodCall_(ENTITY_ID eid, MemoryStream& stream)
 
 	Method* pMethodData = pModule->idmethods[methodUtype];
 
-	KBVar::KBVarArray args;
+	TArray<KBVar*> args;
 	for (int i = 0; i<pMethodData->args.Num(); ++i)
 	{
 		KBVar* pVar = pMethodData->args[i]->createFromStream(stream);
-		args.Add(*pVar);
-		delete pVar;
+		args.Add(pVar);
 	}
 
 	if (pMethodData->pEntityDefMethodHandle)
 	{
-		pMethodData->pEntityDefMethodHandle->callMethod(pEntity, KBVar(args));
+		pMethodData->pEntityDefMethodHandle->callMethod(pEntity, args);
 	}
 	else
 	{
 		SCREEN_ERROR_MSG("%s(%d), not found method(%s::%s)!\n", *pEntity->className(), eid, *pEntity->className(), *pMethodData->name);
 	}
+
+	for (auto& item : args)
+		delete item;
 }

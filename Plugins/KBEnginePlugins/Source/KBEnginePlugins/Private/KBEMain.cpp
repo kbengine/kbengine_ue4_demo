@@ -55,7 +55,9 @@ void UKBEMain::BeginPlay()
 	pArgs->SEND_BUFFER_MAX = SEND_BUFFER_MAX;
 	pArgs->RECV_BUFFER_MAX = RECV_BUFFER_MAX;
 	pArgs->persistentDataPath = persistentDataPath;
-	KBEngineApp::getSingleton().initialize(pArgs);
+
+	if (!KBEngineApp::getSingleton().initialize(pArgs))
+		delete pArgs;
 }
 
 void UKBEMain::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -124,7 +126,9 @@ bool UKBEMain::destroyKBEngine()
 bool UKBEMain::login(FString username, FString password, TArray<uint8> datas)
 {
 	if (!KBEngineApp::getSingleton().isInitialized())
-		return false;
+	{
+		KBEngineApp::getSingleton().reset();
+	}
 
 	UKBEventData_login* pEventData = NewObject<UKBEventData_login>();
 	pEventData->username = username;
@@ -137,7 +141,9 @@ bool UKBEMain::login(FString username, FString password, TArray<uint8> datas)
 bool UKBEMain::createAccount(FString username, FString password, const TArray<uint8>& datas)
 {
 	if (!KBEngineApp::getSingleton().isInitialized())
-		return false;
+	{
+		KBEngineApp::getSingleton().reset();
+	}
 
 	UKBEventData_createAccount* pEventData = NewObject<UKBEventData_createAccount>();
 	pEventData->username = username;

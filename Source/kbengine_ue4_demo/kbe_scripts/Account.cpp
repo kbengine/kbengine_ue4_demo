@@ -7,7 +7,9 @@
 
 ENTITYDEF_CLASS_REGISTER(Account, GameObject)
 ENTITYDEF_PROPERTY_REGISTER(Account, lastSelCharacter);
-ENTITYDEF_METHOD_REGISTER(Account, onReqAvatarList);
+ENTITYDEF_METHOD_ARGS1_REGISTER(Account, onReqAvatarList);
+ENTITYDEF_METHOD_ARGS1_REGISTER(Account, onRemoveAvatar);
+ENTITYDEF_METHOD_ARGS2_REGISTER(Account, onCreateAvatarResult);
 
 Account::Account():
 	GameObject(),
@@ -66,7 +68,7 @@ void Account::reqCreateAvatar(uint8 roleType, const FString& name)
 void Account::reqRemoveAvatar(uint64 dbid)
 {
 	DEBUG_MSG("dbid=%lld", dbid);
-	baseCall("selectAvatarGame", dbid);
+	baseCall("reqRemoveAvatar", dbid);
 }
 
 void Account::selectAvatarGame(uint64 dbid)
@@ -75,47 +77,44 @@ void Account::selectAvatarGame(uint64 dbid)
 	baseCall("selectAvatarGame", dbid);
 }
 
-void Account::onReqAvatarList(const KB_ARRAY& datas)
+void Account::onReqAvatarList(const KB_FIXED_DICT& datas)
 {
 	UKBEventData_onReqAvatarList* pEventData = NewObject<UKBEventData_onReqAvatarList>();
 
-	for (auto& item : datas)
+	const KB_FIXED_DICT& fixed_dict_values = datas;
+	KB_ARRAY values = fixed_dict_values[TEXT("values")];
+
+	for (auto& characterInfoItem : values)
 	{
-		const KB_FIXED_DICT& fixed_dict_values = item;
-		KB_ARRAY values = fixed_dict_values[TEXT("values")];
+		FAVATAR_INFOS event_avatar;
 
-		for (auto& characterInfoItem : values)
-		{
-			FAVATAR_INFOS event_avatar;
+		const KB_FIXED_DICT& characterInfo_fixed_dict = characterInfoItem;
+		AVATAR_INFOS infos;
 
-			const KB_FIXED_DICT& characterInfo_fixed_dict = characterInfoItem;
-			AVATAR_INFOS infos;
+		infos.name = characterInfo_fixed_dict[TEXT("name")].GetValue<FString>();
+		infos.dbid = characterInfo_fixed_dict[TEXT("dbid")];
+		infos.level = characterInfo_fixed_dict[TEXT("level")];
+		infos.roleType = characterInfo_fixed_dict[TEXT("roleType")];
 
-			infos.name = characterInfo_fixed_dict[TEXT("name")].GetValue<FString>();
-			infos.dbid = characterInfo_fixed_dict[TEXT("dbid")];
-			infos.level = characterInfo_fixed_dict[TEXT("level")];
-			infos.roleType = characterInfo_fixed_dict[TEXT("roleType")];
+		const KB_FIXED_DICT& data_fixed_dict = characterInfo_fixed_dict[TEXT("data")];
 
-			const KB_FIXED_DICT& data_fixed_dict = characterInfo_fixed_dict[TEXT("data")];
+		infos.data.param1 = data_fixed_dict[TEXT("param1")];
+		infos.data.param2 = data_fixed_dict[TEXT("param2")].GetValue<TArray<uint8>>();
 
-			infos.data.param1 = data_fixed_dict[TEXT("param1")];
-			infos.data.param2 = data_fixed_dict[TEXT("param2")].GetValue<TArray<uint8>>();
+		characters.Add(infos.dbid, infos);
 
-			characters.Add(infos.dbid, infos);
-
-			// fill eventData
-			event_avatar.name = infos.name;
-			event_avatar.level = infos.level;
-			event_avatar.roleType = infos.roleType;
-			event_avatar.dbid = infos.dbid;
-			pEventData->avatars.Add(event_avatar);
-		}
+		// fill eventData
+		event_avatar.name = infos.name;
+		event_avatar.level = infos.level;
+		event_avatar.roleType = infos.roleType;
+		event_avatar.dbid = infos.dbid;
+		pEventData->avatars.Add(event_avatar);
 	}
 
 	KBENGINE_EVENT_FIRE("onReqAvatarList", pEventData);
 }
 
-void Account::onCreateAvatarResult(uint8 retcode, KB_FIXED_DICT& info)
+void Account::onCreateAvatarResult(uint8 retcode, const KB_FIXED_DICT& info)
 {
 	UKBEventData_onCreateAvatarResult* pEventData = NewObject<UKBEventData_onCreateAvatarResult>();
 
@@ -132,7 +131,8 @@ void Account::onCreateAvatarResult(uint8 retcode, KB_FIXED_DICT& info)
 	infos.data.param1 = data_fixed_dict[TEXT("param1")];
 	infos.data.param2 = data_fixed_dict[TEXT("param2")].GetValue<TArray<uint8>>();
 
-	characters.Add(infos.dbid, infos);
+	if(retcode == 0)
+		characters.Add(infos.dbid, infos);
 
 	// fill eventData
 	pEventData->avatarInfos.name = infos.name;
@@ -140,7 +140,16 @@ void Account::onCreateAvatarResult(uint8 retcode, KB_FIXED_DICT& info)
 	pEventData->avatarInfos.roleType = infos.roleType;
 	pEventData->avatarInfos.dbid = infos.dbid;
 	pEventData->errorCode = retcode;
-	pEventData->errorStr = KBEngineApp::getSingleton().serverErr(retcode);
+
+	// Error codes given by Account::reqCreateAvatar on the server
+	if (retcode > 0)
+	{
+		if (retcode == 3)
+			pEventData->errorStr = TEXT("Limiting the number of characters!");
+		else
+			pEventData->errorStr = TEXT("Unknown error!");
+	}
+
 	KBENGINE_EVENT_FIRE("onCreateAvatarResult", pEventData);
 }
 
@@ -157,5 +166,6 @@ void Account::onRemoveAvatar(uint64 dbid)
 	UKBEventData_onRemoveAvatar* pEventData = NewObject<UKBEventData_onRemoveAvatar>();
 	pEventData->dbid = infos->dbid;
 	KBENGINE_EVENT_FIRE("onRemoveAvatar", pEventData);
+
 	characters.Remove(dbid);
 }

@@ -52,9 +52,10 @@
 { \
 	SET_WARN_COLOR(COLOR_YELLOW); \
 	const FString Msg = FString::Printf(TEXT(Format), ##__VA_ARGS__); \
-	UE_LOG(LogKBEngine, Log, TEXT("**WARNING** %s%s() : %s"), NETMODE_WORLD, FUNC_NAME, *Msg); \
+	const FString NewMsg = FString::Printf(TEXT("**WARNING** %s%s() : %s"), NETMODE_WORLD, FUNC_NAME, *Msg); \
+	UE_LOG(LogKBEngine, Log, TEXT("%s"), *NewMsg); \
 	CLEAR_WARN_COLOR(); \
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, Msg); \
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, NewMsg); \
 }
 
 #define ERROR_MSG(Format, ...) \
@@ -69,9 +70,10 @@
 { \
 	SET_WARN_COLOR(COLOR_RED); \
 	const FString Msg = FString::Printf(TEXT(Format), ##__VA_ARGS__); \
-	UE_LOG(LogKBEngine, Log, TEXT("**ERROR** %s%s() : %s"), NETMODE_WORLD, FUNC_NAME, *Msg); \
+	const FString NewMsg = FString::Printf(TEXT("**ERROR** %s%s() : %s"), NETMODE_WORLD, FUNC_NAME, *Msg); \
+	UE_LOG(LogKBEngine, Log, TEXT("%s"), *NewMsg); \
 	CLEAR_WARN_COLOR(); \
-	GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, Msg); \
+	GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, NewMsg); \
 }
 
 #define SCREENDEBUG(Format, ...) \

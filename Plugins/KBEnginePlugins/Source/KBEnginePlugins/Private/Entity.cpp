@@ -7,6 +7,7 @@
 #include "Method.h"
 #include "ScriptModule.h"
 #include "Mailbox.h"
+#include "Bundle.h"
 
 EntityFactory g_EntityFactory;
 EntityDefMethodHandles g_EntityDefMethodHandles;
@@ -700,8 +701,12 @@ void Entity::baseCall(FString methodName, const TArray<KBVar*>& arguments)
 		}
 		else
 		{
-			ERROR_MSG("className=%s, methodName=%s, args%d error!",
-				*className_, *methodName, i);
+			SCREEN_ERROR_MSG("className=%s, methodName=%s, args%d error, not is %s! curr=%s",
+				*className_, *methodName, i, *args[i]->c_str(), *arguments[i]->c_str());
+
+			Bundle::reclaimObject(base_->pBundle);
+			base_->pBundle = NULL;
+			return;
 		}
 	}
 
@@ -1089,8 +1094,12 @@ void Entity::cellCall(FString methodName, const TArray<KBVar*>& arguments)
 		}
 		else
 		{
-			ERROR_MSG("className=%s, methodName=%s, args%d error!",
-				*className_, *methodName, i);
+			SCREEN_ERROR_MSG("className=%s, methodName=%s, args%d error, not is %s! curr=%s",
+				*className_, *methodName, i, *args[i]->c_str(), *arguments[i]->c_str());
+
+			Bundle::reclaimObject(base_->pBundle);
+			base_->pBundle = NULL;
+			return;
 		}
 	}
 

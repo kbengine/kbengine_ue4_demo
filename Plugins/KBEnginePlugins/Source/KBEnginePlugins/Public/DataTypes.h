@@ -52,6 +52,10 @@ public:
 			return v == NULL;
 		}
 		
+		virtual FString c_str() const {
+			return TEXT("UNKNOWN");
+		}
+
 protected:
 
 };
@@ -65,6 +69,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("INT8");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_INT16 : public KBEDATATYPE_BASE
@@ -76,6 +84,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("INT16");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_INT32 : public KBEDATATYPE_BASE
@@ -87,6 +99,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("INT32");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_INT64 : public KBEDATATYPE_BASE
@@ -98,6 +114,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("INT64");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_UINT8 : public KBEDATATYPE_BASE
@@ -109,6 +129,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("UINT8");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_UINT16 : public KBEDATATYPE_BASE
@@ -120,6 +144,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("UINT6");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_UINT32 : public KBEDATATYPE_BASE
@@ -131,6 +159,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("UINT32");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_UINT64 : public KBEDATATYPE_BASE
@@ -142,6 +174,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("UINT64");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_FLOAT : public KBEDATATYPE_BASE
@@ -153,6 +189,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("FLOAT");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_DOUBLE : public KBEDATATYPE_BASE
@@ -164,6 +204,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("DOUBLE");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_STRING : public KBEDATATYPE_BASE
@@ -175,6 +219,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("STRING");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_VECTOR2 : public KBEDATATYPE_BASE
@@ -186,6 +234,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("VECTOR2");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_VECTOR3 : public KBEDATATYPE_BASE
@@ -197,6 +249,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("VECTOR3");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_VECTOR4 : public KBEDATATYPE_BASE
@@ -208,6 +264,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("VECTOR4");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_PYTHON : public KBEDATATYPE_BASE
@@ -219,6 +279,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("PYTHON");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_UNICODE : public KBEDATATYPE_BASE
@@ -230,6 +294,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("UNICODE|STRING");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_MAILBOX : public KBEDATATYPE_BASE
@@ -241,6 +309,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("MAILBOX");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_BLOB : public KBEDATATYPE_BASE
@@ -252,6 +324,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("BLOB|TArray<uint8>");
+	}
 };
 
 class KBENGINEPLUGINS_API KBEDATATYPE_ARRAY : public KBEDATATYPE_BASE
@@ -272,6 +348,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("KB_ARRAY");
+	}
 
 public:
 	KBEDATATYPE_BASE* vtype;
@@ -297,6 +377,10 @@ public:
 	virtual KBVar* parseDefaultValStr(const FString& v) override;
 
 	virtual bool isSameType(KBVar& v) override;
+
+	virtual FString c_str() const {
+		return TEXT("KB_FIXED_DICT");
+	}
 
 public:
 	FString implementedBy;

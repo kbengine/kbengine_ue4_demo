@@ -25,6 +25,19 @@ struct FAVATAR_INFOS
 	UPROPERTY(Category = KBEngine, EditAnywhere)
 	uint64 dbid;
 
+	// 由于蓝图不可读取uint64类型， 因此提供一个字符串类型用于比较和读取
+	UPROPERTY(Category = KBEngine, BlueprintReadWrite, EditAnywhere)
+	FString sdbid;
+
+	void set(DBID _dbid, const FString& _name, uint8 _roleType, int _level)
+	{
+		name = _name;
+		dbid = _dbid;
+		sdbid = FString::Printf(TEXT("%lld"), dbid);
+		roleType = _roleType;
+		level = _level;
+	}
+
 	UPROPERTY(Category = KBEngine, BlueprintReadWrite, EditAnywhere)
 	FString name;
 
@@ -64,7 +77,7 @@ class KBENGINE_UE4_DEMO_API UKBEventData_reqRemoveAvatar : public UKBEventData
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(Category = KBEngine, EditAnywhere)
+	UPROPERTY(Category = KBEngine, BlueprintReadWrite, EditAnywhere)
 	FAVATAR_INFOS avatarInfos;
 };
 
@@ -74,8 +87,8 @@ class KBENGINE_UE4_DEMO_API UKBEventData_onRemoveAvatar : public UKBEventData
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(Category = KBEngine, EditAnywhere)
-	uint64 dbid;
+	UPROPERTY(Category = KBEngine, BlueprintReadWrite, EditAnywhere)
+	FAVATAR_INFOS avatarInfos;
 };
 
 UCLASS(Blueprintable, BlueprintType)
@@ -100,6 +113,6 @@ class KBENGINE_UE4_DEMO_API UKBEventData_selectAvatarGame : public UKBEventData
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(Category = KBEngine, EditAnywhere)
+	UPROPERTY(Category = KBEngine, BlueprintReadWrite, EditAnywhere)
 	FAVATAR_INFOS avatarInfos;
 };

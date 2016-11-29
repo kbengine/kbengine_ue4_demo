@@ -68,7 +68,7 @@ void Account::reqCreateAvatar(uint8 roleType, const FString& name)
 void Account::reqRemoveAvatar(uint64 dbid)
 {
 	DEBUG_MSG("dbid=%lld", dbid);
-	baseCall("reqRemoveAvatar", dbid);
+	baseCall("reqRemoveAvatarDBID", dbid);
 }
 
 void Account::selectAvatarGame(uint64 dbid)
@@ -104,10 +104,7 @@ void Account::onReqAvatarList(const KB_FIXED_DICT& datas)
 		characters.Add(infos.dbid, infos);
 
 		// fill eventData
-		event_avatar.name = infos.name;
-		event_avatar.level = infos.level;
-		event_avatar.roleType = infos.roleType;
-		event_avatar.dbid = infos.dbid;
+		event_avatar.set(infos.dbid, infos.name, infos.roleType, infos.level);
 		pEventData->avatars.Add(event_avatar);
 	}
 
@@ -135,10 +132,7 @@ void Account::onCreateAvatarResult(uint8 retcode, const KB_FIXED_DICT& info)
 		characters.Add(infos.dbid, infos);
 
 	// fill eventData
-	pEventData->avatarInfos.name = infos.name;
-	pEventData->avatarInfos.level = infos.level;
-	pEventData->avatarInfos.roleType = infos.roleType;
-	pEventData->avatarInfos.dbid = infos.dbid;
+	pEventData->avatarInfos.set(infos.dbid, infos.name, infos.roleType, infos.level);
 	pEventData->errorCode = retcode;
 
 	// Error codes given by Account::reqCreateAvatar on the server
@@ -157,14 +151,14 @@ void Account::onRemoveAvatar(uint64 dbid)
 {
 	DEBUG_MSG("dbid=%lld", dbid);
 
-	AVATAR_INFOS* infos = characters.Find(dbid);
+	AVATAR_INFOS* infosFind = characters.Find(dbid);
 
-	if (!infos)
+	if (!infosFind)
 		return;
 
 	// ui event
 	UKBEventData_onRemoveAvatar* pEventData = NewObject<UKBEventData_onRemoveAvatar>();
-	pEventData->dbid = infos->dbid;
+	pEventData->avatarInfos.set(infosFind->dbid, infosFind->name, infosFind->roleType, infosFind->level);
 	KBENGINE_EVENT_FIRE("onRemoveAvatar", pEventData);
 
 	characters.Remove(dbid);

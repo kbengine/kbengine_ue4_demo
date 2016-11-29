@@ -241,7 +241,8 @@ void Bundle::appendBlob(const TArray<uint8>& datas)
 
 void Bundle::appendUTF8String(const FString& str)
 {
-	uint32 len = (uint32)str.Len() + 4/*len size*/;
+	FTCHARToUTF8 EchoStrUtf8(*str);
+	uint32 len = (uint32)EchoStrUtf8.Length() + 4/*len size*/;
 
 	checkStream(len);
 

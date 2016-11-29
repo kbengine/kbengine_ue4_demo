@@ -70,6 +70,7 @@ void UKBEMain::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
+	KBEvent::processOutEvents();
 
 	KBEngineApp::getSingleton().process();
 }

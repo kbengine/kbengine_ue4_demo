@@ -527,7 +527,8 @@ public:
 
 	void appendUTF8String(const FString& str)
 	{
-		uint32 len = (uint32)str.Len();
+		FTCHARToUTF8 EchoStrUtf8(*str);
+		uint32 len = (uint32)EchoStrUtf8.Length();
 		(*this) << len;
 
 		if (len > 0)

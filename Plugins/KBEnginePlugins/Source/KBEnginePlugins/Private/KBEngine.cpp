@@ -281,6 +281,9 @@ void KBEngineApp::process()
 	if (pNetworkInterface_)
 		pNetworkInterface_->process();
 
+	// 处理外层抛入的事件
+	KBEvent::processInEvents();
+
 	// 向服务端发送心跳以及同步角色信息到服务端
 	sendTick();
 }
@@ -309,6 +312,28 @@ void KBEngineApp::sendTick()
 			SCREEN_ERROR_MSG("Receive appTick timeout!");
 			pNetworkInterface_->close();
 			return;
+		}
+
+		Message** Loginapp_onClientActiveTickMsgFind = Messages::getSingleton().messages.Find("Loginapp_onClientActiveTick");
+		Message** Baseapp_onClientActiveTickMsgFind = Messages::getSingleton().messages.Find("Baseapp_onClientActiveTick");
+
+		if (currserver_ == TEXT("loginapp"))
+		{
+			if (Loginapp_onClientActiveTickMsgFind)
+			{
+				Bundle* pBundle = Bundle::createObject();
+				pBundle->newMessage(*Loginapp_onClientActiveTickMsgFind);
+				pBundle->send(pNetworkInterface_);
+			}
+		}
+		else
+		{
+			if (Baseapp_onClientActiveTickMsgFind)
+			{
+				Bundle* pBundle = Bundle::createObject();
+				pBundle->newMessage(*Baseapp_onClientActiveTickMsgFind);
+				pBundle->send(pNetworkInterface_);
+			}
 		}
 
 		lastTickTime_ = getTimeSeconds();

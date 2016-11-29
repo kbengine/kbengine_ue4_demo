@@ -42,6 +42,9 @@ public:
 		static void clear();
 		static void clearFiredEvents();
 
+		static void processInEvents() {}
+		static void processOutEvents() {}
+
 protected:
 	struct EventObj
 	{

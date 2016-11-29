@@ -46,6 +46,7 @@ KBEngineApp::KBEngineApp() :
 	entity_uuid_(0),
 	entity_id_(0),
 	entity_type_(TEXT("")),
+	controlledEntities_(),
 	entityServerPos_(),
 	spacedatas_(),
 	entities_(),
@@ -84,6 +85,7 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	entity_uuid_(0),
 	entity_id_(0),
 	entity_type_(TEXT("")),
+	controlledEntities_(),
 	entityServerPos_(),
 	spacedatas_(),
 	entities_(),
@@ -371,6 +373,70 @@ void KBEngineApp::updatePlayerToServer()
 	if (span < 0.1)
 		return;
 
+	Entity* pPlayerEntity = player();
+	if (!pPlayerEntity || !pPlayerEntity->inWorld()  || pPlayerEntity->isControlled())
+		return;
+
+	lastUpdateToServerTime_ = tnow;
+	const FVector& position = pPlayerEntity->position;
+	const FVector& direction = pPlayerEntity->direction;
+
+	bool posHasChanged = (pPlayerEntity->entityLastLocalPos - position).Size() > 0.001f;
+	bool dirHasChanged = (pPlayerEntity->entityLastLocalDir - direction).Size() > 0.001f;
+
+	if (posHasChanged || dirHasChanged)
+	{
+		pPlayerEntity->entityLastLocalPos = position;
+		pPlayerEntity->entityLastLocalDir = direction;
+
+		Bundle* pBundle = Bundle::createObject();
+		pBundle->newMessage(Messages::getSingleton().messages[TEXT("Baseapp_onUpdateDataFromClient"]));
+		(*pBundle) << position.Y;
+		(*pBundle) << position.Z;
+		(*pBundle) << position.X;
+
+		(*pBundle) << direction.X;
+		(*pBundle) << direction.Y;
+		(*pBundle) << direction.Z;
+
+		(*pBundle) << (uint8)pPlayerEntity->isOnGround();
+		(*pBundle) << spaceID_;
+
+		pBundle->send(pNetworkInterface_);
+	}
+
+	// 开始同步所有被控制了的entity的位置
+	for(auto& item : controlledEntities_)
+	{
+		Entity* pEntity = item;
+		const FVector& e_position = pEntity->position;
+		const FVector& e_direction = pEntity->direction;
+
+		posHasChanged = (pEntity->entityLastLocalPos - e_position).Size() > 0.001f;
+		dirHasChanged = (pEntity->entityLastLocalDir - e_direction).Size() > 0.001f;
+
+		if (posHasChanged || dirHasChanged)
+		{
+			pEntity->entityLastLocalPos = e_position;
+			pEntity->entityLastLocalDir = e_direction;
+
+			Bundle* pBundle = Bundle::createObject();
+			pBundle->newMessage(Messages::getSingleton().messages[TEXT("Baseapp_onUpdateDataFromClientForControlledEntity"]));
+			(*pBundle) << pEntity->id();
+			(*pBundle) << e_position.Y;
+			(*pBundle) << e_position.Z;
+			(*pBundle) << e_position.X;
+
+			(*pBundle) << e_direction.X;
+			(*pBundle) << e_direction.Y;
+			(*pBundle) << e_direction.Z;
+
+			(*pBundle) << (uint8)pEntity->isOnGround();
+			(*pBundle) << spaceID_;
+
+			pBundle->send(pNetworkInterface_);
+		}
+	}
 
 }
 
@@ -382,10 +448,10 @@ void KBEngineApp::Client_onAppActiveTickCB()
 void KBEngineApp::hello()
 {
 	Bundle* pBundle = Bundle::createObject();
-	if (currserver_ == "loginapp")
-		pBundle->newMessage(Messages::getSingleton().messages["Loginapp_hello"]);
+	if (currserver_ == TEXT("loginapp"))
+		pBundle->newMessage(Messages::getSingleton().messages[TEXT("Loginapp_hello")]);
 	else
-		pBundle->newMessage(Messages::getSingleton().messages["Baseapp_hello"]);
+		pBundle->newMessage(Messages::getSingleton().messages[TEXT("Baseapp_hello")]);
 
 	(*pBundle) << clientVersion_;
 	(*pBundle) << clientScriptVersion_;
@@ -408,7 +474,7 @@ void KBEngineApp::Client_onHelloCB(MemoryStream& stream)
 
 	onServerDigest();
 
-	if (currserver_ == "baseapp")
+	if (currserver_ == TEXT("baseapp"))
 	{
 		onLogin_baseapp();
 	}
@@ -496,6 +562,38 @@ void KBEngineApp::onServerDigest()
 		persistentInfos_->onServerDigest(currserver_, serverProtocolMD5_, serverEntitydefMD5_);
 }
 
+void KBEngineApp::onConnectCallback(FString ip, uint16 port, bool success, int userdata)
+{
+	if (userdata == 0)
+	{
+		onConnectTo_loginapp_login_callback(ip, port, success);
+	}
+	else if (userdata == 1)
+	{
+		onConnectTo_loginapp_create_callback(ip, port, success);
+	}
+	else if (userdata == 2)
+	{
+		onConnectTo_baseapp_callback(ip, port, success);
+	}
+	else if (userdata == 3)
+	{
+		onReloginTo_baseapp_callback(ip, port, success);
+	}
+	else if (userdata == 4)
+	{
+		onConnectTo_resetpassword_callback(ip, port, success);
+	}
+	else if (userdata == 5)
+	{
+		//onConnectTo_resetpassword_callback(ip, port, success);
+	}
+	else
+	{
+		check(false);
+	}
+}
+
 bool KBEngineApp::login(const FString& username, const FString& password, const TArray<uint8>& datas)
 {
 	if (username.Len() == 0)
@@ -516,22 +614,6 @@ bool KBEngineApp::login(const FString& username, const FString& password, const 
 
 	login_loginapp(true);
 	return true;
-}
-
-void KBEngineApp::onConnectCallback(FString ip, uint16 port, bool success, int userdata)
-{
-	if (userdata == 0)
-	{
-		onConnectTo_loginapp_login_callback(ip, port, success);
-	}
-	else if (userdata == 1)
-	{
-		onConnectTo_loginapp_create_callback(ip, port, success);
-	}
-	else
-	{
-		onConnectTo_baseapp_callback(ip, port, success);
-	}
 }
 
 void KBEngineApp::login_loginapp(bool noconnect)
@@ -680,7 +762,29 @@ void KBEngineApp::reLoginBaseapp()
 {
 	UKBEventData_onReLoginBaseapp* pEventData = NewObject<UKBEventData_onReLoginBaseapp>();
 	KBENGINE_EVENT_FIRE("onReLoginBaseapp", pEventData);
-	pNetworkInterface_->connectTo(baseappIP_, baseappPort_, this, 1);
+
+	pNetworkInterface_->connectTo(baseappIP_, baseappPort_, this, 3);
+}
+
+void KBEngineApp::onReloginTo_baseapp_callback(FString ip, uint16 port, bool success)
+{
+	if (!success)
+	{
+		ERROR_MSG("connect %s:%d is error!", *ip, port);
+		return;
+	}
+
+	INFO_MSG("connect %s:%d is success!", *ip, port);
+
+	Bundle* pBundle = Bundle::createObject();
+	pBundle->newMessage(Messages::getSingleton().messages[TEXT("Baseapp_reLoginBaseapp"]));
+	(*pBundle) << username_;
+	(*pBundle) << password_;
+	(*pBundle) << entity_uuid_;
+	(*pBundle) << entity_id_;
+	pBundle->send(pNetworkInterface_);
+
+	lastTickCBTime_ = getTimeSeconds();
 }
 
 void KBEngineApp::Client_onLoginBaseappFailed(uint16 failedcode)
@@ -898,17 +1002,149 @@ void KBEngineApp::onUpdatePropertys_(ENTITY_ID eid, MemoryStream& stream)
 
 void KBEngineApp::Client_onEntityDestroyed(int32 eid)
 {
+	DEBUG_MSG("entity(%d)!", eid);
 
+	Entity** pEntityFind = entities_.Find(eid);
+
+	if (!pEntityFind)
+	{
+		ERROR_MSG("entity(%d) not found!", eid);
+		return;
+	}
+
+	Entity* pEntity = (*pEntityFind);
+
+	if (pEntity->inWorld())
+	{
+		if (entity_id_ == eid)
+			clearSpace(false);
+
+		(*pEntityFind)->leaveWorld();
+	}
+
+	if (controlledEntities_.Contains(pEntity))
+	{
+		controlledEntities_.Remove(pEntity);
+
+		UKBEventData_onLoseControlledEntity* pEventData = NewObject<UKBEventData_onLoseControlledEntity>();
+		pEventData->entityID = pEntity->id();
+		KBENGINE_EVENT_FIRE("onLoseControlledEntity", pEventData);
+	}
+
+	entities_.Remove(eid);
+	pEntity->onDestroy();
 }
 
 void KBEngineApp::clearSpace(bool isall)
 {
-
+	entityIDAliasIDList_.Empty();
+	spacedatas_.Empty();
+	clearEntities(isall);
+	isLoadedGeometry_ = false;
+	spaceID_ = 0;
 }
 
 void KBEngineApp::clearEntities(bool isall)
 {
+	controlledEntities_.Empty();
 
+	if (!isall)
+	{
+		Entity* pEntity = player();
+
+		for(auto& item : entities_)
+		{
+			if (item.Key == pEntity->id())
+				continue;
+
+			if (item.Value->inWorld())
+				item.Value->leaveWorld();
+
+			item.Value->onDestroy();
+		}
+
+		entities_.Empty();
+		entities_.Add(pEntity->id(), pEntity);
+	}
+	else
+	{
+		for (auto& item : entities_)
+		{
+			if (item.Value->inWorld())
+				item.Value->leaveWorld();
+
+			item.Value->onDestroy();
+		}
+
+		entities_.Empty();
+	}
+}
+
+void KBEngineApp::Client_initSpaceData(MemoryStream& stream)
+{
+	clearSpace(false);
+	stream >> spaceID_;
+
+	while (stream.length() > 0)
+	{
+		FString key;
+		FString val;
+
+		stream >> key >> val;
+		Client_setSpaceData(spaceID_, key, val);
+	}
+
+	DEBUG_MSG("spaceID(%d), size(%s)!", spaceID_, spacedatas_.Num());
+}
+
+void KBEngineApp::Client_setSpaceData(uint32 spaceID, const FString& key, const FString& value)
+{
+	DEBUG_MSG("spaceID(%d), key(%s), value(%s)!", spaceID_, *key, *value);
+	spacedatas_.Add(key, value);
+
+	if (key == TEXT("_mapping"))
+		addSpaceGeometryMapping(spaceID, value);
+
+	UKBEventData_onSetSpaceData* pEventData = NewObject<UKBEventData_onSetSpaceData>();
+	pEventData->spaceID = spaceID_;
+	pEventData->key = key;
+	pEventData->value = value;
+	KBENGINE_EVENT_FIRE("onSetSpaceData", pEventData);
+}
+
+void KBEngineApp::Client_delSpaceData(uint32 spaceID, const FString& key)
+{
+	DEBUG_MSG("spaceID(%d), key(%s)!", spaceID_, *key);
+
+	spacedatas_.Remove(key);
+
+	UKBEventData_onDelSpaceData* pEventData = NewObject<UKBEventData_onDelSpaceData>();
+	pEventData->spaceID = spaceID_;
+	pEventData->key = key;
+	KBENGINE_EVENT_FIRE("onDelSpaceData", pEventData);
+}
+
+void KBEngineApp::addSpaceGeometryMapping(uint32 uspaceID, const FString& respath)
+{
+	DEBUG_MSG("spaceID(%d), respath(%s)!", spaceID_, *respath);
+
+	isLoadedGeometry_ = true;
+	spaceID_ = uspaceID;
+	spaceResPath_ = respath;
+
+	UKBEventData_addSpaceGeometryMapping* pEventData = NewObject<UKBEventData_addSpaceGeometryMapping>();
+	pEventData->spaceResPath = spaceResPath;
+	KBENGINE_EVENT_FIRE("addSpaceGeometryMapping", pEventData);
+}
+
+FString KBEngineApp::getSpaceData(const FString& key)
+{
+	FString** valFind = spacedatas_.Find(key);
+
+	if(!valFind)
+		return FString();
+
+	return *(*valFind);
 }
 
 void KBEngineApp::onImportClientMessagesCompleted()
@@ -1451,7 +1687,65 @@ void KBEngineApp::resetPassword(const FString& username)
 
 void KBEngineApp::resetpassword_loginapp(bool noconnect)
 {
+	if (noconnect)
+	{
+		reset();
+		pNetworkInterface_->connectTo(pArgs_->ip, pArgs_->port, this, 4);
+	}
+	else
+	{
+		INFO_MSG("send resetpassword! username=%s", *username_);
+		Bundle* pBundle = Bundle::createObject();
+		pBundle->newMessage(Messages::getSingleton().messages[TEXT("Loginapp_reqAccountResetPassword"]));
+		(*pBundle) << username_;
+		pBundle->send(pNetworkInterface_);
+	}
+}
 
+void KBEngineApp::onOpenLoginapp_resetpassword()
+{
+	DEBUG_MSG("successfully!");
+	currserver_ = "loginapp";
+	currstate_ = "resetpassword";
+	lastTickCBTime_ = getTimeSeconds();
+
+	if (!loginappMessageImported_)
+	{
+		Bundle* pBundle = Bundle::createObject();
+		pBundle->newMessage(Messages::getSingleton().messages[TEXT("Loginapp_importClientMessages"]));
+		pBundle->send(pNetworkInterface_);
+		DEBUG_MSG("send importClientMessages ...");
+	}
+	else
+	{
+		onImportClientMessagesCompleted();
+	}
+}
+
+void KBEngineApp::onConnectTo_resetpassword_callback(FString ip, uint16 port, bool success)
+{
+	lastTickCBTime_ = getTimeSeconds();
+
+	if (!success)
+	{
+		ERROR_MSG("connect %s:%d is error!", *ip, port);
+		return;
+	}
+
+	INFO_MSG("connect %s:%d is success!", *ip, port);
+
+	onOpenLoginapp_resetpassword();
+}
+
+void KBEngineApp::Client_onReqAccountResetPasswordCB(uint16 failcode)
+{
+	if (failcode != 0)
+	{
+		ERROR_MSG("reset failed! code=%d, error=%s! username=%s", failcode, *serverErr(failcode), *username_);
+		return;
+	}
+
+	DEBUG_MSG("successfully! username=%s", *username_);
 }
 
 bool KBEngineApp::createAccount(const FString& username, const FString& password, const TArray<uint8>& datas)
@@ -1556,12 +1850,47 @@ void KBEngineApp::Client_onCreateAccountResult(MemoryStream& stream)
 
 void KBEngineApp::bindAccountEmail(const FString& emailAddress)
 {
+	INFO_MSG("send bindAccountEmail! username=%s", *username_);
+	Bundle* pBundle = Bundle::createObject();
+	pBundle->newMessage(Messages::getSingleton().messages[TEXT("Baseapp_reqAccountBindEmail"]));
+	(*pBundle) << entity_id_;
+	(*pBundle) << password_;
+	(*pBundle) << emailAddress;
+	pBundle->send(pNetworkInterface_);
+}
 
+void KBEngineApp::Client_onReqAccountBindEmailCB(uint16 failcode)
+{
+	if (failcode != 0)
+	{
+		ERROR_MSG("bind failed! code=%d, error=%s! username=%s", failcode, *serverErr(failcode), *username_);
+		return;
+	}
+
+	DEBUG_MSG("successfully! username=%s", *username_);
 }
 
 void KBEngineApp::newPassword(const FString& old_password, const FString& new_password)
 {
+	INFO_MSG("send newPassword! username=%s", *username_);
+	Bundle* pBundle = Bundle::createObject();
+	pBundle->newMessage(Messages::getSingleton().messages[TEXT("Baseapp_reqAccountNewPassword"]));
+	(*pBundle) << entity_id_;
+	(*pBundle) << password_;
+	(*pBundle) << old_password;
+	(*pBundle) << new_password;
+	pBundle->send(pNetworkInterface_);
+}
 
+void KBEngineApp::Client_onReqAccountNewPasswordCB(uint16 failcode)
+{
+	if (failcode != 0)
+	{
+		ERROR_MSG("newPassword failed! code=%d, error=%s! username=%s", failcode, *serverErr(failcode), *username_);
+		return;
+	}
+
+	DEBUG_MSG("successfully! username=%s", *username_);
 }
 
 void KBEngineApp::Client_onRemoteMethodCallOptimized(MemoryStream& stream)
@@ -1625,4 +1954,39 @@ void KBEngineApp::onRemoteMethodCall_(ENTITY_ID eid, MemoryStream& stream)
 
 	for (auto& item : args)
 		delete item;
+}
+
+void KBEngineApp::Client_onControlEntity(ENTITY_ID eid, int8 isControlled)
+{
+	Entity** pEntityFind = entities_.Find(eid);
+
+	if (!pEntityFind)
+	{
+		ERROR_MSG("entity(%d) not found!", eid);
+		return;
+	}
+
+	bool isCont = isControlled != 0;
+
+	if (isCont)
+	{
+		// 如果被控制者是玩家自己，那表示玩家自己被其它人控制了
+		// 所以玩家自己不应该进入这个被控制列表
+		if (entity_id_ != (*pEntityFind)->id())
+		{
+			controlledEntities_.Add((*pEntityFind));
+		}
+	}
+	else
+	{
+		controlledEntities_.Remove((*pEntityFind));
+	}
+
+	(*pEntityFind)->isControlled(isCont);
+	(*pEntityFind)->onControlled(isCont);
+
+	UKBEventData_onControlled* pEventData = NewObject<UKBEventData_onControlled>();
+	pEventData->entityID = (*pEntityFind)->id();
+	pEventData->isControlled = isCont;
+	KBENGINE_EVENT_FIRE("onControlled", pEventData);
 }

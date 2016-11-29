@@ -217,7 +217,9 @@ Entity::Entity():
 	velocity_(0.f),
 	position(),
 	direction(),
-	spaceID(0)
+	spaceID(0),
+	entityLastLocalPos(),
+	entityLastLocalDir()
 {
 }
 

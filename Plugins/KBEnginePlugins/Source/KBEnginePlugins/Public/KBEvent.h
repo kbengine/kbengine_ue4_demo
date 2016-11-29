@@ -252,6 +252,11 @@ class KBENGINEPLUGINS_API UKBEventData_onControlled : public UKBEventData
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	bool isControlled;
 };
 
 UCLASS(Blueprintable, BlueprintType)
@@ -260,6 +265,8 @@ class KBENGINEPLUGINS_API UKBEventData_onLoseControlledEntity : public UKBEventD
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
 };
 
 UCLASS(Blueprintable, BlueprintType)
@@ -311,6 +318,8 @@ class KBENGINEPLUGINS_API UKBEventData_addSpaceGeometryMapping : public UKBEvent
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	FString spaceResPath;
 };
 
 UCLASS(Blueprintable, BlueprintType)
@@ -319,6 +328,14 @@ class KBENGINEPLUGINS_API UKBEventData_onSetSpaceData : public UKBEventData
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int spaceID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	FString key;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	FString value;
 };
 
 UCLASS(Blueprintable, BlueprintType)
@@ -327,6 +344,11 @@ class KBENGINEPLUGINS_API UKBEventData_onDelSpaceData : public UKBEventData
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int spaceID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	FString key;
 };
 
 UCLASS(Blueprintable, BlueprintType)

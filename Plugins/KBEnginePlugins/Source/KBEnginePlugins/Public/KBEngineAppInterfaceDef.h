@@ -54,4 +54,28 @@ NETWORK_INTERFACE_DECLARE_BEGIN(KBEngineApp)
 
 	NETWORK_MESSAGE_HANDLER_STREAM(Client_onCreateAccountResult,						NETWORK_VARIABLE_MESSAGE)
 
+	NETWORK_MESSAGE_HANDLER_ARGS1(Client_onReqAccountResetPasswordCB,					NETWORK_FIXED_MESSAGE,
+									uint16,												failedcode)
+
+	NETWORK_MESSAGE_HANDLER_ARGS1(Client_onReqAccountBindEmailCB,						NETWORK_FIXED_MESSAGE,
+									uint16,												failedcode)
+
+	NETWORK_MESSAGE_HANDLER_ARGS1(Client_onReqAccountNewPasswordCB,						NETWORK_FIXED_MESSAGE,
+									uint16,												failedcode)
+
+	NETWORK_MESSAGE_HANDLER_ARGS2(Client_onControlEntity,								NETWORK_FIXED_MESSAGE,
+									ENTITY_ID,											eid,
+									int8,												isControlled)
+
+	NETWORK_MESSAGE_HANDLER_STREAM(Client_initSpaceData,								NETWORK_VARIABLE_MESSAGE)
+
+	NETWORK_MESSAGE_HANDLER_ARGS3(Client_setSpaceData,									NETWORK_VARIABLE_MESSAGE,
+									uint32,												spaceID,
+									FString,											key,
+									FString,											value)
+
+	NETWORK_MESSAGE_HANDLER_ARGS2(Client_delSpaceData,									NETWORK_VARIABLE_MESSAGE,
+									uint32,												spaceID,
+									FString,											key)
+
 NETWORK_INTERFACE_DECLARE_END()

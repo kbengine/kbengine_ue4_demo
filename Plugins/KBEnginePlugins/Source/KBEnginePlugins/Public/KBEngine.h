@@ -103,22 +103,28 @@ public:
 		重置密码, 通过loginapp
 	*/
 	void resetPassword(const FString& username);
+	void onOpenLoginapp_resetpassword();
+	void onConnectTo_resetpassword_callback(FString ip, uint16 port, bool success);
+	void Client_onReqAccountResetPasswordCB(uint16 failcode);
 
 	/*
 		绑定Email，通过baseapp
 	*/
 	void bindAccountEmail(const FString& emailAddress);
+	void Client_onReqAccountBindEmailCB(uint16 failcode);
 
 	/*
 		设置新密码，通过baseapp， 必须玩家登录在线操作所以是baseapp。
 	*/
 	void newPassword(const FString& old_password, const FString& new_password);
+	void Client_onReqAccountNewPasswordCB(uint16 failcode);
 
 	/*
 	重登录到网关(baseapp)
 	一些移动类应用容易掉线，可以使用该功能快速的重新与服务端建立通信
 	*/
 	void reLoginBaseapp();
+	void onReloginTo_baseapp_callback(FString ip, uint16 port, bool success);
 
 	/*
 		登录loginapp失败了
@@ -203,6 +209,27 @@ public:
 	*/
 	void Client_onRemoteMethodCall(MemoryStream& stream);
 
+	/*
+		告诉客户端：你当前负责（或取消）控制谁的位移同步
+	*/
+	void Client_onControlEntity(ENTITY_ID eid, int8 isControlled);
+
+	/*
+		服务端初始化客户端的spacedata， spacedata请参考API
+	*/
+	void Client_initSpaceData(MemoryStream& stream);
+	FString getSpaceData(const FString& key);
+
+	/*
+		服务端初始化客户端的spacedata， spacedata请参考API
+	*/
+	void Client_setSpaceData(uint32 spaceID, const FString& key, const FString& value);
+
+	/*
+		服务端删除客户端的spacedata， spacedata请参考API
+	*/
+	void Client_delSpaceData(uint32 spaceID, const FString& key);
+
 private:
 	bool initNetwork();
 
@@ -222,6 +249,8 @@ private:
 	void updatePlayerToServer();
 
 	void onServerDigest();
+
+	void addSpaceGeometryMapping(uint32 uspaceID, const FString& respath);
 
 	/*
 		从二进制流导入消息协议完毕了
@@ -342,6 +371,8 @@ protected:
 	uint64 entity_uuid_;
 	ENTITY_ID entity_id_;
 	FString entity_type_;
+
+	TArray<Entity*> controlledEntities_;
 
 	// 当前服务端最后一次同步过来的玩家位置
 	FVector entityServerPos_;

@@ -1133,7 +1133,7 @@ void KBEngineApp::addSpaceGeometryMapping(uint32 uspaceID, const FString& respat
 	spaceResPath_ = respath;
 
 	UKBEventData_addSpaceGeometryMapping* pEventData = NewObject<UKBEventData_addSpaceGeometryMapping>();
-	pEventData->spaceResPath = spaceResPath;
+	pEventData->spaceResPath = spaceResPath_;
 	KBENGINE_EVENT_FIRE("addSpaceGeometryMapping", pEventData);
 }
 

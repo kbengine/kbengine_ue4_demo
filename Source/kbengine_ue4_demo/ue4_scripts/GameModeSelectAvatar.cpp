@@ -14,7 +14,7 @@ void AGameModeSelectAvatar::installEvents()
 {
 	Super::installEvents();
 
-	// select-avatars
+	// select-avatars(register by scripts)
 	KBENGINE_REGISTER_EVENT("onReqAvatarList", onReqAvatarList);
 	KBENGINE_REGISTER_EVENT("onCreateAvatarResult", onCreateAvatarResult);
 	KBENGINE_REGISTER_EVENT("onRemoveAvatar", onRemoveAvatar);

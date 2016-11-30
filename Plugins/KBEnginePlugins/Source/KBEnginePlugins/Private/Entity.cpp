@@ -242,6 +242,22 @@ bool Entity::isPlayer()
 	return id() == KBEngineApp::getSingleton().entity_id();
 }
 
+void Entity::base(Mailbox* v)
+{
+	if (base_)
+		delete base_;
+
+	base_ = v;
+}
+
+void Entity::cell(Mailbox* v)
+{
+	if (cell_)
+		delete cell_;
+
+	cell_ = v;
+}
+
 void Entity::callPropertysSetMethods()
 {
 
@@ -1126,7 +1142,7 @@ void Entity::set_direction(const FVector& old)
 	if (inWorld_)
 	{
 		UKBEventData_set_direction* pEventData = NewObject<UKBEventData_set_direction>();
-		pEventData->direction = FRotator();
+		pEventData->direction = direction;
 		KBENGINE_EVENT_FIRE("set_direction", pEventData);
 	}
 }

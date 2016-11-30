@@ -293,7 +293,8 @@ class KBENGINEPLUGINS_API UKBEventData_set_direction : public UKBEventData
 	GENERATED_BODY()
 
 public:
-	FRotator direction;
+	// roll, pitch, yaw
+	FVector direction;
 };
 
 UCLASS(Blueprintable, BlueprintType)

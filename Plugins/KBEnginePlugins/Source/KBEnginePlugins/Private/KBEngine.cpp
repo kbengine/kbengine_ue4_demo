@@ -832,7 +832,7 @@ void KBEngineApp::Client_onCreatedProxies(uint64 rndUUID, int32 eid, FString& en
 	ScriptModule** pModuleFind = EntityDef::moduledefs.Find(entityType);
 	if (!pModuleFind)
 	{
-		SCREEN_ERROR_MSG("not found module(%s)!", *entityType);
+		SCREEN_ERROR_MSG("not found ScriptModule(%s)!", *entityType);
 		return;
 	}
 
@@ -939,7 +939,7 @@ void KBEngineApp::onUpdatePropertys_(ENTITY_ID eid, MemoryStream& stream)
 	ScriptModule** smFind = EntityDef::moduledefs.Find(pEntity->className());
 	if (!smFind)
 	{
-		ERROR_MSG("module(%s) not found!", *pEntity->className());
+		ERROR_MSG("ScriptModule(%s) not found!", *pEntity->className());
 		return;
 	}
 
@@ -1532,7 +1532,7 @@ void KBEngineApp::onImportClientEntityDef(MemoryStream& stream)
 
 		if (!pEntityCreator)
 		{
-			SCREEN_ERROR_MSG("module(%s) not found!", *scriptmodule_name);
+			SCREEN_ERROR_MSG("ScriptModule(%s) not found!", *scriptmodule_name);
 		}
 
 		for(auto& e : module->methods)
@@ -1989,4 +1989,654 @@ void KBEngineApp::Client_onControlEntity(ENTITY_ID eid, int8 isControlled)
 	pEventData->entityID = (*pEntityFind)->id();
 	pEventData->isControlled = isCont;
 	KBENGINE_EVENT_FIRE("onControlled", pEventData);
+}
+
+void KBEngineApp::Client_onStreamDataStarted(int16 id, uint32 datasize, FString descr)
+{
+}
+
+void KBEngineApp::Client_onStreamDataRecv(MemoryStream& stream)
+{
+}
+
+void KBEngineApp::Client_onStreamDataCompleted(int16 id)
+{
+}
+
+void KBEngineApp::Client_onEntityEnterWorld(MemoryStream& stream)
+{
+	ENTITY_ID eid;
+	stream >> eid;
+
+	if (entity_id_ > 0 && entity_id_ != eid)
+		entityIDAliasIDList_.Add(eid);
+
+	uint16 uEntityType;
+
+	if (EntityDef::idmoduledefs.Num() > 255)
+		uEntityType = stream.read<uint16>();
+	else
+		uEntityType = stream.read<uint8>();
+
+	int8 isOnGround = 1;
+
+	if (stream.length() > 0)
+		isOnGround = stream.read<int8>();
+
+	ScriptModule** pScriptModuleFind = EntityDef::idmoduledefs.Find(uEntityType);
+	if (!pScriptModuleFind)
+	{
+		SCREEN_ERROR_MSG("not found ScriptModule(utype = %d)!", uEntityType);
+		return;
+	}
+
+	ScriptModule* pScriptModule = *pScriptModuleFind;
+	FString entityType = pScriptModule->name;
+	// DEBUG_MSG("%s(%d), spaceID(%d)!", *entityType, eid, spaceID_);
+
+	Entity** pEntityFind = entities_.Find(eid);
+	Entity* pEntity = NULL;
+
+	if (!pEntityFind)
+	{
+		MemoryStream** entityMessageFind = bufferedCreateEntityMessage_.Find(eid);
+		if (!entityMessageFind)
+		{
+			ERROR_MSG("entity(%d) not found!", eid);
+			return;
+		}
+
+		pScriptModuleFind = EntityDef::moduledefs.Find(entityType);
+		if (!pScriptModuleFind)
+		{
+			SCREEN_ERROR_MSG("not found ScriptModule(%s)!", *entityType);
+			return;
+		}
+
+		ScriptModule* pModule = *pScriptModuleFind;
+
+		EntityCreator* pEntityCreator = pModule->pEntityCreator;
+		if (!pEntityCreator)
+			return;
+
+		pEntity = pEntityCreator->create();
+		pEntity->id(eid);
+		pEntity->className(entityType);
+
+		Mailbox* cellMB = new Mailbox();
+		pEntity->cell(cellMB);
+		cellMB->id = eid;
+		cellMB->className = entityType;
+		cellMB->type = Mailbox::MAILBOX_TYPE_CELL;
+
+		entities_.Add(eid, pEntity);
+
+		Client_onUpdatePropertys(*(*entityMessageFind));
+		bufferedCreateEntityMessage_.Remove(eid);
+		MemoryStream::reclaimObject((*entityMessageFind));
+
+		pEntity->isOnGround(isOnGround > 0);
+		pEntity->set_direction(pEntity->direction);
+		pEntity->set_position(pEntity->position);
+
+		pEntity->__init__();
+		pEntity->inited(true);
+		pEntity->inWorld(true);
+		pEntity->enterWorld();
+
+		if (pArgs_->isOnInitCallPropertysSetMethods)
+			pEntity->callPropertysSetMethods();
+	}
+	else
+	{
+		if (!pEntity->inWorld())
+		{
+			// 安全起见， 这里清空一下
+			// 如果服务端上使用giveClientTo切换控制权
+			// 之前的实体已经进入世界， 切换后的实体也进入世界， 这里可能会残留之前那个实体进入世界的信息
+			entityIDAliasIDList_.Empty();
+			clearEntities(false);
+			entities_.Add(pEntity->id(), pEntity);
+
+			Mailbox* cellMB = new Mailbox();
+			pEntity->cell(cellMB);
+			cellMB->id = eid;
+			cellMB->className = entityType;
+			cellMB->type = Mailbox::MAILBOX_TYPE_CELL;
+
+			pEntity->set_direction(pEntity->direction);
+			pEntity->set_position(pEntity->position);
+
+			entityServerPos_ = pEntity->position;
+			pEntity->isOnGround(isOnGround > 0);
+			pEntity->inWorld(true);
+			pEntity->enterWorld();
+
+			if (pArgs_->isOnInitCallPropertysSetMethods)
+				pEntity->callPropertysSetMethods();
+		}
+	}
+}
+
+void KBEngineApp::Client_onEntityLeaveWorldOptimized(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+	Client_onEntityLeaveWorld(eid);
+}
+
+void KBEngineApp::Client_onEntityLeaveWorld(ENTITY_ID eid)
+{
+	Entity** pEntityFind = entities_.Find(eid);
+	
+	if (!pEntityFind)
+	{
+		ERROR_MSG("entity(%d) not found!", eid);
+		return;
+	}
+
+	Entity* pEntity = *pEntityFind;
+
+	if (pEntity->inWorld())
+		pEntity->leaveWorld();
+
+	if (entity_id_ == eid)
+	{
+		clearSpace(false);
+		pEntity->cell(NULL);
+	}
+	else
+	{
+		if (controlledEntities_.Contains(pEntity))
+		{
+			controlledEntities_.Remove(pEntity);
+
+			UKBEventData_onLoseControlledEntity* pEventData = NewObject<UKBEventData_onLoseControlledEntity>();
+			pEventData->entityID = pEntity->id();
+			KBENGINE_EVENT_FIRE("onLoseControlledEntity", pEventData);
+		}
+
+		entities_.Remove(eid);
+		pEntity->onDestroy();
+		entityIDAliasIDList_.Remove(eid);
+	}
+}
+
+void KBEngineApp::Client_onEntityEnterSpace(MemoryStream& stream)
+{
+	ENTITY_ID eid = stream.read<int32>();
+	spaceID_ = stream.read<uint32>();
+
+	int8 isOnGround = 1;
+
+	if (stream.length() > 0)
+		isOnGround = stream.read<int8>();
+
+	Entity** pEntityFind = entities_.Find(eid);
+
+	if (!pEntityFind)
+	{
+		ERROR_MSG("entity(%d) not found!", eid);
+		return;
+	}
+
+	Entity* pEntity = *pEntityFind;
+	pEntity->isOnGround(isOnGround > 0);
+	entityServerPos_ = pEntity->position;
+	pEntity->enterSpace();
+}
+
+void KBEngineApp::Client_onEntityLeaveSpace(ENTITY_ID eid)
+{
+	Entity** pEntityFind = entities_.Find(eid);
+
+	if (!pEntityFind)
+	{
+		ERROR_MSG("entity(%d) not found!", eid);
+		return;
+	}
+
+	Entity* pEntity = *pEntityFind;
+	pEntity->leaveSpace();
+
+	clearSpace(false);
+}
+
+void KBEngineApp::Client_onUpdateBasePos(float x, float y, float z)
+{
+	entityServerPos_.X = x;
+	entityServerPos_.Y = y;
+	entityServerPos_.Z = z;
+
+	Entity* pEntity = player();
+	if (pEntity && pEntity->isControlled())
+	{
+		pEntity->position.Set(entityServerPos_.X, entityServerPos_.Y, entityServerPos_.Z);
+
+		UKBEventData_updatePosition* pEventData = NewObject<UKBEventData_updatePosition>();
+		pEventData->position = entityServerPos_;
+		KBENGINE_EVENT_FIRE("updatePosition", pEventData);
+
+		pEntity->onUpdateVolatileData();
+	}
+}
+
+void KBEngineApp::Client_onUpdateBasePosXZ(float x, float z)
+{
+	entityServerPos_.X = x;
+	entityServerPos_.Z = z;
+
+	Entity* pEntity = player();
+	if (pEntity && pEntity->isControlled())
+	{
+		pEntity->position.X = entityServerPos_.X;
+		pEntity->position.Z = entityServerPos_.Z;
+		UKBEventData_updatePosition* pEventData = NewObject<UKBEventData_updatePosition>();
+		pEventData->position = entityServerPos_;
+		KBENGINE_EVENT_FIRE("updatePosition", pEventData);
+
+		pEntity->onUpdateVolatileData();
+	}
+}
+
+void KBEngineApp::Client_onUpdateBaseDir(MemoryStream& stream)
+{
+	float yaw, pitch, roll;
+	stream >> yaw >> pitch >> roll;
+
+	Entity* pEntity = player();
+	if (pEntity && pEntity->isControlled())
+	{
+		pEntity->direction.Set(roll, pitch, yaw);
+
+		UKBEventData_set_direction* pEventData = NewObject<UKBEventData_set_direction>();
+		pEventData->direction = pEntity->direction;
+		KBENGINE_EVENT_FIRE("set_direction", pEventData);
+
+		pEntity->onUpdateVolatileData();
+	}
+}
+
+void KBEngineApp::Client_onUpdateData(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	Entity** pEntityFind = entities_.Find(eid);
+
+	if (!pEntityFind)
+	{
+		ERROR_MSG("entity(%d) not found!", eid);
+		return;
+	}
+}
+
+void KBEngineApp::Client_onSetEntityPosAndDir(MemoryStream& stream)
+{
+	ENTITY_ID eid;
+	stream >> eid;
+
+	Entity** pEntityFind = entities_.Find(eid);
+
+	if (!pEntityFind)
+	{
+		ERROR_MSG("entity(%d) not found!", eid);
+		return;
+	}
+	
+	Entity& entity = *(*pEntityFind);
+
+	FVector old_position = entity.position;
+	FVector old_direction = entity.direction;
+
+	entity.position.X = stream.read<float>();
+	entity.position.Y = stream.read<float>();
+	entity.position.Z = stream.read<float>();
+
+	entity.direction.X = stream.read<float>();
+	entity.direction.Y = stream.read<float>();
+	entity.direction.Z = stream.read<float>();
+
+	entity.entityLastLocalPos = entity.position;
+	entity.entityLastLocalDir = entity.direction;
+
+	entity.set_direction(old_direction);
+	entity.set_position(old_position);
+}
+
+void KBEngineApp::Client_onUpdateData_ypr(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	int8 y = stream.read<int8>();
+	int8 p = stream.read<int8>();
+	int8 r = stream.read<int8>();
+
+	_updateVolatileData(eid, 0.0f, 0.0f, 0.0f, y, p, r, -1);
+}
+
+void KBEngineApp::Client_onUpdateData_yp(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	int8 y = stream.read<int8>();
+	int8 p = stream.read<int8>();
+
+	_updateVolatileData(eid, 0.0f, 0.0f, 0.0f, y, p, KBE_FLT_MAX, -1);
+}
+
+void KBEngineApp::Client_onUpdateData_yr(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	int8 y = stream.read<int8>();
+	int8 r = stream.read<int8>();
+
+	_updateVolatileData(eid, 0.0f, 0.0f, 0.0f, y, KBE_FLT_MAX, r, -1);
+}
+
+void KBEngineApp::Client_onUpdateData_pr(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	int8 p = stream.read<int8>();
+	int8 r = stream.read<int8>();
+
+	_updateVolatileData(eid, 0.0f, 0.0f, 0.0f, KBE_FLT_MAX, p, r, -1);
+}
+
+void KBEngineApp::Client_onUpdateData_y(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	int8 y = stream.read<int8>();
+
+	_updateVolatileData(eid, 0.0f, 0.0f, 0.0f, y, KBE_FLT_MAX, KBE_FLT_MAX, -1);
+}
+
+void KBEngineApp::Client_onUpdateData_p(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	int8 p = stream.read<int8>();
+
+	_updateVolatileData(eid, 0.0f, 0.0f, 0.0f, KBE_FLT_MAX, p, KBE_FLT_MAX, -1);
+}
+
+void KBEngineApp::Client_onUpdateData_r(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	int8 r = stream.read<int8>();
+
+	_updateVolatileData(eid, 0.0f, 0.0f, 0.0f, KBE_FLT_MAX, KBE_FLT_MAX, r, -1);
+}
+
+void KBEngineApp::Client_onUpdateData_xz(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+
+	_updateVolatileData(eid, xz.X, 0.0f, xz.Z, KBE_FLT_MAX, KBE_FLT_MAX, KBE_FLT_MAX, 1);
+}
+
+void KBEngineApp::Client_onUpdateData_xz_ypr(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+
+	int8 y = stream.read<int8>();
+	int8 p = stream.read<int8>();
+	int8 r = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, 0.0f, xz.Z, y, p, r, 1);
+}
+
+void KBEngineApp::Client_onUpdateData_xz_yp(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+
+	int8 y = stream.read<int8>();
+	int8 p = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, 0.0f, xz.Z, y, p, KBE_FLT_MAX, 1);
+}
+
+void KBEngineApp::Client_onUpdateData_xz_yr(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+
+	int8 y = stream.read<int8>();
+	int8 r = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, 0.0f, xz.Z, y, KBE_FLT_MAX, r, 1);
+}
+
+void KBEngineApp::Client_onUpdateData_xz_pr(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+
+	int8 p = stream.read<int8>();
+	int8 r = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, 0.0f, xz.Z, KBE_FLT_MAX, p, r, 1);
+}
+
+void KBEngineApp::Client_onUpdateData_xz_y(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+
+	int8 y = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, 0.0f, xz.Z, y, KBE_FLT_MAX, KBE_FLT_MAX, 1);
+}
+
+void KBEngineApp::Client_onUpdateData_xz_p(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+
+	int8 p = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, 0.0f, xz.Z, KBE_FLT_MAX, p, KBE_FLT_MAX, 1);
+}
+
+void KBEngineApp::Client_onUpdateData_xz_r(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+
+	int8 r = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, 0.0f, xz.Z, KBE_FLT_MAX, KBE_FLT_MAX, r, 1);
+}
+
+void KBEngineApp::Client_onUpdateData_xyz(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+	stream.readPackY(xz.Y);
+
+	_updateVolatileData(eid, xz.X, xz.Y, xz.Z, KBE_FLT_MAX, KBE_FLT_MAX, KBE_FLT_MAX, 0);
+}
+
+void KBEngineApp::Client_onUpdateData_xyz_ypr(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+	stream.readPackY(xz.Y);
+
+	int8 y = stream.read<int8>();
+	int8 p = stream.read<int8>();
+	int8 r = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, xz.Y, xz.Z, y, p, r, 0);
+}
+
+void KBEngineApp::Client_onUpdateData_xyz_yp(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+	stream.readPackY(xz.Y);
+
+	int8 y = stream.read<int8>();
+	int8 p = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, xz.Y, xz.Z, y, p, KBE_FLT_MAX, 0);
+}
+
+void KBEngineApp::Client_onUpdateData_xyz_yr(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+	stream.readPackY(xz.Y);
+
+	int8 y = stream.read<int8>();
+	int8 r = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, xz.Y, xz.Z, y, KBE_FLT_MAX, r, 0);
+}
+
+void KBEngineApp::Client_onUpdateData_xyz_pr(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+	stream.readPackY(xz.Y);
+
+	int8 p = stream.read<int8>();
+	int8 r = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, xz.Y, xz.Z, KBE_FLT_MAX, p, r, 0);
+}
+
+void KBEngineApp::Client_onUpdateData_xyz_y(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+	stream.readPackY(xz.Y);
+
+	int8 y = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, xz.Y, xz.Z, y, KBE_FLT_MAX, KBE_FLT_MAX, 0);
+}
+
+void KBEngineApp::Client_onUpdateData_xyz_p(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+	stream.readPackY(xz.Y);
+
+	int8 p = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, xz.Y, xz.Z, KBE_FLT_MAX, p, KBE_FLT_MAX, 0);
+}
+
+void KBEngineApp::Client_onUpdateData_xyz_r(MemoryStream& stream)
+{
+	ENTITY_ID eid = getAoiEntityIDFromStream(stream);
+
+	FVector xz;
+	stream.readPackXZ(xz.X, xz.Z);
+	stream.readPackY(xz.Y);
+
+	int8 r = stream.read<int8>();
+
+	_updateVolatileData(eid, xz.X, xz.Y, xz.Z, KBE_FLT_MAX, KBE_FLT_MAX, r, 0);
+}
+
+void KBEngineApp::_updateVolatileData(ENTITY_ID entityID, float x, float y, float z, float yaw, float pitch, float roll, int8 isOnGround)
+{
+	Entity** pEntityFind = entities_.Find(entityID);
+
+	if (!pEntityFind)
+	{
+		// 如果为0且客户端上一步是重登陆或者重连操作并且服务端entity在断线期间一直处于在线状态
+		// 则可以忽略这个错误, 因为cellapp可能一直在向baseapp发送同步消息， 当客户端重连上时未等
+		// 服务端初始化步骤开始则收到同步信息, 此时这里就会出错。
+		ERROR_MSG("entity(%d) not found!", entityID);
+		return;
+	}
+
+	Entity& entity = *(*pEntityFind);
+
+	// 小于0不设置
+	if (isOnGround >= 0)
+	{
+		entity.isOnGround(isOnGround > 0);
+	}
+
+	bool changeDirection = false;
+
+	if (roll != KBE_FLT_MAX)
+	{
+		changeDirection = true;
+		entity.direction.X = int82angle((int8)roll, false);
+	}
+
+	if (pitch != KBE_FLT_MAX)
+	{
+		changeDirection = true;
+		entity.direction.Y = int82angle((int8)pitch, false);
+	}
+
+	if (yaw != KBE_FLT_MAX)
+	{
+		changeDirection = true;
+		entity.direction.Z = int82angle((int8)yaw, false);
+	}
+
+	bool done = false;
+	if (changeDirection == true)
+	{
+		UKBEventData_set_direction* pEventData = NewObject<UKBEventData_set_direction>();
+		pEventData->direction = entity.direction;
+		KBENGINE_EVENT_FIRE("set_direction", pEventData);
+
+		done = true;
+	}
+
+	if (!almostEqual(x + y + z, 0.f, 0.000001f))
+	{
+		entity.position = FVector(x + entityServerPos_.X, y + entityServerPos_.Y, z + entityServerPos_.Z);
+		done = true;
+
+		UKBEventData_updatePosition* pEventData = NewObject<UKBEventData_updatePosition>();
+		entity.position = entityServerPos_;
+		KBENGINE_EVENT_FIRE("updatePosition", pEventData);
+	}
+
+	if (done)
+		entity.onUpdateVolatileData();
 }

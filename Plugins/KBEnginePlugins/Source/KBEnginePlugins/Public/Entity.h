@@ -70,17 +70,13 @@ public:
 		return base_;
 	}
 
-	void base(Mailbox* v) {
-		base_ = v;
-	}
+	void base(Mailbox* v);
 
 	Mailbox* cell() const {
 		return cell_;
 	}
 
-	void cell(Mailbox* v) {
-		cell_ = v;
-	}
+	void cell(Mailbox* v);
 
 	float velocity() const {
 		return velocity_;

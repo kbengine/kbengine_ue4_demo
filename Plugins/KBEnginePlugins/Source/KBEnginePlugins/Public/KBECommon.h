@@ -20,6 +20,8 @@ typedef TArray<uint8> ByteArray;
 typedef TMap<FString, KBVar> KB_FIXED_DICT;
 typedef TArray<KBVar> KB_ARRAY;
 
+#define KBE_FLT_MAX FLT_MAX
+
 /** 安全的释放一个指针内存 */
 #define SAFE_RELEASE(i)										\
 	if (i)													\
@@ -144,6 +146,20 @@ typedef uint16								PacketLength;				// 最大65535
 
 float getTimeSeconds();
 
+inline float int82angle(int8 angle, bool half)
+{
+	float halfv = 128.f;
+	if (half == true)
+		halfv = 254.f;
+
+	halfv = ((float)angle) * ((float)PI / halfv);
+	return halfv;
+}
+
+inline bool almostEqual(float f1, float f2, float epsilon)
+{
+	return FMath::Abs(f1 - f2) < epsilon;
+}
 
 UCLASS()
 class KBENGINEPLUGINS_API AKBECommon : public AActor

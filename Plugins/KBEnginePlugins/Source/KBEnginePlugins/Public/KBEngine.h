@@ -230,7 +230,80 @@ public:
 	*/
 	void Client_delSpaceData(uint32 spaceID, const FString& key);
 
+	/*
+		服务端通知流数据下载开始
+		请参考API手册关于onStreamDataStarted
+	*/
+	void Client_onStreamDataStarted(int16 id, uint32 datasize, FString descr);
+	void Client_onStreamDataRecv(MemoryStream& stream);
+	void Client_onStreamDataCompleted(int16 id);
+
+	/*
+		服务端通知一个实体进入了世界(如果实体是当前玩家则玩家第一次在一个space中创建了， 如果是其他实体则是其他实体进入了玩家的AOI)
+	*/
+	void Client_onEntityEnterWorld(MemoryStream& stream);
+
+	/*
+		服务端使用优化的方式通知一个实体离开了世界(如果实体是当前玩家则玩家离开了space， 如果是其他实体则是其他实体离开了玩家的AOI)
+	*/
+	void Client_onEntityLeaveWorldOptimized(MemoryStream& stream);
+
+	/*
+		服务端通知一个实体离开了世界(如果实体是当前玩家则玩家离开了space， 如果是其他实体则是其他实体离开了玩家的AOI)
+	*/
+	void Client_onEntityLeaveWorld(ENTITY_ID eid);
+
+	/*
+		服务端通知当前玩家进入了一个新的space
+	*/
+	void Client_onEntityEnterSpace(MemoryStream& stream);
+
+	/*
+		服务端通知当前玩家离开了space
+	*/
+	void Client_onEntityLeaveSpace(ENTITY_ID eid);
+
+	/*
+		服务端更新玩家的基础位置， 客户端以这个基础位置加上便宜值计算出玩家周围实体的坐标
+	*/
+	void Client_onUpdateBasePos(float x, float y, float z);
+	void Client_onUpdateBasePosXZ(float x, float z);
+	void Client_onUpdateBaseDir(MemoryStream& stream);
+	void Client_onUpdateData(MemoryStream& stream);
+
+	/*
+		服务端强制设置了玩家的坐标
+		例如：在服务端使用avatar.position=(0,0,0), 或者玩家位置与速度异常时会强制拉回到一个位置
+	*/
+	void Client_onSetEntityPosAndDir(MemoryStream& stream);
+
+	void Client_onUpdateData_ypr(MemoryStream& stream);
+	void Client_onUpdateData_yp(MemoryStream& stream);
+	void Client_onUpdateData_yr(MemoryStream& stream);
+	void Client_onUpdateData_pr(MemoryStream& stream);
+	void Client_onUpdateData_y(MemoryStream& stream);
+	void Client_onUpdateData_p(MemoryStream& stream);
+	void Client_onUpdateData_r(MemoryStream& stream);
+	void Client_onUpdateData_xz(MemoryStream& stream);
+	void Client_onUpdateData_xz_ypr(MemoryStream& stream);
+	void Client_onUpdateData_xz_yp(MemoryStream& stream);
+	void Client_onUpdateData_xz_yr(MemoryStream& stream);
+	void Client_onUpdateData_xz_pr(MemoryStream& stream);
+	void Client_onUpdateData_xz_y(MemoryStream& stream);
+	void Client_onUpdateData_xz_p(MemoryStream& stream);
+	void Client_onUpdateData_xz_r(MemoryStream& stream);
+	void Client_onUpdateData_xyz(MemoryStream& stream);
+	void Client_onUpdateData_xyz_ypr(MemoryStream& stream);
+	void Client_onUpdateData_xyz_yp(MemoryStream& stream);
+	void Client_onUpdateData_xyz_yr(MemoryStream& stream);
+	void Client_onUpdateData_xyz_pr(MemoryStream& stream);
+	void Client_onUpdateData_xyz_y(MemoryStream& stream);
+	void Client_onUpdateData_xyz_p(MemoryStream& stream);
+	void Client_onUpdateData_xyz_r(MemoryStream& stream);
+
 private:
+	void _updateVolatileData(ENTITY_ID entityID, float x, float y, float z, float yaw, float pitch, float roll, int8 isOnGround);
+
 	bool initNetwork();
 
 	void login_loginapp(bool noconnect);

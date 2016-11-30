@@ -18,6 +18,10 @@ void AGameModeSelectAvatar::installEvents()
 	KBENGINE_REGISTER_EVENT("onReqAvatarList", onReqAvatarList);
 	KBENGINE_REGISTER_EVENT("onCreateAvatarResult", onCreateAvatarResult);
 	KBENGINE_REGISTER_EVENT("onRemoveAvatar", onRemoveAvatar);
+
+	// begin enterworld
+	// 这个事件触发时我们需要切换地图到游戏世界地图
+	KBENGINE_REGISTER_EVENT("addSpaceGeometryMapping", addSpaceGeometryMapping);
 }
 
 void AGameModeSelectAvatar::onReqAvatarList_Implementation(const UKBEventData* pEventData)
@@ -30,6 +34,11 @@ void AGameModeSelectAvatar::onCreateAvatarResult_Implementation(const UKBEventDa
 
 void AGameModeSelectAvatar::onRemoveAvatar_Implementation(const UKBEventData* pEventData)
 {
+}
+
+void AGameModeSelectAvatar::addSpaceGeometryMapping_Implementation(const UKBEventData* pEventData)
+{
+
 }
 
 void AGameModeSelectAvatar::reqCreateAvatar(uint8 roleType, const FString& name)
@@ -56,3 +65,4 @@ void AGameModeSelectAvatar::selectAvatarGame(const FAVATAR_INFOS& avatarInfos)
 	pEventData->avatarInfos = avatarInfos;
 	KBENGINE_EVENT_FIRE("selectAvatarGame", pEventData);
 }
+

@@ -1094,7 +1094,7 @@ void KBEngineApp::Client_initSpaceData(MemoryStream& stream)
 		Client_setSpaceData(spaceID_, key, val);
 	}
 
-	DEBUG_MSG("spaceID(%d), size(%s)!", spaceID_, spacedatas_.Num());
+	DEBUG_MSG("spaceID(%d), size(%d)!", spaceID_, spacedatas_.Num());
 }
 
 void KBEngineApp::Client_setSpaceData(uint32 spaceID, const FString& key, const FString& value)
@@ -2035,7 +2035,6 @@ void KBEngineApp::Client_onEntityEnterWorld(MemoryStream& stream)
 	// DEBUG_MSG("%s(%d), spaceID(%d)!", *entityType, eid, spaceID_);
 
 	Entity** pEntityFind = entities_.Find(eid);
-	Entity* pEntity = NULL;
 
 	if (!pEntityFind)
 	{
@@ -2059,7 +2058,7 @@ void KBEngineApp::Client_onEntityEnterWorld(MemoryStream& stream)
 		if (!pEntityCreator)
 			return;
 
-		pEntity = pEntityCreator->create();
+		Entity* pEntity = pEntityCreator->create();
 		pEntity->id(eid);
 		pEntity->className(entityType);
 
@@ -2089,6 +2088,8 @@ void KBEngineApp::Client_onEntityEnterWorld(MemoryStream& stream)
 	}
 	else
 	{
+		Entity* pEntity = (*pEntityFind);
+
 		if (!pEntity->inWorld())
 		{
 			// 安全起见， 这里清空一下

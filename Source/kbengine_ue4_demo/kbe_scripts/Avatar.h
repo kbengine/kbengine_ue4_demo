@@ -16,4 +16,7 @@ public:
 	virtual ~Avatar();
 
 public:
+	// def中定义的客户端涉及属性
+	uint16 level;
+	uint16 own_val;
 };

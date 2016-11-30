@@ -4,6 +4,8 @@
 #include "Avatar.h"
 
 ENTITYDEF_CLASS_REGISTER(Avatar, GameObject)
+ENTITYDEF_PROPERTY_REGISTER(Avatar, level);
+ENTITYDEF_PROPERTY_REGISTER(Avatar, own_val);
 
 Avatar::Avatar():
 	GameObject()

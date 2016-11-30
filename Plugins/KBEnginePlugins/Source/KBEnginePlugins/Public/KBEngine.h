@@ -356,6 +356,10 @@ private:
 	void onRemoteMethodCall_(ENTITY_ID eid, MemoryStream& stream);
 
 public:
+	SPACE_ID spaceID() const {
+		return spaceID_;
+	}
+
 	ENTITY_ID entity_id() const {
 		return entity_id_;
 	}

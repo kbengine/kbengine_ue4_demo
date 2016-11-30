@@ -14,5 +14,15 @@ public:
 	Combat();
 	virtual ~Combat();
 
+	void set_HP(int32 old);
+	void set_HP_Max(int32 old);
+	void set_MP(int32 old);
+	void set_MP_Max(int32 old);
+
 public:
+	// def中定义的客户端涉及属性
+	int32 HP;
+	int32 HP_Max;
+	int32 MP;
+	int32 MP_Max;
 };

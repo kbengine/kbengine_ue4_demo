@@ -270,6 +270,13 @@ void Entity::enterWorld()
 	onEnterWorld();
 
 	UKBEventData_onEnterWorld* pEventData = NewObject<UKBEventData_onEnterWorld>();
+	pEventData->entityID = id();
+	pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
+	pEventData->position = position;
+	pEventData->direction = direction;
+	pEventData->speed = velocity_;
+	pEventData->isOnGround = isOnGround_;
+	pEventData->res = TEXT("");
 	KBENGINE_EVENT_FIRE("onEnterWorld", pEventData);
 }
 
@@ -285,6 +292,8 @@ void Entity::leaveWorld()
 	onLeaveWorld();
 
 	UKBEventData_onLeaveWorld* pEventData = NewObject<UKBEventData_onLeaveWorld>();
+	pEventData->entityID = id();
+	pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
 	KBENGINE_EVENT_FIRE("onLeaveWorld", pEventData);
 }
 
@@ -300,6 +309,13 @@ void Entity::enterSpace()
 	onEnterSpace();
 
 	UKBEventData_onEnterSpace* pEventData = NewObject<UKBEventData_onEnterSpace>();
+	pEventData->entityID = id();
+	pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
+	pEventData->position = position;
+	pEventData->direction = direction;
+	pEventData->speed = velocity_;
+	pEventData->isOnGround = isOnGround_;
+	pEventData->res = TEXT("");
 	KBENGINE_EVENT_FIRE("onEnterSpace", pEventData);
 }
 
@@ -315,12 +331,40 @@ void Entity::leaveSpace()
 	onLeaveSpace();
 
 	UKBEventData_onLeaveSpace* pEventData = NewObject<UKBEventData_onLeaveSpace>();
+	pEventData->entityID = id();
+	pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
 	KBENGINE_EVENT_FIRE("onLeaveSpace", pEventData);
 }
 
 void Entity::onLeaveSpace()
 {
 
+}
+
+void Entity::set_position(const FVector& old)
+{
+	if (isPlayer())
+		KBEngineApp::getSingleton().entityServerPos(position);
+
+	if (inWorld_)
+	{
+		UKBEventData_set_position* pEventData = NewObject<UKBEventData_set_position>();
+		pEventData->position = position;
+		pEventData->entityID = id();
+		pEventData->speed = velocity_;
+		KBENGINE_EVENT_FIRE("set_position", pEventData);
+	}
+}
+
+void Entity::set_direction(const FVector& old)
+{
+	if (inWorld_)
+	{
+		UKBEventData_set_direction* pEventData = NewObject<UKBEventData_set_direction>();
+		pEventData->direction = direction;
+		pEventData->entityID = id();
+		KBENGINE_EVENT_FIRE("set_direction", pEventData);
+	}
 }
 
 void Entity::baseCall(FString methodName, KBVar arg1)
@@ -1122,28 +1166,5 @@ void Entity::cellCall(FString methodName, const TArray<KBVar*>& arguments)
 	}
 
 	cell_->postMail(NULL);
-}
-
-void Entity::set_position(const FVector& old)
-{
-	if (isPlayer())
-		KBEngineApp::getSingleton().entityServerPos(position);
-
-	if (inWorld_)
-	{
-		UKBEventData_set_position* pEventData = NewObject<UKBEventData_set_position>();
-		pEventData->position = position;
-		KBENGINE_EVENT_FIRE("set_position", pEventData);
-	}
-}
-
-void Entity::set_direction(const FVector& old)
-{
-	if (inWorld_)
-	{
-		UKBEventData_set_direction* pEventData = NewObject<UKBEventData_set_direction>();
-		pEventData->direction = direction;
-		KBENGINE_EVENT_FIRE("set_direction", pEventData);
-	}
 }
 

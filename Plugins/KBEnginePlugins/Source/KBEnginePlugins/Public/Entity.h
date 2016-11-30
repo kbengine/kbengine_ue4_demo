@@ -271,12 +271,12 @@ public:
 
 	virtual ~EntityDefMethodHandle();
 
-	virtual void callMethod(Entity* pEntity, const KBVar& val)
+	virtual void callMethod(void* pEntity, const KBVar& val)
 	{
 
 	}
 
-	virtual void callMethod(Entity* pEntity, const TArray<KBVar*>& args) = 0;
+	virtual void callMethod(void* pEntity, const TArray<KBVar*>& args) = 0;
 };
 
 class KBENGINEPLUGINS_API EntityDefMethodHandles
@@ -298,8 +298,8 @@ public:
 
 	virtual ~EntityDefPropertyHandle();
 
-	virtual void setPropertyValue(Entity* pEntity, KBVar* val) = 0;
-	virtual KBVar* getPropertyValue(Entity* pEntity) = 0;
+	virtual void setPropertyValue(void* pEntity, KBVar* val) = 0;
+	virtual KBVar* getPropertyValue(void* pEntity) = 0;
 
 protected:
 	void setPropertyValue_(int8* out, KBVar* val) { *out = (int8)(*val); }
@@ -367,13 +367,13 @@ public:
 			virtual ~_##ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle()	\
 			{	\
 			}	\
-			virtual void callMethod(Entity* pEntity, const KBVar& val) override	\
+			virtual void callMethod(void* pEntity, const KBVar& val) override	\
 			{	\
-				static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME(val);	\
+				reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME(val);	\
 			}	\
-			virtual void callMethod(Entity* pEntity, const TArray<KBVar*>& args) override	\
+			virtual void callMethod(void* pEntity, const TArray<KBVar*>& args) override	\
 			{	\
-				static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME(*args[0]);	\
+				reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME(*args[0]);	\
 			}	\
 	};\
 	_##ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle g_ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_METHOD_NAME)));	\
@@ -389,9 +389,9 @@ public:
 			virtual ~_##ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle()	\
 			{	\
 			}	\
-			virtual void callMethod(Entity* pEntity, const TArray<KBVar*>& args) override	\
+			virtual void callMethod(void* pEntity, const TArray<KBVar*>& args) override	\
 			{	\
-				static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME##CALLMETHOD;	\
+				reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME##CALLMETHOD;	\
 			}	\
 	};\
 	_##ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle g_ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_METHOD_NAME)));	\
@@ -471,13 +471,13 @@ public:
 			virtual ~_##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle()	\
 			{	\
 			}	\
-			virtual void setPropertyValue(Entity* pEntity, KBVar* val) override	\
+			virtual void setPropertyValue(void* pEntity, KBVar* val) override	\
 			{	\
-				setPropertyValue_(&static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_PROPERTY_NAME, val);	\
+				setPropertyValue_(&reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_PROPERTY_NAME, val);	\
 			}	\
-			virtual KBVar* getPropertyValue(Entity* pEntity) override	\
+			virtual KBVar* getPropertyValue(void* pEntity) override	\
 			{	\
-				return new KBVar(static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_PROPERTY_NAME);	\
+				return new KBVar(reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_PROPERTY_NAME);	\
 			}	\
 	};\
 	_##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle g_##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_PROPERTY_NAME)));	\
@@ -493,13 +493,13 @@ public:
 			virtual ~_##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle()	\
 			{	\
 			}	\
-			virtual void setPropertyValue(Entity* pEntity, KBVar* val) override	\
+			virtual void setPropertyValue(void* pEntity, KBVar* val) override	\
 			{	\
-				setPropertyValue_(&static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->PROPERTY_NAME, val);	\
+				setPropertyValue_(&reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->PROPERTY_NAME, val);	\
 			}	\
-			virtual KBVar* getPropertyValue(Entity* pEntity) override	\
+			virtual KBVar* getPropertyValue(void* pEntity) override	\
 			{	\
-				return new KBVar(static_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->PROPERTY_NAME);	\
+				return new KBVar(reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->PROPERTY_NAME);	\
 			}	\
 	};\
 	_##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle g_##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_PROPERTY_NAME)));	\

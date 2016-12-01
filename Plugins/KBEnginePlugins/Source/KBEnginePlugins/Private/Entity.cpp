@@ -83,11 +83,12 @@ void EntityFactory::initialize()
 
 		for (auto& m : parentClassesArray)
 		{
-			EntityCreator* pEntityParentCreator = g_EntityFactory.creators.FindRef(m);
+			FString moduleName = m.Trim();
+			EntityCreator* pEntityParentCreator = g_EntityFactory.creators.FindRef(moduleName);
 			if (!pEntityParentCreator || pEntityParentCreator == pEntityCreator)
 				continue;
 
-			finishDefs(scriptName, m);
+			finishDefs(scriptName, moduleName);
 		}
 	}
 }
@@ -225,6 +226,7 @@ Entity::Entity():
 
 Entity::~Entity()
 {
+	DEBUG_MSG("Entity::~Entity() %d", id());
 }
 
 void Entity::clear()

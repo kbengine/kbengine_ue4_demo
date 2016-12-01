@@ -970,9 +970,9 @@ void KBEngineApp::onUpdatePropertys_(ENTITY_ID eid, MemoryStream& stream)
 		EntityDefPropertyHandle* pEntityDefPropertyHandle = EntityDefPropertyHandles::find(pEntity->className(), propertydata->name);
 		if (!pEntityDefPropertyHandle)
 		{
-			SCREEN_ERROR_MSG("%s not found property(%s), update error! Please register with ENTITYDEF_PROPERTY_REGISTER(%s, %s) in %s.cpp",
-				*pEntity->className(), *propertydata->name,
-				*pEntity->className(), *pEntity->className(), *propertydata->name);
+			SCREEN_ERROR_MSG("%s(%d) not found property(%s), update error! Please register with ENTITYDEF_PROPERTY_REGISTER(XXX, %s) in (%s, %s).cpp",
+				*pEntity->className(), eid, *propertydata->name,
+				*propertydata->name, *pEntity->className(), *sm->pEntityCreator->parentClasses());
 
 			delete val;
 			continue;
@@ -1949,7 +1949,10 @@ void KBEngineApp::onRemoteMethodCall_(ENTITY_ID eid, MemoryStream& stream)
 	}
 	else
 	{
-		SCREEN_ERROR_MSG("%s(%d), not found method(%s::%s)!\n", *pEntity->className(), eid, *pEntity->className(), *pMethodData->name);
+		SCREEN_ERROR_MSG("%s(%d), not found method(%s.%s), update error! Please register with ENTITYDEF_METHOD_ARGS*_REGISTER(XXX, %s) in (%s, %s).cpp",
+			*pEntity->className(), eid, *pEntity->className(), *pMethodData->name,
+			*pMethodData->name, *pEntity->className(),
+			*pModule->pEntityCreator->parentClasses());
 	}
 
 	for (auto& item : args)

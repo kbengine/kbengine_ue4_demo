@@ -7,14 +7,15 @@ class Entity;
 /*
 	对应entity_defs/interfaces/*
 */
-class SkillBox
+class Spell
 {
 public:
-	SkillBox() {}
-	SkillBox(Entity* entity);
-	virtual ~SkillBox();
+	Spell() {}
+	Spell(Entity* entity);
+	virtual ~Spell();
 
 public:
 	Entity* self;
 
+	// def中定义的客户端涉及属性
 };

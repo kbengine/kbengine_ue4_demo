@@ -7,14 +7,15 @@ class Entity;
 /*
 	对应entity_defs/interfaces/*
 */
-class SkillBox
+class Dialog
 {
 public:
-	SkillBox() {}
-	SkillBox(Entity* entity);
-	virtual ~SkillBox();
+	Dialog() {}
+	Dialog(Entity* entity);
+	virtual ~Dialog();
 
 public:
 	Entity* self;
 
+	// def中定义的客户端涉及属性
 };

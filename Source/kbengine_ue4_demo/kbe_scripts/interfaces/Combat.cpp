@@ -8,7 +8,8 @@ ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(Combat, HP_Max);
 ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(Combat, MP);
 ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(Combat, MP_Max);
 
-Combat::Combat()
+Combat::Combat(Entity* entity) :
+	self(entity)
 {
 }
 

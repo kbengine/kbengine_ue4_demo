@@ -7,14 +7,18 @@ class Entity;
 /*
 	对应entity_defs/interfaces/*
 */
-class SkillBox
+class Motion
 {
 public:
-	SkillBox() {}
-	SkillBox(Entity* entity);
-	virtual ~SkillBox();
+	Motion() {}
+	Motion(Entity* entity);
+	virtual ~Motion();
+
+	void set_moveSpeed(int32 old);
 
 public:
 	Entity* self;
 
+	// def中定义的客户端涉及属性
+	uint8 moveSpeed;
 };

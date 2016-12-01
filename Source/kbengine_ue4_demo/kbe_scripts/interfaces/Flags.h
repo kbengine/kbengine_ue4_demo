@@ -7,14 +7,18 @@ class Entity;
 /*
 	对应entity_defs/interfaces/*
 */
-class SkillBox
+class Flags
 {
 public:
-	SkillBox() {}
-	SkillBox(Entity* entity);
-	virtual ~SkillBox();
+	Flags() {}
+	Flags(Entity* entity);
+	virtual ~Flags();
+
+	void set_flags(int32 old);
 
 public:
 	Entity* self;
 
+	// def中定义的客户端涉及属性
+	int32 flags;
 };

@@ -5,8 +5,7 @@
 class Entity;
 
 /*
-	KBEngine逻辑层的实体基础类
-	所有扩展出的游戏实体都应该继承于该模块
+	对应entity_defs/interfaces/*
 */
 class GameObject : public Entity
 {

@@ -4,12 +4,12 @@
 #include "KBECommon.h"
 
 class GameObject;
+class NPCObject;
 
 /*
-	KBEngine逻辑层的实体基础类
-	所有扩展出的游戏实体都应该继承于该模块
+	对应entity_defs/*
 */
-class Gate : public GameObject
+class Gate : public GameObject, public NPCObject
 {
 public:
 	Gate();

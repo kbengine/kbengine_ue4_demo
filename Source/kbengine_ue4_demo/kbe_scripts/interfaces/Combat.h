@@ -5,13 +5,13 @@
 class Entity;
 
 /*
-	KBEngine逻辑层的实体基础类
-	所有扩展出的游戏实体都应该继承于该模块
+	对应entity_defs/interfaces/*
 */
 class Combat
 {
 public:
-	Combat();
+	Combat() {}
+	Combat(Entity* entity);
 	virtual ~Combat();
 
 	void set_HP(int32 old);
@@ -20,6 +20,8 @@ public:
 	void set_MP_Max(int32 old);
 
 public:
+	Entity* self;
+
 	// def中定义的客户端涉及属性
 	int32 HP;
 	int32 HP_Max;

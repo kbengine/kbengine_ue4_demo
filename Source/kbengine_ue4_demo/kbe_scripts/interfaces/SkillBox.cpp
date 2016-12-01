@@ -4,7 +4,8 @@
 
 ENTITYDEF_CLASS_REGISTER(SkillBox)
 
-SkillBox::SkillBox()
+SkillBox::SkillBox(Entity* entity) :
+	self(entity)
 {
 }
 

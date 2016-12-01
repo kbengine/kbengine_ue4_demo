@@ -7,14 +7,18 @@ class Entity;
 /*
 	对应entity_defs/interfaces/*
 */
-class SkillBox
+class NPCObject
 {
 public:
-	SkillBox() {}
-	SkillBox(Entity* entity);
-	virtual ~SkillBox();
+	NPCObject() {}
+	NPCObject(Entity* entity);
+	virtual ~NPCObject();
+
+	void set_entityNO(int32 old);
 
 public:
 	Entity* self;
 
+	// def中定义的客户端涉及属性
+	uint32 entityNO;
 };

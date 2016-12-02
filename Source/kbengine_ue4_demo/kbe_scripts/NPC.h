@@ -5,11 +5,12 @@
 
 class GameObject;
 class NPCObject;
+class Motion;
 
 /*
 	∂‘”¶entity_defs/*
 */
-class NPC : public GameObject, public NPCObject
+class NPC : public GameObject, public NPCObject, public Motion
 {
 public:
 	NPC();

@@ -59,7 +59,7 @@ template<typename T> struct TKBVariantTraits
 * defined types. The values are internally serialized into a byte array, which means that
 * only FArchive serializable types are supported at this time.
 */
-class KBVar
+class KBENGINEPLUGINS_API KBVar
 {
 public:
 	typedef TMap<FString, KBVar> KBVarMap;
@@ -289,6 +289,96 @@ public:
 		return FString();
 	}
 
+	FString type_str(int32 t) const
+	{
+		if (t == EKBVarTypes::Empty)
+		{
+			return FString(TEXT("Empty"));
+		}
+		else if (t == EKBVarTypes::Ansichar)
+		{
+			return FString(TEXT("String"));
+		}
+		else if (t == EKBVarTypes::Bool)
+		{
+			return FString(TEXT("Bool"));
+		}
+		else if (t == EKBVarTypes::ByteArray)
+		{
+			return FString(TEXT("ByteArray"));
+		}
+		else if (t == EKBVarTypes::Double)
+		{
+			return FString(TEXT("Double"));
+		}
+		else if (t == EKBVarTypes::Float)
+		{
+			return FString(TEXT("Float"));
+		}
+		else if (t == EKBVarTypes::Int8)
+		{
+			return FString(TEXT("Int8"));
+		}
+		else if (t == EKBVarTypes::Int16)
+		{
+			return FString(TEXT("Int16"));
+		}
+		else if (t == EKBVarTypes::Int32)
+		{
+			return FString(TEXT("Int32"));
+		}
+		else if (t == EKBVarTypes::Int64)
+		{
+			return FString(TEXT("Int64"));
+		}
+		else if (t == EKBVarTypes::String)
+		{
+			return FString(TEXT("String"));
+		}
+		else if (t == EKBVarTypes::Widechar)
+		{
+			return FString(TEXT("String"));
+		}
+		else if (t == EKBVarTypes::UInt8)
+		{
+			return FString(TEXT("UInt8"));
+		}
+		else if (t == EKBVarTypes::UInt16)
+		{
+			return FString(TEXT("UInt16"));
+		}
+		else if (t == EKBVarTypes::UInt32)
+		{
+			return FString(TEXT("UInt32"));
+		}
+		else if (t == EKBVarTypes::UInt64)
+		{
+			return FString(TEXT("UInt64"));
+		}
+		else if (t == EKBVarTypes::Vector2d)
+		{
+			return FString(TEXT("Vector2d"));
+		}
+		else if (t == EKBVarTypes::Vector)
+		{
+			return FString(TEXT("Vector"));
+		}
+		else if (t == EKBVarTypes::Vector4)
+		{
+			return FString(TEXT("Vector4"));
+		}
+		else if (t == EKBVarTypes::KBVarArray)
+		{
+			return FString(TEXT("KBVarArray"));
+		}
+		else if (t == EKBVarTypes::KBVarMap)
+		{
+			return FString(TEXT("KBVarMap"));
+		}
+
+		return FString(TEXT("UNKNOWN"));
+	}
+
 public:
 
 	/**
@@ -462,6 +552,8 @@ public:
 		Type = t;
 	}
 
+	void ErrorLog(const FString& errstr) const;
+
 	/**
 	* Gets the stored value.
 	*
@@ -474,7 +566,10 @@ public:
 	template<typename T>
 	T GetValue() const
 	{
-		check((Type == TKBVariantTraits<T>::GetType()) || ((TKBVariantTraits<T>::GetType() == EKBVarTypes::UInt8)));
+		if (!((Type == TKBVariantTraits<T>::GetType()) || ((TKBVariantTraits<T>::GetType() == EKBVarTypes::UInt8))))
+		{
+			ErrorLog(FString::Printf(TEXT("Type mismatch! The current is %s, given the %s"), *type_str(Type), *type_str(TKBVariantTraits<T>::GetType())));
+		}
 
 		T Result;
 
@@ -523,7 +618,11 @@ private:
 template<>
 FORCEINLINE KBVar::KBVarBytes KBVar::GetValue<KBVar::KBVarBytes >() const
 {
-	check(Type == EKBVarTypes::ByteArray);
+	if (Type != EKBVarTypes::ByteArray)
+	{
+		ErrorLog(FString::Printf(TEXT("Type mismatch! The current is %s, given the KBVar::KBVarBytes"), *type_str(Type)));
+		return KBVar::KBVarBytes();
+	}
 
 	return Value;
 }
@@ -531,7 +630,11 @@ FORCEINLINE KBVar::KBVarBytes KBVar::GetValue<KBVar::KBVarBytes >() const
 template<>
 FORCEINLINE KBVar::KBVarArray KBVar::GetValue<KBVar::KBVarArray >() const
 {
-	check(Type == EKBVarTypes::KBVarArray);
+	if (Type != EKBVarTypes::KBVarArray)
+	{
+		ErrorLog(FString::Printf(TEXT("Type mismatch! The current is %s, given the KBVar::KBVarArray"), *type_str(Type)));
+		return KBVar::KBVarArray();
+	}
 
 	KBVar::KBVarArray v_array;
 	int idx = 0;
@@ -560,7 +663,11 @@ FORCEINLINE KBVar::KBVarArray KBVar::GetValue<KBVar::KBVarArray >() const
 template<>
 FORCEINLINE KBVar::KBVarMap KBVar::GetValue<KBVar::KBVarMap >() const
 {
-	check(Type == EKBVarTypes::KBVarMap);
+	if (Type != EKBVarTypes::KBVarMap)
+	{
+		ErrorLog(FString::Printf(TEXT("Type mismatch! The current is %s, given the KBVar::KBVarMap"), *type_str(Type)));
+		return KBVar::KBVarMap();
+	}
 
 	KBVar::KBVarMap v_map;
 	int idx = 0;

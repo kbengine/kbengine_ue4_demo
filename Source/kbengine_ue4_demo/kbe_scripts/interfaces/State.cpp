@@ -2,10 +2,6 @@
 #include "Entity.h"
 #include "State.h"
 
-ENTITYDEF_CLASS_REGISTER(State)
-ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(State, state);
-ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(State, subState);
-ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(State, forbids);
 
 State::State(Entity* entity) :
 	self(entity)

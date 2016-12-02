@@ -10,11 +10,12 @@ class State;
 class Flags;
 class Spell;
 class SkillBox;
+class Teleport;
 
 /*
 	∂‘”¶entity_defs/*
 */
-class Avatar : public GameObject, public Combat, public Motion, public State, public Flags, public Spell, public SkillBox
+class Avatar : public GameObject, public Combat, public Motion, public State, public Flags, public Spell, public SkillBox, public Teleport
 {
 public:
 	Avatar();

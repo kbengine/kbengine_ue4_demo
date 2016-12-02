@@ -2,8 +2,6 @@
 #include "Entity.h"
 #include "Flags.h"
 
-ENTITYDEF_CLASS_REGISTER(Flags)
-ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(Flags, flags);
 
 Flags::Flags(Entity* entity) :
 	self(entity)

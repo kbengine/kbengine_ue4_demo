@@ -2,8 +2,6 @@
 #include "Entity.h"
 #include "NPCObject.h"
 
-ENTITYDEF_CLASS_REGISTER(NPCObject)
-ENTITYDEF_PROPERTY_REGISTER(NPCObject, entityNO);
 
 NPCObject::NPCObject(Entity* entity) :
 	self(entity)

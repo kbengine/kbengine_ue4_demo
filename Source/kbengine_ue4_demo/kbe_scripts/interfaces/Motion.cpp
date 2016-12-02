@@ -2,8 +2,6 @@
 #include "Entity.h"
 #include "Motion.h"
 
-ENTITYDEF_CLASS_REGISTER(Motion)
-ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(Motion, moveSpeed);
 
 Motion::Motion(Entity* entity) :
 	self(entity)

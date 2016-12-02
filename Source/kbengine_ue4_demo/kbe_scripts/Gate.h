@@ -16,4 +16,7 @@ public:
 	virtual ~Gate();
 
 public:
+	// def中定义的客户端涉及属性和方法都需要包含在ENTITYDEF_BEGIN和ENTITYDEF_END之间
+	ENTITYDEF_BEGIN()
+	ENTITYDEF_END()
 };

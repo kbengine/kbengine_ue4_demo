@@ -21,8 +21,10 @@ public:
 public:
 	Entity* self;
 
-	// def中定义的客户端涉及属性
+	// def中定义的客户端涉及属性和方法都需要包含在ENTITYDEF_BEGIN和ENTITYDEF_END之间
+	ENTITYDEF_BEGIN()
 	int8 state;
 	uint8 subState;
 	int32 forbids;
+	ENTITYDEF_END()
 };

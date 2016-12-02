@@ -15,6 +15,8 @@ class KBENGINE_UE4_DEMO_API UKBEventData_onAvatarEnterWorld : public UKBEventDat
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(Category = KBEngine, BlueprintReadWrite, EditAnywhere)
+	int32 entity_id;
 };
 
 USTRUCT(BlueprintType)

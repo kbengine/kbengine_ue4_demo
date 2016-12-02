@@ -327,6 +327,7 @@ void Entity::enterWorld()
 	pEventData->direction = direction;
 	pEventData->speed = velocity_;
 	pEventData->isOnGround = isOnGround_;
+	pEventData->isPlayer = isPlayer();
 	pEventData->res = TEXT("");
 	KBENGINE_EVENT_FIRE("onEnterWorld", pEventData);
 }
@@ -345,6 +346,7 @@ void Entity::leaveWorld()
 	UKBEventData_onLeaveWorld* pEventData = NewObject<UKBEventData_onLeaveWorld>();
 	pEventData->entityID = id();
 	pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
+	pEventData->isPlayer = isPlayer();
 	KBENGINE_EVENT_FIRE("onLeaveWorld", pEventData);
 }
 
@@ -366,6 +368,7 @@ void Entity::enterSpace()
 	pEventData->direction = direction;
 	pEventData->speed = velocity_;
 	pEventData->isOnGround = isOnGround_;
+	pEventData->isPlayer = isPlayer();
 	pEventData->res = TEXT("");
 	KBENGINE_EVENT_FIRE("onEnterSpace", pEventData);
 }
@@ -384,6 +387,7 @@ void Entity::leaveSpace()
 	UKBEventData_onLeaveSpace* pEventData = NewObject<UKBEventData_onLeaveSpace>();
 	pEventData->entityID = id();
 	pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
+	pEventData->isPlayer = isPlayer();
 	KBENGINE_EVENT_FIRE("onLeaveSpace", pEventData);
 }
 

@@ -19,6 +19,8 @@ public:
 public:
 	Entity* self;
 
-	// def中定义的客户端涉及属性
+	// def中定义的客户端涉及属性和方法都需要包含在ENTITYDEF_BEGIN和ENTITYDEF_END之间
+	ENTITYDEF_BEGIN()
 	uint8 moveSpeed;
+	ENTITYDEF_END()
 };

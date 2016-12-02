@@ -36,6 +36,11 @@ public:
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
+	void onAvatarEnterWorld(const UKBEventData* pEventData);
+
+	/* KBE事件
+	*/
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onRemoveAvatar(const UKBEventData* pEventData);
 
 	UFUNCTION(BlueprintCallable, Category = KBEngine)

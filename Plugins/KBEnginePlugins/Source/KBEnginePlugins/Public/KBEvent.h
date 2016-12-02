@@ -418,6 +418,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	bool isOnGround;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	bool isPlayer;
 };
 
 UCLASS(Blueprintable, BlueprintType)
@@ -431,6 +434,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	int entityID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	bool isPlayer;
 };
 
 UCLASS(Blueprintable, BlueprintType)
@@ -460,6 +466,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	bool isOnGround;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	bool isPlayer;
 };
 
 UCLASS(Blueprintable, BlueprintType)
@@ -473,6 +482,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	int entityID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	bool isPlayer;
 };
 
 UCLASS(Blueprintable, BlueprintType)

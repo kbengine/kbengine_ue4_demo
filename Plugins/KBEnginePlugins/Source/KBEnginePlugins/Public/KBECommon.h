@@ -142,7 +142,8 @@ typedef uint16								PacketLength;				// ×î´ó65535
 
 #define TCP_PACKET_MAX 1460
 
-
+#define ENTITYDEF_BEGIN()
+#define ENTITYDEF_END()
 
 float getTimeSeconds();
 

@@ -271,7 +271,7 @@ public:
 
 	virtual ~EntityDefMethodHandle();
 
-	virtual void callMethod(void* pEntity, const KBVar& val)
+	virtual void callMethod(void* pEntity, const KBVar& arg)
 	{
 
 	}
@@ -367,13 +367,18 @@ public:
 			virtual ~_##ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle()	\
 			{	\
 			}	\
-			virtual void callMethod(void* pEntity, const KBVar& val) override	\
+			virtual void callMethod(void* pEntity, const KBVar& arg) override	\
 			{	\
-				reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME(val);	\
+				reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME(arg);	\
+				if (arg.GetError() > 0)	\
+					arg.ErrorLog(TEXT(#ENTITY_SCRIPTMODULE_NAME":"#DEF_METHOD_NAME"(arg1) error!"));	\
 			}	\
 			virtual void callMethod(void* pEntity, const TArray<KBVar*>& args) override	\
 			{	\
 				reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME(*args[0]);	\
+				const KBVar& arg = *args[0];	\
+				if (arg.GetError() > 0)	\
+					arg.ErrorLog(TEXT(#ENTITY_SCRIPTMODULE_NAME":"#DEF_METHOD_NAME"(arg1) error!"));	\
 			}	\
 	};\
 	_##ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle g_ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_METHOD_NAME)));	\
@@ -392,6 +397,12 @@ public:
 			virtual void callMethod(void* pEntity, const TArray<KBVar*>& args) override	\
 			{	\
 				reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->DEF_METHOD_NAME##CALLMETHOD;	\
+				for(int i=0; i<args.Num(); ++i)	\
+				{	\
+					const KBVar& arg = *args[0];	\
+					if (arg.GetError() > 0)	\
+						arg.ErrorLog(FString::Printf(TEXT(#ENTITY_SCRIPTMODULE_NAME":"#DEF_METHOD_NAME"(arg%d) error!"), i));	\
+				}	\
 			}	\
 	};\
 	_##ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle g_ENTITY_SCRIPTMODULE_NAME##_##DEF_METHOD_NAME##DefMethodHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_METHOD_NAME)));	\

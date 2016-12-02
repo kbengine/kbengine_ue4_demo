@@ -12,7 +12,7 @@ State::~State()
 {
 }
 
-void State::set_state(int32 old)
+void State::set_state(int8 old)
 {
 	//UKBEventData_set_state* pEventData = NewObject<UKBEventData_set_state>();
 	//pEventData->state = state;
@@ -20,7 +20,7 @@ void State::set_state(int32 old)
 	//KBENGINE_EVENT_FIRE("set_state", pEventData);
 }
 
-void State::set_subState(int32 old)
+void State::set_subState(uint8 old)
 {
 	//UKBEventData_set_subState* pEventData = NewObject<UKBEventData_set_subState>();
 	//pEventData->subState = subState;

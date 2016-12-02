@@ -69,12 +69,14 @@ public:
 	/** Default constructor. */
 	KBVar()
 		: Type(EKBVarTypes::Empty)
+		, Error(0)
 	{ }
 
 	/** Copy constructor. */
 	KBVar(const KBVar& Other)
 		: Type(Other.Type)
 		, Value(Other.Value)
+		, Error(0)
 	{ }
 
 	/**
@@ -85,6 +87,8 @@ public:
 	template<typename T>
 	KBVar(T InValue)
 	{
+		Error = 0;
+
 		FMemoryWriter writer(Value, true);
 		writer << InValue;
 
@@ -103,11 +107,13 @@ public:
 	KBVar(const KBVarBytes& InArray)
 		: Type(EKBVarTypes::ByteArray)
 		, Value(InArray)
+		, Error(0)
 	{ }
 
 	KBVar(const KBVarArray& InArray)
 		: Type(EKBVarTypes::KBVarArray)
-		, Value()
+		, Value(),
+		Error(0)
 	{
 		if (InArray.Num() > 0)
 		{
@@ -137,6 +143,7 @@ public:
 	KBVar(const KBVarMap& InMap)
 		: Type(EKBVarTypes::KBVarMap)
 		, Value()
+		, Error(0)
 	{
 		int idx = 0;
 
@@ -181,6 +188,7 @@ public:
 	*/
 	KBVar(const TCHAR* InString)
 	{
+		Error = 0;
 		*this = FString(InString);
 	}
 
@@ -552,6 +560,11 @@ public:
 		Type = t;
 	}
 
+	uint8 GetError() const
+	{
+		return Error;
+	}
+
 	void ErrorLog(const FString& errstr) const;
 
 	/**
@@ -568,7 +581,7 @@ public:
 	{
 		if (!((Type == TKBVariantTraits<T>::GetType()) || ((TKBVariantTraits<T>::GetType() == EKBVarTypes::UInt8))))
 		{
-			ErrorLog(FString::Printf(TEXT("Type mismatch! The current is %s, given the %s"), *type_str(Type), *type_str(TKBVariantTraits<T>::GetType())));
+			ErrorLog(FString::Printf(TEXT("KBVar::GetValue<T>(): Type mismatch! The current is %s, given the %s"), *type_str(Type), *type_str(TKBVariantTraits<T>::GetType())));
 		}
 
 		T Result;
@@ -600,6 +613,8 @@ private:
 
 	/** Holds the serialized value. */
 	KBVar::KBVarBytes Value;
+
+	uint8 Error;
 };
 
 
@@ -620,7 +635,7 @@ FORCEINLINE KBVar::KBVarBytes KBVar::GetValue<KBVar::KBVarBytes >() const
 {
 	if (Type != EKBVarTypes::ByteArray)
 	{
-		ErrorLog(FString::Printf(TEXT("Type mismatch! The current is %s, given the KBVar::KBVarBytes"), *type_str(Type)));
+		ErrorLog(FString::Printf(TEXT("KBVar::GetValue<KBVar::KBVarBytes>(): Type mismatch! The current is %s, given the KBVar::KBVarBytes"), *type_str(Type)));
 		return KBVar::KBVarBytes();
 	}
 
@@ -632,7 +647,7 @@ FORCEINLINE KBVar::KBVarArray KBVar::GetValue<KBVar::KBVarArray >() const
 {
 	if (Type != EKBVarTypes::KBVarArray)
 	{
-		ErrorLog(FString::Printf(TEXT("Type mismatch! The current is %s, given the KBVar::KBVarArray"), *type_str(Type)));
+		ErrorLog(FString::Printf(TEXT("KBVar::GetValue<KBVar::KBVarArray>(): Type mismatch! The current is %s, given the KBVar::KBVarArray"), *type_str(Type)));
 		return KBVar::KBVarArray();
 	}
 
@@ -665,7 +680,7 @@ FORCEINLINE KBVar::KBVarMap KBVar::GetValue<KBVar::KBVarMap >() const
 {
 	if (Type != EKBVarTypes::KBVarMap)
 	{
-		ErrorLog(FString::Printf(TEXT("Type mismatch! The current is %s, given the KBVar::KBVarMap"), *type_str(Type)));
+		ErrorLog(FString::Printf(TEXT("KBVar::GetValue<KBVar::KBVarMap>(): Type mismatch! The current is %s, given the KBVar::KBVarMap"), *type_str(Type)));
 		return KBVar::KBVarMap();
 	}
 

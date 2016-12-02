@@ -72,6 +72,8 @@ void EntityFactory::initialize()
 	inited = true;
 
 	// 填充所有父类的def信息到子类
+
+	/* 由于所有的信息已经直接注册给了顶级Entity， 所以父类没有数据
 	for (auto& item : g_EntityFactory.creators)
 	{
 		FString scriptName = item.Key;
@@ -93,6 +95,7 @@ void EntityFactory::initialize()
 			finishDefs(scriptName, moduleName);
 		}
 	}
+	*/
 }
 
 void EntityFactory::finishDefs(const FString& scriptName, const FString& parentScriptName)

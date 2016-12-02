@@ -14,7 +14,7 @@ public:
 	Motion(Entity* entity);
 	virtual ~Motion();
 
-	void set_moveSpeed(int32 old);
+	void set_moveSpeed(uint8 old);
 
 public:
 	Entity* self;

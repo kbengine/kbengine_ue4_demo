@@ -14,8 +14,8 @@ public:
 	State(Entity* entity);
 	virtual ~State();
 
-	void set_state(int32 old);
-	void set_subState(int32 old);
+	void set_state(int8 old);
+	void set_subState(uint8 old);
 	void set_forbids(int32 old);
 
 public:

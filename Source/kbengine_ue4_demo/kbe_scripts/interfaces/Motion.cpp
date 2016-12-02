@@ -12,7 +12,7 @@ Motion::~Motion()
 {
 }
 
-void Motion::set_moveSpeed(int32 old)
+void Motion::set_moveSpeed(uint8 old)
 {
 	//UKBEventData_set_moveSpeed* pEventData = NewObject<UKBEventData_set_moveSpeed>();
 	//pEventData->moveSpeed = moveSpeed;

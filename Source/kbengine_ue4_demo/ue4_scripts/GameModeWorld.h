@@ -34,7 +34,17 @@ public:
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
+	void onEnterSpace(const UKBEventData* pEventData);
+
+	/* KBE事件
+	*/
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onLeaveWorld(const UKBEventData* pEventData);
+
+	/* KBE事件
+	*/
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
+	void onLeaveSpace(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/

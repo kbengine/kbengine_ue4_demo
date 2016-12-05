@@ -21,6 +21,8 @@ void AGameModeWorld::installEvents()
 	KBENGINE_REGISTER_EVENT("addSpaceGeometryMapping", addSpaceGeometryMapping);
 	KBENGINE_REGISTER_EVENT("onEnterWorld", onEnterWorld);
 	KBENGINE_REGISTER_EVENT("onLeaveWorld", onLeaveWorld);
+	KBENGINE_REGISTER_EVENT("onEnterSpace", onEnterSpace);
+	KBENGINE_REGISTER_EVENT("onLeaveSpace", onLeaveSpace);
 	KBENGINE_REGISTER_EVENT("set_position", set_position);
 	KBENGINE_REGISTER_EVENT("set_direction", set_direction);
 	KBENGINE_REGISTER_EVENT("updatePosition", updatePosition);
@@ -45,6 +47,8 @@ void AGameModeWorld::installEvents()
 // Called when the game starts or when spawned
 void AGameModeWorld::BeginPlay()
 {
+	Super::BeginPlay();
+
 	check(KBEngineApp::getSingleton().isInitialized());
 
 	// 如果已经有被创建的实体，说明他们在上一个场景未来得及跳转之前已经通知创建了，但由于我们的world场景并没有来得及创建，这部分实体进入世界事件已经漏掉
@@ -53,9 +57,18 @@ void AGameModeWorld::BeginPlay()
 	for (auto& item : entities)
 	{
 		Entity* pEntity = item.Value;
-	}
 
-	Super::BeginPlay();
+		UKBEventData_onEnterWorld* pEventData = NewObject<UKBEventData_onEnterWorld>();
+		pEventData->entityID = pEntity->id();
+		pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
+		pEventData->position = pEntity->position;
+		pEventData->direction = pEntity->direction;
+		pEventData->speed = pEntity->velocity();
+		pEventData->isOnGround = pEntity->isOnGround();
+		pEventData->isPlayer = pEntity->isPlayer();
+		pEventData->res = TEXT("");
+		KBENGINE_EVENT_FIRE("onEnterWorld", pEventData);
+	}
 }
 
 void AGameModeWorld::addSpaceGeometryMapping_Implementation(const UKBEventData* pEventData)
@@ -69,6 +82,16 @@ void AGameModeWorld::onEnterWorld_Implementation(const UKBEventData* pEventData)
 }
 
 void AGameModeWorld::onLeaveWorld_Implementation(const UKBEventData* pEventData)
+{
+
+}
+
+void AGameModeWorld::onEnterSpace_Implementation(const UKBEventData* pEventData)
+{
+
+}
+
+void AGameModeWorld::onLeaveSpace_Implementation(const UKBEventData* pEventData)
 {
 
 }

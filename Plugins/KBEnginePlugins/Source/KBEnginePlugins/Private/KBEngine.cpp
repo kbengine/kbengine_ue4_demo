@@ -2637,7 +2637,7 @@ void KBEngineApp::_updateVolatileData(ENTITY_ID entityID, float x, float y, floa
 		done = true;
 
 		UKBEventData_updatePosition* pEventData = NewObject<UKBEventData_updatePosition>();
-		entity.position = entityServerPos_;
+		pEventData->position = entityServerPos_;
 		KBENGINE_EVENT_FIRE("updatePosition", pEventData);
 	}
 

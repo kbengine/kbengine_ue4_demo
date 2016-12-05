@@ -22,8 +22,6 @@ void AGameModeSelectAvatar::installEvents()
 	// begin enterworld
 	// 这个事件触发时我们需要切换地图到游戏世界地图
 	KBENGINE_REGISTER_EVENT("addSpaceGeometryMapping", addSpaceGeometryMapping);
-	// 由于这个事件通常有可能在addSpaceGeometryMapping之前到达，所以我们要在这里就开始捕获而不仅仅是GameModeWorld
-	KBENGINE_REGISTER_EVENT("onAvatarEnterWorld", onAvatarEnterWorld);
 }
 
 void AGameModeSelectAvatar::onReqAvatarList_Implementation(const UKBEventData* pEventData)
@@ -39,11 +37,6 @@ void AGameModeSelectAvatar::onRemoveAvatar_Implementation(const UKBEventData* pE
 }
 
 void AGameModeSelectAvatar::addSpaceGeometryMapping_Implementation(const UKBEventData* pEventData)
-{
-
-}
-
-void AGameModeSelectAvatar::onAvatarEnterWorld_Implementation(const UKBEventData* pEventData)
 {
 
 }

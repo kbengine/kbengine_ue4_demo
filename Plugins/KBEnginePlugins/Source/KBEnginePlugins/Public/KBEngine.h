@@ -400,6 +400,11 @@ public:
 		return currstate_;
 	}
 
+	typedef TMap<ENTITY_ID, Entity*> ENTITIES_MAP;
+	ENTITIES_MAP& entities() {
+		return entities_;
+	}
+
 protected:
 	KBEngineArgs* pArgs_;
 	NetworkInterface* pNetworkInterface_;
@@ -460,7 +465,7 @@ protected:
 	
 	// 所有实体都保存于这里， 请参看API手册关于entities部分
 	// https://github.com/kbengine/kbengine/tree/master/docs/api
-	TMap<ENTITY_ID, Entity*> entities_;
+	ENTITIES_MAP entities_;
 
 	// 在玩家AOI范围小于256个实体时我们可以通过一字节索引来找到entity
 	TArray<ENTITY_ID> entityIDAliasIDList_;

@@ -68,14 +68,6 @@ void Avatar::onDestroy()
 void Avatar::onEnterWorld()
 {
 	GameObject::onEnterWorld();
-
-	// 如果自身是当前客户端玩家，触发玩家进入世界事件
-	if (isPlayer())
-	{
-		UKBEventData_onAvatarEnterWorld* pEventData = NewObject<UKBEventData_onAvatarEnterWorld>();
-		pEventData->entity_id = id();
-		KBENGINE_EVENT_FIRE("onAvatarEnterWorld", pEventData);
-	}
 }
 
 void Avatar::onLeaveWorld()

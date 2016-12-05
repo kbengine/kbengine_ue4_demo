@@ -2,8 +2,8 @@
 
 #include "kbengine_ue4_demo.h"
 #include "GameModeWorld.h"
-
-
+#include "KBEngine.h"
+#include "Entity.h"
 
 AGameModeWorld::AGameModeWorld(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -27,7 +27,6 @@ void AGameModeWorld::installEvents()
 	KBENGINE_REGISTER_EVENT("onControlled", onControlled);
 
 	// in world(register by scripts)
-	KBENGINE_REGISTER_EVENT("onAvatarEnterWorld", onAvatarEnterWorld);
 	KBENGINE_REGISTER_EVENT("set_HP", set_HP);
 	KBENGINE_REGISTER_EVENT("set_MP", set_MP);
 	KBENGINE_REGISTER_EVENT("set_HP_Max", set_HP_Max);
@@ -41,6 +40,22 @@ void AGameModeWorld::installEvents()
 	KBENGINE_REGISTER_EVENT("recvDamage", recvDamage);
 	KBENGINE_REGISTER_EVENT("otherAvatarOnJump", otherAvatarOnJump);
 	KBENGINE_REGISTER_EVENT("onAddSkill", onAddSkill);
+}
+
+// Called when the game starts or when spawned
+void AGameModeWorld::BeginPlay()
+{
+	check(KBEngineApp::getSingleton().isInitialized());
+
+	// 如果已经有被创建的实体，说明他们在上一个场景未来得及跳转之前已经通知创建了，但由于我们的world场景并没有来得及创建，这部分实体进入世界事件已经漏掉
+	// 此时我们需要再次触发一次onEnterWorld，让表现层能够在游戏场景中创建出所有的实体
+	KBEngineApp::ENTITIES_MAP& entities = KBEngineApp::getSingleton().entities();
+	for (auto& item : entities)
+	{
+		Entity* pEntity = item.Value;
+	}
+
+	Super::BeginPlay();
 }
 
 void AGameModeWorld::addSpaceGeometryMapping_Implementation(const UKBEventData* pEventData)
@@ -74,11 +89,6 @@ void AGameModeWorld::updatePosition_Implementation(const UKBEventData* pEventDat
 }
 
 void AGameModeWorld::onControlled_Implementation(const UKBEventData* pEventData)
-{
-
-}
-
-void AGameModeWorld::onAvatarEnterWorld_Implementation(const UKBEventData* pEventData)
 {
 
 }

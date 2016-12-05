@@ -9,16 +9,6 @@
 	所有由逻辑层产生的事件都在这里定义
 */
 
-UCLASS(Blueprintable, BlueprintType)
-class KBENGINE_UE4_DEMO_API UKBEventData_onAvatarEnterWorld : public UKBEventData
-{
-	GENERATED_BODY()
-
-public:
-	UPROPERTY(Category = KBEngine, BlueprintReadWrite, EditAnywhere)
-	int32 entity_id;
-};
-
 USTRUCT(BlueprintType)
 struct FAVATAR_INFOS
 {

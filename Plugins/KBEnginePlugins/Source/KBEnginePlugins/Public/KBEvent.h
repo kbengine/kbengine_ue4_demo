@@ -398,6 +398,9 @@ class KBENGINEPLUGINS_API UKBEventData_onEnterWorld : public UKBEventData
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	FString entityClassName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	int spaceID;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
@@ -445,6 +448,9 @@ class KBENGINEPLUGINS_API UKBEventData_onEnterSpace : public UKBEventData
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	FString entityClassName;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	int spaceID;
 

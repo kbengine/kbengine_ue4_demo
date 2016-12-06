@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+
 #pragma once
 
 #include "KBVar.h"
@@ -160,6 +161,27 @@ inline float int82angle(int8 angle, bool half)
 inline bool almostEqual(float f1, float f2, float epsilon)
 {
 	return FMath::Abs(f1 - f2) < epsilon;
+}
+
+// UE4的尺度单位转化为米
+#define UE4_SCALE_UNIT_TO_METER 100.f
+
+// 将KBE坐标系的position(Vector3)转换为UE4坐标系的位置
+inline void KBPos2UE4Pos(FVector& UE4_POSITION, const FVector& KBE_POSITION)
+{	
+	// UE4坐标单位为厘米， KBE单位为米， 因此转化需要常量
+	UE4_POSITION.Y = KBE_POSITION.X * UE4_SCALE_UNIT_TO_METER;
+	UE4_POSITION.Z = KBE_POSITION.Y * UE4_SCALE_UNIT_TO_METER;
+	UE4_POSITION.X = KBE_POSITION.Z * UE4_SCALE_UNIT_TO_METER;
+}	
+
+// 将UE4坐标系的position(Vector3)转换为KBE坐标系的位置
+inline void UE4Pos2KBPos(FVector& KBE_POSITION, const FVector& UE4_POSITION)
+{
+	// UE4坐标单位为厘米， KBE单位为米， 因此转化需要常量
+	KBE_POSITION.X = UE4_POSITION.Y / UE4_SCALE_UNIT_TO_METER;
+	KBE_POSITION.Y = UE4_POSITION.Z / UE4_SCALE_UNIT_TO_METER;
+	KBE_POSITION.Z = UE4_POSITION.X / UE4_SCALE_UNIT_TO_METER;
 }
 
 UCLASS()

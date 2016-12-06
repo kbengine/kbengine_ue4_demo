@@ -61,11 +61,12 @@ void AGameModeWorld::BeginPlay()
 		UKBEventData_onEnterWorld* pEventData = NewObject<UKBEventData_onEnterWorld>();
 		pEventData->entityID = pEntity->id();
 		pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
-		pEventData->position = pEntity->position;
+		KBPos2UE4Pos(pEventData->position, pEntity->position);
 		pEventData->direction = pEntity->direction;
 		pEventData->speed = pEntity->velocity();
 		pEventData->isOnGround = pEntity->isOnGround();
 		pEventData->isPlayer = pEntity->isPlayer();
+		pEventData->entityClassName = className();
 		pEventData->res = TEXT("");
 		KBENGINE_EVENT_FIRE("onEnterWorld", pEventData);
 	}

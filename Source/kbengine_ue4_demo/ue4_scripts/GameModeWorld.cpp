@@ -66,7 +66,7 @@ void AGameModeWorld::BeginPlay()
 		pEventData->speed = pEntity->velocity();
 		pEventData->isOnGround = pEntity->isOnGround();
 		pEventData->isPlayer = pEntity->isPlayer();
-		pEventData->entityClassName = className();
+		pEventData->entityClassName = pEntity->className();
 		pEventData->res = TEXT("");
 		KBENGINE_EVENT_FIRE("onEnterWorld", pEventData);
 	}

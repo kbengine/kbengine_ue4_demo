@@ -325,7 +325,7 @@ void Entity::enterWorld()
 	pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
 	KBPos2UE4Pos(pEventData->position, position);
 	pEventData->direction = direction;
-	pEventData->speed = velocity_;
+	pEventData->moveSpeed = velocity_;
 	pEventData->isOnGround = isOnGround_;
 	pEventData->isPlayer = isPlayer();
 	pEventData->entityClassName = className();
@@ -367,7 +367,7 @@ void Entity::enterSpace()
 	pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
 	KBPos2UE4Pos(pEventData->position, position);
 	pEventData->direction = direction;
-	pEventData->speed = velocity_;
+	pEventData->moveSpeed = velocity_;
 	pEventData->isOnGround = isOnGround_;
 	pEventData->isPlayer = isPlayer();
 	pEventData->entityClassName = className();
@@ -408,7 +408,7 @@ void Entity::set_position(const FVector& old)
 		UKBEventData_set_position* pEventData = NewObject<UKBEventData_set_position>();
 		KBPos2UE4Pos(pEventData->position, position);
 		pEventData->entityID = id();
-		pEventData->speed = velocity_;
+		pEventData->moveSpeed = velocity_;
 		KBENGINE_EVENT_FIRE("set_position", pEventData);
 	}
 }

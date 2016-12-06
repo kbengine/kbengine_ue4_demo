@@ -282,7 +282,7 @@ public:
 	int entityID;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
-	float speed;
+	float moveSpeed;
 };
 
 UCLASS(Blueprintable, BlueprintType)
@@ -298,7 +298,7 @@ public:
 	int entityID;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
-	float speed;
+	float moveSpeed;
 };
 
 UCLASS(Blueprintable, BlueprintType)
@@ -417,7 +417,7 @@ public:
 	FVector direction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
-	float speed;
+	float moveSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	bool isOnGround;
@@ -468,7 +468,7 @@ public:
 	FVector direction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
-	float speed;
+	float moveSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	bool isOnGround;

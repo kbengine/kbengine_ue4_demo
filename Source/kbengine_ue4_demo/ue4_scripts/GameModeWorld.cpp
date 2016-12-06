@@ -4,6 +4,9 @@
 #include "GameModeWorld.h"
 #include "KBEngine.h"
 #include "Entity.h"
+#include "GameEntity.h"
+#include "KBEvent.h"
+#include "PlayerCharacter.h"
 
 AGameModeWorld::AGameModeWorld(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -63,13 +66,32 @@ void AGameModeWorld::BeginPlay()
 		pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
 		KBPos2UE4Pos(pEventData->position, pEntity->position);
 		pEventData->direction = pEntity->direction;
-		pEventData->speed = pEntity->velocity();
+		pEventData->moveSpeed = pEntity->velocity();
 		pEventData->isOnGround = pEntity->isOnGround();
 		pEventData->isPlayer = pEntity->isPlayer();
 		pEventData->entityClassName = pEntity->className();
 		pEventData->res = TEXT("");
 		KBENGINE_EVENT_FIRE("onEnterWorld", pEventData);
 	}
+}
+
+AGameEntity* AGameModeWorld::findGameEntity(int entityID)
+{
+	AGameEntity** pGameEntity = gameEntities.Find(entityID);
+	if (pGameEntity)
+		return *pGameEntity;
+
+	return NULL;
+}
+
+void AGameModeWorld::addGameEntity(int entityID, AGameEntity* entity)
+{
+	gameEntities.Add(entityID, entity);
+}
+
+void AGameModeWorld::removeGameEntity(int entityID)
+{
+	gameEntities.Remove(entityID);
 }
 
 void AGameModeWorld::addSpaceGeometryMapping_Implementation(const UKBEventData* pEventData)
@@ -79,7 +101,31 @@ void AGameModeWorld::addSpaceGeometryMapping_Implementation(const UKBEventData* 
 
 void AGameModeWorld::onEnterWorld_Implementation(const UKBEventData* pEventData)
 {
+	const UKBEventData_onEnterWorld* pData = Cast<UKBEventData_onEnterWorld>(pEventData);
 
+	FRotator Rot(0.f, 0.f, 0.f);
+	FTransform SpawnTransform(Rot, pData->position);
+
+	if (pData->isPlayer)
+	{
+		auto DeferredActor = Cast<APlayerCharacter>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, APlayerCharacter::StaticClass(), SpawnTransform));
+		if (DeferredActor != nullptr)
+		{
+			DeferredActor->entityID = pData->entityID;
+			DeferredActor->moveSpeed = pData->moveSpeed;
+			UGameplayStatics::FinishSpawningActor(DeferredActor, SpawnTransform);
+		}
+	}
+	else
+	{
+		auto DeferredActor = Cast<AGameEntity>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AGameEntity::StaticClass(), SpawnTransform));
+		if (DeferredActor != nullptr)
+		{
+			DeferredActor->entityID = pData->entityID;
+			DeferredActor->moveSpeed = pData->moveSpeed;
+			UGameplayStatics::FinishSpawningActor(DeferredActor, SpawnTransform);
+		}
+	}
 }
 
 void AGameModeWorld::onLeaveWorld_Implementation(const UKBEventData* pEventData)
@@ -99,7 +145,11 @@ void AGameModeWorld::onLeaveSpace_Implementation(const UKBEventData* pEventData)
 
 void AGameModeWorld::set_position_Implementation(const UKBEventData* pEventData)
 {
+	const UKBEventData_set_position* pData = Cast<UKBEventData_set_position>(pEventData);
+	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
 
+	if(pAGameEntity)
+		pAGameEntity->SetActorLocation(pData->position);
 }
 
 void AGameModeWorld::set_direction_Implementation(const UKBEventData* pEventData)
@@ -109,7 +159,11 @@ void AGameModeWorld::set_direction_Implementation(const UKBEventData* pEventData
 
 void AGameModeWorld::updatePosition_Implementation(const UKBEventData* pEventData)
 {
+	const UKBEventData_updatePosition* pData = Cast<UKBEventData_updatePosition>(pEventData);
+	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
 
+	if(pAGameEntity)
+		pAGameEntity->SetActorLocation(pData->position);
 }
 
 void AGameModeWorld::onControlled_Implementation(const UKBEventData* pEventData)

@@ -5,6 +5,8 @@
 #include "ue4_scripts/GameModeBase.h"
 #include "GameModeWorld.generated.h"
 
+class AGameEntity;
+
 /**
  * 
  */
@@ -130,4 +132,15 @@ public:
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onAddSkill(const UKBEventData* pEventData);
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	AGameEntity* findGameEntity(int entityID);
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	void addGameEntity(int entityID, AGameEntity* entity);
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	void removeGameEntity(int entityID);
+
+	TMap<ENTITY_ID, AGameEntity*> gameEntities;
 };

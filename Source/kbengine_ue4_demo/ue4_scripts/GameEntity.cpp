@@ -56,13 +56,17 @@ void AGameEntity::updateLocation()
 	//Direction from Self to targetPos
 	FVector vectorDirection = targetLocation - currLocation;
 
-	if (vectorDirection.Size() > 1.0f /*UE4µ¥Î» 0.01f * UE4_SCALE_UNIT_TO_METER*/)
+	if (vectorDirection.Size() > moveSpeed)
 	{
 		//Normalize Vector so it is just a direction
 		vectorDirection.Normalize();
 
-		//Move 10 units toward the player, per tick
+		//Move moveSpeed units toward the player, per tick
 		SetActorLocation(currLocation + (vectorDirection * moveSpeed));
+	}
+	else
+	{
+		SetActorLocation(targetLocation);
 	}
 
 	FaceRotation(targetRotator);

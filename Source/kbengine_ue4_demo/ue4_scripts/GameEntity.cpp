@@ -3,6 +3,8 @@
 #include "kbengine_ue4_demo.h"
 #include "GameEntity.h"
 #include "GameModeWorld.h"
+#include "KBEngine.h"
+#include "Entity.h"
 
 // Sets default values
 AGameEntity::AGameEntity(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -24,6 +26,13 @@ void AGameEntity::BeginPlay()
 	{
 		// 把自己注册到AGameModeWorld，方便后面查找
 		XGameMode->addGameEntity(this->entityID, this);
+
+		Entity* pEntity = KBEngineApp::getSingleton().findEntity(entityID);
+
+		// 由于UE4可视化实体创建要晚于KBE的插件的逻辑实体，而KBE插件实体先前可能已经触发了一些属性设置事件
+		// 因此此时我们可能已经错过了一些事件，我们只能在此补救必要的触发了， 例如：名称和血量属性值
+		if (pEntity)
+			pEntity->callPropertysSetMethods();
 	}
 }
 
@@ -40,11 +49,34 @@ void AGameEntity::Destroyed()
 	}
 }
 
+void AGameEntity::updateLocation()
+{
+	const FVector& currLocation = GetActorLocation();
+
+	//Direction from Self to targetPos
+	FVector vectorDirection = targetLocation - currLocation;
+
+	if (vectorDirection.Size() > 1.0f /*UE4单位 0.01f * UE4_SCALE_UNIT_TO_METER*/)
+	{
+		//Normalize Vector so it is just a direction
+		vectorDirection.Normalize();
+
+		//Move 10 units toward the player, per tick
+		SetActorLocation(currLocation + (vectorDirection * moveSpeed));
+	}
+
+	FaceRotation(targetRotator);
+}
+
 // Called every frame
 void AGameEntity::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
+	if (!isPlayer())
+	{
+		updateLocation();
+	}
 }
 
 // Called to bind functionality to input
@@ -52,5 +84,12 @@ void AGameEntity::SetupPlayerInputComponent(class UInputComponent* inputComponen
 {
 	Super::SetupPlayerInputComponent(inputComponent);
 
+}
+
+void AGameEntity::FaceRotation(FRotator NewRotation, float DeltaTime)
+{
+	FRotator CurrentRotation = FMath::RInterpTo(GetActorRotation(), NewRotation, DeltaTime, 8.0f);
+
+	Super::FaceRotation(CurrentRotation, DeltaTime);
 }
 

@@ -14,7 +14,7 @@ public:
 	NPCObject(Entity* entity);
 	virtual ~NPCObject();
 
-	void set_entityNO(int32 old);
+	void set_entityNO(uint32 old);
 
 public:
 	Entity* self;

@@ -26,10 +26,42 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* inputComponent) override;
 
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	virtual bool isPlayer() {
+		return false;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	virtual void FaceRotation(FRotator NewRotation, float DeltaTime = 0.f) override;
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	void updateLocation();
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	void setTargetLocation(const FVector& loc) 
+	{
+		targetLocation = loc;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	void setTargetRotator(const FRotator& rot) 
+	{
+		targetRotator = rot;
+	}
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	float moveSpeed;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	int entityID;
+
+	// 实体将要移动到的目的地位置
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	FVector targetLocation;
+
+	// 实体将要移动到的目的朝向
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	FRotator targetRotator;
+
 };

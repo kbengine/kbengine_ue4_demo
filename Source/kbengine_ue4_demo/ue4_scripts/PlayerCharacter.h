@@ -26,6 +26,11 @@ public:
 	/** Called once this actor has been deleted */
 	virtual void Destroyed() override;
 
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	virtual bool isPlayer() {
+		return true;
+	}
+
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseTurnRate;

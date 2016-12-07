@@ -38,10 +38,14 @@ void AGameModeWorld::installEvents()
 	KBENGINE_REGISTER_EVENT("set_MP_Max", set_MP_Max);
 	KBENGINE_REGISTER_EVENT("set_level", set_level);
 	KBENGINE_REGISTER_EVENT("set_name", set_name);
-	KBENGINE_REGISTER_EVENT("set_state", set_state);
 	KBENGINE_REGISTER_EVENT("set_moveSpeed", set_moveSpeed);
 	KBENGINE_REGISTER_EVENT("set_modelScale", set_modelScale);
 	KBENGINE_REGISTER_EVENT("set_modelID", set_modelID);
+	KBENGINE_REGISTER_EVENT("set_entityNO", set_entityNO);
+	KBENGINE_REGISTER_EVENT("set_flags", set_flags);
+	KBENGINE_REGISTER_EVENT("set_state", set_state);
+	KBENGINE_REGISTER_EVENT("set_subState", set_subState);
+	KBENGINE_REGISTER_EVENT("set_forbids", set_forbids);
 	KBENGINE_REGISTER_EVENT("recvDamage", recvDamage);
 	KBENGINE_REGISTER_EVENT("otherAvatarOnJump", otherAvatarOnJump);
 	KBENGINE_REGISTER_EVENT("onAddSkill", onAddSkill);
@@ -102,7 +106,7 @@ void AGameModeWorld::addSpaceGeometryMapping_Implementation(const UKBEventData* 
 void AGameModeWorld::onEnterWorld_Implementation(const UKBEventData* pEventData)
 {
 	const UKBEventData_onEnterWorld* pData = Cast<UKBEventData_onEnterWorld>(pEventData);
-
+	
 	FRotator Rot(0.f, 0.f, 0.f);
 	FTransform SpawnTransform(Rot, pData->position);
 
@@ -150,13 +154,20 @@ void AGameModeWorld::set_position_Implementation(const UKBEventData* pEventData)
 	const UKBEventData_set_position* pData = Cast<UKBEventData_set_position>(pEventData);
 	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
 
-	if(pAGameEntity)
+	if (pAGameEntity)
+	{
 		pAGameEntity->SetActorLocation(pData->position);
+		pAGameEntity->setTargetLocation(pData->position);
+	}
 }
 
 void AGameModeWorld::set_direction_Implementation(const UKBEventData* pEventData)
 {
+	const UKBEventData_set_direction* pData = Cast<UKBEventData_set_direction>(pEventData);
+	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
 
+	if (pAGameEntity)
+		pAGameEntity->setTargetRotator(FRotator(pData->direction.Y, pData->direction.Z, pData->direction.X));
 }
 
 void AGameModeWorld::updatePosition_Implementation(const UKBEventData* pEventData)
@@ -165,7 +176,7 @@ void AGameModeWorld::updatePosition_Implementation(const UKBEventData* pEventDat
 	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
 
 	if(pAGameEntity)
-		pAGameEntity->SetActorLocation(pData->position);
+		pAGameEntity->setTargetLocation(pData->position);
 }
 
 void AGameModeWorld::onControlled_Implementation(const UKBEventData* pEventData)
@@ -203,14 +214,13 @@ void AGameModeWorld::set_name_Implementation(const UKBEventData* pEventData)
 
 }
 
-void AGameModeWorld::set_state_Implementation(const UKBEventData* pEventData)
-{
-
-}
-
 void AGameModeWorld::set_moveSpeed_Implementation(const UKBEventData* pEventData)
 {
+	const UKBEventData_set_moveSpeed* pData = Cast<UKBEventData_set_moveSpeed>(pEventData);
+	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
 
+	if (pAGameEntity)
+		pAGameEntity->moveSpeed = pData->moveSpeed;
 }
 
 void AGameModeWorld::set_modelScale_Implementation(const UKBEventData* pEventData)
@@ -219,6 +229,31 @@ void AGameModeWorld::set_modelScale_Implementation(const UKBEventData* pEventDat
 }
 
 void AGameModeWorld::set_modelID_Implementation(const UKBEventData* pEventData)
+{
+
+}
+
+void AGameModeWorld::set_entityNO_Implementation(const UKBEventData* pEventData)
+{
+
+}
+
+void AGameModeWorld::set_flags_Implementation(const UKBEventData* pEventData)
+{
+
+}
+
+void AGameModeWorld::set_state_Implementation(const UKBEventData* pEventData)
+{
+
+}
+
+void AGameModeWorld::set_subState_Implementation(const UKBEventData* pEventData)
+{
+
+}
+
+void AGameModeWorld::set_forbids_Implementation(const UKBEventData* pEventData)
 {
 
 }

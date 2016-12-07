@@ -113,3 +113,176 @@ public:
 	UPROPERTY(Category = KBEngine, BlueprintReadWrite, EditAnywhere)
 	FAVATAR_INFOS avatarInfos;
 };
+
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_set_moveSpeed : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+
+	UPROPERTY(Category = KBEngine, BlueprintReadWrite, EditAnywhere)
+	float moveSpeed;
+};
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_set_entityNO : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+
+	UPROPERTY(Category = KBEngine, BlueprintReadWrite, EditAnywhere)
+	int32 entityNO;
+};
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_set_name : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+
+	UPROPERTY(Category = KBEngine, BlueprintReadWrite, EditAnywhere)
+	FString name;
+};
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_set_modelID : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, Category = KBEngine)
+	uint32 modelID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+};
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_set_modelScale : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	uint8 modelScale;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+};
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_set_HP : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int32 HP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+};
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_set_HP_Max : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int32 HP_Max;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+};
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_set_MP : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int32 MP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+};
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_MP_Max : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int32 MP_Max;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+};
+
+
+
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_set_flags : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int32 flags;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+};
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_set_state : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int32 state;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+};
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_set_subState : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int32 subState;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+};
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_set_forbids : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int32 forbids;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int entityID;
+};

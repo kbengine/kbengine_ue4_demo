@@ -102,11 +102,6 @@ public:
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void set_state(const UKBEventData* pEventData);
-
-	/* KBE事件
-	*/
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void set_moveSpeed(const UKBEventData* pEventData);
 
 	/* KBE事件
@@ -118,6 +113,31 @@ public:
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void set_modelID(const UKBEventData* pEventData);
+
+	/* KBE事件
+	*/
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
+	void set_entityNO(const UKBEventData* pEventData);
+
+	/* KBE事件
+	*/
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
+	void set_flags(const UKBEventData* pEventData);
+
+	/* KBE事件
+	*/
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
+	void set_state(const UKBEventData* pEventData);
+
+	/* KBE事件
+	*/
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
+	void set_subState(const UKBEventData* pEventData);
+
+	/* KBE事件
+	*/
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
+	void set_forbids(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/

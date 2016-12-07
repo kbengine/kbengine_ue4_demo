@@ -493,32 +493,12 @@ public:
 	};\
 	_##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle g_##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_PROPERTY_NAME)));	\
 
-// 注册定义的属性, 使用一个别名替代
-#define ENTITYDEF_PROPERTY_ALIAS_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_PROPERTY_NAME, PROPERTY_NAME)	\
-	class _##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle : public EntityDefPropertyHandle {	\
-		public:	\
-			_##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle(const FString& scriptName, const FString& defPropertyName):	\
-			EntityDefPropertyHandle(scriptName, defPropertyName)	\
-			{	\
-			}	\
-			virtual ~_##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle()	\
-			{	\
-			}	\
-			virtual void setPropertyValue(void* pEntity, KBVar* val) override	\
-			{	\
-				setPropertyValue_(&reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->PROPERTY_NAME, val);	\
-			}	\
-			virtual KBVar* getPropertyValue(void* pEntity) override	\
-			{	\
-				return new KBVar(reinterpret_cast<ENTITY_SCRIPTMODULE_NAME*>(pEntity)->PROPERTY_NAME);	\
-			}	\
-	};\
-	_##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle g_##ENTITY_SCRIPTMODULE_NAME##_##DEF_PROPERTY_NAME##DefPropertyHandle(FString(TEXT(#ENTITY_SCRIPTMODULE_NAME)), FString(TEXT(#DEF_PROPERTY_NAME)));	\
-
 // 注册定义的属性，并且属性包含一个set_*方法，属性被更新后改方法被调用
 #define ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_PROPERTY_NAME)	\
 	ENTITYDEF_PROPERTY_REGISTER(ENTITY_SCRIPTMODULE_NAME, DEF_PROPERTY_NAME)	\
 	ENTITYDEF_METHOD_REGISTER(ENTITY_SCRIPTMODULE_NAME, set_##DEF_PROPERTY_NAME)	\
+
+
 
 	
 

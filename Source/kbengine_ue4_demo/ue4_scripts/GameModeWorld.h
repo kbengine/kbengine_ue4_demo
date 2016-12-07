@@ -6,6 +6,7 @@
 #include "GameModeWorld.generated.h"
 
 class AGameEntity;
+class APlayerCharacter;
 
 /**
  * 
@@ -143,4 +144,13 @@ public:
 	void removeGameEntity(int entityID);
 
 	TMap<ENTITY_ID, AGameEntity*> gameEntities;
+
+	// 在编辑器中配置相关类
+	UPROPERTY(EditDefaultsOnly, Category = KBEngine)
+	TArray<TSubclassOf<class AGameEntity>> GameEntityClassArray;
+
+	// 在编辑器中配置相关类
+	UPROPERTY(EditDefaultsOnly, Category = KBEngine)
+	TArray<TSubclassOf<class APlayerCharacter>> PlayerCharacterClassArray;
+	
 };

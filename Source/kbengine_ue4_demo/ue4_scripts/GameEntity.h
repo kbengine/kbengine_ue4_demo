@@ -32,5 +32,4 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	int entityID;
-
 };

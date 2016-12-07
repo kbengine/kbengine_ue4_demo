@@ -108,7 +108,8 @@ void AGameModeWorld::onEnterWorld_Implementation(const UKBEventData* pEventData)
 
 	if (pData->isPlayer)
 	{
-		auto DeferredActor = Cast<APlayerCharacter>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, APlayerCharacter::StaticClass(), SpawnTransform));
+		TSubclassOf<class APlayerCharacter>& APlayerCharacterClass = PlayerCharacterClassArray[0];
+		auto DeferredActor = Cast<APlayerCharacter>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, APlayerCharacterClass, SpawnTransform));
 		if (DeferredActor != nullptr)
 		{
 			DeferredActor->entityID = pData->entityID;
@@ -118,7 +119,8 @@ void AGameModeWorld::onEnterWorld_Implementation(const UKBEventData* pEventData)
 	}
 	else
 	{
-		auto DeferredActor = Cast<AGameEntity>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AGameEntity::StaticClass(), SpawnTransform));
+		TSubclassOf<class AGameEntity>& AGameEntityClass = GameEntityClassArray[0];
+		auto DeferredActor = Cast<AGameEntity>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AGameEntityClass, SpawnTransform));
 		if (DeferredActor != nullptr)
 		{
 			DeferredActor->entityID = pData->entityID;

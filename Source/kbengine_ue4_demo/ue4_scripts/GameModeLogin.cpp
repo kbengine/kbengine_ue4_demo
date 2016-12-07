@@ -27,6 +27,20 @@ void AGameModeLogin::installEvents()
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientEntityDef", Baseapp_importClientEntityDef);
 }
 
+// Called when the game starts or when spawned
+void AGameModeLogin::BeginPlay()
+{
+	// 每次进入到这个界面时对KBE做一次清理，否则KBE插件内缓存的内容将一直存在
+	KBEngineApp::getSingleton().reset();
+
+	Super::BeginPlay();
+}
+
+void AGameModeLogin::Destroyed()
+{
+	Super::Destroyed();
+}
+
 bool AGameModeLogin::validEmail(FString strEmail)
 {
 	return KBEngineApp::getSingleton().validEmail(strEmail);

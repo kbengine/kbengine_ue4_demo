@@ -20,6 +20,12 @@ public:
 	*/
 	virtual void installEvents() override;
 
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+	/** Called once this actor has been deleted */
+	virtual void Destroyed() override;
+
 	UFUNCTION(BlueprintCallable, Category = "KBEngine")
 	bool validEmail(FString strEmail);
 

@@ -49,20 +49,21 @@ void AGameEntity::Destroyed()
 	}
 }
 
-void AGameEntity::updateLocation()
+void AGameEntity::updateLocation(float DeltaTime)
 {
 	const FVector& currLocation = GetActorLocation();
 
 	//Direction from Self to targetPos
 	FVector vectorDirection = targetLocation - currLocation;
 
-	if (vectorDirection.Size() > moveSpeed)
+	float deltaSpeed = moveSpeed * DeltaTime;
+	if (vectorDirection.Size() > deltaSpeed)
 	{
 		//Normalize Vector so it is just a direction
 		vectorDirection.Normalize();
 
 		//Move moveSpeed units toward the player, per tick
-		SetActorLocation(currLocation + (vectorDirection * moveSpeed));
+		SetActorLocation(currLocation + (vectorDirection * deltaSpeed));
 	}
 	else
 	{
@@ -79,7 +80,7 @@ void AGameEntity::Tick( float DeltaTime )
 
 	if (!isPlayer())
 	{
-		updateLocation();
+		updateLocation(DeltaTime);
 	}
 }
 

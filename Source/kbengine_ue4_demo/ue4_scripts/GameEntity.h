@@ -35,7 +35,7 @@ public:
 	virtual void FaceRotation(FRotator NewRotation, float DeltaTime = 0.f) override;
 
 	UFUNCTION(BlueprintCallable, Category = "KBEngine")
-	void updateLocation();
+	void updateLocation(float DeltaTime);
 
 	UFUNCTION(BlueprintCallable, Category = "KBEngine")
 	void setTargetLocation(const FVector& loc) 

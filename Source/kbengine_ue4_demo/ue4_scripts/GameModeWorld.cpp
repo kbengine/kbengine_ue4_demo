@@ -136,17 +136,48 @@ void AGameModeWorld::onEnterWorld_Implementation(const UKBEventData* pEventData)
 
 void AGameModeWorld::onLeaveWorld_Implementation(const UKBEventData* pEventData)
 {
+	const UKBEventData_onLeaveWorld* pData = Cast<UKBEventData_onLeaveWorld>(pEventData);
+	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
 
+	if (pAGameEntity)
+	{
+		pAGameEntity->Destroy();
+	}
 }
 
 void AGameModeWorld::onEnterSpace_Implementation(const UKBEventData* pEventData)
 {
+	const UKBEventData_onEnterSpace* pData = Cast<UKBEventData_onEnterSpace>(pEventData);
 
+	FRotator Rot(0.f, 0.f, 0.f);
+	FTransform SpawnTransform(Rot, pData->position);
+
+	if (pData->isPlayer)
+	{
+		TSubclassOf<class APlayerCharacter>& APlayerCharacterClass = PlayerCharacterClassArray[0];
+		auto DeferredActor = Cast<APlayerCharacter>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, APlayerCharacterClass, SpawnTransform));
+		if (DeferredActor != nullptr)
+		{
+			DeferredActor->entityID = pData->entityID;
+			DeferredActor->moveSpeed = pData->moveSpeed;
+			UGameplayStatics::FinishSpawningActor(DeferredActor, SpawnTransform);
+		}
+	}
+	else
+	{
+		check(false);
+	}
 }
 
 void AGameModeWorld::onLeaveSpace_Implementation(const UKBEventData* pEventData)
 {
+	const UKBEventData_onLeaveSpace* pData = Cast<UKBEventData_onLeaveSpace>(pEventData);
+	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
 
+	if (pAGameEntity)
+	{
+		pAGameEntity->Destroy();
+	}
 }
 
 void AGameModeWorld::set_position_Implementation(const UKBEventData* pEventData)

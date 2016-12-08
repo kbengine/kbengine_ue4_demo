@@ -19,8 +19,18 @@ public:
 public:
 	Entity* self;
 
-	// def中定义的客户端涉及属性和方法都需要包含在ENTITYDEF_BEGIN和ENTITYDEF_END之间
-	ENTITYDEF_BEGIN()
+	// def中定义的客户端涉及属性
 	uint32 entityNO;
-	ENTITYDEF_END()
 };
+
+/*
+Declare all of the properties and methods of the KBE-Entity
+
+Example:
+	#define ENTITYDEF_DECLARE_[module name of Entity](PARENT_MODULE)	\
+		ENTITYDEF_PROPERTY_*(PARENT_MODULE, xx_property)	\
+		ENTITYDEF_METHOD_ARGS[0~20]_REGISTER(PARENT_MODULE, xx_method)
+*/
+
+#define ENTITYDEF_DECLARE_NPCObject(PARENT_MODULE)	\
+	ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(PARENT_MODULE, entityNO)

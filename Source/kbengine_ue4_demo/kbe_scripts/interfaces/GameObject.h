@@ -18,12 +18,26 @@ public:
 	void set_modelScale(uint8 old);
 
 public:
-	// def中定义的客户端涉及属性和方法都需要包含在ENTITYDEF_BEGIN和ENTITYDEF_END之间
-	ENTITYDEF_BEGIN()
-	FString name; // 由于与底层某些名称冲突，所以这里使用了一个别名防止冲突
+	// def中定义的客户端涉及属性
+	FString name;
 	uint32 uid;
 	uint32 utype;
 	uint32 modelID;
 	uint8 modelScale;
-	ENTITYDEF_END()
 };
+
+/*
+Declare all of the properties and methods of the KBE-Entity
+
+Example:
+	#define ENTITYDEF_DECLARE_[module name of Entity](PARENT_MODULE)	\
+		ENTITYDEF_PROPERTY_*(PARENT_MODULE, xx_property)	\
+		ENTITYDEF_METHOD_ARGS[0~20]_REGISTER(PARENT_MODULE, xx_method)
+*/
+
+#define ENTITYDEF_DECLARE_GameObject(PARENT_MODULE)	\
+	ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(PARENT_MODULE, name)	\
+	ENTITYDEF_PROPERTY_REGISTER(PARENT_MODULE, uid)	\
+	ENTITYDEF_PROPERTY_REGISTER(PARENT_MODULE, utype)	\
+	ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(PARENT_MODULE, modelID)	\
+	ENTITYDEF_PROPERTY_WITH_SETMETHOD_REGISTER(PARENT_MODULE, modelScale)

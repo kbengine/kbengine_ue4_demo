@@ -56,7 +56,7 @@ void AGameEntity::updateLocation(float DeltaTime)
 	//Direction from Self to targetPos
 	FVector vectorDirection = targetLocation - currLocation;
 
-	float deltaSpeed = moveSpeed * DeltaTime;
+	float deltaSpeed = (moveSpeed * 10.f /*由于服务端脚本moveSpeed的单位是厘米，这里需要转换为UE4单位毫米*/) * DeltaTime;
 	if (vectorDirection.Size() > deltaSpeed)
 	{
 		//Normalize Vector so it is just a direction

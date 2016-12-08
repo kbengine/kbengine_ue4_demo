@@ -21,12 +21,16 @@ public:
 	Avatar();
 	virtual ~Avatar();
 
+	virtual void __init__() override;
+
 public:
 	virtual void onDestroy() override;
 	virtual void onEnterWorld() override;
 	virtual void onLeaveWorld() override;
 	virtual void onEnterSpace() override;
 	virtual void onLeaveSpace() override;
+
+	void reqRelive(uint8 reliveType);
 
 public:
 	// def中定义的客户端涉及属性

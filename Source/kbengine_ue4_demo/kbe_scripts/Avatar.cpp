@@ -38,9 +38,32 @@ Avatar::~Avatar()
 {
 }
 
+void Avatar::__init__()
+{
+	// 注册事件
+	if (isPlayer())
+	{
+		KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("relive", "relive", [this](const UKBEventData* pEventData)
+		{
+			const UKBEventData_reqRelive& data = static_cast<const UKBEventData_reqRelive&>(*pEventData);
+			reqRelive(data.reliveType);
+		});
+	}
+}
+
+
+void Avatar::reqRelive(uint8 reliveType)
+{
+	DEBUG_MSG("reqRelive");
+	cellCall("relive", reliveType);
+}
+
 void Avatar::onDestroy()
 {
 	GameObject::onDestroy();
+
+	// 注销注册的所有事件
+	KBENGINE_DEREGISTER_ALL_EVENT();
 }
 
 void Avatar::onEnterWorld()

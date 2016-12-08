@@ -24,6 +24,9 @@ public:
 	*/
 	virtual void installEvents() override;
 
+	UFUNCTION(BlueprintCallable, Category = KBEngine)
+	void reqRelive(int reliveType);
+
 	/* KBEÊÂ¼þ
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")

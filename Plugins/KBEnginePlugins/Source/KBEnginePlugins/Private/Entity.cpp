@@ -832,6 +832,21 @@ void Entity::baseCall(FString methodName, const TArray<KBVar*>& arguments)
 	base_->postMail(NULL);
 }
 
+void Entity::cellCall(FString methodName, KBVar arg1)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	cellCall(methodName, arguments);
+}
+
+void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2)
+{
+	TArray<KBVar*> arguments;
+	arguments.Add(&arg1);
+	arguments.Add(&arg2);
+	cellCall(methodName, arguments);
+}
+
 void Entity::cellCall(FString methodName, KBVar arg1, KBVar arg2, KBVar arg3)
 {
 	TArray<KBVar*> arguments;

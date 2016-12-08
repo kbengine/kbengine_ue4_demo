@@ -286,3 +286,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	int entityID;
 };
+
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_reqRelive : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	uint8 reliveType;
+};
+

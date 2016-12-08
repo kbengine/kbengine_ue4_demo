@@ -79,6 +79,14 @@ void AGameModeWorld::BeginPlay()
 	}
 }
 
+void AGameModeWorld::reqRelive(int reliveType)
+{
+	// 由于玩家的Avatar实体注册了该事件， 如果此时Avatar实体存在那么必然会执行到该事件 
+	UKBEventData_reqRelive* pEventData = NewObject<UKBEventData_reqRelive>();
+	pEventData->reliveType = reliveType;
+	KBENGINE_EVENT_FIRE("relive", pEventData);
+}
+
 AGameEntity* AGameModeWorld::findGameEntity(int entityID)
 {
 	AGameEntity** pGameEntity = gameEntities.Find(entityID);

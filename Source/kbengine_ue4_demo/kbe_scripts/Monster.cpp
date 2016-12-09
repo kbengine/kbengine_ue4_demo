@@ -9,15 +9,11 @@
 #include "interfaces/Spell.h"
 #include "Monster.h"
 
+/*
+	每个实体都需要将自己注册，格式为
+	ENTITYDEF_CLASS_REGISTER(实体模块名，继承模块1，继承模块N，...)
+*/
 ENTITYDEF_CLASS_REGISTER(Monster, GameObject, NPCObject, Combat, Motion, State, Flags, Spell)
-
-ENTITYDEF_DECLARE_GameObject(Monster)
-ENTITYDEF_DECLARE_Combat(Monster)
-ENTITYDEF_DECLARE_Motion(Monster)
-ENTITYDEF_DECLARE_State(Monster)
-ENTITYDEF_DECLARE_Flags(Monster)
-ENTITYDEF_DECLARE_NPCObject(Monster)
-
 
 Monster::Monster():
 	GameObject(),

@@ -11,16 +11,11 @@
 #include "interfaces/Teleport.h"
 #include "Avatar.h"
 
+/*
+	每个实体都需要将自己注册，格式为
+	ENTITYDEF_CLASS_REGISTER(实体模块名，继承模块1，继承模块N，...)
+*/
 ENTITYDEF_CLASS_REGISTER(Avatar, GameObject, Combat, Motion, State, Flags, Spell, SkillBox, Teleport)
-
-ENTITYDEF_DECLARE_GameObject(Avatar)
-ENTITYDEF_DECLARE_Motion(Avatar)
-ENTITYDEF_DECLARE_Teleport(Avatar)
-ENTITYDEF_DECLARE_Combat(Avatar)
-ENTITYDEF_DECLARE_State(Avatar)
-ENTITYDEF_DECLARE_Flags(Avatar)
-
-
 
 Avatar::Avatar():
 	GameObject(),

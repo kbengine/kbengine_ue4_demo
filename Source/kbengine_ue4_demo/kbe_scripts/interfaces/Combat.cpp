@@ -43,3 +43,14 @@ void Combat::set_MP_Max(int32 old)
 	pEventData->entityID = self->id();
 	KBENGINE_EVENT_FIRE("set_MP_Max", pEventData);
 }
+
+void Combat::recvDamage(int32 attackerID, int32 skillID, int32 damageType, int32 damage)
+{
+	UKBEventData_recvDamage* pEventData = NewObject<UKBEventData_recvDamage>();
+	pEventData->attackerID = attackerID;
+	pEventData->skillID = skillID;
+	pEventData->damageType = damageType;
+	pEventData->damage = damage;
+	pEventData->entityID = self->id();
+	KBENGINE_EVENT_FIRE("recvDamage", pEventData);
+}

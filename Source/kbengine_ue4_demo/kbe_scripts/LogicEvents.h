@@ -297,3 +297,24 @@ public:
 	uint8 reliveType;
 };
 
+UCLASS(Blueprintable, BlueprintType)
+class KBENGINE_UE4_DEMO_API UKBEventData_recvDamage : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int32 attackerID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int32 skillID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int32 damageType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int32 damage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+		int entityID;
+};

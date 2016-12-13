@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "ue4_scripts/GameModeBase.h"
+#include "ue4_scripts/GameModeDemoBase.h"
 #include "GameModeLogin.generated.h"
 
 
@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class KBENGINE_UE4_DEMO_API AGameModeLogin : public AGameModeBase
+class KBENGINE_UE4_DEMO_API AGameModeLogin : public AGameModeDemoBase
 {
 	GENERATED_UCLASS_BODY()
 	

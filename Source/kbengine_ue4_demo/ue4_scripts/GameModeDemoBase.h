@@ -5,13 +5,13 @@
 #include "KBEvent.h"
 #include "kbe_scripts/LogicEvents.h"
 #include "GameFramework/GameMode.h"
-#include "GameModeBase.generated.h"
+#include "GameModeDemoBase.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class KBENGINE_UE4_DEMO_API AGameModeBase : public AGameMode
+class KBENGINE_UE4_DEMO_API AGameModeDemoBase : public AGameMode
 {
 	GENERATED_UCLASS_BODY()
 	

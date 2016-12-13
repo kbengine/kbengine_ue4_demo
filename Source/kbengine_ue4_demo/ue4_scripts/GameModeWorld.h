@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "ue4_scripts/GameModeBase.h"
+#include "ue4_scripts/GameModeDemoBase.h"
 #include "GameModeWorld.generated.h"
 
 class AGameEntity;
@@ -12,7 +12,7 @@ class APlayerCharacter;
  * 
  */
 UCLASS()
-class KBENGINE_UE4_DEMO_API AGameModeWorld : public AGameModeBase
+class KBENGINE_UE4_DEMO_API AGameModeWorld : public AGameModeDemoBase
 {
 	GENERATED_UCLASS_BODY()
 

@@ -1,34 +1,34 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "kbengine_ue4_demo.h"
-#include "GameModeBase.h"
+#include "GameModeDemoBase.h"
 #include "KBEngine.h"
 
-AGameModeBase::AGameModeBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+AGameModeDemoBase::AGameModeDemoBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-void AGameModeBase::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
+void AGameModeDemoBase::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
 {
 	Super::InitGame(MapName, Options, ErrorMessage);
 }
 
 // Called when the game starts or when spawned
-void AGameModeBase::BeginPlay()
+void AGameModeDemoBase::BeginPlay()
 {
 	Super::BeginPlay();
 	installEvents();
 }
 
-void AGameModeBase::Destroyed()
+void AGameModeDemoBase::Destroyed()
 {
 	KBENGINE_DEREGISTER_ALL_EVENT();
 	Super::Destroyed();
 }
 
-void AGameModeBase::Logout(AController* Exiting)
+void AGameModeDemoBase::Logout(AController* Exiting)
 {
 	Super::Logout(Exiting);
 
@@ -39,7 +39,7 @@ void AGameModeBase::Logout(AController* Exiting)
 	}
 }
 
-void AGameModeBase::installEvents()
+void AGameModeDemoBase::installEvents()
 {
 	// common
 	KBENGINE_REGISTER_EVENT("onKicked", onKicked);
@@ -47,19 +47,19 @@ void AGameModeBase::installEvents()
 	KBENGINE_REGISTER_EVENT("onConnectStatus", onConnectStatus);
 }
 
-void AGameModeBase::fire(const FString& eventName, UKBEventData* pEventData)
+void AGameModeDemoBase::fire(const FString& eventName, UKBEventData* pEventData)
 {
 	KBENGINE_EVENT_FIRE(eventName, pEventData);
 }
 
-void AGameModeBase::onKicked_Implementation(const UKBEventData* pEventData)
+void AGameModeDemoBase::onKicked_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeBase::onDisableConnect_Implementation(const UKBEventData* pEventData)
+void AGameModeDemoBase::onDisableConnect_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeBase::onConnectStatus_Implementation(const UKBEventData* pEventData)
+void AGameModeDemoBase::onConnectStatus_Implementation(const UKBEventData* pEventData)
 {
 }

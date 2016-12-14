@@ -63,7 +63,7 @@ http://www.kbengine.org
 ##配置Demo(可选):
 
 	改变登录IP地址与端口（注意：关于服务端端口部分参看http://www.kbengine.org/cn/docs/installation.html）:
-![demo_configure](http://www.kbengine.org/assets/img/screenshots/demo_configure.jpg)
+![demo_configure](http://www.kbengine.org/assets/img/screenshots/demo_configure_ue4.jpg)
 
 		kbengine_ue4_demo\Content\ClientApp-> ip
 		kbengine_ue4_demo\Content\ClientApp-> port
@@ -157,6 +157,6 @@ http://www.kbengine.org
 		游戏中大地图/副本场景。
 
 ##演示截图:
-![screenshots1](http://www.kbengine.org/assets/img/screenshots/unity3d_demo9.jpg)
-![screenshots2](http://www.kbengine.org/assets/img/screenshots/unity3d_demo10.jpg)
-![screenshots3](http://www.kbengine.org/assets/img/screenshots/unity3d_demo11.jpg)
+![screenshots1](http://www.kbengine.org/assets/img/screenshots/ue4_demo1.jpg)
+![screenshots2](http://www.kbengine.org/assets/img/screenshots/ue4_demo2.jpg)
+![screenshots3](http://www.kbengine.org/assets/img/screenshots/ue4_demo3.jpg)

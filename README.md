@@ -1,21 +1,21 @@
-KBEngine_unity3d_demo
+KBEngine_ue4_demo
 =============
 
 ##This client-project is written for KBEngine(a MMOG engine of server)
 http://www.kbengine.org
 
 ##中文
-[Demo搭建文档](https://github.com/kbengine/kbengine_unity3d_demo/blob/master/README_CN.md)，QQ交流群：461368412，[论坛](http://bbs.kbengine.org)
+[Demo搭建文档](https://github.com/kbengine/kbengine_ue4_demo/blob/master/README_CN.md)，QQ交流群：461368412，[论坛](http://bbs.kbengine.org)
 
 ##Releases
 
-	sources		: https://github.com/kbengine/kbengine_unity3d_demo/releases/latest
+	sources		: https://github.com/kbengine/kbengine_ue4_demo/releases/latest
 	binarys		: https://sourceforge.net/projects/kbengine/files/
 
 
 ##KBE-Plugins docs
 
-	https://github.com/kbengine/kbengine_unity3d_plugins/blob/master/README.md
+	https://github.com/kbengine/kbengine_ue4_plugins/blob/master/README.md
 
 
 ##Start:
@@ -31,7 +31,7 @@ http://www.kbengine.org
 
 	2. Use git to get the plugin(client) and demo-assets(server):
 
-		In the kbengine_unity3d_demo directory:
+		In the kbengine_ue4_demo directory:
 
 		* Git command: git submodule update --init --remote
 ![submodule_update1](http://www.kbengine.org/assets/img/screenshots/gitbash_submodule.png)
@@ -42,14 +42,14 @@ http://www.kbengine.org
 		* Or manually get the plugin(client) and demo-assets(server)
 
 			Download plugin(client):
-				https://github.com/kbengine/kbengine_unity3d_plugins/releases/latest
-				unzip and copy to "Assets/plugins/kbengine/kbengine_unity3d_plugins"
+				https://github.com/kbengine/kbengine_ue4_plugins/releases/latest
+				unzip and copy to "Assets/plugins/kbengine/kbengine_ue4_plugins"
 
 			Download demo-assets(server):
 				https://github.com/kbengine/kbengine_demos_assets/releases/latest
 				unzip and copy to "kbengine/"  (The root directory server engine, such as $KBE_ROOT)
 
-	3. Copy "kbengine_unity3d_demo\kbengine_demos_assets" to "kbengine\" root directory
+	3. Copy "kbengine_ue4_demo\kbengine_demos_assets" to "kbengine\" root directory
 ![demo_configure](http://www.kbengine.org/assets/img/screenshots/demo_copy_kbengine.jpg)
 
 
@@ -58,13 +58,13 @@ http://www.kbengine.org
 	Change the login address:
 ![demo_configure](http://www.kbengine.org/assets/img/screenshots/demo_configure.jpg)
 
-		kbengine_unity3d_demo\Scripts\kbe_scripts\clientapp.cs -> ip
-		kbengine_unity3d_demo\Scripts\kbe_scripts\clientapp.cs -> port
+		kbengine_ue4_demo\Content\ClientApp-> ip
+		kbengine_ue4_demo\Content\ClientApp-> port
 
 
 ##Start the Servers:
 
-	Ensure that the "kbengine_unity3d_demo\kbengine_demos_assets" has been copied to the "kbengine\" directory
+	Ensure that the "kbengine_ue4_demo\kbengine_demos_assets" has been copied to the "kbengine\" directory
 		Reference：Start
 
 	Check the startup status:
@@ -95,7 +95,7 @@ http://www.kbengine.org
 		kbengine\kbengine_demos_assets\res\spaces\*
 
 	Generation Navmeshs:
-		https://github.com/kbengine/unity3d_nav_critterai
+		...
 
 
 ##Structure and interpretation:
@@ -108,50 +108,50 @@ http://www.kbengine.org
 				U3D graphics layer will input the event trigger to the plug-in layer (for example: the player moved, hit the relive button UI), 
 				the plug-in logic script layer determines whether the need to transfer to the server. etc.
 				
+	clientapp：
+		In the system of KBE abstraction of a client APP, which contains the KBE client plug-in initialization and destruction, etc.
 
-	Plugins\kbengine\kbengine_unity3d_plugins:
+	Plugins\KBEnginePlugins
 		Client plug-in core codes.
 
-	Scripts\kbe_scripts:
+	Source\kbe_scripts:
 		KBE client logic scripts(in this implementation of the server side of the entity script, the entity's bag data structure, skills in client condition checks, etc.).
 
-		Scripts\kbe_scripts\Account.cs：
+		kbe_scripts\Account：
 			Corresponds to the client side of the KBE server account entity.
 
-		Scripts\kbe_scripts\Avatar.cs：
+		kbe_scripts\Avatar：
 			Corresponds to the client side of the KBE server avatar entity.
 
-		Scripts\kbe_scripts\Monster.cs：
+		kbe_scripts\Monster：
 			Corresponds to the client side of the KBE server monster entity.
 
-		Scripts\kbe_scripts\clientapp.cs：
-			In the system of KBE abstraction of a client APP, which contains the KBE client plug-in initialization and destruction, etc.
-
-		Scripts\kbe_scripts\interfaces：
+		kbe_scripts\interfaces\：
 			Corresponding to the module defined in KBE(entity_defs\interfaces).
 
-	Scripts\u3d_scripts:
-		Unity graphics layer (including scene rendering, UI, object, character model, monster model).
+	Source\ue4_scripts:
+		ue4_scripts\PlayerCharacter：
+			Current client player, the script processing model and animation and other parts.
 
-		Scripts\u3d_scripts\GameEntity.cs：
-			Monster/NPC or player script (management model and animation, etc.).
+		ue4_scripts\GameEntity：
+			Whether the monster or other players, by the script responsible for the model and animation and other parts.
 
-		Scripts\u3d_scripts\World.cs:
-			Manage a map of the game script, for example: to create a specific 3D monster into the scene.
+		ue4_scripts\GameModeLogin:
+			Manage landing scenes, listen for events related to the KBE plug-in, and trigger events to the plug-in.
 
-		Scripts\u3d_scripts\UI.cs:
-			the game's UI processing script.
+		ue4_scripts\GameModeSelectAvatar:
+			Manage role selection scenarios, listen for events related to the KBE plug-in, and trigger events on the plug-in.
 
-	Scenes\start.unity:
+		ue4_scripts\GameModeWorld:
+			Listen to events related to the KBE plug-in, trigger events to the plug-in, and manage scripts for in-game maps, such as creating a specific 3D monster in the scene.
+
+	Content\LoginScene:
 		Start the scene, which starts to enter the game.
 
-	Scenes\_scenes\login.unity:
-		login map.
-
-	Scenes\_scenes\selavatars.unity:
+	Content\SelectAvatarScene
 		Game character selection map.
 
-	Scenes\_scenes\world.unity:
+	Content\WorldScene
 		A map of the scene in the game.
 
 ##Screenshots:

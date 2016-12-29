@@ -12,7 +12,7 @@ class Flags;
 class Spell;
 
 /*
-	对应entity_defs/*
+	对应entity_defs/
 
 	要实现一个KBE对应的实体必须经过以下几步
 	1: 在服务器entity_defs中entities.xml中注册实体并实现实体的def定义

@@ -5,7 +5,7 @@
 class Entity;
 
 /*
-	对应entity_defs/interfaces/*
+	对应entity_defs/interfaces/
 */
 class Flags
 {

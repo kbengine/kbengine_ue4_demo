@@ -9,14 +9,10 @@ DECLARE_LOG_CATEGORY_EXTERN(KBEScriptLog, Log, All);
 
 #define NETMODE_WORLD TEXT("")
 
-#define FUNC_NAME TEXT(__func__)
-
 #if PLATFORM_WINDOWS
 #define FUNC_NAME TEXT(__FUNCTION__)
-#endif
-
-#if PLATFORM_ANDROID
-#define  FUNC_NAME __func__
+#else
+#define FUNC_NAME TEXT(__func__)
 #endif
 
 #define INFO_MSG(Format, ...) \

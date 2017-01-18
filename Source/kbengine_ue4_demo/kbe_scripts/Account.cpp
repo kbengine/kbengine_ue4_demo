@@ -62,19 +62,19 @@ void Account::onDestroy()
 
 void Account::reqCreateAvatar(uint8 roleType, const FString& name)
 {
-	DEBUG_MSG("roleType=%d", roleType);
+	DEBUG_MSG("Account::reqCreateAvatar(): roleType=%d", roleType);
 	baseCall("reqCreateAvatar", roleType, name);
 }
 
 void Account::reqRemoveAvatar(uint64 dbid)
 {
-	DEBUG_MSG("dbid=%lld", dbid);
+	DEBUG_MSG("Account::reqRemoveAvatar(): dbid=%lld", dbid);
 	baseCall("reqRemoveAvatarDBID", dbid);
 }
 
 void Account::selectAvatarGame(uint64 dbid)
 {
-	DEBUG_MSG("name=%lld", dbid);
+	DEBUG_MSG("Account::selectAvatarGame(): name=%lld", dbid);
 	baseCall("selectAvatarGame", dbid);
 }
 
@@ -150,7 +150,7 @@ void Account::onCreateAvatarResult(uint8 retcode, const KB_FIXED_DICT& info)
 
 void Account::onRemoveAvatar(uint64 dbid)
 {
-	DEBUG_MSG("dbid=%lld", dbid);
+	DEBUG_MSG("Account::onRemoveAvatar(): dbid=%lld", dbid);
 
 	AVATAR_INFOS* infosFind = characters.Find(dbid);
 

@@ -49,7 +49,7 @@ void Avatar::__init__()
 
 void Avatar::reqRelive(uint8 reliveType)
 {
-	DEBUG_MSG("reqRelive");
+	DEBUG_MSG("Avatar::reqRelive(): reqRelive");
 	cellCall("relive", reliveType);
 }
 

@@ -11,6 +11,7 @@ class Flags;
 class Spell;
 class SkillBox;
 class Teleport;
+class AvatarLingGen;
 
 /*
 	对应entity_defs/
@@ -22,7 +23,7 @@ class Teleport;
 		A：在实体的头文件中按照格式定义ENTITYDEF_DECLARE_模块名， 具体看demo
 		B：在实体CPP文件中ENTITYDEF_CLASS_REGISTER将实体注册，具体看demo
 */
-class Avatar : public GameObject, public Combat, public Motion, public State, public Flags, public Spell, public SkillBox, public Teleport
+class Avatar : public GameObject, public Combat, public Motion, public State, public Flags, public Spell, public SkillBox, public Teleport, public AvatarLingGen
 {
 public:
 	Avatar();

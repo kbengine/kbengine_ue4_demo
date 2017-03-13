@@ -9,13 +9,14 @@
 #include "interfaces/Spell.h"
 #include "interfaces/SkillBox.h"
 #include "interfaces/Teleport.h"
+#include "interfaces/AvatarLingGen.h"
 #include "Avatar.h"
 
 /*
 	每个实体都需要将自己注册，格式为
 	ENTITYDEF_CLASS_REGISTER(实体模块名，继承模块1，继承模块N，...)
 */
-ENTITYDEF_CLASS_REGISTER(Avatar, GameObject, Combat, Motion, State, Flags, Spell, SkillBox, Teleport)
+ENTITYDEF_CLASS_REGISTER(Avatar, GameObject, Combat, Motion, State, Flags, Spell, SkillBox, Teleport, AvatarLingGen)
 
 Avatar::Avatar():
 	GameObject(),
@@ -25,7 +26,8 @@ Avatar::Avatar():
 	Flags(this),
 	Spell(this),
 	SkillBox(this),
-	Teleport(this)
+	Teleport(this),
+	AvatarLingGen(this)
 {
 }
 

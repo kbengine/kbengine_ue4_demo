@@ -52,12 +52,12 @@ public:
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void onDisableConnect(const UKBEventData* pEventData);
+	void onDisconnected(const UKBEventData* pEventData);
 
 	/* KBE事件
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
-	void onConnectStatus(const UKBEventData* pEventData);
+	void onConnectionState(const UKBEventData* pEventData);
 	
 	
 };

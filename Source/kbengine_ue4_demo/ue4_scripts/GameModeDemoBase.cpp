@@ -43,8 +43,8 @@ void AGameModeDemoBase::installEvents()
 {
 	// common
 	KBENGINE_REGISTER_EVENT("onKicked", onKicked);
-	KBENGINE_REGISTER_EVENT("onDisableConnect", onDisableConnect);
-	KBENGINE_REGISTER_EVENT("onConnectStatus", onConnectStatus);
+	KBENGINE_REGISTER_EVENT("onDisconnected", onDisconnected);
+	KBENGINE_REGISTER_EVENT("onConnectionState", onConnectionState);
 }
 
 void AGameModeDemoBase::fire(const FString& eventName, UKBEventData* pEventData)
@@ -56,10 +56,10 @@ void AGameModeDemoBase::onKicked_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeDemoBase::onDisableConnect_Implementation(const UKBEventData* pEventData)
+void AGameModeDemoBase::onDisconnected_Implementation(const UKBEventData* pEventData)
 {
 }
 
-void AGameModeDemoBase::onConnectStatus_Implementation(const UKBEventData* pEventData)
+void AGameModeDemoBase::onConnectionState_Implementation(const UKBEventData* pEventData)
 {
 }

@@ -1,24 +1,27 @@
 KBEngine_ue4_demo(UE4.14.3)
 =============
 
-##This client-project is written for KBEngine(a MMOG engine of server)
+## This client-project is written for KBEngine(a MMOG engine of server)
+
 http://www.kbengine.org
 
-##ÖÐÎÄ
-[Demo´î½¨ÎÄµµ](https://github.com/kbengine/kbengine_ue4_demo/blob/master/README_CN.md)£¬QQ½»Á÷Èº£º461368412£¬[ÂÛÌ³](http://bbs.kbengine.org)
+## ä¸­æ–‡
 
-##Releases
+[Demoæ­å»ºæ–‡æ¡£](https://github.com/kbengine/kbengine_ue4_demo/blob/master/README_CN.md)ï¼ŒQQäº¤æµç¾¤ï¼š461368412ï¼Œ[è®ºå›](http://bbs.kbengine.org)
+
+## Releases
 
 	sources		: https://github.com/kbengine/kbengine_ue4_demo/releases/latest
 	binarys		: https://sourceforge.net/projects/kbengine/files/
 
 
-##KBE-Plugins docs
+## KBE-Plugins docs
 
 	https://github.com/kbengine/kbengine_ue4_plugins/blob/master/README.md
 
 
-##Start:
+## Start:
+
 	1. Download KBEngine(a MMOG engine of server):
 		Download(KBEngine):
 			https://github.com/kbengine/kbengine/releases/latest
@@ -53,7 +56,7 @@ http://www.kbengine.org
 ![demo_configure](http://www.kbengine.org/assets/img/screenshots/demo_copy_kbengine.jpg)
 
 
-##Configure Demo(Optional):
+## Configure Demo(Optional):
 
 	Change the login address:
 ![demo_configure](http://www.kbengine.org/assets/img/screenshots/demo_configure_ue4.jpg)
@@ -62,10 +65,10 @@ http://www.kbengine.org
 		kbengine_ue4_demo\Content\ClientApp-> port
 
 
-##Start the Servers:
+## Start the Servers:
 
 	Ensure that the "kbengine_ue4_demo\kbengine_demos_assets" has been copied to the "kbengine\" directory
-		Reference£ºStart
+		Referenceï¼šStart
 
 	Check the startup status:
 		If successful will find log "Components::process(): Found all the components!".
@@ -82,13 +85,13 @@ http://www.kbengine.org
 		(More: http://www.kbengine.org/docs/startup_shutdown.html)
 
 
-##Start the Client:
+## Start the Client:
 
 	Directly start(U3DEditor or Executable file).
-	(Build Client£ºUnity Editor -> File -> Build Settings -> PC, MAC & Linux Standalone.)
+	(Build Clientï¼šUnity Editor -> File -> Build Settings -> PC, MAC & Linux Standalone.)
 
 
-##Navmesh-navigation(Optional):
+## Navmesh-navigation(Optional):
 	
 	The server to use recastnavigation navigation.
 	Recastnavigation generated navigation mesh (Navmeshs) placed on the:
@@ -98,7 +101,7 @@ http://www.kbengine.org
 		...
 
 
-##Structure and interpretation:
+## Structure and interpretation:
 			
 	The relationship between plug-ins(KBE) and U3D and servers:
 		Plug-in and servers: Responsible for processing and server network packet. account login/logout process. 
@@ -108,7 +111,7 @@ http://www.kbengine.org
 				U3D graphics layer will input the event trigger to the plug-in layer (for example: the player moved, hit the relive button UI), 
 				the plug-in logic script layer determines whether the need to transfer to the server. etc.
 				
-	clientapp£º
+	clientappï¼š
 		In the system of KBE abstraction of a client APP, which contains the KBE client plug-in initialization and destruction, etc.
 
 	Plugins\KBEnginePlugins
@@ -117,23 +120,23 @@ http://www.kbengine.org
 	Source\kbe_scripts:
 		KBE client logic scripts(in this implementation of the server side of the entity script, the entity's bag data structure, skills in client condition checks, etc.).
 
-		kbe_scripts\Account£º
+		kbe_scripts\Accountï¼š
 			Corresponds to the client side of the KBE server account entity.
 
-		kbe_scripts\Avatar£º
+		kbe_scripts\Avatarï¼š
 			Corresponds to the client side of the KBE server avatar entity.
 
-		kbe_scripts\Monster£º
+		kbe_scripts\Monsterï¼š
 			Corresponds to the client side of the KBE server monster entity.
 
-		kbe_scripts\interfaces\£º
+		kbe_scripts\interfaces\ï¼š
 			Corresponding to the module defined in KBE(entity_defs\interfaces).
 
 	Source\ue4_scripts:
-		ue4_scripts\PlayerCharacter£º
+		ue4_scripts\PlayerCharacterï¼š
 			Current client player, the script processing model and animation and other parts.
 
-		ue4_scripts\GameEntity£º
+		ue4_scripts\GameEntityï¼š
 			Whether the monster or other players, by the script responsible for the model and animation and other parts.
 
 		ue4_scripts\GameModeLogin:
@@ -154,7 +157,8 @@ http://www.kbengine.org
 	Content\WorldScene
 		A map of the scene in the game.
 
-##Screenshots:
+## Screenshots:
+
 ![screenshots1](http://www.kbengine.org/assets/img/screenshots/ue4_demo1.jpg)
 ![screenshots2](http://www.kbengine.org/assets/img/screenshots/ue4_demo2.jpg)
 ![screenshots3](http://www.kbengine.org/assets/img/screenshots/ue4_demo3.jpg)

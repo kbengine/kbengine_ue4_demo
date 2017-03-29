@@ -7,12 +7,12 @@
 AvatarLingGen::AvatarLingGen(Entity* entity) :
 	self(entity)
 {
-	//// 注册事件
-	//KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("req_generate_linggen", "req_generate_linggen", [this](const UKBEventData* pEventData)
-	//{
-	//	const UKBEventData_req_generate_linggen& data = static_cast<const UKBEventData_req_generate_linggen&>(*pEventData);
-	//	req_generate_linggen();
-	//});
+	// 注册事件
+	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("req_generate_linggen", "req_generate_linggen", [this](const UKBEventData* pEventData)
+	{
+		const UKBEventData_req_generate_linggen& data = static_cast<const UKBEventData_req_generate_linggen&>(*pEventData);
+		req_generate_linggen();
+	});
 }
 
 AvatarLingGen::~AvatarLingGen()

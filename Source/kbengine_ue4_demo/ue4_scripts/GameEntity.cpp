@@ -70,7 +70,7 @@ void AGameEntity::updateLocation(float DeltaTime)
 		SetActorLocation(targetLocation);
 	}
 
-	FaceRotation(targetRotator);
+	FaceRotation(targetRotator, DeltaTime);
 }
 
 // Called every frame

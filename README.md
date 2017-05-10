@@ -87,8 +87,7 @@ http://www.kbengine.org
 
 ## Start the Client:
 
-	Directly start(U3DEditor or Executable file).
-	(Build Client：Unity Editor -> File -> Build Settings -> PC, MAC & Linux Standalone.)
+	Directly start(UE4Editor or Executable file).
 
 
 ## Navmesh-navigation(Optional):

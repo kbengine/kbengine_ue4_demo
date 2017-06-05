@@ -49,6 +49,12 @@ public:
 		targetRotator = rot;
 	}
 
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	void setIsOnGround(bool onGround)
+	{
+		isOnGround = onGround;
+	}
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	float moveSpeed;
@@ -64,4 +70,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	FRotator targetRotator;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	bool isOnGround;
 };

@@ -13,6 +13,7 @@ AGameEntity::AGameEntity(const FObjectInitializer& ObjectInitializer) : Super(Ob
 	PrimaryActorTick.bCanEverTick = true;
 	entityID = 0;
 	moveSpeed = 0.f;
+	isOnGround = false;
 }
 
 // Called when the game starts or when spawned

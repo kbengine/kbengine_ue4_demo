@@ -197,6 +197,7 @@ void AGameModeWorld::set_position_Implementation(const UKBEventData* pEventData)
 	{
 		pAGameEntity->SetActorLocation(pData->position);
 		pAGameEntity->setTargetLocation(pData->position);
+		pAGameEntity->setIsOnGround(pData->isOnGround);
 	}
 }
 
@@ -218,8 +219,11 @@ void AGameModeWorld::updatePosition_Implementation(const UKBEventData* pEventDat
 	const UKBEventData_updatePosition* pData = Cast<UKBEventData_updatePosition>(pEventData);
 	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
 
-	if(pAGameEntity)
+	if (pAGameEntity)
+	{
 		pAGameEntity->setTargetLocation(pData->position);
+		pAGameEntity->setIsOnGround(pData->isOnGround);
+	}
 }
 
 void AGameModeWorld::onControlled_Implementation(const UKBEventData* pEventData)

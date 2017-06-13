@@ -57,6 +57,12 @@ public:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	float modelScale;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	int modelID;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	float moveSpeed;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)

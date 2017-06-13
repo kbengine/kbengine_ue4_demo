@@ -276,7 +276,7 @@ void AGameModeWorld::set_modelScale_Implementation(const UKBEventData* pEventDat
 	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
 
 	if (pAGameEntity)
-		pAGameEntity->modelScale = (float)(pData->modelScale / 10.0f);
+		pAGameEntity->modelScale = (float)(pData->modelScale / 100.0f);
 }
 
 void AGameModeWorld::set_modelID_Implementation(const UKBEventData* pEventData)

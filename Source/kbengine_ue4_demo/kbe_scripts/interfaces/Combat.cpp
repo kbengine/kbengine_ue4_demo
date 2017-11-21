@@ -1,6 +1,6 @@
+#include "Combat.h"
 #include "kbengine_ue4_demo.h"
 #include "Entity.h"
-#include "Combat.h"
 #include "kbe_scripts/LogicEvents.h"
 
 Combat::Combat(Entity* entity) :

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "kbengine_ue4_demo.h"
 #include "GameModeSelectAvatar.h"
+#include "kbengine_ue4_demo.h"
 #include "KBEngine.h"
 
 AGameModeSelectAvatar::AGameModeSelectAvatar(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)

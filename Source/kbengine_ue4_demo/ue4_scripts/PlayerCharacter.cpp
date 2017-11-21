@@ -1,8 +1,8 @@
 // Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 
+#include "PlayerCharacter.h"
 #include "kbengine_ue4_demo.h"
 #include "Kismet/HeadMountedDisplayFunctionLibrary.h"
-#include "PlayerCharacter.h"
 
 //////////////////////////////////////////////////////////////////////////
 // APlayerCharacter

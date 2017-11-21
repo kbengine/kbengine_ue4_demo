@@ -3,8 +3,8 @@
 #pragma once
 #include "KBECommon.h"
 
-class GameObject;
-class NPCObject;
+#include "interfaces/GameObject.h"
+#include "interfaces/NPCObject.h"
 
 /*
 	∂‘”¶entity_defs/

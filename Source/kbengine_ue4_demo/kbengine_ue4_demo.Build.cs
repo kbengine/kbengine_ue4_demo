@@ -4,8 +4,10 @@ using UnrealBuildTool;
 
 public class kbengine_ue4_demo : ModuleRules
 {
-	public kbengine_ue4_demo(TargetInfo Target)
-	{
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "KBEnginePlugins" });
+	public kbengine_ue4_demo(ReadOnlyTargetRules Target) : base(Target)
+    {
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "KBEnginePlugins" });
 	}
 }

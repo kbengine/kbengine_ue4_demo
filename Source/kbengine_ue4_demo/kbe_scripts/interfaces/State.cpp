@@ -1,6 +1,6 @@
+#include "State.h"
 #include "kbengine_ue4_demo.h"
 #include "Entity.h"
-#include "State.h"
 #include "kbe_scripts/LogicEvents.h"
 
 State::State(Entity* entity) :

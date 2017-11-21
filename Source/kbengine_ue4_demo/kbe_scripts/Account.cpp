@@ -1,7 +1,6 @@
+#include "Account.h"
 #include "kbengine_ue4_demo.h"
 #include "Entity.h"
-#include "interfaces/GameObject.h"
-#include "Account.h"
 #include "KBEngine.h"
 #include "LogicEvents.h"
 

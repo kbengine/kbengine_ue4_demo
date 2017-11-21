@@ -1,9 +1,7 @@
+#include "NPC.h"
 #include "kbengine_ue4_demo.h"
 #include "Entity.h"
-#include "interfaces/GameObject.h"
-#include "interfaces/NPCObject.h"
-#include "interfaces/Motion.h"
-#include "NPC.h"
+
 
 /*
 	每个实体都需要将自己注册，格式为

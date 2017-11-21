@@ -3,13 +3,13 @@
 #pragma once
 #include "KBECommon.h"
 
-class GameObject;
-class NPCObject;
-class Combat;
-class Motion;
-class State;
-class Flags;
-class Spell;
+#include "interfaces/GameObject.h"
+#include "interfaces/NPCObject.h"
+#include "interfaces/Motion.h"
+#include "interfaces/Combat.h"
+#include "interfaces/State.h"
+#include "interfaces/Flags.h"
+#include "interfaces/Spell.h"
 
 /*
 	∂‘”¶entity_defs/

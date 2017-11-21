@@ -1,6 +1,6 @@
+#include "NPCObject.h"
 #include "kbengine_ue4_demo.h"
 #include "Entity.h"
-#include "NPCObject.h"
 #include "kbe_scripts/LogicEvents.h"
 
 NPCObject::NPCObject(Entity* entity) :

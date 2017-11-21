@@ -2,7 +2,7 @@
 
 #pragma once
 
-class Entity;
+#include "Entity.h"
 
 /*
 	∂‘”¶entity_defs/interfaces/

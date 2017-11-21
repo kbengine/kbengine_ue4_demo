@@ -1,6 +1,6 @@
+#include "Motion.h"
 #include "kbengine_ue4_demo.h"
 #include "Entity.h"
-#include "Motion.h"
 #include "kbe_scripts/LogicEvents.h"
 
 Motion::Motion(Entity* entity) :

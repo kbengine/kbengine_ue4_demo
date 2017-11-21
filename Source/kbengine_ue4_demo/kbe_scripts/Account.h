@@ -3,7 +3,7 @@
 #pragma once
 #include "KBECommon.h"
 
-class GameObject;
+#include "interfaces/GameObject.h"
 
 /*
 	∂‘”¶entity_defs/

@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "GameModeLogin.h"
 #include "kbengine_ue4_demo.h"
 #include "KBEngine.h"
-#include "GameModeLogin.h"
 
 AGameModeLogin::AGameModeLogin(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {

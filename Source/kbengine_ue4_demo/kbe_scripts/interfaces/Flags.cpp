@@ -1,6 +1,6 @@
+#include "Flags.h"
 #include "kbengine_ue4_demo.h"
 #include "Entity.h"
-#include "Flags.h"
 #include "kbe_scripts/LogicEvents.h"
 
 Flags::Flags(Entity* entity) :

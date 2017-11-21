@@ -3,9 +3,10 @@
 #pragma once
 #include "KBECommon.h"
 
-class GameObject;
-class NPCObject;
-class Motion;
+#include "interfaces/GameObject.h"
+#include "interfaces/NPCObject.h"
+#include "interfaces/Motion.h"
+
 
 /*
 	∂‘”¶entity_defs/

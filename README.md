@@ -46,7 +46,7 @@ http://www.kbengine.org
 
 			Download plugin(client):
 				https://github.com/kbengine/kbengine_ue4_plugins/releases/latest
-				unzip and copy to "Assets/plugins/kbengine/kbengine_ue4_plugins"
+				unzip and copy to "kbengine_ue4_demo/Plugins/KBEnginePlugins"
 
 			Download demo-assets(server):
 				https://github.com/kbengine/kbengine_demos_assets/releases/latest

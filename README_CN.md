@@ -52,7 +52,7 @@ http://www.kbengine.org
 
 		        客户端插件下载：
 		            https://github.com/kbengine/kbengine_ue4_plugins/releases/latest
-		            下载后请将其解压缩，插件源码请放置在: Assets/plugins/kbengine/kbengine_ue4_plugins
+		            下载后请将其解压缩，插件源码请放置在: kbengine_ue4_demo/Plugins/KBEnginePlugins
 
 		        服务端资产库下载：
 		            https://github.com/kbengine/kbengine_demos_assets/releases/latest

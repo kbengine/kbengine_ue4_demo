@@ -18,12 +18,11 @@ http://www.kbengine.org
 ## Releases
 
 	sources		: https://github.com/kbengine/kbengine_ue4_demo/releases/latest
-	binarys		: https://sourceforge.net/projects/kbengine/files/
 
 
-## KBE插件文档
+## 客户端插件文档
 
-	https://github.com/kbengine/kbengine_ue4_plugins/blob/master/README.md
+	kbengine_ue4_demo\Plugins\kbengine_ue4_plugins\README.md
 
 
 ## 开始:
@@ -38,7 +37,7 @@ http://www.kbengine.org
 		安装(KBEngine)：
 			http://www.kbengine.org/docs/installation.html
 
-	2. 下载kbengine客户端插件与服务端Demo资产库:
+	2. 下载服务端Demo资产库:
 
 	    * 使用git命令行，进入到kbengine_ue4_demo目录执行：
 
@@ -48,11 +47,7 @@ http://www.kbengine.org
 		* 或者使用 TortoiseGit(选择菜单): TortoiseGit -> Submodule Update:
 ![submodule_update2](http://www.kbengine.org/assets/img/screenshots/unity3d_plugins_submodule_update.jpg)
 
-                * 也可以手动下载kbengine客户端插件与服务端Demo资产库
-
-		        客户端插件下载：
-		            https://github.com/kbengine/kbengine_ue4_plugins/releases/latest
-		            下载后请将其解压缩，插件源码请放置在: kbengine_ue4_demo/Plugins/KBEnginePlugins
+                * 也可以手动下载kbengine服务端Demo资产库
 
 		        服务端资产库下载：
 		            https://github.com/kbengine/kbengine_demos_assets/releases/latest
@@ -60,6 +55,11 @@ http://www.kbengine.org
 
 	3. 拷贝服务端资产库"kbengine_demos_assets"到服务端引擎根目录"kbengine/"之下，如下图：
 ![demo_configure](http://www.kbengine.org/assets/img/screenshots/demo_copy_kbengine.jpg)
+
+
+	4. 通过服务端资产库生成KBE客户端插件（可选，默认已经带有一份，除非服务器有相关改动才需要再次生成）
+		1: 双击运行 kbengine/kbengine_demos_asset/gensdk.bat
+		2: 拷贝kbengine_ue4_plugins到kbengine_ue4_demo\Plugins\
 
 
 ## 配置Demo(可选):
@@ -116,37 +116,37 @@ http://www.kbengine.org
 	Plugins\KBEnginePlugins：
 		KBE客户端插件的核心层代码。
 
-	Source\kbe_scripts：
+	Plugins\KBEnginePlugins\Source\KBEnginePlugins\Scripts：
 		KBE客户端的逻辑脚本（在此实现对应服务端的实体脚本、实体的背包数据结构、技能客户端判断等）。
 
-		kbe_scripts\Account：
+		Scripts\Account：
 			对应KBE服务端的账号实体的客户端部分。
 
-		kbe_scripts\Avatar：
+		Scripts\Avatar：
 			对应KBE服务端的账游戏中玩家实体的客户端部分。
 
-		kbe_scripts\Monster：
+		Scripts\Monster：
 			对应KBE服务端的怪物实体的客户端部分。
 
-		kbe_scripts\interfaces\：
+		Scripts\interfaces\：
 			对应KBE中entity_defs\interfaces中所声明的模块。
 
-	Source\ue4_scripts：
+	Source\kbengine_ue4_demo：
 		ue4图形层（包括场景渲染、UI、物体部件、人物模型、怪物模型、一切关于显示的东西等等）。
 
-		ue4_scripts\PlayerCharacter：
+		kbengine_ue4_demo\PlayerCharacter：
 			当前客户端玩家由此脚本负责模型动画等表现部分。
 
-		ue4_scripts\GameEntity：
+		kbengine_ue4_demo\GameEntity：
 			无论是怪物还是其他玩家都由此脚本负责模型动画等表现部分。
 
-		ue4_scripts\GameModeLogin:
+		kbengine_ue4_demo\GameModeLogin:
 			管理登陆场景，监听KBE插件相关事件同时向插件触发一些事件。
 
-		ue4_scripts\GameModeSelectAvatar:
+		kbengine_ue4_demo\GameModeSelectAvatar:
 			管理角色选人场景，监听KBE插件相关事件同时向插件触发一些事件。
 
-		ue4_scripts\GameModeWorld:
+		kbengine_ue4_demo\GameModeWorld:
 			监听KBE插件相关事件同时向插件触发一些事件，管理游戏中大地图或副本的渲染层脚本，例如：负责将具体的3D怪物创建到场景中。
 
 	Content\LoginScene:

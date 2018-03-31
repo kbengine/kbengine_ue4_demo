@@ -113,7 +113,7 @@ http://www.kbengine.org
 	clientapp：
 		在KBE的体系中抽象出一个客户端APP，其中包含KBE客户端插件的初始化和销毁等等。
 
-	Plugins\KBEnginePlugins：
+	Plugins\KBEnginePlugins\Source\KBEnginePlugins\Engine：
 		KBE客户端插件的核心层代码。
 
 	Plugins\KBEnginePlugins\Source\KBEnginePlugins\Scripts：

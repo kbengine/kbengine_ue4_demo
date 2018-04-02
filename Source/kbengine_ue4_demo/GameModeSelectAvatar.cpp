@@ -2,7 +2,7 @@
 
 #include "GameModeSelectAvatar.h"
 #include "kbengine_ue4_demo.h"
-#include "KBEngine.h"
+#include "Engine/KBEngine.h"
 
 AGameModeSelectAvatar::AGameModeSelectAvatar(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {

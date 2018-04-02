@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-#include "ue4_scripts/GameModeDemoBase.h"
+#include "GameModeDemoBase.h"
 #include "GameModeSelectAvatar.generated.h"
 
 /**
@@ -32,7 +32,7 @@ public:
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void addSpaceGeometryMapping(const UKBEventData* pEventData);
-
+	
 	/* KBEÊÂ¼þ
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")

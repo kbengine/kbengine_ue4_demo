@@ -2,10 +2,10 @@
 
 #include "GameModeWorld.h"
 #include "kbengine_ue4_demo.h"
-#include "KBEngine.h"
-#include "Entity.h"
+#include "Engine/KBEngine.h"
+#include "Engine/Entity.h"
 #include "GameEntity.h"
-#include "KBEvent.h"
+#include "Engine/KBEvent.h"
 #include "PlayerCharacter.h"
 
 AGameModeWorld::AGameModeWorld(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)

@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "ue4_scripts/GameModeDemoBase.h"
+#include "GameModeDemoBase.h"
 #include "GameModeWorld.generated.h"
 
 class AGameEntity;

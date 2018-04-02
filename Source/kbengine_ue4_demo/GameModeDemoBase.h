@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "KBEvent.h"
-#include "kbe_scripts/LogicEvents.h"
+#include "Scripts/LogicEvents.h"
 #include "GameFramework/GameMode.h"
 #include "GameModeDemoBase.generated.h"
 
@@ -35,7 +34,7 @@ public:
 	virtual void Logout(AController* Exiting) override;
 
 	/*
-	安装登陆时需要监听的KBE事件
+		安装登陆时需要监听的KBE事件
 	*/
 	virtual void installEvents();
 

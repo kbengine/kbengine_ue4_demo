@@ -9,7 +9,6 @@
 #include "KBECommon.h"
 #include "Entity.h"
 #include "KBETypes.h"
-#include "ServerErrorDescrs.h"
 #include "EntityCallSpaceDuplicateBase.h"
 
 class Method;
@@ -17,6 +16,7 @@ class Property;
 class MemoryStream;
 
 // defined in */scripts/entity_defs/SpaceDuplicate.def
+	// Please inherit and implement "class SpaceDuplicate : public SpaceDuplicateBase"
 class KBENGINEPLUGINS_API SpaceDuplicateBase : public Entity
 {
 public:
@@ -42,8 +42,9 @@ public:
 	EntityCall* getBaseEntityCall() override;
 	EntityCall* getCellEntityCall() override;
 
-	void onRemoteMethodCall(Method* pMethod, MemoryStream& stream) override;
-	void onUpdatePropertys(Property* pProp, MemoryStream& stream) override;
+
+	void onRemoteMethodCall(MemoryStream& stream) override;
+	void onUpdatePropertys(MemoryStream& stream) override;
 	void callPropertysSetMethods() override;
 
 	SpaceDuplicateBase();

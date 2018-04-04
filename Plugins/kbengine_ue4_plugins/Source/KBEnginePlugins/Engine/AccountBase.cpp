@@ -7,6 +7,7 @@
 #include "DataTypes.h"
 #include "CustomDataTypes.h"
 #include "MemoryStream.h"
+#include "EntityComponent.h"
 
 
 void AccountBase::onGetBase()
@@ -14,9 +15,7 @@ void AccountBase::onGetBase()
 	if(pBaseEntityCall)
 		delete pBaseEntityCall;
 
-	pBaseEntityCall = new EntityBaseEntityCall_AccountBase();
-	pBaseEntityCall->id = id();
-	pBaseEntityCall->className = className();
+	pBaseEntityCall = new EntityBaseEntityCall_AccountBase(id(), className());
 }
 
 void AccountBase::onGetCell()
@@ -24,9 +23,7 @@ void AccountBase::onGetCell()
 	if(pCellEntityCall)
 		delete pCellEntityCall;
 
-	pCellEntityCall = new EntityCellEntityCall_AccountBase();
-	pCellEntityCall->id = id();
-	pCellEntityCall->className = className();
+	pCellEntityCall = new EntityCellEntityCall_AccountBase(id(), className());
 }
 
 void AccountBase::onLoseCell()
@@ -45,8 +42,32 @@ EntityCall* AccountBase::getCellEntityCall()
 	return pCellEntityCall;
 }
 
-void AccountBase::onRemoteMethodCall(Method* pMethod, MemoryStream& stream)
+void AccountBase::onRemoteMethodCall(MemoryStream& stream)
 {
+	ScriptModule* sm = *EntityDef::moduledefs.Find("Account");
+	uint16 methodUtype = 0;
+	uint16 componentPropertyUType = 0;
+
+	if (sm->useMethodDescrAlias)
+	{
+		componentPropertyUType = stream.readUint8();
+		methodUtype = stream.read<uint8>();
+	}
+	else
+	{
+		componentPropertyUType = stream.readUint16();
+		methodUtype = stream.read<uint16>();
+	}
+
+	Method* pMethod = sm->idmethods[methodUtype];
+
+	if(componentPropertyUType > 0)
+	{
+		KBE_ASSERT(false);
+
+		return;
+	}
+
 	switch(pMethod->methodUtype)
 	{
 		case 10005:
@@ -75,81 +96,109 @@ void AccountBase::onRemoteMethodCall(Method* pMethod, MemoryStream& stream)
 	};
 }
 
-void AccountBase::onUpdatePropertys(Property* pProp, MemoryStream& stream)
+void AccountBase::onUpdatePropertys(MemoryStream& stream)
 {
-	switch(pProp->properUtype)
+	ScriptModule* sm = *EntityDef::moduledefs.Find("Account");
+
+	while(stream.length() > 0)
 	{
-		case 40001:
+		uint16 componentPropertyUType = 0;
+		uint16 properUtype = 0;
+
+		if (sm->usePropertyDescrAlias)
 		{
-			FVector oldval_direction = direction;
-			direction = stream.readVector3();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onDirectionChanged(oldval_direction);
-			}
-			else
-			{
-				if(inWorld())
-					onDirectionChanged(oldval_direction);
-			}
-
-			break;
+			componentPropertyUType = stream.readUint8();
+			properUtype = stream.read<uint8>();
 		}
-		case 2:
+		else
 		{
-			uint64 oldval_lastSelCharacter = lastSelCharacter;
-			lastSelCharacter = stream.readUint64();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onLastSelCharacterChanged(oldval_lastSelCharacter);
-			}
-			else
-			{
-				if(inWorld())
-					onLastSelCharacterChanged(oldval_lastSelCharacter);
-			}
-
-			break;
+			componentPropertyUType = stream.readUint16();
+			properUtype = stream.read<uint16>();
 		}
-		case 40000:
+
+		if(componentPropertyUType > 0)
 		{
-			FVector oldval_position = position;
-			position = stream.readVector3();
+			KBE_ASSERT(false);
 
-			if(pProp->isBase())
-			{
-				if(inited())
-					onPositionChanged(oldval_position);
-			}
-			else
-			{
-				if(inWorld())
-					onPositionChanged(oldval_position);
-			}
-
-			break;
+			return;
 		}
-		case 40002:
+
+		Property* pProp = sm->idpropertys[properUtype];
+
+		switch(pProp->properUtype)
 		{
-			stream.readUint32();
-			break;
+			case 40001:
+			{
+				FVector oldval_direction = direction;
+				direction = stream.readVector3();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onDirectionChanged(oldval_direction);
+				}
+				else
+				{
+					if(inWorld())
+						onDirectionChanged(oldval_direction);
+				}
+
+				break;
+			}
+			case 2:
+			{
+				uint64 oldval_lastSelCharacter = lastSelCharacter;
+				lastSelCharacter = stream.readUint64();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onLastSelCharacterChanged(oldval_lastSelCharacter);
+				}
+				else
+				{
+					if(inWorld())
+						onLastSelCharacterChanged(oldval_lastSelCharacter);
+				}
+
+				break;
+			}
+			case 40000:
+			{
+				FVector oldval_position = position;
+				position = stream.readVector3();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onPositionChanged(oldval_position);
+				}
+				else
+				{
+					if(inWorld())
+						onPositionChanged(oldval_position);
+				}
+
+				break;
+			}
+			case 40002:
+			{
+				stream.readUint32();
+				break;
 		}
-		default:
-			break;
-	};
+			default:
+				break;
+		};
+	}
 }
 
 void AccountBase::callPropertysSetMethods()
 {
-	ScriptModule* sm = EntityDef::moduledefs[className()];
+	ScriptModule* sm = EntityDef::moduledefs["Account"];
 	TMap<uint16, Property*>& pdatas = sm->idpropertys;
 
 	FVector oldval_direction = direction;
-	Property* pProp_direction = pdatas[1];
+	Property* pProp_direction = pdatas[2];
 	if(pProp_direction->isBase())
 	{
 		if(inited() && !inWorld())
@@ -170,7 +219,7 @@ void AccountBase::callPropertysSetMethods()
 	}
 
 	uint64 oldval_lastSelCharacter = lastSelCharacter;
-	Property* pProp_lastSelCharacter = pdatas[3];
+	Property* pProp_lastSelCharacter = pdatas[4];
 	if(pProp_lastSelCharacter->isBase())
 	{
 		if(inited() && !inWorld())
@@ -191,7 +240,7 @@ void AccountBase::callPropertysSetMethods()
 	}
 
 	FVector oldval_position = position;
-	Property* pProp_position = pdatas[0];
+	Property* pProp_position = pdatas[1];
 	if(pProp_position->isBase())
 	{
 		if(inited() && !inWorld())
@@ -228,5 +277,6 @@ AccountBase::~AccountBase()
 
 	if(pCellEntityCall)
 		delete pCellEntityCall;
+
 }
 

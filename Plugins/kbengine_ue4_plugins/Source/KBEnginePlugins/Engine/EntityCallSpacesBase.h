@@ -12,24 +12,23 @@
 #include "KBETypes.h"
 #include "CustomDataTypes.h"
 
+
 // defined in */scripts/entity_defs/Spaces.def
 
 class KBENGINEPLUGINS_API EntityBaseEntityCall_SpacesBase : public EntityCall
 {
 public:
-	EntityBaseEntityCall_SpacesBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_BASE;
-	}
 
+	EntityBaseEntityCall_SpacesBase(int32 eid, const FString& ename);
+
+	virtual ~EntityBaseEntityCall_SpacesBase();
 };
 
 class KBENGINEPLUGINS_API EntityCellEntityCall_SpacesBase : public EntityCall
 {
 public:
-	EntityCellEntityCall_SpacesBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_CELL;
-	}
 
+	EntityCellEntityCall_SpacesBase(int32 eid, const FString& ename);
+
+	virtual ~EntityCellEntityCall_SpacesBase();
 };

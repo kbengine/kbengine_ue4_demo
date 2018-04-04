@@ -12,24 +12,23 @@
 #include "KBETypes.h"
 #include "CustomDataTypes.h"
 
+
 // defined in */scripts/entity_defs/NPC.def
 
 class KBENGINEPLUGINS_API EntityBaseEntityCall_NPCBase : public EntityCall
 {
 public:
-	EntityBaseEntityCall_NPCBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_BASE;
-	}
 
+	EntityBaseEntityCall_NPCBase(int32 eid, const FString& ename);
+
+	virtual ~EntityBaseEntityCall_NPCBase();
 };
 
 class KBENGINEPLUGINS_API EntityCellEntityCall_NPCBase : public EntityCall
 {
 public:
-	EntityCellEntityCall_NPCBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_CELL;
-	}
 
+	EntityCellEntityCall_NPCBase(int32 eid, const FString& ename);
+
+	virtual ~EntityCellEntityCall_NPCBase();
 };

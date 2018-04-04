@@ -12,16 +12,16 @@
 #include "KBETypes.h"
 #include "CustomDataTypes.h"
 
+
 // defined in */scripts/entity_defs/Account.def
 
 class KBENGINEPLUGINS_API EntityBaseEntityCall_AccountBase : public EntityCall
 {
 public:
-	EntityBaseEntityCall_AccountBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_BASE;
-	}
 
+	EntityBaseEntityCall_AccountBase(int32 eid, const FString& ename);
+
+	virtual ~EntityBaseEntityCall_AccountBase();
 	void reqAvatarList();
 	void reqCreateAvatar(uint8 arg1, const FString& arg2);
 	void reqRemoveAvatar(const FString& arg1);
@@ -32,9 +32,8 @@ public:
 class KBENGINEPLUGINS_API EntityCellEntityCall_AccountBase : public EntityCall
 {
 public:
-	EntityCellEntityCall_AccountBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_CELL;
-	}
 
+	EntityCellEntityCall_AccountBase(int32 eid, const FString& ename);
+
+	virtual ~EntityCellEntityCall_AccountBase();
 };

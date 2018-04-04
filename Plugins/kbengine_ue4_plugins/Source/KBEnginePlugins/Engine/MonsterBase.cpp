@@ -7,6 +7,7 @@
 #include "DataTypes.h"
 #include "CustomDataTypes.h"
 #include "MemoryStream.h"
+#include "EntityComponent.h"
 
 
 void MonsterBase::onGetBase()
@@ -14,9 +15,7 @@ void MonsterBase::onGetBase()
 	if(pBaseEntityCall)
 		delete pBaseEntityCall;
 
-	pBaseEntityCall = new EntityBaseEntityCall_MonsterBase();
-	pBaseEntityCall->id = id();
-	pBaseEntityCall->className = className();
+	pBaseEntityCall = new EntityBaseEntityCall_MonsterBase(id(), className());
 }
 
 void MonsterBase::onGetCell()
@@ -24,9 +23,7 @@ void MonsterBase::onGetCell()
 	if(pCellEntityCall)
 		delete pCellEntityCall;
 
-	pCellEntityCall = new EntityCellEntityCall_MonsterBase();
-	pCellEntityCall->id = id();
-	pCellEntityCall->className = className();
+	pCellEntityCall = new EntityCellEntityCall_MonsterBase(id(), className());
 }
 
 void MonsterBase::onLoseCell()
@@ -45,11 +42,35 @@ EntityCall* MonsterBase::getCellEntityCall()
 	return pCellEntityCall;
 }
 
-void MonsterBase::onRemoteMethodCall(Method* pMethod, MemoryStream& stream)
+void MonsterBase::onRemoteMethodCall(MemoryStream& stream)
 {
+	ScriptModule* sm = *EntityDef::moduledefs.Find("Monster");
+	uint16 methodUtype = 0;
+	uint16 componentPropertyUType = 0;
+
+	if (sm->useMethodDescrAlias)
+	{
+		componentPropertyUType = stream.readUint8();
+		methodUtype = stream.read<uint8>();
+	}
+	else
+	{
+		componentPropertyUType = stream.readUint16();
+		methodUtype = stream.read<uint16>();
+	}
+
+	Method* pMethod = sm->idmethods[methodUtype];
+
+	if(componentPropertyUType > 0)
+	{
+		KBE_ASSERT(false);
+
+		return;
+	}
+
 	switch(pMethod->methodUtype)
 	{
-		case 29:
+		case 34:
 		{
 			int32 recvDamage_arg1 = stream.readInt32();
 			int32 recvDamage_arg2 = stream.readInt32();
@@ -63,315 +84,343 @@ void MonsterBase::onRemoteMethodCall(Method* pMethod, MemoryStream& stream)
 	};
 }
 
-void MonsterBase::onUpdatePropertys(Property* pProp, MemoryStream& stream)
+void MonsterBase::onUpdatePropertys(MemoryStream& stream)
 {
-	switch(pProp->properUtype)
+	ScriptModule* sm = *EntityDef::moduledefs.Find("Monster");
+
+	while(stream.length() > 0)
 	{
-		case 47001:
+		uint16 componentPropertyUType = 0;
+		uint16 properUtype = 0;
+
+		if (sm->usePropertyDescrAlias)
 		{
-			int32 oldval_HP = HP;
-			HP = stream.readInt32();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onHPChanged(oldval_HP);
-			}
-			else
-			{
-				if(inWorld())
-					onHPChanged(oldval_HP);
-			}
-
-			break;
+			componentPropertyUType = stream.readUint8();
+			properUtype = stream.read<uint8>();
 		}
-		case 47002:
+		else
 		{
-			int32 oldval_HP_Max = HP_Max;
-			HP_Max = stream.readInt32();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onHP_MaxChanged(oldval_HP_Max);
-			}
-			else
-			{
-				if(inWorld())
-					onHP_MaxChanged(oldval_HP_Max);
-			}
-
-			break;
+			componentPropertyUType = stream.readUint16();
+			properUtype = stream.read<uint16>();
 		}
-		case 47003:
+
+		if(componentPropertyUType > 0)
 		{
-			int32 oldval_MP = MP;
-			MP = stream.readInt32();
+			KBE_ASSERT(false);
 
-			if(pProp->isBase())
-			{
-				if(inited())
-					onMPChanged(oldval_MP);
-			}
-			else
-			{
-				if(inWorld())
-					onMPChanged(oldval_MP);
-			}
-
-			break;
+			return;
 		}
-		case 47004:
+
+		Property* pProp = sm->idpropertys[properUtype];
+
+		switch(pProp->properUtype)
 		{
-			int32 oldval_MP_Max = MP_Max;
-			MP_Max = stream.readInt32();
-
-			if(pProp->isBase())
+			case 47001:
 			{
-				if(inited())
-					onMP_MaxChanged(oldval_MP_Max);
-			}
-			else
-			{
-				if(inWorld())
-					onMP_MaxChanged(oldval_MP_Max);
-			}
+				int32 oldval_HP = HP;
+				HP = stream.readInt32();
 
-			break;
+				if(pProp->isBase())
+				{
+					if(inited())
+						onHPChanged(oldval_HP);
+				}
+				else
+				{
+					if(inWorld())
+						onHPChanged(oldval_HP);
+				}
+
+				break;
+			}
+			case 47002:
+			{
+				int32 oldval_HP_Max = HP_Max;
+				HP_Max = stream.readInt32();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onHP_MaxChanged(oldval_HP_Max);
+				}
+				else
+				{
+					if(inWorld())
+						onHP_MaxChanged(oldval_HP_Max);
+				}
+
+				break;
+			}
+			case 47003:
+			{
+				int32 oldval_MP = MP;
+				MP = stream.readInt32();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onMPChanged(oldval_MP);
+				}
+				else
+				{
+					if(inWorld())
+						onMPChanged(oldval_MP);
+				}
+
+				break;
+			}
+			case 47004:
+			{
+				int32 oldval_MP_Max = MP_Max;
+				MP_Max = stream.readInt32();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onMP_MaxChanged(oldval_MP_Max);
+				}
+				else
+				{
+					if(inWorld())
+						onMP_MaxChanged(oldval_MP_Max);
+				}
+
+				break;
+			}
+			case 40001:
+			{
+				FVector oldval_direction = direction;
+				direction = stream.readVector3();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onDirectionChanged(oldval_direction);
+				}
+				else
+				{
+					if(inWorld())
+						onDirectionChanged(oldval_direction);
+				}
+
+				break;
+			}
+			case 51007:
+			{
+				uint32 oldval_entityNO = entityNO;
+				entityNO = stream.readUint32();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onEntityNOChanged(oldval_entityNO);
+				}
+				else
+				{
+					if(inWorld())
+						onEntityNOChanged(oldval_entityNO);
+				}
+
+				break;
+			}
+			case 47005:
+			{
+				int32 oldval_forbids = forbids;
+				forbids = stream.readInt32();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onForbidsChanged(oldval_forbids);
+				}
+				else
+				{
+					if(inWorld())
+						onForbidsChanged(oldval_forbids);
+				}
+
+				break;
+			}
+			case 41006:
+			{
+				uint32 oldval_modelID = modelID;
+				modelID = stream.readUint32();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onModelIDChanged(oldval_modelID);
+				}
+				else
+				{
+					if(inWorld())
+						onModelIDChanged(oldval_modelID);
+				}
+
+				break;
+			}
+			case 41007:
+			{
+				uint8 oldval_modelScale = modelScale;
+				modelScale = stream.readUint8();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onModelScaleChanged(oldval_modelScale);
+				}
+				else
+				{
+					if(inWorld())
+						onModelScaleChanged(oldval_modelScale);
+				}
+
+				break;
+			}
+			case 32:
+			{
+				uint8 oldval_moveSpeed = moveSpeed;
+				moveSpeed = stream.readUint8();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onMoveSpeedChanged(oldval_moveSpeed);
+				}
+				else
+				{
+					if(inWorld())
+						onMoveSpeedChanged(oldval_moveSpeed);
+				}
+
+				break;
+			}
+			case 41003:
+			{
+				FString oldval_name = name;
+				name = stream.readUnicode();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onNameChanged(oldval_name);
+				}
+				else
+				{
+					if(inWorld())
+						onNameChanged(oldval_name);
+				}
+
+				break;
+			}
+			case 40000:
+			{
+				FVector oldval_position = position;
+				position = stream.readVector3();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onPositionChanged(oldval_position);
+				}
+				else
+				{
+					if(inWorld())
+						onPositionChanged(oldval_position);
+				}
+
+				break;
+			}
+			case 40002:
+			{
+				stream.readUint32();
+				break;
 		}
-		case 40001:
-		{
-			FVector oldval_direction = direction;
-			direction = stream.readVector3();
-
-			if(pProp->isBase())
+			case 47006:
 			{
-				if(inited())
-					onDirectionChanged(oldval_direction);
-			}
-			else
-			{
-				if(inWorld())
-					onDirectionChanged(oldval_direction);
-			}
+				int8 oldval_state = state;
+				state = stream.readInt8();
 
-			break;
-		}
-		case 51007:
-		{
-			uint32 oldval_entityNO = entityNO;
-			entityNO = stream.readUint32();
+				if(pProp->isBase())
+				{
+					if(inited())
+						onStateChanged(oldval_state);
+				}
+				else
+				{
+					if(inWorld())
+						onStateChanged(oldval_state);
+				}
 
-			if(pProp->isBase())
-			{
-				if(inited())
-					onEntityNOChanged(oldval_entityNO);
+				break;
 			}
-			else
+			case 47007:
 			{
-				if(inWorld())
-					onEntityNOChanged(oldval_entityNO);
-			}
+				uint8 oldval_subState = subState;
+				subState = stream.readUint8();
 
-			break;
-		}
-		case 47005:
-		{
-			int32 oldval_forbids = forbids;
-			forbids = stream.readInt32();
+				if(pProp->isBase())
+				{
+					if(inited())
+						onSubStateChanged(oldval_subState);
+				}
+				else
+				{
+					if(inWorld())
+						onSubStateChanged(oldval_subState);
+				}
 
-			if(pProp->isBase())
-			{
-				if(inited())
-					onForbidsChanged(oldval_forbids);
+				break;
 			}
-			else
+			case 41004:
 			{
-				if(inWorld())
-					onForbidsChanged(oldval_forbids);
-			}
+				uint32 oldval_uid = uid;
+				uid = stream.readUint32();
 
-			break;
-		}
-		case 41006:
-		{
-			uint32 oldval_modelID = modelID;
-			modelID = stream.readUint32();
+				if(pProp->isBase())
+				{
+					if(inited())
+						onUidChanged(oldval_uid);
+				}
+				else
+				{
+					if(inWorld())
+						onUidChanged(oldval_uid);
+				}
 
-			if(pProp->isBase())
-			{
-				if(inited())
-					onModelIDChanged(oldval_modelID);
+				break;
 			}
-			else
+			case 41005:
 			{
-				if(inWorld())
-					onModelIDChanged(oldval_modelID);
-			}
+				uint32 oldval_utype = utype;
+				utype = stream.readUint32();
 
-			break;
-		}
-		case 41007:
-		{
-			uint8 oldval_modelScale = modelScale;
-			modelScale = stream.readUint8();
+				if(pProp->isBase())
+				{
+					if(inited())
+						onUtypeChanged(oldval_utype);
+				}
+				else
+				{
+					if(inWorld())
+						onUtypeChanged(oldval_utype);
+				}
 
-			if(pProp->isBase())
-			{
-				if(inited())
-					onModelScaleChanged(oldval_modelScale);
+				break;
 			}
-			else
-			{
-				if(inWorld())
-					onModelScaleChanged(oldval_modelScale);
-			}
-
-			break;
-		}
-		case 22:
-		{
-			uint8 oldval_moveSpeed = moveSpeed;
-			moveSpeed = stream.readUint8();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onMoveSpeedChanged(oldval_moveSpeed);
-			}
-			else
-			{
-				if(inWorld())
-					onMoveSpeedChanged(oldval_moveSpeed);
-			}
-
-			break;
-		}
-		case 41003:
-		{
-			FString oldval_name = name;
-			name = stream.readUnicode();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onNameChanged(oldval_name);
-			}
-			else
-			{
-				if(inWorld())
-					onNameChanged(oldval_name);
-			}
-
-			break;
-		}
-		case 40000:
-		{
-			FVector oldval_position = position;
-			position = stream.readVector3();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onPositionChanged(oldval_position);
-			}
-			else
-			{
-				if(inWorld())
-					onPositionChanged(oldval_position);
-			}
-
-			break;
-		}
-		case 40002:
-		{
-			stream.readUint32();
-			break;
-		}
-		case 47006:
-		{
-			int8 oldval_state = state;
-			state = stream.readInt8();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onStateChanged(oldval_state);
-			}
-			else
-			{
-				if(inWorld())
-					onStateChanged(oldval_state);
-			}
-
-			break;
-		}
-		case 47007:
-		{
-			uint8 oldval_subState = subState;
-			subState = stream.readUint8();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onSubStateChanged(oldval_subState);
-			}
-			else
-			{
-				if(inWorld())
-					onSubStateChanged(oldval_subState);
-			}
-
-			break;
-		}
-		case 41004:
-		{
-			uint32 oldval_uid = uid;
-			uid = stream.readUint32();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onUidChanged(oldval_uid);
-			}
-			else
-			{
-				if(inWorld())
-					onUidChanged(oldval_uid);
-			}
-
-			break;
-		}
-		case 41005:
-		{
-			uint32 oldval_utype = utype;
-			utype = stream.readUint32();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onUtypeChanged(oldval_utype);
-			}
-			else
-			{
-				if(inWorld())
-					onUtypeChanged(oldval_utype);
-			}
-
-			break;
-		}
-		default:
-			break;
-	};
+			default:
+				break;
+		};
+	}
 }
 
 void MonsterBase::callPropertysSetMethods()
 {
-	ScriptModule* sm = EntityDef::moduledefs[className()];
+	ScriptModule* sm = EntityDef::moduledefs["Monster"];
 	TMap<uint16, Property*>& pdatas = sm->idpropertys;
 
 	int32 oldval_HP = HP;
-	Property* pProp_HP = pdatas[3];
+	Property* pProp_HP = pdatas[4];
 	if(pProp_HP->isBase())
 	{
 		if(inited() && !inWorld())
@@ -392,7 +441,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	int32 oldval_HP_Max = HP_Max;
-	Property* pProp_HP_Max = pdatas[4];
+	Property* pProp_HP_Max = pdatas[5];
 	if(pProp_HP_Max->isBase())
 	{
 		if(inited() && !inWorld())
@@ -413,7 +462,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	int32 oldval_MP = MP;
-	Property* pProp_MP = pdatas[5];
+	Property* pProp_MP = pdatas[6];
 	if(pProp_MP->isBase())
 	{
 		if(inited() && !inWorld())
@@ -434,7 +483,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	int32 oldval_MP_Max = MP_Max;
-	Property* pProp_MP_Max = pdatas[6];
+	Property* pProp_MP_Max = pdatas[7];
 	if(pProp_MP_Max->isBase())
 	{
 		if(inited() && !inWorld())
@@ -455,7 +504,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	FVector oldval_direction = direction;
-	Property* pProp_direction = pdatas[1];
+	Property* pProp_direction = pdatas[2];
 	if(pProp_direction->isBase())
 	{
 		if(inited() && !inWorld())
@@ -476,7 +525,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	uint32 oldval_entityNO = entityNO;
-	Property* pProp_entityNO = pdatas[7];
+	Property* pProp_entityNO = pdatas[8];
 	if(pProp_entityNO->isBase())
 	{
 		if(inited() && !inWorld())
@@ -497,7 +546,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	int32 oldval_forbids = forbids;
-	Property* pProp_forbids = pdatas[8];
+	Property* pProp_forbids = pdatas[9];
 	if(pProp_forbids->isBase())
 	{
 		if(inited() && !inWorld())
@@ -518,7 +567,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	uint32 oldval_modelID = modelID;
-	Property* pProp_modelID = pdatas[9];
+	Property* pProp_modelID = pdatas[10];
 	if(pProp_modelID->isBase())
 	{
 		if(inited() && !inWorld())
@@ -539,7 +588,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	uint8 oldval_modelScale = modelScale;
-	Property* pProp_modelScale = pdatas[10];
+	Property* pProp_modelScale = pdatas[11];
 	if(pProp_modelScale->isBase())
 	{
 		if(inited() && !inWorld())
@@ -560,7 +609,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	uint8 oldval_moveSpeed = moveSpeed;
-	Property* pProp_moveSpeed = pdatas[11];
+	Property* pProp_moveSpeed = pdatas[12];
 	if(pProp_moveSpeed->isBase())
 	{
 		if(inited() && !inWorld())
@@ -581,7 +630,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	FString oldval_name = name;
-	Property* pProp_name = pdatas[12];
+	Property* pProp_name = pdatas[13];
 	if(pProp_name->isBase())
 	{
 		if(inited() && !inWorld())
@@ -602,7 +651,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	FVector oldval_position = position;
-	Property* pProp_position = pdatas[0];
+	Property* pProp_position = pdatas[1];
 	if(pProp_position->isBase())
 	{
 		if(inited() && !inWorld())
@@ -623,7 +672,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	int8 oldval_state = state;
-	Property* pProp_state = pdatas[13];
+	Property* pProp_state = pdatas[14];
 	if(pProp_state->isBase())
 	{
 		if(inited() && !inWorld())
@@ -644,7 +693,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	uint8 oldval_subState = subState;
-	Property* pProp_subState = pdatas[14];
+	Property* pProp_subState = pdatas[15];
 	if(pProp_subState->isBase())
 	{
 		if(inited() && !inWorld())
@@ -665,7 +714,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	uint32 oldval_uid = uid;
-	Property* pProp_uid = pdatas[15];
+	Property* pProp_uid = pdatas[16];
 	if(pProp_uid->isBase())
 	{
 		if(inited() && !inWorld())
@@ -686,7 +735,7 @@ void MonsterBase::callPropertysSetMethods()
 	}
 
 	uint32 oldval_utype = utype;
-	Property* pProp_utype = pdatas[16];
+	Property* pProp_utype = pdatas[17];
 	if(pProp_utype->isBase())
 	{
 		if(inited() && !inWorld())
@@ -736,5 +785,6 @@ MonsterBase::~MonsterBase()
 
 	if(pCellEntityCall)
 		delete pCellEntityCall;
+
 }
 

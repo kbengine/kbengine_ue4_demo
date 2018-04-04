@@ -9,7 +9,6 @@
 #include "KBECommon.h"
 #include "Entity.h"
 #include "KBETypes.h"
-#include "ServerErrorDescrs.h"
 #include "EntityCallNPCBase.h"
 
 class Method;
@@ -17,6 +16,7 @@ class Property;
 class MemoryStream;
 
 // defined in */scripts/entity_defs/NPC.def
+	// Please inherit and implement "class NPC : public NPCBase"
 class KBENGINEPLUGINS_API NPCBase : public Entity
 {
 public:
@@ -46,8 +46,9 @@ public:
 	EntityCall* getBaseEntityCall() override;
 	EntityCall* getCellEntityCall() override;
 
-	void onRemoteMethodCall(Method* pMethod, MemoryStream& stream) override;
-	void onUpdatePropertys(Property* pProp, MemoryStream& stream) override;
+
+	void onRemoteMethodCall(MemoryStream& stream) override;
+	void onUpdatePropertys(MemoryStream& stream) override;
 	void callPropertysSetMethods() override;
 
 	NPCBase();

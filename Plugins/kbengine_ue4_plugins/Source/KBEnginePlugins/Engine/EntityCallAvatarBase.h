@@ -12,26 +12,33 @@
 #include "KBETypes.h"
 #include "CustomDataTypes.h"
 
+#include "EntityCallTestBase.h"
+#include "EntityCallTestNoBaseBase.h"
+
 // defined in */scripts/entity_defs/Avatar.def
 
 class KBENGINEPLUGINS_API EntityBaseEntityCall_AvatarBase : public EntityCall
 {
 public:
-	EntityBaseEntityCall_AvatarBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_BASE;
-	}
+	EntityBaseEntityCall_TestBase* component1;
+	EntityBaseEntityCall_TestBase* component2;
+	EntityBaseEntityCall_TestNoBaseBase* component3;
 
+	EntityBaseEntityCall_AvatarBase(int32 eid, const FString& ename);
+
+	virtual ~EntityBaseEntityCall_AvatarBase();
 };
 
 class KBENGINEPLUGINS_API EntityCellEntityCall_AvatarBase : public EntityCall
 {
 public:
-	EntityCellEntityCall_AvatarBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_CELL;
-	}
+	EntityCellEntityCall_TestBase* component1;
+	EntityCellEntityCall_TestBase* component2;
+	EntityCellEntityCall_TestNoBaseBase* component3;
 
+	EntityCellEntityCall_AvatarBase(int32 eid, const FString& ename);
+
+	virtual ~EntityCellEntityCall_AvatarBase();
 	void dialog(int32 arg1, uint32 arg2);
 	void jump();
 	void relive(uint8 arg1);

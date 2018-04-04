@@ -12,24 +12,23 @@
 #include "KBETypes.h"
 #include "CustomDataTypes.h"
 
+
 // defined in */scripts/entity_defs/SpawnPoint.def
 
 class KBENGINEPLUGINS_API EntityBaseEntityCall_SpawnPointBase : public EntityCall
 {
 public:
-	EntityBaseEntityCall_SpawnPointBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_BASE;
-	}
 
+	EntityBaseEntityCall_SpawnPointBase(int32 eid, const FString& ename);
+
+	virtual ~EntityBaseEntityCall_SpawnPointBase();
 };
 
 class KBENGINEPLUGINS_API EntityCellEntityCall_SpawnPointBase : public EntityCall
 {
 public:
-	EntityCellEntityCall_SpawnPointBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_CELL;
-	}
 
+	EntityCellEntityCall_SpawnPointBase(int32 eid, const FString& ename);
+
+	virtual ~EntityCellEntityCall_SpawnPointBase();
 };

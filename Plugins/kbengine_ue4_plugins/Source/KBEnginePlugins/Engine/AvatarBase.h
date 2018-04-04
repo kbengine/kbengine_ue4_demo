@@ -9,14 +9,16 @@
 #include "KBECommon.h"
 #include "Entity.h"
 #include "KBETypes.h"
-#include "ServerErrorDescrs.h"
 #include "EntityCallAvatarBase.h"
 
 class Method;
 class Property;
 class MemoryStream;
+class TestBase;
+class TestNoBaseBase;
 
 // defined in */scripts/entity_defs/Avatar.def
+	// Please inherit and implement "class Avatar : public AvatarBase"
 class KBENGINEPLUGINS_API AvatarBase : public Entity
 {
 public:
@@ -31,6 +33,12 @@ public:
 	virtual void onMPChanged(int32 oldValue) {}
 	int32 MP_Max;
 	virtual void onMP_MaxChanged(int32 oldValue) {}
+	TestBase* component1;
+	virtual void onComponent1Changed(const TestBase& oldValue) {}
+	TestBase* component2;
+	virtual void onComponent2Changed(const TestBase& oldValue) {}
+	TestNoBaseBase* component3;
+	virtual void onComponent3Changed(const TestNoBaseBase& oldValue) {}
 	int32 forbids;
 	virtual void onForbidsChanged(int32 oldValue) {}
 	uint16 level;
@@ -71,8 +79,9 @@ public:
 	EntityCall* getBaseEntityCall() override;
 	EntityCall* getCellEntityCall() override;
 
-	void onRemoteMethodCall(Method* pMethod, MemoryStream& stream) override;
-	void onUpdatePropertys(Property* pProp, MemoryStream& stream) override;
+
+	void onRemoteMethodCall(MemoryStream& stream) override;
+	void onUpdatePropertys(MemoryStream& stream) override;
 	void callPropertysSetMethods() override;
 
 	AvatarBase();

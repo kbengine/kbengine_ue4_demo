@@ -12,24 +12,23 @@
 #include "KBETypes.h"
 #include "CustomDataTypes.h"
 
+
 // defined in */scripts/entity_defs/SpaceDuplicate.def
 
 class KBENGINEPLUGINS_API EntityBaseEntityCall_SpaceDuplicateBase : public EntityCall
 {
 public:
-	EntityBaseEntityCall_SpaceDuplicateBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_BASE;
-	}
 
+	EntityBaseEntityCall_SpaceDuplicateBase(int32 eid, const FString& ename);
+
+	virtual ~EntityBaseEntityCall_SpaceDuplicateBase();
 };
 
 class KBENGINEPLUGINS_API EntityCellEntityCall_SpaceDuplicateBase : public EntityCall
 {
 public:
-	EntityCellEntityCall_SpaceDuplicateBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_CELL;
-	}
 
+	EntityCellEntityCall_SpaceDuplicateBase(int32 eid, const FString& ename);
+
+	virtual ~EntityCellEntityCall_SpaceDuplicateBase();
 };

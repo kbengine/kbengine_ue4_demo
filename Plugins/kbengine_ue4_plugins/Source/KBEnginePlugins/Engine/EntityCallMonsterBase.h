@@ -12,24 +12,23 @@
 #include "KBETypes.h"
 #include "CustomDataTypes.h"
 
+
 // defined in */scripts/entity_defs/Monster.def
 
 class KBENGINEPLUGINS_API EntityBaseEntityCall_MonsterBase : public EntityCall
 {
 public:
-	EntityBaseEntityCall_MonsterBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_BASE;
-	}
 
+	EntityBaseEntityCall_MonsterBase(int32 eid, const FString& ename);
+
+	virtual ~EntityBaseEntityCall_MonsterBase();
 };
 
 class KBENGINEPLUGINS_API EntityCellEntityCall_MonsterBase : public EntityCall
 {
 public:
-	EntityCellEntityCall_MonsterBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_CELL;
-	}
 
+	EntityCellEntityCall_MonsterBase(int32 eid, const FString& ename);
+
+	virtual ~EntityCellEntityCall_MonsterBase();
 };

@@ -12,24 +12,23 @@
 #include "KBETypes.h"
 #include "CustomDataTypes.h"
 
+
 // defined in */scripts/entity_defs/Gate.def
 
 class KBENGINEPLUGINS_API EntityBaseEntityCall_GateBase : public EntityCall
 {
 public:
-	EntityBaseEntityCall_GateBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_BASE;
-	}
 
+	EntityBaseEntityCall_GateBase(int32 eid, const FString& ename);
+
+	virtual ~EntityBaseEntityCall_GateBase();
 };
 
 class KBENGINEPLUGINS_API EntityCellEntityCall_GateBase : public EntityCall
 {
 public:
-	EntityCellEntityCall_GateBase() : EntityCall()
-	{
-		type = ENTITYCALL_TYPE_CELL;
-	}
 
+	EntityCellEntityCall_GateBase(int32 eid, const FString& ename);
+
+	virtual ~EntityCellEntityCall_GateBase();
 };

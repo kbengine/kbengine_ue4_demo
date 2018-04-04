@@ -7,6 +7,7 @@
 #include "DataTypes.h"
 #include "CustomDataTypes.h"
 #include "MemoryStream.h"
+#include "EntityComponent.h"
 
 
 void GateBase::onGetBase()
@@ -14,9 +15,7 @@ void GateBase::onGetBase()
 	if(pBaseEntityCall)
 		delete pBaseEntityCall;
 
-	pBaseEntityCall = new EntityBaseEntityCall_GateBase();
-	pBaseEntityCall->id = id();
-	pBaseEntityCall->className = className();
+	pBaseEntityCall = new EntityBaseEntityCall_GateBase(id(), className());
 }
 
 void GateBase::onGetCell()
@@ -24,9 +23,7 @@ void GateBase::onGetCell()
 	if(pCellEntityCall)
 		delete pCellEntityCall;
 
-	pCellEntityCall = new EntityCellEntityCall_GateBase();
-	pCellEntityCall->id = id();
-	pCellEntityCall->className = className();
+	pCellEntityCall = new EntityCellEntityCall_GateBase(id(), className());
 }
 
 void GateBase::onLoseCell()
@@ -45,175 +42,203 @@ EntityCall* GateBase::getCellEntityCall()
 	return pCellEntityCall;
 }
 
-void GateBase::onRemoteMethodCall(Method* pMethod, MemoryStream& stream)
+void GateBase::onRemoteMethodCall(MemoryStream& stream)
 {
 }
 
-void GateBase::onUpdatePropertys(Property* pProp, MemoryStream& stream)
+void GateBase::onUpdatePropertys(MemoryStream& stream)
 {
-	switch(pProp->properUtype)
+	ScriptModule* sm = *EntityDef::moduledefs.Find("Gate");
+
+	while(stream.length() > 0)
 	{
-		case 40001:
+		uint16 componentPropertyUType = 0;
+		uint16 properUtype = 0;
+
+		if (sm->usePropertyDescrAlias)
 		{
-			FVector oldval_direction = direction;
-			direction = stream.readVector3();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onDirectionChanged(oldval_direction);
-			}
-			else
-			{
-				if(inWorld())
-					onDirectionChanged(oldval_direction);
-			}
-
-			break;
+			componentPropertyUType = stream.readUint8();
+			properUtype = stream.read<uint8>();
 		}
-		case 51007:
+		else
 		{
-			uint32 oldval_entityNO = entityNO;
-			entityNO = stream.readUint32();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onEntityNOChanged(oldval_entityNO);
-			}
-			else
-			{
-				if(inWorld())
-					onEntityNOChanged(oldval_entityNO);
-			}
-
-			break;
+			componentPropertyUType = stream.readUint16();
+			properUtype = stream.read<uint16>();
 		}
-		case 41006:
+
+		if(componentPropertyUType > 0)
 		{
-			uint32 oldval_modelID = modelID;
-			modelID = stream.readUint32();
+			KBE_ASSERT(false);
 
-			if(pProp->isBase())
-			{
-				if(inited())
-					onModelIDChanged(oldval_modelID);
-			}
-			else
-			{
-				if(inWorld())
-					onModelIDChanged(oldval_modelID);
-			}
-
-			break;
+			return;
 		}
-		case 41007:
+
+		Property* pProp = sm->idpropertys[properUtype];
+
+		switch(pProp->properUtype)
 		{
-			uint8 oldval_modelScale = modelScale;
-			modelScale = stream.readUint8();
-
-			if(pProp->isBase())
+			case 40001:
 			{
-				if(inited())
-					onModelScaleChanged(oldval_modelScale);
-			}
-			else
-			{
-				if(inWorld())
-					onModelScaleChanged(oldval_modelScale);
-			}
+				FVector oldval_direction = direction;
+				direction = stream.readVector3();
 
-			break;
+				if(pProp->isBase())
+				{
+					if(inited())
+						onDirectionChanged(oldval_direction);
+				}
+				else
+				{
+					if(inWorld())
+						onDirectionChanged(oldval_direction);
+				}
+
+				break;
+			}
+			case 51007:
+			{
+				uint32 oldval_entityNO = entityNO;
+				entityNO = stream.readUint32();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onEntityNOChanged(oldval_entityNO);
+				}
+				else
+				{
+					if(inWorld())
+						onEntityNOChanged(oldval_entityNO);
+				}
+
+				break;
+			}
+			case 41006:
+			{
+				uint32 oldval_modelID = modelID;
+				modelID = stream.readUint32();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onModelIDChanged(oldval_modelID);
+				}
+				else
+				{
+					if(inWorld())
+						onModelIDChanged(oldval_modelID);
+				}
+
+				break;
+			}
+			case 41007:
+			{
+				uint8 oldval_modelScale = modelScale;
+				modelScale = stream.readUint8();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onModelScaleChanged(oldval_modelScale);
+				}
+				else
+				{
+					if(inWorld())
+						onModelScaleChanged(oldval_modelScale);
+				}
+
+				break;
+			}
+			case 41003:
+			{
+				FString oldval_name = name;
+				name = stream.readUnicode();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onNameChanged(oldval_name);
+				}
+				else
+				{
+					if(inWorld())
+						onNameChanged(oldval_name);
+				}
+
+				break;
+			}
+			case 40000:
+			{
+				FVector oldval_position = position;
+				position = stream.readVector3();
+
+				if(pProp->isBase())
+				{
+					if(inited())
+						onPositionChanged(oldval_position);
+				}
+				else
+				{
+					if(inWorld())
+						onPositionChanged(oldval_position);
+				}
+
+				break;
+			}
+			case 40002:
+			{
+				stream.readUint32();
+				break;
 		}
-		case 41003:
-		{
-			FString oldval_name = name;
-			name = stream.readUnicode();
-
-			if(pProp->isBase())
+			case 41004:
 			{
-				if(inited())
-					onNameChanged(oldval_name);
-			}
-			else
-			{
-				if(inWorld())
-					onNameChanged(oldval_name);
-			}
+				uint32 oldval_uid = uid;
+				uid = stream.readUint32();
 
-			break;
-		}
-		case 40000:
-		{
-			FVector oldval_position = position;
-			position = stream.readVector3();
+				if(pProp->isBase())
+				{
+					if(inited())
+						onUidChanged(oldval_uid);
+				}
+				else
+				{
+					if(inWorld())
+						onUidChanged(oldval_uid);
+				}
 
-			if(pProp->isBase())
-			{
-				if(inited())
-					onPositionChanged(oldval_position);
+				break;
 			}
-			else
+			case 41005:
 			{
-				if(inWorld())
-					onPositionChanged(oldval_position);
-			}
+				uint32 oldval_utype = utype;
+				utype = stream.readUint32();
 
-			break;
-		}
-		case 40002:
-		{
-			stream.readUint32();
-			break;
-		}
-		case 41004:
-		{
-			uint32 oldval_uid = uid;
-			uid = stream.readUint32();
+				if(pProp->isBase())
+				{
+					if(inited())
+						onUtypeChanged(oldval_utype);
+				}
+				else
+				{
+					if(inWorld())
+						onUtypeChanged(oldval_utype);
+				}
 
-			if(pProp->isBase())
-			{
-				if(inited())
-					onUidChanged(oldval_uid);
+				break;
 			}
-			else
-			{
-				if(inWorld())
-					onUidChanged(oldval_uid);
-			}
-
-			break;
-		}
-		case 41005:
-		{
-			uint32 oldval_utype = utype;
-			utype = stream.readUint32();
-
-			if(pProp->isBase())
-			{
-				if(inited())
-					onUtypeChanged(oldval_utype);
-			}
-			else
-			{
-				if(inWorld())
-					onUtypeChanged(oldval_utype);
-			}
-
-			break;
-		}
-		default:
-			break;
-	};
+			default:
+				break;
+		};
+	}
 }
 
 void GateBase::callPropertysSetMethods()
 {
-	ScriptModule* sm = EntityDef::moduledefs[className()];
+	ScriptModule* sm = EntityDef::moduledefs["Gate"];
 	TMap<uint16, Property*>& pdatas = sm->idpropertys;
 
 	FVector oldval_direction = direction;
-	Property* pProp_direction = pdatas[1];
+	Property* pProp_direction = pdatas[2];
 	if(pProp_direction->isBase())
 	{
 		if(inited() && !inWorld())
@@ -234,7 +259,7 @@ void GateBase::callPropertysSetMethods()
 	}
 
 	uint32 oldval_entityNO = entityNO;
-	Property* pProp_entityNO = pdatas[3];
+	Property* pProp_entityNO = pdatas[4];
 	if(pProp_entityNO->isBase())
 	{
 		if(inited() && !inWorld())
@@ -255,7 +280,7 @@ void GateBase::callPropertysSetMethods()
 	}
 
 	uint32 oldval_modelID = modelID;
-	Property* pProp_modelID = pdatas[4];
+	Property* pProp_modelID = pdatas[5];
 	if(pProp_modelID->isBase())
 	{
 		if(inited() && !inWorld())
@@ -276,7 +301,7 @@ void GateBase::callPropertysSetMethods()
 	}
 
 	uint8 oldval_modelScale = modelScale;
-	Property* pProp_modelScale = pdatas[5];
+	Property* pProp_modelScale = pdatas[6];
 	if(pProp_modelScale->isBase())
 	{
 		if(inited() && !inWorld())
@@ -297,7 +322,7 @@ void GateBase::callPropertysSetMethods()
 	}
 
 	FString oldval_name = name;
-	Property* pProp_name = pdatas[6];
+	Property* pProp_name = pdatas[7];
 	if(pProp_name->isBase())
 	{
 		if(inited() && !inWorld())
@@ -318,7 +343,7 @@ void GateBase::callPropertysSetMethods()
 	}
 
 	FVector oldval_position = position;
-	Property* pProp_position = pdatas[0];
+	Property* pProp_position = pdatas[1];
 	if(pProp_position->isBase())
 	{
 		if(inited() && !inWorld())
@@ -339,7 +364,7 @@ void GateBase::callPropertysSetMethods()
 	}
 
 	uint32 oldval_uid = uid;
-	Property* pProp_uid = pdatas[7];
+	Property* pProp_uid = pdatas[8];
 	if(pProp_uid->isBase())
 	{
 		if(inited() && !inWorld())
@@ -360,7 +385,7 @@ void GateBase::callPropertysSetMethods()
 	}
 
 	uint32 oldval_utype = utype;
-	Property* pProp_utype = pdatas[8];
+	Property* pProp_utype = pdatas[9];
 	if(pProp_utype->isBase())
 	{
 		if(inited() && !inWorld())
@@ -402,5 +427,6 @@ GateBase::~GateBase()
 
 	if(pCellEntityCall)
 		delete pCellEntityCall;
+
 }
 

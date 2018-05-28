@@ -1369,30 +1369,30 @@ public:
 		Messages::messages.Add(TEXT("Loginapp_reqAccountResetPassword"), new Message_Loginapp_reqAccountResetPassword(11, "Loginapp_reqAccountResetPassword", -1, 0, Loginapp_reqAccountResetPassword_argstypes));
 		Messages::loginappMessages.Add(11, Messages::messages["Loginapp_reqAccountResetPassword"]);
 
-		Messages::messages.Add(TEXT("Baseapp_onUpdateDataFromClient"), new Message_Baseapp_onUpdateDataFromClient(27, "Baseapp_onUpdateDataFromClient", -1, -1, TArray<uint8>()));
-		Messages::baseappMessages.Add(27, Messages::messages["Baseapp_onUpdateDataFromClient"]);
+		Messages::messages.Add(TEXT("Baseapp_onUpdateDataFromClient"), new Message_Baseapp_onUpdateDataFromClient(25, "Baseapp_onUpdateDataFromClient", -1, -1, TArray<uint8>()));
+		Messages::baseappMessages.Add(25, Messages::messages["Baseapp_onUpdateDataFromClient"]);
 
-		Messages::messages.Add(TEXT("Baseapp_onUpdateDataFromClientForControlledEntity"), new Message_Baseapp_onUpdateDataFromClientForControlledEntity(28, "Baseapp_onUpdateDataFromClientForControlledEntity", -1, -1, TArray<uint8>()));
-		Messages::baseappMessages.Add(28, Messages::messages["Baseapp_onUpdateDataFromClientForControlledEntity"]);
+		Messages::messages.Add(TEXT("Baseapp_onUpdateDataFromClientForControlledEntity"), new Message_Baseapp_onUpdateDataFromClientForControlledEntity(26, "Baseapp_onUpdateDataFromClientForControlledEntity", -1, -1, TArray<uint8>()));
+		Messages::baseappMessages.Add(26, Messages::messages["Baseapp_onUpdateDataFromClientForControlledEntity"]);
 
 
 		TArray<uint8> Baseapp_reqAccountBindEmail_argstypes;
 		Baseapp_reqAccountBindEmail_argstypes.Add(8);
 		Baseapp_reqAccountBindEmail_argstypes.Add(1);
 		Baseapp_reqAccountBindEmail_argstypes.Add(1);
-		Messages::messages.Add(TEXT("Baseapp_reqAccountBindEmail"), new Message_Baseapp_reqAccountBindEmail(50, "Baseapp_reqAccountBindEmail", -1, 0, Baseapp_reqAccountBindEmail_argstypes));
-		Messages::baseappMessages.Add(50, Messages::messages["Baseapp_reqAccountBindEmail"]);
+		Messages::messages.Add(TEXT("Baseapp_reqAccountBindEmail"), new Message_Baseapp_reqAccountBindEmail(48, "Baseapp_reqAccountBindEmail", -1, 0, Baseapp_reqAccountBindEmail_argstypes));
+		Messages::baseappMessages.Add(48, Messages::messages["Baseapp_reqAccountBindEmail"]);
 
 
 		TArray<uint8> Baseapp_reqAccountNewPassword_argstypes;
 		Baseapp_reqAccountNewPassword_argstypes.Add(8);
 		Baseapp_reqAccountNewPassword_argstypes.Add(1);
 		Baseapp_reqAccountNewPassword_argstypes.Add(1);
-		Messages::messages.Add(TEXT("Baseapp_reqAccountNewPassword"), new Message_Baseapp_reqAccountNewPassword(53, "Baseapp_reqAccountNewPassword", -1, 0, Baseapp_reqAccountNewPassword_argstypes));
-		Messages::baseappMessages.Add(53, Messages::messages["Baseapp_reqAccountNewPassword"]);
+		Messages::messages.Add(TEXT("Baseapp_reqAccountNewPassword"), new Message_Baseapp_reqAccountNewPassword(51, "Baseapp_reqAccountNewPassword", -1, 0, Baseapp_reqAccountNewPassword_argstypes));
+		Messages::baseappMessages.Add(51, Messages::messages["Baseapp_reqAccountNewPassword"]);
 
-		Messages::messages.Add(TEXT("Entity_forwardEntityMessageToCellappFromClient"), new Message_Entity_forwardEntityMessageToCellappFromClient(57, "Entity_forwardEntityMessageToCellappFromClient", -1, -1, TArray<uint8>()));
-		Messages::baseappMessages.Add(57, Messages::messages["Entity_forwardEntityMessageToCellappFromClient"]);
+		Messages::messages.Add(TEXT("Entity_forwardEntityMessageToCellappFromClient"), new Message_Entity_forwardEntityMessageToCellappFromClient(55, "Entity_forwardEntityMessageToCellappFromClient", -1, -1, TArray<uint8>()));
+		Messages::baseappMessages.Add(55, Messages::messages["Entity_forwardEntityMessageToCellappFromClient"]);
 
 		Messages::messages.Add(TEXT("Baseapp_hello"), new Message_Baseapp_hello(200, "Baseapp_hello", -1, -1, TArray<uint8>()));
 		Messages::baseappMessages.Add(200, Messages::messages["Baseapp_hello"]);

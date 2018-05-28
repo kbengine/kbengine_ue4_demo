@@ -20,12 +20,17 @@ class MemoryStream;
 class KBENGINEPLUGINS_API TestNoBaseBase : public EntityComponent
 {
 public:
+	EntityBaseEntityCall_TestNoBaseBase* pBaseEntityCall;
+	EntityCellEntityCall_TestNoBaseBase* pCellEntityCall;
+
 	int32 own;
 	virtual void onOwnChanged(int32 oldValue) {}
 	int32 state;
 	virtual void onStateChanged(int32 oldValue) {}
 
 	virtual void helloCB(int32 arg1) = 0; 
+
+	void createFromStream(MemoryStream& stream) override;
 
 	void onRemoteMethodCall(uint16 methodUtype, MemoryStream& stream) override;
 	void onUpdatePropertys(uint16 propUtype, MemoryStream& stream, int maxCount) override;

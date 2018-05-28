@@ -24,6 +24,6 @@ void TestNoBase::helloCB(int32 arg1)
 	DEBUG_MSG("TestNoBase::helloCB: arg1(%d)!", arg1);
 
 	// 有可能还没有创建cell，所以pCellEntityCall可能为空
-	if(((Avatar*)pOwner)->pCellEntityCall)
-		((Avatar*)pOwner)->pCellEntityCall->component1->hello(795);
+	if(pCellEntityCall)
+		pCellEntityCall->hello(795);
 }

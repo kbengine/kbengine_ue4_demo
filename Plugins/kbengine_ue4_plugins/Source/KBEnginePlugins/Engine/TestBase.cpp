@@ -10,6 +10,13 @@
 #include "MemoryStream.h"
 
 
+void TestBase::createFromStream(MemoryStream& stream)
+{
+	EntityComponent::createFromStream(stream);
+	pBaseEntityCall = new EntityBaseEntityCall_TestBase(entityComponentPropertyID, ownerID);
+	pCellEntityCall = new EntityCellEntityCall_TestBase(entityComponentPropertyID, ownerID);
+}
+
 void TestBase::onRemoteMethodCall(uint16 methodUtype, MemoryStream& stream)
 {
 	ScriptModule* sm = *EntityDef::moduledefs.Find("Test");
@@ -148,6 +155,8 @@ void TestBase::callPropertysSetMethods()
 
 TestBase::TestBase():
 	EntityComponent(),
+	pBaseEntityCall(NULL),
+	pCellEntityCall(NULL),
 	own((int32)FCString::Atoi64(TEXT("1001"))),
 	state((int32)FCString::Atoi64(TEXT("100")))
 {
@@ -155,5 +164,11 @@ TestBase::TestBase():
 
 TestBase::~TestBase()
 {
+	if(pBaseEntityCall)
+		delete pBaseEntityCall;
+
+	if(pCellEntityCall)
+		delete pCellEntityCall;
+
 }
 

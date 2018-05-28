@@ -944,23 +944,20 @@ AvatarBase::AvatarBase():
 {
 	component1->pOwner = this;
 	component1->ownerID = id_;
+	component1->entityComponentPropertyID = 16;
 
 	component2->pOwner = this;
 	component2->ownerID = id_;
+	component2->entityComponentPropertyID = 21;
 
 	component3->pOwner = this;
 	component3->ownerID = id_;
+	component3->entityComponentPropertyID = 22;
 
 }
 
 AvatarBase::~AvatarBase()
 {
-	if(pBaseEntityCall)
-		delete pBaseEntityCall;
-
-	if(pCellEntityCall)
-		delete pCellEntityCall;
-
 	if(component1)
 		delete component1;
 
@@ -969,6 +966,12 @@ AvatarBase::~AvatarBase()
 
 	if(component3)
 		delete component3;
+
+	if(pBaseEntityCall)
+		delete pBaseEntityCall;
+
+	if(pCellEntityCall)
+		delete pCellEntityCall;
 
 }
 

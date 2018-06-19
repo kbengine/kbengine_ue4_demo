@@ -99,6 +99,9 @@ http://www.kbengine.org
 	Generation Navmeshs:
 		...
 
+	Tools:
+		https://github.com/darkwere/ServerRecast
+
 
 ## Structure and interpretation:
 			

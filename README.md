@@ -100,6 +100,10 @@ http://www.kbengine.org
 		...
 
 
+	Tools:
+		https://github.com/darkwere/ServerRecast
+
+
 ## Structure and interpretation:
 			
 	The relationship between plug-ins(KBE) and U3D and servers:

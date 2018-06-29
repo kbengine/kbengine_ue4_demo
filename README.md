@@ -26,20 +26,20 @@ http://www.kbengine.org
 			https://github.com/kbengine/kbengine/releases/latest
 
 		Build(KBEngine):
-			http://www.kbengine.org/docs/build.html
+			http://kbengine.github.io/docs/build.html
 
 		Installation(KBEngine):
-			http://www.kbengine.org/docs/installation.html
+			http://kbengine.github.io/docs/installation.html
 
 	2. Use git to get the demo-assets(server):
 
 		In the kbengine_ue4_demo directory:
 
 		* Git command: git submodule update --init --remote
-![submodule_update1](http://www.kbengine.org/assets/img/screenshots/gitbash_submodule.png)
+![submodule_update1](http://kbengine.github.io/assets/img/screenshots/gitbash_submodule.png)
 
 		* Or use TortoiseGit(menu): TortoiseGit -> Submodule Update:
-![submodule_update2](http://www.kbengine.org/assets/img/screenshots/unity3d_plugins_submodule_update.jpg)
+![submodule_update2](http://kbengine.github.io/assets/img/screenshots/unity3d_plugins_submodule_update.jpg)
 
 		* Or manually get the demo-assets(server)
 
@@ -48,7 +48,7 @@ http://www.kbengine.org
 				unzip and copy to "kbengine/"  (The root directory server engine, such as $KBE_ROOT)
 
 	3. Copy "kbengine_ue4_demo\kbengine_demos_assets" to "kbengine\" root directory
-![demo_configure](http://www.kbengine.org/assets/img/screenshots/demo_copy_kbengine.jpg)
+![demo_configure](http://kbengine.github.io/assets/img/screenshots/demo_copy_kbengine.jpg)
 
 
 	4. Generate a Client plugins from the server-side asset library (optional, one by default unless the server-assets is modified)
@@ -59,7 +59,7 @@ http://www.kbengine.org
 ## Configure Demo(Optional):
 
 	Change the login address:
-![demo_configure](http://www.kbengine.org/assets/img/screenshots/demo_configure_ue4.jpg)
+![demo_configure](http://kbengine.github.io/assets/img/screenshots/demo_configure_ue4.jpg)
 
 		kbengine_ue4_demo\Content\ClientApp-> ip
 		kbengine_ue4_demo\Content\ClientApp-> port
@@ -73,7 +73,7 @@ http://www.kbengine.org
 	Check the startup status:
 		If successful will find log "Components::process(): Found all the components!".
 		Otherwise, please search the "ERROR" keyword in logs, according to the error description to try to solve.
-		(More: http://www.kbengine.org/docs/startup_shutdown.html)
+		(More: http://kbengine.github.io/docs/startup_shutdown.html)
 
 	Start server:
 		Windows:
@@ -82,7 +82,7 @@ http://www.kbengine.org
 		Linux:
 			kbengine\kbengine_demos_assets\start_server.sh
 
-		(More: http://www.kbengine.org/docs/startup_shutdown.html)
+		(More: http://kbengine.github.io/docs/startup_shutdown.html)
 
 
 ## Start the Client:
@@ -161,6 +161,6 @@ http://www.kbengine.org
 
 ## Screenshots:
 
-![screenshots1](http://www.kbengine.org/assets/img/screenshots/ue4_demo1.jpg)
-![screenshots2](http://www.kbengine.org/assets/img/screenshots/ue4_demo2.jpg)
-![screenshots3](http://www.kbengine.org/assets/img/screenshots/ue4_demo3.jpg)
+![screenshots1](http://kbengine.github.io/assets/img/screenshots/ue4_demo1.jpg)
+![screenshots2](http://kbengine.github.io/assets/img/screenshots/ue4_demo2.jpg)
+![screenshots3](http://kbengine.github.io/assets/img/screenshots/ue4_demo3.jpg)

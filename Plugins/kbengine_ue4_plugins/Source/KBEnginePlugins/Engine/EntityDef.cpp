@@ -1170,6 +1170,7 @@ void EntityDef::initScriptModules()
 
 	//DEBUG_MSG("EntityDef::initScriptModules: add(NPC), property(utype / 41005).");
 
+	pNPCModule->useMethodDescrAlias = true;
 	ScriptModule* pGateModule = new ScriptModule("Gate", 5);
 	EntityDef::moduledefs.Add(TEXT("Gate"), pGateModule);
 	EntityDef::idmoduledefs.Add(5, pGateModule);
@@ -1300,6 +1301,7 @@ void EntityDef::initScriptModules()
 
 	//DEBUG_MSG("EntityDef::initScriptModules: add(Gate), property(utype / 41005).");
 
+	pGateModule->useMethodDescrAlias = true;
 }
 
 void EntityDef::initDefTypes()

@@ -34,7 +34,7 @@ KBEngineApp::KBEngineApp() :
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("A27C011AA0FCAC031A349A8A3D288C7D")),
+	serverProtocolMD5_(TEXT("4930E6C01028CE4D5B3CE228CA841378")),
 	serverEntitydefMD5_(TEXT("39BBC4CA001B76B399F5F1CF960055BD")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -73,7 +73,7 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("A27C011AA0FCAC031A349A8A3D288C7D")),
+	serverProtocolMD5_(TEXT("4930E6C01028CE4D5B3CE228CA841378")),
 	serverEntitydefMD5_(TEXT("39BBC4CA001B76B399F5F1CF960055BD")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -205,7 +205,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("1.1.9");
+	clientVersion_ = TEXT("1.1.10");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 
@@ -341,13 +341,13 @@ FString KBEngineApp::serverErr(uint16 id)
 
 void KBEngineApp::updatePlayerToServer()
 {
-	if (!pArgs_->syncPlayer || spaceID_ == 0)
+	if (pArgs_->syncPlayerMS <= 0 || spaceID_ == 0)
 		return;
 
 	double tnow = getTimeSeconds();
 	double span = tnow - lastUpdateToServerTime_;
 
-	if (span < 0.1)
+	if (span < ((double)pArgs_->syncPlayerMS / 1000.0))
 		return;
 
 	Entity* pPlayerEntity = player();
@@ -670,6 +670,9 @@ void KBEngineApp::onLogin_baseapp()
 
 void KBEngineApp::reloginBaseapp()
 {
+	lastTickTime_ = getTimeSeconds();
+	lastTickCBTime_ = getTimeSeconds();
+
 	if(pNetworkInterface_->valid())
 		return;
 

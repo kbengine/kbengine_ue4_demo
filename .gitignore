@@ -3,8 +3,8 @@
 /DerivedDataCache
 /Intermediate
 /Saved
-/Plugins/KBEnginePlugins/Binaries
-/Plugins/KBEnginePlugins/Intermediate
+/Plugins/kbengine_ue4_plugins/Binaries
+/Plugins/kbengine_ue4_plugins/Intermediate
 
 # ----[ Visual Studio ]------- #
 /.vs

@@ -35,7 +35,7 @@ KBEngineApp::KBEngineApp() :
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("5B63B0B05CB019181AA032A1D92F1C0F")),
+	serverProtocolMD5_(TEXT("F3E12B81CB8A779E828749819B6F970C")),
 	serverEntitydefMD5_(TEXT("A0C96A57AD7D75964F55B1BF3ED664D3")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -75,7 +75,7 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("5B63B0B05CB019181AA032A1D92F1C0F")),
+	serverProtocolMD5_(TEXT("F3E12B81CB8A779E828749819B6F970C")),
 	serverEntitydefMD5_(TEXT("A0C96A57AD7D75964F55B1BF3ED664D3")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -136,6 +136,11 @@ void KBEngineApp::installEvents()
 	{
 		const UKBEventData_login& data = static_cast<const UKBEventData_login&>(*pEventData);
 		login(data.username, data.password, data.datas);
+	});
+
+	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("logout", "logout", [this](const UKBEventData* pEventData)
+	{
+		logout();
 	});
 
 	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("createAccount", "createAccount", [this](const UKBEventData* pEventData)
@@ -207,7 +212,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("2.0.0");
+	clientVersion_ = TEXT("2.2.0");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 
@@ -552,6 +557,20 @@ bool KBEngineApp::login(const FString& username, const FString& password, const 
 	clientdatas_ = datas;
 
 	login_loginapp(true);
+	return true;
+}
+
+bool KBEngineApp::logout()
+{
+	if (currserver_ != TEXT("baseapp"))
+		return false;
+
+	INFO_MSG("KBEngineApp::logout()");
+	Bundle* pBundle = Bundle::createObject();
+	pBundle->newMessage(Messages::messages[TEXT("Baseapp_logoutBaseapp"]));
+	(*pBundle) << entity_uuid_;
+	(*pBundle) << entity_id_;
+	pBundle->send(pNetworkInterface_);
 	return true;
 }
 

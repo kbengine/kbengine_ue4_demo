@@ -382,6 +382,10 @@ void Message_Loginapp_reqAccountResetPassword::handleMessage(MemoryStream& msgst
 {
 }
 
+void Message_Baseapp_logoutBaseapp::handleMessage(MemoryStream& msgstream)
+{
+}
+
 void Message_Baseapp_onUpdateDataFromClient::handleMessage(MemoryStream& msgstream)
 {
 }

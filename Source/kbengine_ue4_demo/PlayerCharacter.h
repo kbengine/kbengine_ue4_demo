@@ -26,7 +26,7 @@ public:
 	/** Called once this actor has been deleted */
 	virtual void Destroyed() override;
 
-	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	//UFUNCTION(BlueprintCallable, Category = "KBEngine")
 	virtual bool isPlayer() {
 		return true;
 	}

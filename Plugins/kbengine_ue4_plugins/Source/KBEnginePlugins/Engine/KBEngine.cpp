@@ -4,7 +4,8 @@
 #include "Entity.h"
 #include "EntityDef.h"
 #include "Messages.h"
-#include "NetworkInterface.h"
+#include "NetworkInterfaceTcp.h"
+#include "NetworkInterfaceKcp.h"
 #include "Bundle.h"
 #include "MemoryStream.h"
 #include "DataTypes.h"
@@ -233,6 +234,8 @@ void KBEngineApp::reset()
 	spaceResPath_ = TEXT("");
 	isLoadedGeometry_ = false;
 	
+	baseappUdpPort_ = 0;
+
 	initNetwork();
 }
 
@@ -242,7 +245,12 @@ bool KBEngineApp::initNetwork()
 		delete pNetworkInterface_;
 
 	Messages::initialize();
-	pNetworkInterface_ = new NetworkInterface();
+
+	if(baseappUdpPort_ == 0)
+		pNetworkInterface_ = new NetworkInterfaceTCP();
+	else
+		pNetworkInterface_ = new NetworkInterfaceKCP();
+
 	return true;
 }
 
@@ -460,6 +468,7 @@ void KBEngineApp::Client_onHelloCB(MemoryStream& stream)
 	INFO_MSG("KBEngineApp::Client_onHelloCB(): verInfo(%s), scriptVersion(%s), srvProtocolMD5(%s), srvEntitydefMD5(%s), ctype(%d)!", 
 		*serverVersion_, *serverScriptVersion_, *serverProtocolMD5_, *serverEntitydefMD5_, ctype);
 
+	/*
 	if(serverProtocolMD5_ != serverProtocolMD5)
 	{
 		ERROR_MSG("KBEngineApp::Client_onHelloCB():  digest not match! serverProtocolMD5=%s(server: %s)", *serverProtocolMD5_, *serverProtocolMD5);
@@ -470,6 +479,7 @@ void KBEngineApp::Client_onHelloCB(MemoryStream& stream)
 		KBENGINE_EVENT_FIRE("onVersionNotMatch", pEventData);
 		return;
 	}
+	*/
 
 	if(serverEntitydefMD5_ != serverEntitydefMD5)
 	{
@@ -680,7 +690,7 @@ void KBEngineApp::login_baseapp(bool noconnect)
 		pNetworkInterface_->destroy();
 		pNetworkInterface_ = NULL;
 		initNetwork();
-		pNetworkInterface_->connectTo(baseappIP_, baseappTcpPort_, this, 2);
+		pNetworkInterface_->connectTo(baseappIP_, baseappUdpPort_ > 0 ? baseappUdpPort_ : baseappTcpPort_, this, 2);
 	}
 	else
 	{
@@ -727,7 +737,7 @@ void KBEngineApp::reloginBaseapp()
 	UKBEventData_onReloginBaseapp* pEventData = NewObject<UKBEventData_onReloginBaseapp>();
 	KBENGINE_EVENT_FIRE("KBEngineApp::reloginBaseapp(): onReloginBaseapp", pEventData);
 
-	pNetworkInterface_->connectTo(baseappIP_, baseappTcpPort_, this, 3);
+	pNetworkInterface_->connectTo(baseappIP_, baseappUdpPort_ > 0 ? baseappUdpPort_ : baseappTcpPort_, this, 3);
 }
 
 void KBEngineApp::onReloginTo_baseapp_callback(FString ip, uint16 port, bool success)

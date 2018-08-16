@@ -21,13 +21,15 @@ UKBEMain::UKBEMain(const FObjectInitializer& ObjectInitializer) : Super(ObjectIn
 
 	ip = TEXT("127.0.0.1");
 	port = 20013;
-	syncPlayerMS = 100;
+	syncPlayerMS = 10 * 10;
 	useAliasEntityID = true;
 	isOnInitCallPropertysSetMethods = true;
 	clientType = EKCLIENT_TYPE::CLIENT_TYPE_WIN;
-	serverHeartbeatTick = 15;
-	SEND_BUFFER_MAX = TCP_PACKET_MAX;
-	RECV_BUFFER_MAX = TCP_PACKET_MAX;
+	serverHeartbeatTick = 1e+09 / 2;
+	TCP_SEND_BUFFER_MAX = TCP_PACKET_MAX;
+	TCP_RECV_BUFFER_MAX = TCP_PACKET_MAX;
+	UDP_SEND_BUFFER_MAX = 128;
+	UDP_RECV_BUFFER_MAX = 128;
 }
 
 void UKBEMain::InitializeComponent()
@@ -53,8 +55,10 @@ void UKBEMain::BeginPlay()
 	pArgs->isOnInitCallPropertysSetMethods = isOnInitCallPropertysSetMethods;
 	pArgs->clientType = clientType;
 	pArgs->serverHeartbeatTick = serverHeartbeatTick;
-	pArgs->SEND_BUFFER_MAX = SEND_BUFFER_MAX;
-	pArgs->RECV_BUFFER_MAX = RECV_BUFFER_MAX;
+	pArgs->TCP_SEND_BUFFER_MAX = TCP_SEND_BUFFER_MAX;
+	pArgs->TCP_RECV_BUFFER_MAX = TCP_RECV_BUFFER_MAX;
+	pArgs->UDP_SEND_BUFFER_MAX = UDP_SEND_BUFFER_MAX;
+	pArgs->UDP_RECV_BUFFER_MAX = UDP_RECV_BUFFER_MAX;
 
 	if (!KBEngineApp::getSingleton().initialize(pArgs))
 		delete pArgs;

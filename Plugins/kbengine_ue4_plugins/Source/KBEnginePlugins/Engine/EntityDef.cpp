@@ -1747,7 +1747,7 @@ void EntityDef::initDefTypes()
 	}
 
 	{
-		uint16 utype = 10;
+		uint16 utype = 20;
 		FString typeName = TEXT("ENTITYCALL");
 		FString name = TEXT("ENTITYCALL");
 		DATATYPE_BASE** fPtr = EntityDef::datatypes.Find(name);

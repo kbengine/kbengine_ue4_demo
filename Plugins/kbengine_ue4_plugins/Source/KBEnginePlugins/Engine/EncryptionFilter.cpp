@@ -10,8 +10,6 @@
 #include "modes.h"
 #include "secblock.h"
 
-USING_NAMESPACE(CryptoPP)
-
 BlowfishFilter::BlowfishFilter(int keySize):
 	isGood_(false),
 	pPacket_(new MemoryStream()),
@@ -21,7 +19,7 @@ BlowfishFilter::BlowfishFilter(int keySize):
 {
 	key_.Init(0, keySize);
 
-	RDRAND rng;
+	CryptoPP::RDRAND rng;
 	rng.GenerateBlock(key_.GetData(), key_.Num());
 	init();
 }

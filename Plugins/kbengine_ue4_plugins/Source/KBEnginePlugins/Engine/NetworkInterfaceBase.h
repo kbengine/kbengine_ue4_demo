@@ -8,6 +8,7 @@
 #include "Runtime/Core/Public/Templates/SharedPointer.h"
 #include "Runtime/Networking/Public/Networking.h"
 #include "Runtime/Sockets/Public/Sockets.h"
+#include "EncryptionFilter.h"
 
 class PacketSender;
 class PacketReceiver;
@@ -30,6 +31,15 @@ public:
 public:
 	FSocket* socket() {
 		return socket_;
+	}
+
+	virtual EncryptionFilter* filter() {
+		return pFilter_;
+	}
+
+	virtual void setFilter(EncryptionFilter* filter) {
+		KBE_SAFE_RELEASE(pFilter_);
+		pFilter_ = filter;
 	}
 
 	virtual void process();
@@ -66,4 +76,6 @@ protected:
 	double startTime_;
 
 	bool isDestroyed_;
+
+	EncryptionFilter *pFilter_;
 };

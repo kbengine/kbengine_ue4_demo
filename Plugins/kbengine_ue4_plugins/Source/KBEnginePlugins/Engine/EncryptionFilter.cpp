@@ -178,7 +178,6 @@ bool BlowfishFilter::recv(MessageReader* pMessageReader, MemoryStream *pPacket)
 	if ( 0 == pPacket_->length() && len > MIN_PACKET_SIZE && packeLen - 1 == len - 3)
 	{
 		int padSize = pPacket->readUint8();
-		pPacket->hexlike();
 
 		decrypt(pPacket);
 
@@ -192,21 +191,40 @@ bool BlowfishFilter::recv(MessageReader* pMessageReader, MemoryStream *pPacket)
 	}
 
 	pPacket->rpos(oldrpos);
-
-	uint32 currLen = 0;
-	int oldwpos = 0;
-
 	pPacket_->append(pPacket->data() + pPacket->rpos(), pPacket->length());
+	pPacket->clear(false);
 
-	if (packetLen_ <= 0)
+	while (pPacket_->length() > 0)
 	{
-		if (pPacket_->length() >= MIN_PACKET_SIZE)
+		uint32 currLen = 0;
+		int oldwpos = 0;
+		if (packetLen_ <= 0)
 		{
-			(*pPacket_) >> packetLen_;
-			(*pPacket_) >> padSize_;
+			if (pPacket_->length() >= MIN_PACKET_SIZE)
+			{
+				(*pPacket_) >> packetLen_;
+				(*pPacket_) >> padSize_;
 
-			packetLen_ -= 1;
+				packetLen_ -= 1;
 
+				if (pPacket_->length() > packetLen_)
+				{
+					currLen = (uint32)(pPacket_->rpos() + packetLen_);
+					oldwpos = pPacket_->wpos();
+					pPacket_->wpos(currLen);
+				}
+				else if (pPacket_->length() < packetLen_)
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
 			if (pPacket_->length() > packetLen_)
 			{
 				currLen = (uint32)(pPacket_->rpos() + packetLen_);
@@ -218,45 +236,28 @@ bool BlowfishFilter::recv(MessageReader* pMessageReader, MemoryStream *pPacket)
 				return false;
 			}
 		}
+
+		decrypt(pPacket_);
+		pPacket_->wpos(pPacket_->wpos() - padSize_);
+
+		if (pMessageReader)
+		{
+			pMessageReader->process(pPacket_->data() + pPacket_->rpos(), 0, pPacket_->length());
+		}
+
+		if (currLen > 0)
+		{
+			pPacket_->rpos(currLen);
+			pPacket_->wpos(oldwpos);
+		}
 		else
 		{
-			return false;
+			pPacket_->clear(false);
 		}
-	}
-	else
-	{
-		if (pPacket_->length() > packetLen_)
-		{
-			currLen = (uint32)(pPacket_->rpos() + packetLen_);
-			oldwpos = pPacket_->wpos();
-			pPacket_->wpos(currLen);
-		}
-		else if (pPacket_->length() < packetLen_)
-		{
-			return false;
-		}
-	}
 
-	decrypt(pPacket_);
-	pPacket_->wpos(pPacket_->wpos() - padSize_);
-
-	if (pMessageReader)
-	{
-		pMessageReader->process(pPacket_->data() + pPacket_->rpos(), 0, pPacket_->length());
+		packetLen_ = 0;
+		padSize_ = 0;
 	}
-
-	if (currLen > 0)
-	{
-		pPacket_->rpos(currLen);
-		pPacket_->wpos(oldwpos);
-	} 
-	else
-	{
-		pPacket_->clear(false);
-	}
-
-	packetLen_ = 0;
-	padSize_ = 0;
 	
 	return true;
 }

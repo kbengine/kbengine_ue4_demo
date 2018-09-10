@@ -3,6 +3,7 @@
 #pragma once
 
 #include "KBECommon.h"
+#include "EncryptionFilter.h"
 
 #include "Runtime/Sockets/Public/SocketSubsystem.h"
 #include "Runtime/Core/Public/Templates/SharedPointer.h"
@@ -42,6 +43,15 @@ public:
 		isDestroyed_ = true;
 	}
 
+	EncryptionFilter* filter() {
+		return pFilter_;
+	}
+
+	void setFilter(EncryptionFilter* filter) {
+		KBE_SAFE_RELEASE(pFilter_);
+		pFilter_ = filter;
+	}
+
 private:
 	void tickConnecting();
 
@@ -57,4 +67,6 @@ protected:
 	double startTime_;
 
 	bool isDestroyed_;
+
+	EncryptionFilter *pFilter_;
 };

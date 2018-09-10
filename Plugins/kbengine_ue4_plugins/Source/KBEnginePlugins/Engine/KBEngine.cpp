@@ -15,6 +15,7 @@
 #include "Regex.h"
 #include "KBDebug.h"
 #include "KBEvent.h"
+#include "EncryptionFilter.h"
 
 ServerErrorDescrs KBEngineApp::serverErrs_;
 
@@ -52,7 +53,8 @@ KBEngineApp::KBEngineApp() :
 	spaceID_(0),
 	spaceResPath_(TEXT("")),
 	isLoadedGeometry_(false),
-	component_(TEXT("client"))
+	component_(TEXT("client")),
+	pFilter_(NULL)
 {
 	INFO_MSG("KBEngineApp::KBEngineApp(): hello!");
 }
@@ -435,6 +437,13 @@ void KBEngineApp::hello()
 	else
 		pBundle->newMessage(Messages::messages[TEXT("Baseapp_hello")]);
 
+	if (pArgs_->encryptType == ENCRYPT_TYPE::ENCRYPT_TYPE_BLOWFISH)
+	{
+		pFilter_ = new BlowfishFilter();
+		encryptedKey_ = ((BlowfishFilter*)pFilter_)->key();
+		pNetworkInterface_->setFilter(NULL);
+	}
+
 	(*pBundle) << clientVersion_;
 	(*pBundle) << clientScriptVersion_;
 	pBundle->appendBlob(encryptedKey_);
@@ -480,6 +489,12 @@ void KBEngineApp::Client_onHelloCB(MemoryStream& stream)
 		pEventData->serverVersion = serverVersion_;
 		KBENGINE_EVENT_FIRE("onVersionNotMatch", pEventData);
 		return;
+	}
+
+	if (pArgs_->encryptType == ENCRYPT_TYPE::ENCRYPT_TYPE_BLOWFISH)
+	{
+		pNetworkInterface_->setFilter(pFilter_);
+		pFilter_ = NULL;
 	}
 
 	onServerDigest();

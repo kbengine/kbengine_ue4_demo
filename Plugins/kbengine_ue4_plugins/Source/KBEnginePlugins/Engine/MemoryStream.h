@@ -165,6 +165,20 @@ public:
 		return wpos_;
 	}
 
+	void swap(MemoryStream & s)
+	{
+		size_t rpos = s.rpos(), wpos = s.wpos();
+
+		TArray<uint8> temp = data_;
+		data_ = s.data_;
+		s.data_ = temp;
+
+		s.rpos((int)rpos_);
+		s.wpos((int)wpos_);
+		rpos_ = rpos;
+		wpos_ = wpos;
+	}
+
 	uint8 operator[](uint32 pos)
 	{
 		return read<uint8>(pos);
@@ -494,6 +508,28 @@ public:
 		return str;
 	}
 
+	TArray<uint8> readEntitycall()
+	{
+		TArray<uint8> datas;
+		uint64 cid = readUint64();
+		int32 id = readInt32();
+		uint16 type = readUint16();
+		uint16 utype = readUint16();
+		return datas;
+	}
+
+	uint32 readEntitycall(TArray<uint8>& datas)
+	{
+		if (length() <= 0)
+			return 0;
+
+		uint64 cid = readUint64();
+		int32 id = readInt32();
+		uint16 type = readUint16();
+		uint16 utype = readUint16();
+		return 0;
+	}
+
 	FVector2D readVector2()
 	{
 		return FVector2D(readFloat(), readFloat());
@@ -802,6 +838,16 @@ public:
 		(*this) << v;
 	}
 
+	void writeEntitycall(const TArray<uint8>& v)
+	{
+		uint64 cid = 0;
+		int32 id = 0;
+		uint16 type = 0;
+		uint16 utype = 0;
+
+		(*this) << cid << id << type << utype;
+	}
+
 	void writeVector2(const FVector2D& v)
 	{
 		writeFloat(v.X);
@@ -825,6 +871,7 @@ public:
 
 	/** 输出流数据 */
 	void print_storage();
+	void hexlike();
 
 protected:
 	uint32 rpos_;

@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{ADDCF5FE-425D-E8FC-703D-FD9397E8B5F1}",
+	"EngineAssociation": "{E1C065F3-47E5-3C54-0369-89934AB17C23}",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -19,8 +19,5 @@
 			"Enabled": true,
 			"MarketplaceURL": "http://kbengine.github.io/marketplace"
 		}
-	],
-	"AdditionalPluginDirectories": [
-		"/kbengine_ue4_demo/Plugins"
 	]
 }

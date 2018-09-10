@@ -5,6 +5,7 @@
 #include "MemoryStream.h"
 #include "KBEvent.h"
 #include "KBDebug.h"
+#include "KBEngine.h"
 
 NetworkInterface::NetworkInterface():
 	socket_(NULL),
@@ -121,6 +122,9 @@ bool NetworkInterface::send(MemoryStream* pMemoryStream)
 
 	if (!pPacketSender_)
 		pPacketSender_ = new PacketSender(this);
+
+	if (pFilter_)
+		return pFilter_->send(pPacketSender_, pMemoryStream);
 
 	return pPacketSender_->send(pMemoryStream);
 }

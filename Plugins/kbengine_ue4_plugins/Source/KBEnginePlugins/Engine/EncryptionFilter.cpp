@@ -176,7 +176,6 @@ bool BlowfishFilter::recv(MessageReader* pMessageReader, MemoryStream *pPacket)
 	if ( 0 == pPacket_->length() && len > MIN_PACKET_SIZE && packeLen - 1 == len - 3)
 	{
 		int padSize = pPacket->readUint8();
-
 		decrypt(pPacket);
 
 		if (pMessageReader)

@@ -187,6 +187,7 @@ void KBEngineApp::destroy()
 
 	KBE_SAFE_RELEASE(pArgs_);
 	KBE_SAFE_RELEASE(pNetworkInterface_);
+	KBE_SAFE_RELEASE(pFilter_);
 }
 
 void KBEngineApp::resetMessages()
@@ -437,7 +438,7 @@ void KBEngineApp::hello()
 	else
 		pBundle->newMessage(Messages::messages[TEXT("Baseapp_hello")]);
 
-	if (pArgs_->encryptType == ENCRYPT_TYPE::ENCRYPT_TYPE_BLOWFISH)
+	if (pArgs_->networkEncryptType ==  NETWORK_ENCRYPT_TYPE::ENCRYPT_TYPE_BLOWFISH)
 	{
 		pFilter_ = new BlowfishFilter();
 		encryptedKey_ = ((BlowfishFilter*)pFilter_)->key();
@@ -491,7 +492,7 @@ void KBEngineApp::Client_onHelloCB(MemoryStream& stream)
 		return;
 	}
 
-	if (pArgs_->encryptType == ENCRYPT_TYPE::ENCRYPT_TYPE_BLOWFISH)
+	if (pArgs_->networkEncryptType == NETWORK_ENCRYPT_TYPE::ENCRYPT_TYPE_BLOWFISH)
 	{
 		pNetworkInterface_->setFilter(pFilter_);
 		pFilter_ = NULL;

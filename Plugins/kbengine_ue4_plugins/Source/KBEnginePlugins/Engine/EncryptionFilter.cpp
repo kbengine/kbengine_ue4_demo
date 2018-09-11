@@ -53,12 +53,6 @@ bool BlowfishFilter::init()
 		isGood_ = false;
 	}
 
-	timeDiff_ = 0.0;
-	timeStart_ = 0.0;
-	timeEnd_ = 0.0;
-	recvCount = 0;
-	timeStartRecv_ = 0.0;
-
 	return isGood_;
 }
 
@@ -172,8 +166,6 @@ bool BlowfishFilter::recv(MessageReader* pMessageReader, MemoryStream *pPacket)
 		ERROR_MSG("BlowfishFilter::recv: Dropping packet due to invalid filter");
 		return false;
 	}
-	
-	timeStart_ = FPlatformTime::Seconds();
 
 	uint32 oldrpos = pPacket->rpos();
 	uint32 len = pPacket->length();
@@ -242,7 +234,6 @@ bool BlowfishFilter::recv(MessageReader* pMessageReader, MemoryStream *pPacket)
 		}
 
 		decrypt(pPacket_);
-
 		pPacket_->wpos(pPacket_->wpos() - padSize_);
 
 		if (pMessageReader)

@@ -65,17 +65,4 @@ private:
 	uint8			padSize_;
 	CryptoPP::ECB_Mode<CryptoPP::Blowfish>::Encryption encripter;
 	CryptoPP::ECB_Mode<CryptoPP::Blowfish>::Decryption decripter;
-
-	double  timeDiff_;
-	double  timeStart_;
-	double  timeEnd_;
-	int	    recvCount;
-
-	int		sendCount;
-	double  timeSendDiff_;
-	double  timeSendStart_;
-	double  timeSendEnd_;
-
-	double	timeStartRecv_;
-	double	timeStartRecvComplete_;
 };

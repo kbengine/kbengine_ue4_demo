@@ -25,7 +25,7 @@ UKBEMain::UKBEMain(const FObjectInitializer& ObjectInitializer) : Super(ObjectIn
 	useAliasEntityID = true;
 	isOnInitCallPropertysSetMethods = true;
 	clientType = EKCLIENT_TYPE::CLIENT_TYPE_WIN;
-	encryptType = ENCRYPT_TYPE::ENCRYPT_TYPE_NONE;
+	networkEncryptType = NETWORK_ENCRYPT_TYPE::ENCRYPT_TYPE_NONE;
 	serverHeartbeatTick = 60 / 2;
 	SEND_BUFFER_MAX = TCP_PACKET_MAX;
 	RECV_BUFFER_MAX = TCP_PACKET_MAX;
@@ -53,7 +53,7 @@ void UKBEMain::BeginPlay()
 	pArgs->useAliasEntityID = useAliasEntityID;
 	pArgs->isOnInitCallPropertysSetMethods = isOnInitCallPropertysSetMethods;
 	pArgs->clientType = clientType;
-	pArgs->encryptType = encryptType;
+	pArgs->networkEncryptType = networkEncryptType;
 	pArgs->serverHeartbeatTick = serverHeartbeatTick;
 	pArgs->SEND_BUFFER_MAX = SEND_BUFFER_MAX;
 	pArgs->RECV_BUFFER_MAX = RECV_BUFFER_MAX;

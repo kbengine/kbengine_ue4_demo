@@ -8,9 +8,6 @@
 #include "rdrand.h"
 #include "secblock.h"
 
-#include <windows.h>
-
-
 BlowfishFilter::BlowfishFilter(int keySize):
 	isGood_(false),
 	pPacket_(new MemoryStream()),
@@ -198,7 +195,6 @@ bool BlowfishFilter::recv(MessageReader* pMessageReader, MemoryStream *pPacket)
 	}
 
 	pPacket->rpos(oldrpos);
-
 	pPacket_->append(pPacket->data() + pPacket->rpos(), pPacket->length());
 	pPacket->clear(false);
 
@@ -223,12 +219,12 @@ bool BlowfishFilter::recv(MessageReader* pMessageReader, MemoryStream *pPacket)
 				}
 				else if (pPacket_->length() < packetLen_)
 				{
-					break;
+					return false;
 				}
 			}
 			else
 			{
-				break;
+				return false;
 			}
 		}
 		else
@@ -241,7 +237,7 @@ bool BlowfishFilter::recv(MessageReader* pMessageReader, MemoryStream *pPacket)
 			}
 			else if (pPacket_->length() < packetLen_)
 			{
-				break;
+				return false;
 			}
 		}
 
@@ -270,4 +266,3 @@ bool BlowfishFilter::recv(MessageReader* pMessageReader, MemoryStream *pPacket)
 	
 	return true;
 }
-

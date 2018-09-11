@@ -48,7 +48,6 @@ public:
 	}
 
 	void setFilter(EncryptionFilter* filter) {
-		KBE_SAFE_RELEASE(pFilter_);
 		pFilter_ = filter;
 	}
 

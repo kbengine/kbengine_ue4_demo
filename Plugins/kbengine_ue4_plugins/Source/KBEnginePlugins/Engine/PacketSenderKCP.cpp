@@ -16,7 +16,7 @@ PacketSenderKCP::~PacketSenderKCP()
 bool PacketSenderKCP::send(MemoryStream* pMemoryStream)
 {
 	NetworkInterfaceKCP* pNetworkInterfaceKCP = ((NetworkInterfaceKCP*)pNetworkInterface_);
-	
+
 	pNetworkInterfaceKCP->nextTickKcpUpdate();
 
 	if (ikcp_send(pNetworkInterfaceKCP->pKCP(), (const char*)pMemoryStream->data(), pMemoryStream->length()) < 0)

@@ -91,7 +91,7 @@ public:
 	EKCLIENT_TYPE clientType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
-	ENCRYPT_TYPE encryptType;
+	NETWORK_ENCRYPT_TYPE networkEncryptType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
 	int syncPlayerMS;

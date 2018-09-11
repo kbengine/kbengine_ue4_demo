@@ -4,7 +4,7 @@
 
 #include "KBECommon.h"
 
-class MemoryStream;
+
 /*
 	消息阅读模块
 	从数据包流中分析出所有的消息包并将其交给对应的消息处理函数

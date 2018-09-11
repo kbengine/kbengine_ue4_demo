@@ -79,7 +79,6 @@ enum class EKCLIENT_TYPE : uint8
 	CLIENT_TYPE_MINI		UMETA(DisplayName = "Mini"),
 };
 
-
 //加密的类别
 UENUM(BlueprintType)
 enum class ENCRYPT_TYPE : uint8

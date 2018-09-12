@@ -678,11 +678,11 @@ void KBEngineApp::Client_onLoginSuccessfully(MemoryStream& stream)
 	username_ = accountName;
 	stream >> baseappIP_;
 	stream >> baseappPort_;
+	stream.readBlob(serverdatas_);
 
 	DEBUG_MSG("KBEngineApp::Client_onLoginSuccessfully(): accountName(%s), addr("
 		 "%s:%d), datas(%d)!", *accountName, *baseappIP_, baseappPort_, serverdatas_.Num());
-
-	stream.readBlob(serverdatas_);
+	
 	login_baseapp(true);
 }
 

@@ -4,6 +4,7 @@
 
 #include "KBECommon.h"
 
+class MemoryStream;
 
 /*
 	消息阅读模块
@@ -40,5 +41,4 @@ protected:
 	MessageLengthEx expectSize_;
 	READ_STATE state_;
 	MemoryStream* pMemoryStream_;
-
 };

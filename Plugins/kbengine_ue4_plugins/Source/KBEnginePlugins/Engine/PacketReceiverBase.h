@@ -3,8 +3,6 @@
 #pragma once
 
 #include "KBECommon.h"
-#include "PacketReceiverBase.h"
-#include "Runtime/Sockets/Public/SocketSubsystem.h"
 
 class NetworkInterfaceBase;
 class MessageReader;
@@ -14,15 +12,17 @@ class MemoryStream;
 	包接收模块(与服务端网络部分的名称对应)
 	处理网络数据的接收
 */
-class KBENGINEPLUGINS_API PacketReceiverKCP : public PacketReceiverBase
+class KBENGINEPLUGINS_API PacketReceiverBase
 {
 public:
-	PacketReceiverKCP(NetworkInterfaceBase* pNetworkInterface);
-	virtual ~PacketReceiverKCP();
+	PacketReceiverBase(NetworkInterfaceBase* pNetworkInterface);
+	virtual ~PacketReceiverBase();
 
 public:
 	virtual void process();
 
 protected:
-	TSharedRef<FInternetAddr> remoteAddr_;
+	NetworkInterfaceBase * pNetworkInterface_;
+	MessageReader* pMessageReader_;
+	MemoryStream* pBuffer_;
 };

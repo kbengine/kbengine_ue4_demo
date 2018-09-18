@@ -3,7 +3,6 @@
 #pragma once
 
 #include "KBECommon.h"
-#include "PacketSenderBase.h"
 
 class NetworkInterfaceBase;
 class MemoryStream;
@@ -12,15 +11,15 @@ class MemoryStream;
 	包发送模块(与服务端网络部分的名称对应)
 	处理网络数据的发送
 */
-class KBENGINEPLUGINS_API PacketSenderTCP : public PacketSenderBase
+class KBENGINEPLUGINS_API PacketSenderBase
 {
 public:
-	PacketSenderTCP(NetworkInterfaceBase* pNetworkInterface);
-	virtual ~PacketSenderTCP();
+	PacketSenderBase(NetworkInterfaceBase* pNetworkInterface);
+	virtual ~PacketSenderBase();
 
 public:
 	virtual bool send(MemoryStream* pMemoryStream);
 
 protected:
-
+	NetworkInterfaceBase * pNetworkInterface_;
 };

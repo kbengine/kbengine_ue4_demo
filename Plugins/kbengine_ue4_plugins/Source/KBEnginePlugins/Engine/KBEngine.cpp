@@ -217,7 +217,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("2.2.6");
+	clientVersion_ = TEXT("2.2.7");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 

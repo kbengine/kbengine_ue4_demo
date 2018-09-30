@@ -430,7 +430,7 @@ void AvatarBase::onUpdatePropertys(MemoryStream& stream)
 			{
 				stream.readUint32();
 				break;
-		}
+			}
 			case 41001:
 			{
 				uint32 oldval_spaceUType = spaceUType;

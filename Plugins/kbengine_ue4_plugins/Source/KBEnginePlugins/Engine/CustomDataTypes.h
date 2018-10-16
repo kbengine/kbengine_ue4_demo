@@ -14,6 +14,7 @@
 
 class KBENGINEPLUGINS_API DATATYPE_ENTITY_FORBID_COUNTER : DATATYPE_BASE
 {
+public:
 	void createFromStreamEx(MemoryStream& stream, ENTITY_FORBID_COUNTER& datas);
 	void addToStreamEx(Bundle& stream, const ENTITY_FORBID_COUNTER& v);
 };
@@ -21,6 +22,7 @@ class KBENGINEPLUGINS_API DATATYPE_ENTITY_FORBID_COUNTER : DATATYPE_BASE
 
 class KBENGINEPLUGINS_API DATATYPE_ENTITYID_LIST : DATATYPE_BASE
 {
+public:
 	void createFromStreamEx(MemoryStream& stream, ENTITYID_LIST& datas);
 	void addToStreamEx(Bundle& stream, const ENTITYID_LIST& v);
 };
@@ -149,6 +151,7 @@ public:
 
 class KBENGINEPLUGINS_API DATATYPE_AnonymousArray_32 : DATATYPE_BASE
 {
+public:
 	void createFromStreamEx(MemoryStream& stream, TArray<int32>& datas);
 	void addToStreamEx(Bundle& stream, const TArray<int32>& v);
 };

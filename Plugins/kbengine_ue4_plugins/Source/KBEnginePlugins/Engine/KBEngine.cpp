@@ -15,6 +15,7 @@
 #include "Regex.h"
 #include "KBDebug.h"
 #include "KBEvent.h"
+#include "EncryptionFilter.h"
 
 ServerErrorDescrs KBEngineApp::serverErrs_;
 
@@ -34,7 +35,7 @@ KBEngineApp::KBEngineApp() :
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("17061F20D3B5B20E521AA297375B036A")),
+	serverProtocolMD5_(TEXT("758AF605AEDED85B8C6786C08772BE3C")),
 	serverEntitydefMD5_(TEXT("39BBC4CA001B76B399F5F1CF960055BD")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -52,7 +53,8 @@ KBEngineApp::KBEngineApp() :
 	spaceID_(0),
 	spaceResPath_(TEXT("")),
 	isLoadedGeometry_(false),
-	component_(TEXT("client"))
+	component_(TEXT("client")),
+	pFilter_(NULL)
 {
 	INFO_MSG("KBEngineApp::KBEngineApp(): hello!");
 }
@@ -73,7 +75,7 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("17061F20D3B5B20E521AA297375B036A")),
+	serverProtocolMD5_(TEXT("758AF605AEDED85B8C6786C08772BE3C")),
 	serverEntitydefMD5_(TEXT("39BBC4CA001B76B399F5F1CF960055BD")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -91,7 +93,8 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	spaceID_(0),
 	spaceResPath_(TEXT("")),
 	isLoadedGeometry_(false),
-	component_(TEXT("client"))
+	component_(TEXT("client")),
+	pFilter_(NULL)
 {
 	INFO_MSG("KBEngineApp::KBEngineApp(): hello!");
 	initialize(pArgs);
@@ -185,6 +188,7 @@ void KBEngineApp::destroy()
 
 	KBE_SAFE_RELEASE(pArgs_);
 	KBE_SAFE_RELEASE(pNetworkInterface_);
+	KBE_SAFE_RELEASE(pFilter_);
 }
 
 void KBEngineApp::resetMessages()
@@ -210,7 +214,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("1.2.2");
+	clientVersion_ = TEXT("1.2.6");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 
@@ -236,6 +240,8 @@ void KBEngineApp::reset()
 
 bool KBEngineApp::initNetwork()
 {
+	KBE_SAFE_RELEASE(pFilter_);
+
 	if (pNetworkInterface_)
 		delete pNetworkInterface_;
 
@@ -435,6 +441,15 @@ void KBEngineApp::hello()
 	else
 		pBundle->newMessage(Messages::messages[TEXT("Baseapp_hello")]);
 
+	KBE_SAFE_RELEASE(pFilter_);
+
+	if (pArgs_->networkEncryptType == NETWORK_ENCRYPT_TYPE::ENCRYPT_TYPE_BLOWFISH)
+	{
+		pFilter_ = new BlowfishFilter();
+		encryptedKey_ = ((BlowfishFilter*)pFilter_)->key();
+		pNetworkInterface_->setFilter(NULL);
+	}
+
 	(*pBundle) << clientVersion_;
 	(*pBundle) << clientScriptVersion_;
 	pBundle->appendBlob(encryptedKey_);
@@ -443,7 +458,8 @@ void KBEngineApp::hello()
 
 void KBEngineApp::Client_onHelloCB(MemoryStream& stream)
 {
-	stream >> serverVersion_;
+	FString str_serverVersion;
+	stream >> str_serverVersion;
 	stream >> serverScriptVersion_;
 
 	FString serverProtocolMD5;
@@ -456,30 +472,41 @@ void KBEngineApp::Client_onHelloCB(MemoryStream& stream)
 	stream >> ctype;
 
 	INFO_MSG("KBEngineApp::Client_onHelloCB(): verInfo(%s), scriptVersion(%s), srvProtocolMD5(%s), srvEntitydefMD5(%s), ctype(%d)!", 
-		*serverVersion_, *serverScriptVersion_, *serverProtocolMD5_, *serverEntitydefMD5_, ctype);
+		*str_serverVersion, *serverScriptVersion_, *serverProtocolMD5_, *serverEntitydefMD5_, ctype);
 
-	/*
-	if(serverProtocolMD5_ != serverProtocolMD5)
+	if(str_serverVersion != "Getting")
 	{
-		ERROR_MSG("KBEngineApp::Client_onHelloCB():  digest not match! serverProtocolMD5=%s(server: %s)", *serverProtocolMD5_, *serverProtocolMD5);
+		serverVersion_ = str_serverVersion;
 
-		UKBEventData_onVersionNotMatch* pEventData = NewObject<UKBEventData_onVersionNotMatch>();
-		pEventData->clientVersion = clientVersion_;
-		pEventData->serverVersion = serverVersion_;
-		KBENGINE_EVENT_FIRE("onVersionNotMatch", pEventData);
-		return;
+		/*
+		if(serverProtocolMD5_ != serverProtocolMD5)
+		{
+			ERROR_MSG("KBEngineApp::Client_onHelloCB():  digest not match! serverProtocolMD5=%s(server: %s)", *serverProtocolMD5_, *serverProtocolMD5);
+
+			UKBEventData_onVersionNotMatch* pEventData = NewObject<UKBEventData_onVersionNotMatch>();
+			pEventData->clientVersion = clientVersion_;
+			pEventData->serverVersion = serverVersion_;
+			KBENGINE_EVENT_FIRE("onVersionNotMatch", pEventData);
+			return;
+		}
+		*/
+
+		if(serverEntitydefMD5_ != serverEntitydefMD5)
+		{
+			ERROR_MSG("KBEngineApp::Client_onHelloCB():  digest not match! serverEntitydefMD5=%s(server: %s)", *serverEntitydefMD5_, *serverEntitydefMD5);
+
+			UKBEventData_onVersionNotMatch* pEventData = NewObject<UKBEventData_onVersionNotMatch>();
+			pEventData->clientVersion = clientVersion_;
+			pEventData->serverVersion = serverVersion_;
+			KBENGINE_EVENT_FIRE("onVersionNotMatch", pEventData);
+			return;
+		}
 	}
-	*/
 
-	if(serverEntitydefMD5_ != serverEntitydefMD5)
+	if (pArgs_->networkEncryptType == NETWORK_ENCRYPT_TYPE::ENCRYPT_TYPE_BLOWFISH)
 	{
-		ERROR_MSG("KBEngineApp::Client_onHelloCB():  digest not match! serverEntitydefMD5=%s(server: %s)", *serverEntitydefMD5_, *serverEntitydefMD5);
-
-		UKBEventData_onVersionNotMatch* pEventData = NewObject<UKBEventData_onVersionNotMatch>();
-		pEventData->clientVersion = clientVersion_;
-		pEventData->serverVersion = serverVersion_;
-		KBENGINE_EVENT_FIRE("onVersionNotMatch", pEventData);
-		return;
+		pNetworkInterface_->setFilter(pFilter_);
+		pFilter_ = NULL;
 	}
 
 	onServerDigest();
@@ -662,11 +689,11 @@ void KBEngineApp::Client_onLoginSuccessfully(MemoryStream& stream)
 	username_ = accountName;
 	stream >> baseappIP_;
 	stream >> baseappPort_;
-
+	stream.readBlob(serverdatas_);
+	
 	DEBUG_MSG("KBEngineApp::Client_onLoginSuccessfully(): accountName(%s), addr("
 		 "%s:%d), datas(%d)!", *accountName, *baseappIP_, baseappPort_, serverdatas_.Num());
 
-	stream.readBlob(serverdatas_);
 	login_baseapp(true);
 }
 

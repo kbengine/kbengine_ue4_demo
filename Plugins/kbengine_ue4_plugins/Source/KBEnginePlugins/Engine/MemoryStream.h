@@ -80,7 +80,7 @@ public:
 	MemoryStream() :
 		rpos_(0), 
 		wpos_(0),
-		data_()
+		data_(new TArray<uint8>)
 	{
 		data_resize(DEFAULT_SIZE);
 	}
@@ -88,6 +88,7 @@ public:
 	virtual ~MemoryStream()
 	{
 		clear(false);
+		KBE_SAFE_RELEASE(data_);
 	}
 
 	static MemoryStream* createObject();
@@ -95,22 +96,22 @@ public:
 
 public:
 	uint8* data() {
-		return data_.GetData();
+		return data_->GetData();
 	}
 
 	void clear(bool clearData)
 	{
 		if (clearData)
-			data_.Empty();
+			data_->Empty();
 
 		rpos_ = wpos_ = 0;
 	}
 
 	// array的大小
-	virtual uint32 size() const { return data_.Num(); }
+	virtual uint32 size() const { return data_->Num(); }
 
 	// array是否为空
-	virtual bool empty() const { return data_.Num() == 0; }
+	virtual bool empty() const { return data_->Num() == 0; }
 
 	// 读索引到与写索引之间的长度
 	virtual uint32 length() const { return rpos() >= wpos() ? 0 : wpos() - rpos(); }
@@ -124,13 +125,13 @@ public:
 	void data_resize(uint32 newsize)
 	{
 		KBE_ASSERT(newsize <= MAX_SIZE);
-		data_.SetNumUninitialized(newsize);
+		data_->SetNumUninitialized(newsize);
 	}
 
 	void resize(uint32 newsize)
 	{
 		KBE_ASSERT(newsize <= MAX_SIZE);
-		data_.SetNumUninitialized(newsize);
+		data_->SetNumUninitialized(newsize);
 		rpos_ = 0;
 		wpos_ = size();
 	}
@@ -140,7 +141,7 @@ public:
 		KBE_ASSERT(ressize <= MAX_SIZE);
 
 		if (ressize > size())
-			data_.Reserve(ressize);
+			data_->Reserve(ressize);
 	}
 
 	uint32 rpos() const { return rpos_; }
@@ -163,6 +164,20 @@ public:
 
 		wpos_ = wpos;
 		return wpos_;
+	}
+
+	void swap(MemoryStream & s)
+	{
+		size_t rpos = s.rpos(), wpos = s.wpos();
+
+		TArray<uint8> *temp = data_;
+		data_ = s.data_;
+		s.data_ = temp;
+
+		s.rpos((int)rpos_);
+		s.wpos((int)wpos_);
+		rpos_ = rpos;
+		wpos_ = wpos;
 	}
 
 	uint8 operator[](uint32 pos)
@@ -494,6 +509,28 @@ public:
 		return str;
 	}
 
+	TArray<uint8> readEntitycall()
+	{
+		TArray<uint8> datas;
+		uint64 cid = readUint64();
+		int32 id = readInt32();
+		uint16 type = readUint16();
+		uint16 utype = readUint16();
+		return datas;
+	}
+
+	uint32 readEntitycall(TArray<uint8>& datas)
+	{
+		if (length() <= 0)
+			return 0;
+
+		uint64 cid = readUint64();
+		int32 id = readInt32();
+		uint16 type = readUint16();
+		uint16 utype = readUint16();
+		return 0;
+	}
+
 	FVector2D readVector2()
 	{
 		return FVector2D(readFloat(), readFloat());
@@ -802,6 +839,16 @@ public:
 		(*this) << v;
 	}
 
+	void writeEntitycall(const TArray<uint8>& v)
+	{
+		uint64 cid = 0;
+		int32 id = 0;
+		uint16 type = 0;
+		uint16 utype = 0;
+
+		(*this) << cid << id << type << utype;
+	}
+
 	void writeVector2(const FVector2D& v)
 	{
 		writeFloat(v.X);
@@ -825,11 +872,13 @@ public:
 
 	/** 输出流数据 */
 	void print_storage();
+	void hexlike();
 
 protected:
 	uint32 rpos_;
 	uint32 wpos_;
-	TArray<uint8> data_;
+
+	TArray<uint8>* data_;
 };
 
 template<>

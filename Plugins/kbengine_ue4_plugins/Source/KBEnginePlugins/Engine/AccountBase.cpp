@@ -137,7 +137,7 @@ void AccountBase::onUpdatePropertys(Property* pProp, MemoryStream& stream)
 		{
 			stream.readUint32();
 			break;
-		}
+			}
 		default:
 			break;
 	};

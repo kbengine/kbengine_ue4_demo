@@ -147,7 +147,7 @@ void SpaceBase::onUpdatePropertys(Property* pProp, MemoryStream& stream)
 		{
 			stream.readUint32();
 			break;
-		}
+			}
 		case 41004:
 		{
 			uint32 oldval_uid = uid;

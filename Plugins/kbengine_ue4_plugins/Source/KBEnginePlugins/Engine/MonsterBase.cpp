@@ -287,7 +287,7 @@ void MonsterBase::onUpdatePropertys(Property* pProp, MemoryStream& stream)
 		{
 			stream.readUint32();
 			break;
-		}
+			}
 		case 47006:
 		{
 			int8 oldval_state = state;

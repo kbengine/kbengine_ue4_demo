@@ -5,6 +5,12 @@
 #include "GameFramework/Character.h"
 #include "GameEntity.generated.h"
 
+const int ModelID_NPC = 1002;
+const int ModelID_Monster1 = 1003;
+const int ModelID_Monster2 = 1004;
+const int ModelID_Gate = 40001001;
+const int ModelID_Avatar = 90000001;
+
 UCLASS()
 class KBENGINE_UE4_DEMO_API AGameEntity : public ACharacter
 {
@@ -54,6 +60,13 @@ public:
 	{
 		isOnGround = onGround;
 	}
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	virtual void setModelID(int modelID);
+
+private:
+	void createAvatar();
+	void createMonster();
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)

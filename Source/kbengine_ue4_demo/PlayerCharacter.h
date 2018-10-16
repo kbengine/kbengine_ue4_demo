@@ -31,6 +31,10 @@ public:
 		return true;
 	}
 
+	virtual void setModelID(int modelID) override {
+		this->modelID = modelID;
+	}
+
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseTurnRate;

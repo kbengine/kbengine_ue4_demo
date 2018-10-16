@@ -93,18 +93,18 @@ void APlayerCharacter::OnResetVR()
 void APlayerCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
 	// jump, but only on the first touch
-	if (FingerIndex == ETouchIndex::Touch1)
+	/*if (FingerIndex == ETouchIndex::Touch1)
 	{
 		Jump();
-	}
+	}*/
 }
 
 void APlayerCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector Location)
 {
-	if (FingerIndex == ETouchIndex::Touch1)
+	/*if (FingerIndex == ETouchIndex::Touch1)
 	{
 		StopJumping();
-	}
+	}*/
 }
 
 void APlayerCharacter::TurnAtRate(float Rate)

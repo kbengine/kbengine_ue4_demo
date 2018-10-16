@@ -283,9 +283,8 @@ void AGameModeWorld::set_modelID_Implementation(const UKBEventData* pEventData)
 {
 	const UKBEventData_set_modelID* pData = Cast<UKBEventData_set_modelID>(pEventData);
 	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
-
 	if (pAGameEntity)
-		pAGameEntity->modelID = pData->modelID;
+		pAGameEntity->setModelID(pData->modelID);
 }
 
 void AGameModeWorld::set_entityNO_Implementation(const UKBEventData* pEventData)

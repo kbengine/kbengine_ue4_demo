@@ -27,8 +27,12 @@ public:
 	virtual void Destroyed() override;
 
 	//UFUNCTION(BlueprintCallable, Category = "KBEngine")
-	virtual bool isPlayer() {
+	virtual bool isPlayer() override {
 		return true;
+	}
+
+	virtual void setModelID(int modelID) override {
+		this->modelID = modelID;
 	}
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */

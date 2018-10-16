@@ -5,6 +5,7 @@
 #include "GameModeWorld.h"
 #include "Engine/KBEngine.h"
 #include "Engine/Entity.h"
+#include "Components/WidgetComponent.h"
 
 // Sets default values
 AGameEntity::AGameEntity(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -27,7 +28,6 @@ void AGameEntity::BeginPlay()
 	{
 		// 把自己注册到AGameModeWorld，方便后面查找
 		XGameMode->addGameEntity(this->entityID, this);
-
 		Entity* pEntity = KBEngineApp::getSingleton().findEntity(entityID);
 
 		// 由于UE4可视化实体创建要晚于KBE的插件的逻辑实体，而KBE插件实体先前可能已经触发了一些属性设置事件
@@ -56,7 +56,7 @@ void AGameEntity::updateLocation(float DeltaTime)
 
 	//Direction from Self to targetPos
 	FVector vectorDirection = targetLocation - currLocation;
-
+	
 	float deltaSpeed = (moveSpeed * 10.f /*由于服务端脚本moveSpeed的单位是厘米，这里需要转换为UE4单位毫米*/) * DeltaTime;
 	if (vectorDirection.Size() > deltaSpeed)
 	{
@@ -97,5 +97,53 @@ void AGameEntity::FaceRotation(FRotator NewRotation, float DeltaTime)
 	FRotator CurrentRotation = FMath::RInterpTo(GetActorRotation(), NewRotation, DeltaTime, 8.0f);
 
 	Super::FaceRotation(CurrentRotation, DeltaTime);
+}
+
+void AGameEntity::setModelID(int modelID)
+{
+	this->modelID = modelID;
+
+	if (this->modelID == ModelID_Avatar)
+	{
+		this->createAvatar();
+	} 
+	else 
+	{
+		this->createMonster();
+	}
+}
+
+void AGameEntity::createAvatar()
+{
+	TArray<UActorComponent*> components = this->GetComponents().Array();
+	for (int i=0; i < components.Num(); i++)
+	{
+		if (components[i]->GetName() == "Scene")  //调整血条位置
+		{
+			UWidgetComponent* pWidget = (UWidgetComponent*)components[i];
+			pWidget->SetRelativeLocation(FVector(0.f, 0.f, 50.f));
+		}
+
+		if (components[i]->GetName() == "Sphere")	//隐藏整球
+		{
+			USphereComponent* pSphere = (USphereComponent*)components[i];
+			pSphere->SetActive(false);
+			pSphere->SetVisibility(false);
+		}
+
+		if (components[i]->GetName() == "Cone")		//隐藏圆锥体
+		{
+			UStaticMeshComponent* pCone = (UStaticMeshComponent*)components[i];
+			pCone->SetActive(false);
+			pCone->SetVisibility(false);
+		}
+	}
+}
+
+void AGameEntity::createMonster()
+{
+	USkeletalMeshComponent* SkeletalMesh = this->GetMesh();
+	SkeletalMesh->SetActive(false);
+	SkeletalMesh->SetVisibility(false);
 }
 

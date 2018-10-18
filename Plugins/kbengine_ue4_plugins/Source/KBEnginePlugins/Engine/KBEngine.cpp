@@ -217,7 +217,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("2.2.8");
+	clientVersion_ = TEXT("2.2.9");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 
@@ -252,10 +252,13 @@ bool KBEngineApp::initNetwork()
 
 	Messages::initialize();
 
-	if(pArgs_->forceDisableUDP || baseappUdpPort_ == 0)
-		pNetworkInterface_ = new NetworkInterfaceTCP();
-	else
-		pNetworkInterface_ = new NetworkInterfaceKCP();
+	if (pArgs_)
+	{
+		if (pArgs_->forceDisableUDP || baseappUdpPort_ == 0)
+			pNetworkInterface_ = new NetworkInterfaceTCP();
+		else
+			pNetworkInterface_ = new NetworkInterfaceKCP();
+	}
 
 	return true;
 }

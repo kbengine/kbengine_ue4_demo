@@ -37,7 +37,7 @@ KBEngineApp::KBEngineApp() :
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("193D9F820FE858940A7875F64FD9E051")),
+	serverProtocolMD5_(TEXT("F14FBBAEEA862E0FB820875F7814E6E8")),
 	serverEntitydefMD5_(TEXT("A0C96A57AD7D75964F55B1BF3ED664D3")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -78,7 +78,7 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("193D9F820FE858940A7875F64FD9E051")),
+	serverProtocolMD5_(TEXT("F14FBBAEEA862E0FB820875F7814E6E8")),
 	serverEntitydefMD5_(TEXT("A0C96A57AD7D75964F55B1BF3ED664D3")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -1571,6 +1571,7 @@ void KBEngineApp::Client_onUpdateBasePos(float x, float y, float z)
 
 		UKBEventData_updatePosition* pEventData = NewObject<UKBEventData_updatePosition>();
 		KBPos2UE4Pos(pEventData->position, entityServerPos_);
+		KBDir2UE4Dir(pEventData->direction, pEntity->direction);
 		pEventData->entityID = pEntity->id();
 		pEventData->moveSpeed = pEntity->velocity();
 		KBENGINE_EVENT_FIRE("updatePosition", pEventData);
@@ -1592,6 +1593,7 @@ void KBEngineApp::Client_onUpdateBasePosXZ(float x, float z)
 
 		UKBEventData_updatePosition* pEventData = NewObject<UKBEventData_updatePosition>();
 		KBPos2UE4Pos(pEventData->position, entityServerPos_);
+		KBDir2UE4Dir(pEventData->direction, pEntity->direction);
 		pEventData->entityID = pEntity->id();
 		pEventData->moveSpeed = pEntity->velocity();
 		KBENGINE_EVENT_FIRE("updatePosition", pEventData);
@@ -1611,7 +1613,7 @@ void KBEngineApp::Client_onUpdateBaseDir(MemoryStream& stream)
 		pEntity->direction.Set(roll, pitch, yaw);
 
 		UKBEventData_set_direction* pEventData = NewObject<UKBEventData_set_direction>();
-		pEventData->direction = pEntity->direction;
+		KBDir2UE4Dir(pEventData->direction, pEntity->direction);
 		pEventData->entityID = pEntity->id();
 		KBENGINE_EVENT_FIRE("set_direction", pEventData);
 
@@ -1984,7 +1986,7 @@ void KBEngineApp::_updateVolatileData(ENTITY_ID entityID, float x, float y, floa
 	if (changeDirection == true)
 	{
 		UKBEventData_set_direction* pEventData = NewObject<UKBEventData_set_direction>();
-		pEventData->direction = entity.direction;
+		KBDir2UE4Dir(pEventData->direction, entity.direction);
 		pEventData->entityID = entity.id();
 		KBENGINE_EVENT_FIRE("set_direction", pEventData);
 
@@ -2003,6 +2005,7 @@ void KBEngineApp::_updateVolatileData(ENTITY_ID entityID, float x, float y, floa
 
 		UKBEventData_updatePosition* pEventData = NewObject<UKBEventData_updatePosition>();
 		KBPos2UE4Pos(pEventData->position, entity.position);
+		KBDir2UE4Dir(pEventData->direction, entity.direction);
 		pEventData->entityID = entity.id();
 		pEventData->moveSpeed = entity.velocity();
 		pEventData->isOnGround = entity.isOnGround();

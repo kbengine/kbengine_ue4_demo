@@ -535,7 +535,7 @@ public:
 	{
 		float X = readFloat();
 		float Y = readFloat();
-		return FVector2D(X, Y));
+		return FVector2D(X, Y);
 	}
 
 	FVector readVector3()

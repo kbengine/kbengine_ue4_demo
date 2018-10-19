@@ -208,9 +208,7 @@ void AGameModeWorld::set_direction_Implementation(const UKBEventData* pEventData
 
 	if (pAGameEntity)
 	{
-		FRotator targetRotator;
-		KBDir2UE4Dir(targetRotator, pData->direction);
-		pAGameEntity->setTargetRotator(targetRotator);
+		pAGameEntity->setTargetRotator(pData->direction);
 	}
 }
 

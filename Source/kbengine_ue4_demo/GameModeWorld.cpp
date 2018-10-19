@@ -208,9 +208,7 @@ void AGameModeWorld::set_direction_Implementation(const UKBEventData* pEventData
 
 	if (pAGameEntity)
 	{
-		FRotator targetRotator;
-		KBDir2UE4Dir(targetRotator, pData->direction);
-		pAGameEntity->setTargetRotator(targetRotator);
+		pAGameEntity->setTargetRotator(pData->direction);
 	}
 }
 
@@ -283,6 +281,7 @@ void AGameModeWorld::set_modelID_Implementation(const UKBEventData* pEventData)
 {
 	const UKBEventData_set_modelID* pData = Cast<UKBEventData_set_modelID>(pEventData);
 	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
+
 	if (pAGameEntity)
 		pAGameEntity->setModelID(pData->modelID);
 }

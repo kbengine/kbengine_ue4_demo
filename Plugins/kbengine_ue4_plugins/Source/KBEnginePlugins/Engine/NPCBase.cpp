@@ -470,3 +470,11 @@ NPCBase::~NPCBase()
 
 }
 
+void NPCBase::attachComponents()
+{
+}
+
+void NPCBase::detachComponents()
+{
+}
+

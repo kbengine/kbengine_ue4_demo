@@ -788,3 +788,11 @@ MonsterBase::~MonsterBase()
 
 }
 
+void MonsterBase::attachComponents()
+{
+}
+
+void MonsterBase::detachComponents()
+{
+}
+

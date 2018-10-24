@@ -87,5 +87,8 @@ public:
 	AvatarBase();
 	virtual ~AvatarBase();
 
+	void attachComponents() override;
+	void detachComponents() override;
+
 };
 

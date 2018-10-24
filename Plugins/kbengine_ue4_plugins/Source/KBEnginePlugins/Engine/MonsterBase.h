@@ -69,5 +69,8 @@ public:
 	MonsterBase();
 	virtual ~MonsterBase();
 
+	void attachComponents() override;
+	void detachComponents() override;
+
 };
 

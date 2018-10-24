@@ -390,3 +390,11 @@ SpawnPointBase::~SpawnPointBase()
 
 }
 
+void SpawnPointBase::attachComponents()
+{
+}
+
+void SpawnPointBase::detachComponents()
+{
+}
+

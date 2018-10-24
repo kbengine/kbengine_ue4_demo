@@ -280,3 +280,11 @@ AccountBase::~AccountBase()
 
 }
 
+void AccountBase::attachComponents()
+{
+}
+
+void AccountBase::detachComponents()
+{
+}
+

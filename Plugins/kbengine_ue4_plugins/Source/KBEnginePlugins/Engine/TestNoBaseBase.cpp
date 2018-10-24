@@ -171,4 +171,3 @@ TestNoBaseBase::~TestNoBaseBase()
 		delete pCellEntityCall;
 
 }
-

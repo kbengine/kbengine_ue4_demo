@@ -50,5 +50,8 @@ public:
 	SpaceDuplicateBase();
 	virtual ~SpaceDuplicateBase();
 
+	void attachComponents() override;
+	void detachComponents() override;
+
 };
 

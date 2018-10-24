@@ -390,3 +390,11 @@ SpacesBase::~SpacesBase()
 
 }
 
+void SpacesBase::attachComponents()
+{
+}
+
+void SpacesBase::detachComponents()
+{
+}
+

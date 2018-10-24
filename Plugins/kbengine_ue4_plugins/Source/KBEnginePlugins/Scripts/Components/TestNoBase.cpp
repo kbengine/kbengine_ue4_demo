@@ -11,6 +11,16 @@ TestNoBase::~TestNoBase()
 {
 }
 
+void TestNoBase::onAttached(Entity* pOwnerEntity)
+{
+	DEBUG_MSG("TestNoBase::onAttached: entity(%d)!", pOwnerEntity->id());
+}
+
+void TestNoBase::onDetached(Entity* pOwnerEntity)
+{
+	DEBUG_MSG("TestNoBase::onDetached: entity(%d)!", pOwnerEntity->id());
+}
+
 void TestNoBase::onOwnChanged(int32 oldValue) {
 	DEBUG_MSG("TestNoBase::onOwnChanged: own(%d)!", oldValue);
 }

@@ -37,8 +37,8 @@ KBEngineApp::KBEngineApp() :
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("F14FBBAEEA862E0FB820875F7814E6E8")),
-	serverEntitydefMD5_(TEXT("A0C96A57AD7D75964F55B1BF3ED664D3")),
+	serverProtocolMD5_(TEXT("193D9F820FE858940A7875F64FD9E051")),
+	serverEntitydefMD5_(TEXT("D37F6FDA006DEE12FD0017204334D9AC")),
 	entity_uuid_(0),
 	entity_id_(0),
 	entity_type_(TEXT("")),
@@ -78,8 +78,8 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("F14FBBAEEA862E0FB820875F7814E6E8")),
-	serverEntitydefMD5_(TEXT("A0C96A57AD7D75964F55B1BF3ED664D3")),
+	serverProtocolMD5_(TEXT("193D9F820FE858940A7875F64FD9E051")),
+	serverEntitydefMD5_(TEXT("D37F6FDA006DEE12FD0017204334D9AC")),
 	entity_uuid_(0),
 	entity_id_(0),
 	entity_type_(TEXT("")),
@@ -217,7 +217,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("2.2.9");
+	clientVersion_ = TEXT("2.3.0");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 
@@ -855,6 +855,7 @@ void KBEngineApp::Client_onCreatedProxies(uint64 rndUUID, int32 eid, FString& en
 		}
 
 		pEntity->__init__();
+		pEntity->attachComponents();
 		pEntity->inited(true);
 
 		if (pArgs_->isOnInitCallPropertysSetMethods)
@@ -974,7 +975,7 @@ void KBEngineApp::Client_onEntityDestroyed(int32 eid)
 	}
 
 	entities_.Remove(eid);
-	pEntity->onDestroy();
+	pEntity->destroy();
 }
 
 void KBEngineApp::clearSpace(bool isall)
@@ -1002,7 +1003,7 @@ void KBEngineApp::clearEntities(bool isall)
 			if (item.Value->inWorld())
 				item.Value->leaveWorld();
 
-			item.Value->onDestroy();
+			item.Value->destroy();
 		}
 
 		entities_.Empty();
@@ -1015,7 +1016,7 @@ void KBEngineApp::clearEntities(bool isall)
 			if (item.Value->inWorld())
 				item.Value->leaveWorld();
 
-			item.Value->onDestroy();
+			item.Value->destroy();
 		}
 
 		entities_.Empty();
@@ -1439,6 +1440,7 @@ void KBEngineApp::Client_onEntityEnterWorld(MemoryStream& stream)
 		pEntity->onPositionChanged(pEntity->position);
 
 		pEntity->__init__();
+		pEntity->attachComponents();
 		pEntity->inited(true);
 		pEntity->inWorld(true);
 		pEntity->enterWorld();
@@ -1513,7 +1515,7 @@ void KBEngineApp::Client_onEntityLeaveWorld(ENTITY_ID eid)
 		}
 
 		entities_.Remove(eid);
-		pEntity->onDestroy();
+		pEntity->destroy();
 		entityIDAliasIDList_.Remove(eid);
 	}
 }

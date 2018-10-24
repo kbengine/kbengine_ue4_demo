@@ -52,5 +52,8 @@ public:
 	GateBase();
 	virtual ~GateBase();
 
+	void attachComponents() override;
+	void detachComponents() override;
+
 };
 

@@ -975,3 +975,17 @@ AvatarBase::~AvatarBase()
 
 }
 
+void AvatarBase::attachComponents()
+{
+	component1->onAttached(this);
+	component2->onAttached(this);
+	component3->onAttached(this);
+}
+
+void AvatarBase::detachComponents()
+{
+	component1->onDetached(this);
+	component2->onDetached(this);
+	component3->onDetached(this);
+}
+

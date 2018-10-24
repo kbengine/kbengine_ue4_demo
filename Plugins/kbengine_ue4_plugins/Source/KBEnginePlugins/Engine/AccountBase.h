@@ -45,5 +45,8 @@ public:
 	AccountBase();
 	virtual ~AccountBase();
 
+	void attachComponents() override;
+	void detachComponents() override;
+
 };
 

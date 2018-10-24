@@ -11,6 +11,9 @@ public:
 	TestNoBase();
 	virtual ~TestNoBase();
 
+	virtual void onAttached(Entity* pOwnerEntity) override;
+	virtual void onDetached(Entity* pOwnerEntity) override;
+
 public:
 	virtual void onOwnChanged(int32 oldValue) override;
 	virtual void onStateChanged(int32 oldValue) override;

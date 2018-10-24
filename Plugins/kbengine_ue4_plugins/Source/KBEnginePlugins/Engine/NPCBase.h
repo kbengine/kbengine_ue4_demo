@@ -54,5 +54,8 @@ public:
 	NPCBase();
 	virtual ~NPCBase();
 
+	void attachComponents() override;
+	void detachComponents() override;
+
 };
 

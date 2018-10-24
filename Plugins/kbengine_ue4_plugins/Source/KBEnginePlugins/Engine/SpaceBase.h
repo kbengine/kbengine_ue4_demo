@@ -50,5 +50,8 @@ public:
 	SpaceBase();
 	virtual ~SpaceBase();
 
+	void attachComponents() override;
+	void detachComponents() override;
+
 };
 

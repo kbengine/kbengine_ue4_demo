@@ -430,3 +430,11 @@ GateBase::~GateBase()
 
 }
 
+void GateBase::attachComponents()
+{
+}
+
+void GateBase::detachComponents()
+{
+}
+

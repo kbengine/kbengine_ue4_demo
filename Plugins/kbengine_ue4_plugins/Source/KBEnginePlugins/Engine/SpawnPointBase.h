@@ -50,5 +50,8 @@ public:
 	SpawnPointBase();
 	virtual ~SpawnPointBase();
 
+	void attachComponents() override;
+	void detachComponents() override;
+
 };
 

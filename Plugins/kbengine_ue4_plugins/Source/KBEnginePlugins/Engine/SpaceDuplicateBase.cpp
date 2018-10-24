@@ -390,3 +390,11 @@ SpaceDuplicateBase::~SpaceDuplicateBase()
 
 }
 
+void SpaceDuplicateBase::attachComponents()
+{
+}
+
+void SpaceDuplicateBase::detachComponents()
+{
+}
+

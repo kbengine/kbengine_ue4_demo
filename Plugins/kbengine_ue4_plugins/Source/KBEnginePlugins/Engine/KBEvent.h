@@ -45,6 +45,9 @@ public:
 		static void processInEvents() {}
 		static void processOutEvents() {}
 
+		static void pause();
+		static void resume();
+
 protected:
 	struct EventObj
 	{
@@ -53,7 +56,15 @@ protected:
 		void* objPtr;
 	};
 
+	struct DoingEvent
+	{
+		EventObj	  evt;
+		UKBEventData* args;
+	};
+
 	static TMap<FString, TArray<EventObj>> events_;
+	static TArray<DoingEvent*>	doningEvents_;
+	static bool	isPause_;
 };
 
 
@@ -73,6 +84,12 @@ protected:
 
 // fire event
 #define KBENGINE_EVENT_FIRE(EVENT_NAME, EVENT_DATA) KBEvent::fire(EVENT_NAME, EVENT_DATA);
+
+// 暂停事件
+#define KBENGINE_EVENT_PAUSE() KBEvent::pause();
+
+// 恢复事件
+#define KBENGINE_EVENT_RESUME() KBEvent::resume();
 
 UCLASS(Blueprintable, BlueprintType)
 class KBENGINEPLUGINS_API UKBEventData_Baseapp_importClientMessages : public UKBEventData

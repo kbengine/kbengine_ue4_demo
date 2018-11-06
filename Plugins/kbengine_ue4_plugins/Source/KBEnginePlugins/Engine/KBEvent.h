@@ -85,10 +85,10 @@ protected:
 // fire event
 #define KBENGINE_EVENT_FIRE(EVENT_NAME, EVENT_DATA) KBEvent::fire(EVENT_NAME, EVENT_DATA);
 
-//暂停事件
+// 暂停事件
 #define KBENGINE_EVENT_PAUSE() KBEvent::pause();
 
-//恢复事件
+// 恢复事件
 #define KBENGINE_EVENT_RESUME() KBEvent::resume();
 
 UCLASS(Blueprintable, BlueprintType)

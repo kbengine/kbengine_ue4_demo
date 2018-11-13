@@ -3,6 +3,7 @@
 #include "GameModeDemoBase.h"
 #include "kbengine_ue4_demo.h"
 #include "Engine/KBEngine.h"
+#include "Engine/KBEvent.h"
 
 AGameModeDemoBase::AGameModeDemoBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -42,9 +43,9 @@ void AGameModeDemoBase::Logout(AController* Exiting)
 void AGameModeDemoBase::installEvents()
 {
 	// common
-	KBENGINE_REGISTER_EVENT("onKicked", onKicked);
-	KBENGINE_REGISTER_EVENT("onDisconnected", onDisconnected);
-	KBENGINE_REGISTER_EVENT("onConnectionState", onConnectionState);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onKicked, onKicked);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onDisconnected, onDisconnected);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onConnectionState, onConnectionState);
 }
 
 void AGameModeDemoBase::fire(const FString& eventName, UKBEventData* pEventData)

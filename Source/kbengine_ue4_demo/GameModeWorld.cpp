@@ -5,7 +5,6 @@
 #include "Engine/KBEngine.h"
 #include "Engine/Entity.h"
 #include "GameEntity.h"
-#include "Engine/KBEvent.h"
 #include "PlayerCharacter.h"
 
 AGameModeWorld::AGameModeWorld(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -21,15 +20,15 @@ void AGameModeWorld::installEvents()
 
 	// in world
 	// 这个事件触发时我们需要切换地图到游戏世界地图
-	KBENGINE_REGISTER_EVENT("addSpaceGeometryMapping", addSpaceGeometryMapping);
-	KBENGINE_REGISTER_EVENT("onEnterWorld", onEnterWorld);
-	KBENGINE_REGISTER_EVENT("onLeaveWorld", onLeaveWorld);
-	KBENGINE_REGISTER_EVENT("onEnterSpace", onEnterSpace);
-	KBENGINE_REGISTER_EVENT("onLeaveSpace", onLeaveSpace);
-	KBENGINE_REGISTER_EVENT("set_position", set_position);
-	KBENGINE_REGISTER_EVENT("set_direction", set_direction);
-	KBENGINE_REGISTER_EVENT("updatePosition", updatePosition);
-	KBENGINE_REGISTER_EVENT("onControlled", onControlled);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::addSpaceGeometryMapping, addSpaceGeometryMapping);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onEnterWorld, onEnterWorld);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onLeaveWorld, onLeaveWorld);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onEnterSpace, onEnterSpace);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onLeaveSpace, onLeaveSpace);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::set_position, set_position);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::set_direction, set_direction);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::updatePosition, updatePosition);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onControlled, onControlled);
 
 	// in world(register by scripts)
 	KBENGINE_REGISTER_EVENT("set_HP", set_HP);
@@ -75,7 +74,7 @@ void AGameModeWorld::BeginPlay()
 		pEventData->isPlayer = pEntity->isPlayer();
 		pEventData->entityClassName = pEntity->className();
 		pEventData->res = TEXT("");
-		KBENGINE_EVENT_FIRE("onEnterWorld", pEventData);
+		KBENGINE_EVENT_FIRE(KBEventTypes::onEnterWorld, pEventData);
 	}
 }
 

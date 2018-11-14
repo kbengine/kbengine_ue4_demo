@@ -15,13 +15,13 @@ void AGameModeLogin::installEvents()
 	Super::installEvents();
 
 	// login
-	KBENGINE_REGISTER_EVENT("onCreateAccountResult", onCreateAccountResult);
-	KBENGINE_REGISTER_EVENT("onLoginFailed", onLoginFailed);
-	KBENGINE_REGISTER_EVENT("onVersionNotMatch", onVersionNotMatch);
-	KBENGINE_REGISTER_EVENT("onScriptVersionNotMatch", onScriptVersionNotMatch);
-	KBENGINE_REGISTER_EVENT("onLoginBaseappFailed", onLoginBaseappFailed);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onCreateAccountResult, onCreateAccountResult);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onLoginFailed, onLoginFailed);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onVersionNotMatch, onVersionNotMatch);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onScriptVersionNotMatch, onScriptVersionNotMatch);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onLoginBaseappFailed, onLoginBaseappFailed);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onLoginBaseapp, onLoginBaseapp);
 	KBENGINE_REGISTER_EVENT("onLoginSuccessfully", onLoginSuccessfully);
-	KBENGINE_REGISTER_EVENT("onLoginBaseapp", onLoginBaseapp);
 	KBENGINE_REGISTER_EVENT("Loginapp_importClientMessages", Loginapp_importClientMessages);
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientMessages", Baseapp_importClientMessages);
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientEntityDef", Baseapp_importClientEntityDef);

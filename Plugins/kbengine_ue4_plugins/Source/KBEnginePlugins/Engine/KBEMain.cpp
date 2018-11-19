@@ -165,7 +165,7 @@ bool UKBEMain::createAccount(FString username, FString password, const TArray<ui
 {
 	if (!KBEngineApp::getSingleton().isInitialized())
 	{
-		return false; 
+		return false;
 	}
 
 	KBEngineApp::getSingleton().reset();

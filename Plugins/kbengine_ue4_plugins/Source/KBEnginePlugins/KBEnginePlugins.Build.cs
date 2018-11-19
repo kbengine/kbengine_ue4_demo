@@ -17,9 +17,9 @@ public class KBEnginePlugins : ModuleRules
 		
 		PrivateIncludePaths.AddRange(
 			new string[] {
-                "KBEnginePlugins/Engine",
-                "KBEnginePlugins/Scripts",
 				// ... add other private include paths required here ...
+				"KBEnginePlugins/Engine", 
+				"KBEnginePlugins/Scripts",
 			}
 			);
 			

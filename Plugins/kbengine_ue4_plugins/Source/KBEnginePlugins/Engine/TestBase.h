@@ -22,6 +22,7 @@ class KBENGINEPLUGINS_API TestBase : public EntityComponent
 public:
 	EntityBaseEntityCall_TestBase* pBaseEntityCall;
 	EntityCellEntityCall_TestBase* pCellEntityCall;
+	ScriptModule* getScriptModule();
 
 	int32 own;
 	virtual void onOwnChanged(int32 oldValue) {}

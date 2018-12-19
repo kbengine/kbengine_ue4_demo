@@ -61,8 +61,6 @@ void AvatarBase::onRemoteMethodCall(MemoryStream& stream)
 		methodUtype = stream.read<uint16>();
 	}
 
-	Method* pMethod = sm->idmethods[methodUtype];
-
 	if(componentPropertyUType > 0)
 	{
 		Property* pComponentPropertyDescription = sm->idpropertys[componentPropertyUType];
@@ -82,6 +80,8 @@ void AvatarBase::onRemoteMethodCall(MemoryStream& stream)
 
 		return;
 	}
+
+	Method* pMethod = sm->idmethods[methodUtype];
 
 	switch(pMethod->methodUtype)
 	{

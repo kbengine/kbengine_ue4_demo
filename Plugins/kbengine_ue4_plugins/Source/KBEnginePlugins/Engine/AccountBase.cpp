@@ -59,14 +59,14 @@ void AccountBase::onRemoteMethodCall(MemoryStream& stream)
 		methodUtype = stream.read<uint16>();
 	}
 
-	Method* pMethod = sm->idmethods[methodUtype];
-
 	if(componentPropertyUType > 0)
 	{
 		KBE_ASSERT(false);
 
 		return;
 	}
+
+	Method* pMethod = sm->idmethods[methodUtype];
 
 	switch(pMethod->methodUtype)
 	{

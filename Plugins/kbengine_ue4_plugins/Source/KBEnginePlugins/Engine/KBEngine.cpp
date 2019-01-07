@@ -37,8 +37,8 @@ KBEngineApp::KBEngineApp() :
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("F14FBBAEEA862E0FB820875F7814E6E8")),
-	serverEntitydefMD5_(TEXT("30C1E61D7D259AF30271320F61475C89")),
+	serverProtocolMD5_(TEXT("15BB33A3346B4DBF182B132C85E37536")),
+	serverEntitydefMD5_(TEXT("90AA620FCF194B85FBE7A8E4F4F8F938")),
 	entity_uuid_(0),
 	entity_id_(0),
 	entity_type_(TEXT("")),
@@ -78,8 +78,8 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("193D9F820FE858940A7875F64FD9E051")),
-	serverEntitydefMD5_(TEXT("B82E0C153A91A452DF234FE7CDD02C3F")),
+	serverProtocolMD5_(TEXT("15BB33A3346B4DBF182B132C85E37536")),
+	serverEntitydefMD5_(TEXT("90AA620FCF194B85FBE7A8E4F4F8F938")),
 	entity_uuid_(0),
 	entity_id_(0),
 	entity_type_(TEXT("")),
@@ -217,7 +217,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("2.3.3");
+	clientVersion_ = TEXT("2.3.4");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 

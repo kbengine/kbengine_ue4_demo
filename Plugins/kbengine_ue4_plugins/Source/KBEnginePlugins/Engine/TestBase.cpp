@@ -17,6 +17,11 @@ void TestBase::createFromStream(MemoryStream& stream)
 	pCellEntityCall = new EntityCellEntityCall_TestBase(entityComponentPropertyID, ownerID);
 }
 
+ScriptModule* TestBase::getScriptModule()
+{
+	return *EntityDef::moduledefs.Find("Test");
+}
+
 void TestBase::onRemoteMethodCall(uint16 methodUtype, MemoryStream& stream)
 {
 	ScriptModule* sm = *EntityDef::moduledefs.Find("Test");

@@ -17,6 +17,11 @@ void TestNoBaseBase::createFromStream(MemoryStream& stream)
 	pCellEntityCall = new EntityCellEntityCall_TestNoBaseBase(entityComponentPropertyID, ownerID);
 }
 
+ScriptModule* TestNoBaseBase::getScriptModule()
+{
+	return *EntityDef::moduledefs.Find("TestNoBase");
+}
+
 void TestNoBaseBase::onRemoteMethodCall(uint16 methodUtype, MemoryStream& stream)
 {
 	ScriptModule* sm = *EntityDef::moduledefs.Find("TestNoBase");

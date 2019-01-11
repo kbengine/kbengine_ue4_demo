@@ -178,6 +178,11 @@ void Message_Client_onImportServerErrorsDescr::handleMessage(MemoryStream& msgst
 	KBEngineApp::getSingleton().Client_onImportServerErrorsDescr(msgstream);
 }
 
+void Message_Client_onImportClientSDK::handleMessage(MemoryStream& msgstream)
+{
+	KBEngineApp::getSingleton().Client_onImportClientSDK(msgstream);
+}
+
 void Message_Client_initSpaceData::handleMessage(MemoryStream& msgstream)
 {
 	KBEngineApp::getSingleton().Client_initSpaceData(msgstream);
@@ -367,6 +372,10 @@ void Message_Loginapp_importClientMessages::handleMessage(MemoryStream& msgstrea
 }
 
 void Message_Loginapp_reqCreateMailAccount::handleMessage(MemoryStream& msgstream)
+{
+}
+
+void Message_Loginapp_importClientSDK::handleMessage(MemoryStream& msgstream)
 {
 }
 

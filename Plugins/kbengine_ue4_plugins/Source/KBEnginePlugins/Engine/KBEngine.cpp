@@ -37,7 +37,7 @@ KBEngineApp::KBEngineApp() :
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("15BB33A3346B4DBF182B132C85E37536")),
+	serverProtocolMD5_(TEXT("91E15FF1D8FE1B072A89D153B9263A1A")),
 	serverEntitydefMD5_(TEXT("90AA620FCF194B85FBE7A8E4F4F8F938")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -78,7 +78,7 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("15BB33A3346B4DBF182B132C85E37536")),
+	serverProtocolMD5_(TEXT("91E15FF1D8FE1B072A89D153B9263A1A")),
 	serverEntitydefMD5_(TEXT("90AA620FCF194B85FBE7A8E4F4F8F938")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -217,7 +217,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("2.3.4");
+	clientVersion_ = TEXT("2.3.5");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 
@@ -556,6 +556,18 @@ void KBEngineApp::Client_onScriptVersionNotMatch(MemoryStream& stream)
 	pEventData->clientScriptVersion = clientScriptVersion_;
 	pEventData->serverScriptVersion = serverScriptVersion_;
 	KBENGINE_EVENT_FIRE(KBEventTypes::onScriptVersionNotMatch, pEventData);
+}
+
+void KBEngineApp::Client_onImportClientSDK(MemoryStream& stream)
+{
+	UKBEventData_onImportClientSDK* pEventData = NewObject<UKBEventData_onImportClientSDK>();
+
+	pEventData->remainingFiles = stream.readInt32();
+	pEventData->fileName = stream.readString();
+	pEventData->fileSize = stream.readInt32();
+	stream.readBlob(pEventData->fileDatas);
+
+	KBENGINE_EVENT_FIRE("onImportClientSDK", pEventData);
 }
 
 void KBEngineApp::Client_onKicked(uint16 failedcode)

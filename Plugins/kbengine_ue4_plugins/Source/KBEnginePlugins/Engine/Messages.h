@@ -450,6 +450,18 @@ public:
 	void handleMessage(MemoryStream& msgstream) override;
 };
 
+class KBENGINEPLUGINS_API Message_Client_onImportClientSDK : public Message
+{
+public:
+	Message_Client_onImportClientSDK(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
 class KBENGINEPLUGINS_API Message_Client_initSpaceData : public Message
 {
 public:
@@ -870,6 +882,18 @@ public:
 	void handleMessage(MemoryStream& msgstream) override;
 };
 
+class KBENGINEPLUGINS_API Message_Loginapp_importClientSDK : public Message
+{
+public:
+	Message_Loginapp_importClientSDK(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
 class KBENGINEPLUGINS_API Message_Loginapp_importServerErrorsDescr : public Message
 {
 public:
@@ -1107,155 +1131,158 @@ public:
 
 		TArray<uint8> Client_onReloginBaseappFailed_argstypes;
 		Client_onReloginBaseappFailed_argstypes.Add(3);
-		Messages::messages.Add(TEXT("Client_onReloginBaseappFailed"), new Message_Client_onReloginBaseappFailed(7, "Client_onReloginBaseappFailed", 2, 0, Client_onReloginBaseappFailed_argstypes));
-		Messages::clientMessages.Add(7, Messages::messages["Client_onReloginBaseappFailed"]);
+		Messages::messages.Add(TEXT("Client_onReloginBaseappFailed"), new Message_Client_onReloginBaseappFailed(8, "Client_onReloginBaseappFailed", 2, 0, Client_onReloginBaseappFailed_argstypes));
+		Messages::clientMessages.Add(8, Messages::messages["Client_onReloginBaseappFailed"]);
 
-		Messages::messages.Add(TEXT("Client_onEntityLeaveWorldOptimized"), new Message_Client_onEntityLeaveWorldOptimized(8, "Client_onEntityLeaveWorldOptimized", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(8, Messages::messages["Client_onEntityLeaveWorldOptimized"]);
+		Messages::messages.Add(TEXT("Client_onEntityLeaveWorldOptimized"), new Message_Client_onEntityLeaveWorldOptimized(9, "Client_onEntityLeaveWorldOptimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(9, Messages::messages["Client_onEntityLeaveWorldOptimized"]);
 
-		Messages::messages.Add(TEXT("Client_onRemoteMethodCallOptimized"), new Message_Client_onRemoteMethodCallOptimized(9, "Client_onRemoteMethodCallOptimized", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(9, Messages::messages["Client_onRemoteMethodCallOptimized"]);
+		Messages::messages.Add(TEXT("Client_onRemoteMethodCallOptimized"), new Message_Client_onRemoteMethodCallOptimized(10, "Client_onRemoteMethodCallOptimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(10, Messages::messages["Client_onRemoteMethodCallOptimized"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdatePropertysOptimized"), new Message_Client_onUpdatePropertysOptimized(10, "Client_onUpdatePropertysOptimized", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(10, Messages::messages["Client_onUpdatePropertysOptimized"]);
+		Messages::messages.Add(TEXT("Client_onUpdatePropertysOptimized"), new Message_Client_onUpdatePropertysOptimized(11, "Client_onUpdatePropertysOptimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(11, Messages::messages["Client_onUpdatePropertysOptimized"]);
 
-		Messages::messages.Add(TEXT("Client_onSetEntityPosAndDir"), new Message_Client_onSetEntityPosAndDir(11, "Client_onSetEntityPosAndDir", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(11, Messages::messages["Client_onSetEntityPosAndDir"]);
+		Messages::messages.Add(TEXT("Client_onSetEntityPosAndDir"), new Message_Client_onSetEntityPosAndDir(12, "Client_onSetEntityPosAndDir", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(12, Messages::messages["Client_onSetEntityPosAndDir"]);
 
 
 		TArray<uint8> Client_onUpdateBasePos_argstypes;
 		Client_onUpdateBasePos_argstypes.Add(13);
 		Client_onUpdateBasePos_argstypes.Add(13);
 		Client_onUpdateBasePos_argstypes.Add(13);
-		Messages::messages.Add(TEXT("Client_onUpdateBasePos"), new Message_Client_onUpdateBasePos(12, "Client_onUpdateBasePos", 12, 0, Client_onUpdateBasePos_argstypes));
-		Messages::clientMessages.Add(12, Messages::messages["Client_onUpdateBasePos"]);
+		Messages::messages.Add(TEXT("Client_onUpdateBasePos"), new Message_Client_onUpdateBasePos(13, "Client_onUpdateBasePos", 12, 0, Client_onUpdateBasePos_argstypes));
+		Messages::clientMessages.Add(13, Messages::messages["Client_onUpdateBasePos"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateBaseDir"), new Message_Client_onUpdateBaseDir(13, "Client_onUpdateBaseDir", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(13, Messages::messages["Client_onUpdateBaseDir"]);
+		Messages::messages.Add(TEXT("Client_onUpdateBaseDir"), new Message_Client_onUpdateBaseDir(14, "Client_onUpdateBaseDir", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(14, Messages::messages["Client_onUpdateBaseDir"]);
 
 
 		TArray<uint8> Client_onUpdateBasePosXZ_argstypes;
 		Client_onUpdateBasePosXZ_argstypes.Add(13);
 		Client_onUpdateBasePosXZ_argstypes.Add(13);
-		Messages::messages.Add(TEXT("Client_onUpdateBasePosXZ"), new Message_Client_onUpdateBasePosXZ(14, "Client_onUpdateBasePosXZ", 8, 0, Client_onUpdateBasePosXZ_argstypes));
-		Messages::clientMessages.Add(14, Messages::messages["Client_onUpdateBasePosXZ"]);
+		Messages::messages.Add(TEXT("Client_onUpdateBasePosXZ"), new Message_Client_onUpdateBasePosXZ(15, "Client_onUpdateBasePosXZ", 8, 0, Client_onUpdateBasePosXZ_argstypes));
+		Messages::clientMessages.Add(15, Messages::messages["Client_onUpdateBasePosXZ"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData"), new Message_Client_onUpdateData(15, "Client_onUpdateData", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(15, Messages::messages["Client_onUpdateData"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData"), new Message_Client_onUpdateData(16, "Client_onUpdateData", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(16, Messages::messages["Client_onUpdateData"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_ypr"), new Message_Client_onUpdateData_ypr(16, "Client_onUpdateData_ypr", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(16, Messages::messages["Client_onUpdateData_ypr"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_ypr"), new Message_Client_onUpdateData_ypr(17, "Client_onUpdateData_ypr", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(17, Messages::messages["Client_onUpdateData_ypr"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_yp"), new Message_Client_onUpdateData_yp(17, "Client_onUpdateData_yp", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(17, Messages::messages["Client_onUpdateData_yp"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_yp"), new Message_Client_onUpdateData_yp(18, "Client_onUpdateData_yp", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(18, Messages::messages["Client_onUpdateData_yp"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_yr"), new Message_Client_onUpdateData_yr(18, "Client_onUpdateData_yr", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(18, Messages::messages["Client_onUpdateData_yr"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_yr"), new Message_Client_onUpdateData_yr(19, "Client_onUpdateData_yr", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(19, Messages::messages["Client_onUpdateData_yr"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_pr"), new Message_Client_onUpdateData_pr(19, "Client_onUpdateData_pr", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(19, Messages::messages["Client_onUpdateData_pr"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_pr"), new Message_Client_onUpdateData_pr(20, "Client_onUpdateData_pr", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(20, Messages::messages["Client_onUpdateData_pr"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_y"), new Message_Client_onUpdateData_y(20, "Client_onUpdateData_y", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(20, Messages::messages["Client_onUpdateData_y"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_y"), new Message_Client_onUpdateData_y(21, "Client_onUpdateData_y", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(21, Messages::messages["Client_onUpdateData_y"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_p"), new Message_Client_onUpdateData_p(21, "Client_onUpdateData_p", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(21, Messages::messages["Client_onUpdateData_p"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_p"), new Message_Client_onUpdateData_p(22, "Client_onUpdateData_p", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(22, Messages::messages["Client_onUpdateData_p"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_r"), new Message_Client_onUpdateData_r(22, "Client_onUpdateData_r", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(22, Messages::messages["Client_onUpdateData_r"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_r"), new Message_Client_onUpdateData_r(23, "Client_onUpdateData_r", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(23, Messages::messages["Client_onUpdateData_r"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xz"), new Message_Client_onUpdateData_xz(23, "Client_onUpdateData_xz", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(23, Messages::messages["Client_onUpdateData_xz"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz"), new Message_Client_onUpdateData_xz(24, "Client_onUpdateData_xz", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(24, Messages::messages["Client_onUpdateData_xz"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xz_ypr"), new Message_Client_onUpdateData_xz_ypr(24, "Client_onUpdateData_xz_ypr", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(24, Messages::messages["Client_onUpdateData_xz_ypr"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_ypr"), new Message_Client_onUpdateData_xz_ypr(25, "Client_onUpdateData_xz_ypr", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(25, Messages::messages["Client_onUpdateData_xz_ypr"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xz_yp"), new Message_Client_onUpdateData_xz_yp(25, "Client_onUpdateData_xz_yp", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(25, Messages::messages["Client_onUpdateData_xz_yp"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_yp"), new Message_Client_onUpdateData_xz_yp(26, "Client_onUpdateData_xz_yp", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(26, Messages::messages["Client_onUpdateData_xz_yp"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xz_yr"), new Message_Client_onUpdateData_xz_yr(26, "Client_onUpdateData_xz_yr", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(26, Messages::messages["Client_onUpdateData_xz_yr"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_yr"), new Message_Client_onUpdateData_xz_yr(27, "Client_onUpdateData_xz_yr", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(27, Messages::messages["Client_onUpdateData_xz_yr"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xz_pr"), new Message_Client_onUpdateData_xz_pr(27, "Client_onUpdateData_xz_pr", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(27, Messages::messages["Client_onUpdateData_xz_pr"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_pr"), new Message_Client_onUpdateData_xz_pr(28, "Client_onUpdateData_xz_pr", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(28, Messages::messages["Client_onUpdateData_xz_pr"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xz_y"), new Message_Client_onUpdateData_xz_y(28, "Client_onUpdateData_xz_y", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(28, Messages::messages["Client_onUpdateData_xz_y"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_y"), new Message_Client_onUpdateData_xz_y(29, "Client_onUpdateData_xz_y", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(29, Messages::messages["Client_onUpdateData_xz_y"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xz_p"), new Message_Client_onUpdateData_xz_p(29, "Client_onUpdateData_xz_p", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(29, Messages::messages["Client_onUpdateData_xz_p"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_p"), new Message_Client_onUpdateData_xz_p(30, "Client_onUpdateData_xz_p", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(30, Messages::messages["Client_onUpdateData_xz_p"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xz_r"), new Message_Client_onUpdateData_xz_r(30, "Client_onUpdateData_xz_r", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(30, Messages::messages["Client_onUpdateData_xz_r"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_r"), new Message_Client_onUpdateData_xz_r(31, "Client_onUpdateData_xz_r", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(31, Messages::messages["Client_onUpdateData_xz_r"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xyz"), new Message_Client_onUpdateData_xyz(31, "Client_onUpdateData_xyz", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(31, Messages::messages["Client_onUpdateData_xyz"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz"), new Message_Client_onUpdateData_xyz(32, "Client_onUpdateData_xyz", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(32, Messages::messages["Client_onUpdateData_xyz"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_ypr"), new Message_Client_onUpdateData_xyz_ypr(32, "Client_onUpdateData_xyz_ypr", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(32, Messages::messages["Client_onUpdateData_xyz_ypr"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_ypr"), new Message_Client_onUpdateData_xyz_ypr(33, "Client_onUpdateData_xyz_ypr", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(33, Messages::messages["Client_onUpdateData_xyz_ypr"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_yp"), new Message_Client_onUpdateData_xyz_yp(33, "Client_onUpdateData_xyz_yp", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(33, Messages::messages["Client_onUpdateData_xyz_yp"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_yp"), new Message_Client_onUpdateData_xyz_yp(34, "Client_onUpdateData_xyz_yp", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(34, Messages::messages["Client_onUpdateData_xyz_yp"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_yr"), new Message_Client_onUpdateData_xyz_yr(34, "Client_onUpdateData_xyz_yr", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(34, Messages::messages["Client_onUpdateData_xyz_yr"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_yr"), new Message_Client_onUpdateData_xyz_yr(35, "Client_onUpdateData_xyz_yr", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(35, Messages::messages["Client_onUpdateData_xyz_yr"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_pr"), new Message_Client_onUpdateData_xyz_pr(35, "Client_onUpdateData_xyz_pr", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(35, Messages::messages["Client_onUpdateData_xyz_pr"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_pr"), new Message_Client_onUpdateData_xyz_pr(36, "Client_onUpdateData_xyz_pr", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(36, Messages::messages["Client_onUpdateData_xyz_pr"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_y"), new Message_Client_onUpdateData_xyz_y(36, "Client_onUpdateData_xyz_y", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(36, Messages::messages["Client_onUpdateData_xyz_y"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_y"), new Message_Client_onUpdateData_xyz_y(37, "Client_onUpdateData_xyz_y", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(37, Messages::messages["Client_onUpdateData_xyz_y"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_p"), new Message_Client_onUpdateData_xyz_p(37, "Client_onUpdateData_xyz_p", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(37, Messages::messages["Client_onUpdateData_xyz_p"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_p"), new Message_Client_onUpdateData_xyz_p(38, "Client_onUpdateData_xyz_p", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(38, Messages::messages["Client_onUpdateData_xyz_p"]);
 
-		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_r"), new Message_Client_onUpdateData_xyz_r(38, "Client_onUpdateData_xyz_r", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(38, Messages::messages["Client_onUpdateData_xyz_r"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_r"), new Message_Client_onUpdateData_xyz_r(39, "Client_onUpdateData_xyz_r", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(39, Messages::messages["Client_onUpdateData_xyz_r"]);
 
-		Messages::messages.Add(TEXT("Client_onImportServerErrorsDescr"), new Message_Client_onImportServerErrorsDescr(39, "Client_onImportServerErrorsDescr", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(39, Messages::messages["Client_onImportServerErrorsDescr"]);
+		Messages::messages.Add(TEXT("Client_onImportServerErrorsDescr"), new Message_Client_onImportServerErrorsDescr(40, "Client_onImportServerErrorsDescr", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(40, Messages::messages["Client_onImportServerErrorsDescr"]);
 
-		Messages::messages.Add(TEXT("Client_initSpaceData"), new Message_Client_initSpaceData(40, "Client_initSpaceData", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(40, Messages::messages["Client_initSpaceData"]);
+		Messages::messages.Add(TEXT("Client_onImportClientSDK"), new Message_Client_onImportClientSDK(41, "Client_onImportClientSDK", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(41, Messages::messages["Client_onImportClientSDK"]);
+
+		Messages::messages.Add(TEXT("Client_initSpaceData"), new Message_Client_initSpaceData(42, "Client_initSpaceData", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(42, Messages::messages["Client_initSpaceData"]);
 
 
 		TArray<uint8> Client_setSpaceData_argstypes;
 		Client_setSpaceData_argstypes.Add(4);
 		Client_setSpaceData_argstypes.Add(1);
 		Client_setSpaceData_argstypes.Add(1);
-		Messages::messages.Add(TEXT("Client_setSpaceData"), new Message_Client_setSpaceData(41, "Client_setSpaceData", -1, 0, Client_setSpaceData_argstypes));
-		Messages::clientMessages.Add(41, Messages::messages["Client_setSpaceData"]);
+		Messages::messages.Add(TEXT("Client_setSpaceData"), new Message_Client_setSpaceData(43, "Client_setSpaceData", -1, 0, Client_setSpaceData_argstypes));
+		Messages::clientMessages.Add(43, Messages::messages["Client_setSpaceData"]);
 
 
 		TArray<uint8> Client_delSpaceData_argstypes;
 		Client_delSpaceData_argstypes.Add(4);
 		Client_delSpaceData_argstypes.Add(1);
-		Messages::messages.Add(TEXT("Client_delSpaceData"), new Message_Client_delSpaceData(42, "Client_delSpaceData", -1, 0, Client_delSpaceData_argstypes));
-		Messages::clientMessages.Add(42, Messages::messages["Client_delSpaceData"]);
+		Messages::messages.Add(TEXT("Client_delSpaceData"), new Message_Client_delSpaceData(44, "Client_delSpaceData", -1, 0, Client_delSpaceData_argstypes));
+		Messages::clientMessages.Add(44, Messages::messages["Client_delSpaceData"]);
 
 
 		TArray<uint8> Client_onReqAccountResetPasswordCB_argstypes;
 		Client_onReqAccountResetPasswordCB_argstypes.Add(3);
-		Messages::messages.Add(TEXT("Client_onReqAccountResetPasswordCB"), new Message_Client_onReqAccountResetPasswordCB(43, "Client_onReqAccountResetPasswordCB", 2, 0, Client_onReqAccountResetPasswordCB_argstypes));
-		Messages::clientMessages.Add(43, Messages::messages["Client_onReqAccountResetPasswordCB"]);
+		Messages::messages.Add(TEXT("Client_onReqAccountResetPasswordCB"), new Message_Client_onReqAccountResetPasswordCB(45, "Client_onReqAccountResetPasswordCB", 2, 0, Client_onReqAccountResetPasswordCB_argstypes));
+		Messages::clientMessages.Add(45, Messages::messages["Client_onReqAccountResetPasswordCB"]);
 
 
 		TArray<uint8> Client_onReqAccountBindEmailCB_argstypes;
 		Client_onReqAccountBindEmailCB_argstypes.Add(3);
-		Messages::messages.Add(TEXT("Client_onReqAccountBindEmailCB"), new Message_Client_onReqAccountBindEmailCB(44, "Client_onReqAccountBindEmailCB", 2, 0, Client_onReqAccountBindEmailCB_argstypes));
-		Messages::clientMessages.Add(44, Messages::messages["Client_onReqAccountBindEmailCB"]);
+		Messages::messages.Add(TEXT("Client_onReqAccountBindEmailCB"), new Message_Client_onReqAccountBindEmailCB(46, "Client_onReqAccountBindEmailCB", 2, 0, Client_onReqAccountBindEmailCB_argstypes));
+		Messages::clientMessages.Add(46, Messages::messages["Client_onReqAccountBindEmailCB"]);
 
 
 		TArray<uint8> Client_onReqAccountNewPasswordCB_argstypes;
 		Client_onReqAccountNewPasswordCB_argstypes.Add(3);
-		Messages::messages.Add(TEXT("Client_onReqAccountNewPasswordCB"), new Message_Client_onReqAccountNewPasswordCB(45, "Client_onReqAccountNewPasswordCB", 2, 0, Client_onReqAccountNewPasswordCB_argstypes));
-		Messages::clientMessages.Add(45, Messages::messages["Client_onReqAccountNewPasswordCB"]);
+		Messages::messages.Add(TEXT("Client_onReqAccountNewPasswordCB"), new Message_Client_onReqAccountNewPasswordCB(47, "Client_onReqAccountNewPasswordCB", 2, 0, Client_onReqAccountNewPasswordCB_argstypes));
+		Messages::clientMessages.Add(47, Messages::messages["Client_onReqAccountNewPasswordCB"]);
 
-		Messages::messages.Add(TEXT("Client_onReloginBaseappSuccessfully"), new Message_Client_onReloginBaseappSuccessfully(46, "Client_onReloginBaseappSuccessfully", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(46, Messages::messages["Client_onReloginBaseappSuccessfully"]);
+		Messages::messages.Add(TEXT("Client_onReloginBaseappSuccessfully"), new Message_Client_onReloginBaseappSuccessfully(48, "Client_onReloginBaseappSuccessfully", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(48, Messages::messages["Client_onReloginBaseappSuccessfully"]);
 
-		Messages::messages.Add(TEXT("Client_onAppActiveTickCB"), new Message_Client_onAppActiveTickCB(47, "Client_onAppActiveTickCB", 0, 0, TArray<uint8>()));
-		Messages::clientMessages.Add(47, Messages::messages["Client_onAppActiveTickCB"]);
+		Messages::messages.Add(TEXT("Client_onAppActiveTickCB"), new Message_Client_onAppActiveTickCB(49, "Client_onAppActiveTickCB", 0, 0, TArray<uint8>()));
+		Messages::clientMessages.Add(49, Messages::messages["Client_onAppActiveTickCB"]);
 
 		Messages::messages.Add(TEXT("Client_onCreateAccountResult"), new Message_Client_onCreateAccountResult(501, "Client_onCreateAccountResult", -1, -1, TArray<uint8>()));
 		Messages::clientMessages.Add(501, Messages::messages["Client_onCreateAccountResult"]);
@@ -1370,49 +1397,52 @@ public:
 		Messages::messages.Add(TEXT("Loginapp_reqCreateMailAccount"), new Message_Loginapp_reqCreateMailAccount(6, "Loginapp_reqCreateMailAccount", -1, 0, TArray<uint8>()));
 		Messages::loginappMessages.Add(6, Messages::messages["Loginapp_reqCreateMailAccount"]);
 
-		Messages::messages.Add(TEXT("Loginapp_importServerErrorsDescr"), new Message_Loginapp_importServerErrorsDescr(7, "Loginapp_importServerErrorsDescr", 0, 0, TArray<uint8>()));
-		Messages::loginappMessages.Add(7, Messages::messages["Loginapp_importServerErrorsDescr"]);
+		Messages::messages.Add(TEXT("Loginapp_importClientSDK"), new Message_Loginapp_importClientSDK(7, "Loginapp_importClientSDK", -1, 0, TArray<uint8>()));
+		Messages::loginappMessages.Add(7, Messages::messages["Loginapp_importClientSDK"]);
 
-		Messages::messages.Add(TEXT("Loginapp_onClientActiveTick"), new Message_Loginapp_onClientActiveTick(10, "Loginapp_onClientActiveTick", 0, 0, TArray<uint8>()));
-		Messages::loginappMessages.Add(10, Messages::messages["Loginapp_onClientActiveTick"]);
+		Messages::messages.Add(TEXT("Loginapp_importServerErrorsDescr"), new Message_Loginapp_importServerErrorsDescr(8, "Loginapp_importServerErrorsDescr", 0, 0, TArray<uint8>()));
+		Messages::loginappMessages.Add(8, Messages::messages["Loginapp_importServerErrorsDescr"]);
+
+		Messages::messages.Add(TEXT("Loginapp_onClientActiveTick"), new Message_Loginapp_onClientActiveTick(11, "Loginapp_onClientActiveTick", 0, 0, TArray<uint8>()));
+		Messages::loginappMessages.Add(11, Messages::messages["Loginapp_onClientActiveTick"]);
 
 
 		TArray<uint8> Loginapp_reqAccountResetPassword_argstypes;
 		Loginapp_reqAccountResetPassword_argstypes.Add(1);
-		Messages::messages.Add(TEXT("Loginapp_reqAccountResetPassword"), new Message_Loginapp_reqAccountResetPassword(11, "Loginapp_reqAccountResetPassword", -1, 0, Loginapp_reqAccountResetPassword_argstypes));
-		Messages::loginappMessages.Add(11, Messages::messages["Loginapp_reqAccountResetPassword"]);
+		Messages::messages.Add(TEXT("Loginapp_reqAccountResetPassword"), new Message_Loginapp_reqAccountResetPassword(12, "Loginapp_reqAccountResetPassword", -1, 0, Loginapp_reqAccountResetPassword_argstypes));
+		Messages::loginappMessages.Add(12, Messages::messages["Loginapp_reqAccountResetPassword"]);
 
 
 		TArray<uint8> Baseapp_logoutBaseapp_argstypes;
 		Baseapp_logoutBaseapp_argstypes.Add(5);
 		Baseapp_logoutBaseapp_argstypes.Add(8);
-		Messages::messages.Add(TEXT("Baseapp_logoutBaseapp"), new Message_Baseapp_logoutBaseapp(23, "Baseapp_logoutBaseapp", 12, 0, Baseapp_logoutBaseapp_argstypes));
-		Messages::baseappMessages.Add(23, Messages::messages["Baseapp_logoutBaseapp"]);
+		Messages::messages.Add(TEXT("Baseapp_logoutBaseapp"), new Message_Baseapp_logoutBaseapp(24, "Baseapp_logoutBaseapp", 12, 0, Baseapp_logoutBaseapp_argstypes));
+		Messages::baseappMessages.Add(24, Messages::messages["Baseapp_logoutBaseapp"]);
 
-		Messages::messages.Add(TEXT("Baseapp_onUpdateDataFromClient"), new Message_Baseapp_onUpdateDataFromClient(26, "Baseapp_onUpdateDataFromClient", -1, -1, TArray<uint8>()));
-		Messages::baseappMessages.Add(26, Messages::messages["Baseapp_onUpdateDataFromClient"]);
+		Messages::messages.Add(TEXT("Baseapp_onUpdateDataFromClient"), new Message_Baseapp_onUpdateDataFromClient(27, "Baseapp_onUpdateDataFromClient", -1, -1, TArray<uint8>()));
+		Messages::baseappMessages.Add(27, Messages::messages["Baseapp_onUpdateDataFromClient"]);
 
-		Messages::messages.Add(TEXT("Baseapp_onUpdateDataFromClientForControlledEntity"), new Message_Baseapp_onUpdateDataFromClientForControlledEntity(27, "Baseapp_onUpdateDataFromClientForControlledEntity", -1, -1, TArray<uint8>()));
-		Messages::baseappMessages.Add(27, Messages::messages["Baseapp_onUpdateDataFromClientForControlledEntity"]);
+		Messages::messages.Add(TEXT("Baseapp_onUpdateDataFromClientForControlledEntity"), new Message_Baseapp_onUpdateDataFromClientForControlledEntity(28, "Baseapp_onUpdateDataFromClientForControlledEntity", -1, -1, TArray<uint8>()));
+		Messages::baseappMessages.Add(28, Messages::messages["Baseapp_onUpdateDataFromClientForControlledEntity"]);
 
 
 		TArray<uint8> Baseapp_reqAccountBindEmail_argstypes;
 		Baseapp_reqAccountBindEmail_argstypes.Add(8);
 		Baseapp_reqAccountBindEmail_argstypes.Add(1);
 		Baseapp_reqAccountBindEmail_argstypes.Add(1);
-		Messages::messages.Add(TEXT("Baseapp_reqAccountBindEmail"), new Message_Baseapp_reqAccountBindEmail(49, "Baseapp_reqAccountBindEmail", -1, 0, Baseapp_reqAccountBindEmail_argstypes));
-		Messages::baseappMessages.Add(49, Messages::messages["Baseapp_reqAccountBindEmail"]);
+		Messages::messages.Add(TEXT("Baseapp_reqAccountBindEmail"), new Message_Baseapp_reqAccountBindEmail(50, "Baseapp_reqAccountBindEmail", -1, 0, Baseapp_reqAccountBindEmail_argstypes));
+		Messages::baseappMessages.Add(50, Messages::messages["Baseapp_reqAccountBindEmail"]);
 
 
 		TArray<uint8> Baseapp_reqAccountNewPassword_argstypes;
 		Baseapp_reqAccountNewPassword_argstypes.Add(8);
 		Baseapp_reqAccountNewPassword_argstypes.Add(1);
 		Baseapp_reqAccountNewPassword_argstypes.Add(1);
-		Messages::messages.Add(TEXT("Baseapp_reqAccountNewPassword"), new Message_Baseapp_reqAccountNewPassword(52, "Baseapp_reqAccountNewPassword", -1, 0, Baseapp_reqAccountNewPassword_argstypes));
-		Messages::baseappMessages.Add(52, Messages::messages["Baseapp_reqAccountNewPassword"]);
+		Messages::messages.Add(TEXT("Baseapp_reqAccountNewPassword"), new Message_Baseapp_reqAccountNewPassword(53, "Baseapp_reqAccountNewPassword", -1, 0, Baseapp_reqAccountNewPassword_argstypes));
+		Messages::baseappMessages.Add(53, Messages::messages["Baseapp_reqAccountNewPassword"]);
 
-		Messages::messages.Add(TEXT("Entity_forwardEntityMessageToCellappFromClient"), new Message_Entity_forwardEntityMessageToCellappFromClient(56, "Entity_forwardEntityMessageToCellappFromClient", -1, -1, TArray<uint8>()));
-		Messages::baseappMessages.Add(56, Messages::messages["Entity_forwardEntityMessageToCellappFromClient"]);
+		Messages::messages.Add(TEXT("Entity_forwardEntityMessageToCellappFromClient"), new Message_Entity_forwardEntityMessageToCellappFromClient(57, "Entity_forwardEntityMessageToCellappFromClient", -1, -1, TArray<uint8>()));
+		Messages::baseappMessages.Add(57, Messages::messages["Entity_forwardEntityMessageToCellappFromClient"]);
 
 		Messages::messages.Add(TEXT("Baseapp_hello"), new Message_Baseapp_hello(200, "Baseapp_hello", -1, -1, TArray<uint8>()));
 		Messages::baseappMessages.Add(200, Messages::messages["Baseapp_hello"]);

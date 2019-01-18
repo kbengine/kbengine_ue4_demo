@@ -438,6 +438,282 @@ public:
 	void handleMessage(MemoryStream& msgstream) override;
 };
 
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_ypr_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_ypr_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_yp_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_yp_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_yr_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_yr_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_pr_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_pr_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_y_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_y_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_p_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_p_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_r_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_r_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xz_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xz_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xz_ypr_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xz_ypr_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xz_yp_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xz_yp_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xz_yr_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xz_yr_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xz_pr_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xz_pr_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xz_y_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xz_y_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xz_p_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xz_p_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xz_r_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xz_r_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xyz_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xyz_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xyz_ypr_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xyz_ypr_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xyz_yp_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xyz_yp_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xyz_yr_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xyz_yr_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xyz_pr_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xyz_pr_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xyz_y_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xyz_y_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xyz_p_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xyz_p_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
+class KBENGINEPLUGINS_API Message_Client_onUpdateData_xyz_r_optimized : public Message
+{
+public:
+	Message_Client_onUpdateData_xyz_r_optimized(MessageID msgid, const FString& msgname, int16 length, int8 argstype, const TArray<uint8>& msgargtypes):
+	Message(msgid, msgname, length, argstype, msgargtypes)
+	{
+
+	}
+
+	void handleMessage(MemoryStream& msgstream) override;
+};
+
 class KBENGINEPLUGINS_API Message_Client_onImportServerErrorsDescr : public Message
 {
 public:
@@ -1236,53 +1512,122 @@ public:
 		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_r"), new Message_Client_onUpdateData_xyz_r(39, "Client_onUpdateData_xyz_r", -1, -1, TArray<uint8>()));
 		Messages::clientMessages.Add(39, Messages::messages["Client_onUpdateData_xyz_r"]);
 
-		Messages::messages.Add(TEXT("Client_onImportServerErrorsDescr"), new Message_Client_onImportServerErrorsDescr(40, "Client_onImportServerErrorsDescr", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(40, Messages::messages["Client_onImportServerErrorsDescr"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_ypr_optimized"), new Message_Client_onUpdateData_ypr_optimized(40, "Client_onUpdateData_ypr_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(40, Messages::messages["Client_onUpdateData_ypr_optimized"]);
 
-		Messages::messages.Add(TEXT("Client_onImportClientSDK"), new Message_Client_onImportClientSDK(41, "Client_onImportClientSDK", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(41, Messages::messages["Client_onImportClientSDK"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_yp_optimized"), new Message_Client_onUpdateData_yp_optimized(41, "Client_onUpdateData_yp_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(41, Messages::messages["Client_onUpdateData_yp_optimized"]);
 
-		Messages::messages.Add(TEXT("Client_initSpaceData"), new Message_Client_initSpaceData(42, "Client_initSpaceData", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(42, Messages::messages["Client_initSpaceData"]);
+		Messages::messages.Add(TEXT("Client_onUpdateData_yr_optimized"), new Message_Client_onUpdateData_yr_optimized(42, "Client_onUpdateData_yr_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(42, Messages::messages["Client_onUpdateData_yr_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_pr_optimized"), new Message_Client_onUpdateData_pr_optimized(43, "Client_onUpdateData_pr_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(43, Messages::messages["Client_onUpdateData_pr_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_y_optimized"), new Message_Client_onUpdateData_y_optimized(44, "Client_onUpdateData_y_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(44, Messages::messages["Client_onUpdateData_y_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_p_optimized"), new Message_Client_onUpdateData_p_optimized(45, "Client_onUpdateData_p_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(45, Messages::messages["Client_onUpdateData_p_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_r_optimized"), new Message_Client_onUpdateData_r_optimized(46, "Client_onUpdateData_r_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(46, Messages::messages["Client_onUpdateData_r_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_optimized"), new Message_Client_onUpdateData_xz_optimized(47, "Client_onUpdateData_xz_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(47, Messages::messages["Client_onUpdateData_xz_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_ypr_optimized"), new Message_Client_onUpdateData_xz_ypr_optimized(48, "Client_onUpdateData_xz_ypr_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(48, Messages::messages["Client_onUpdateData_xz_ypr_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_yp_optimized"), new Message_Client_onUpdateData_xz_yp_optimized(49, "Client_onUpdateData_xz_yp_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(49, Messages::messages["Client_onUpdateData_xz_yp_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_yr_optimized"), new Message_Client_onUpdateData_xz_yr_optimized(50, "Client_onUpdateData_xz_yr_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(50, Messages::messages["Client_onUpdateData_xz_yr_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_pr_optimized"), new Message_Client_onUpdateData_xz_pr_optimized(51, "Client_onUpdateData_xz_pr_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(51, Messages::messages["Client_onUpdateData_xz_pr_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_y_optimized"), new Message_Client_onUpdateData_xz_y_optimized(52, "Client_onUpdateData_xz_y_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(52, Messages::messages["Client_onUpdateData_xz_y_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_p_optimized"), new Message_Client_onUpdateData_xz_p_optimized(53, "Client_onUpdateData_xz_p_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(53, Messages::messages["Client_onUpdateData_xz_p_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xz_r_optimized"), new Message_Client_onUpdateData_xz_r_optimized(54, "Client_onUpdateData_xz_r_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(54, Messages::messages["Client_onUpdateData_xz_r_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_optimized"), new Message_Client_onUpdateData_xyz_optimized(55, "Client_onUpdateData_xyz_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(55, Messages::messages["Client_onUpdateData_xyz_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_ypr_optimized"), new Message_Client_onUpdateData_xyz_ypr_optimized(56, "Client_onUpdateData_xyz_ypr_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(56, Messages::messages["Client_onUpdateData_xyz_ypr_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_yp_optimized"), new Message_Client_onUpdateData_xyz_yp_optimized(57, "Client_onUpdateData_xyz_yp_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(57, Messages::messages["Client_onUpdateData_xyz_yp_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_yr_optimized"), new Message_Client_onUpdateData_xyz_yr_optimized(58, "Client_onUpdateData_xyz_yr_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(58, Messages::messages["Client_onUpdateData_xyz_yr_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_pr_optimized"), new Message_Client_onUpdateData_xyz_pr_optimized(59, "Client_onUpdateData_xyz_pr_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(59, Messages::messages["Client_onUpdateData_xyz_pr_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_y_optimized"), new Message_Client_onUpdateData_xyz_y_optimized(60, "Client_onUpdateData_xyz_y_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(60, Messages::messages["Client_onUpdateData_xyz_y_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_p_optimized"), new Message_Client_onUpdateData_xyz_p_optimized(61, "Client_onUpdateData_xyz_p_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(61, Messages::messages["Client_onUpdateData_xyz_p_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onUpdateData_xyz_r_optimized"), new Message_Client_onUpdateData_xyz_r_optimized(62, "Client_onUpdateData_xyz_r_optimized", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(62, Messages::messages["Client_onUpdateData_xyz_r_optimized"]);
+
+		Messages::messages.Add(TEXT("Client_onImportServerErrorsDescr"), new Message_Client_onImportServerErrorsDescr(63, "Client_onImportServerErrorsDescr", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(63, Messages::messages["Client_onImportServerErrorsDescr"]);
+
+		Messages::messages.Add(TEXT("Client_onImportClientSDK"), new Message_Client_onImportClientSDK(64, "Client_onImportClientSDK", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(64, Messages::messages["Client_onImportClientSDK"]);
+
+		Messages::messages.Add(TEXT("Client_initSpaceData"), new Message_Client_initSpaceData(65, "Client_initSpaceData", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(65, Messages::messages["Client_initSpaceData"]);
 
 
 		TArray<uint8> Client_setSpaceData_argstypes;
 		Client_setSpaceData_argstypes.Add(4);
 		Client_setSpaceData_argstypes.Add(1);
 		Client_setSpaceData_argstypes.Add(1);
-		Messages::messages.Add(TEXT("Client_setSpaceData"), new Message_Client_setSpaceData(43, "Client_setSpaceData", -1, 0, Client_setSpaceData_argstypes));
-		Messages::clientMessages.Add(43, Messages::messages["Client_setSpaceData"]);
+		Messages::messages.Add(TEXT("Client_setSpaceData"), new Message_Client_setSpaceData(66, "Client_setSpaceData", -1, 0, Client_setSpaceData_argstypes));
+		Messages::clientMessages.Add(66, Messages::messages["Client_setSpaceData"]);
 
 
 		TArray<uint8> Client_delSpaceData_argstypes;
 		Client_delSpaceData_argstypes.Add(4);
 		Client_delSpaceData_argstypes.Add(1);
-		Messages::messages.Add(TEXT("Client_delSpaceData"), new Message_Client_delSpaceData(44, "Client_delSpaceData", -1, 0, Client_delSpaceData_argstypes));
-		Messages::clientMessages.Add(44, Messages::messages["Client_delSpaceData"]);
+		Messages::messages.Add(TEXT("Client_delSpaceData"), new Message_Client_delSpaceData(67, "Client_delSpaceData", -1, 0, Client_delSpaceData_argstypes));
+		Messages::clientMessages.Add(67, Messages::messages["Client_delSpaceData"]);
 
 
 		TArray<uint8> Client_onReqAccountResetPasswordCB_argstypes;
 		Client_onReqAccountResetPasswordCB_argstypes.Add(3);
-		Messages::messages.Add(TEXT("Client_onReqAccountResetPasswordCB"), new Message_Client_onReqAccountResetPasswordCB(45, "Client_onReqAccountResetPasswordCB", 2, 0, Client_onReqAccountResetPasswordCB_argstypes));
-		Messages::clientMessages.Add(45, Messages::messages["Client_onReqAccountResetPasswordCB"]);
+		Messages::messages.Add(TEXT("Client_onReqAccountResetPasswordCB"), new Message_Client_onReqAccountResetPasswordCB(68, "Client_onReqAccountResetPasswordCB", 2, 0, Client_onReqAccountResetPasswordCB_argstypes));
+		Messages::clientMessages.Add(68, Messages::messages["Client_onReqAccountResetPasswordCB"]);
 
 
 		TArray<uint8> Client_onReqAccountBindEmailCB_argstypes;
 		Client_onReqAccountBindEmailCB_argstypes.Add(3);
-		Messages::messages.Add(TEXT("Client_onReqAccountBindEmailCB"), new Message_Client_onReqAccountBindEmailCB(46, "Client_onReqAccountBindEmailCB", 2, 0, Client_onReqAccountBindEmailCB_argstypes));
-		Messages::clientMessages.Add(46, Messages::messages["Client_onReqAccountBindEmailCB"]);
+		Messages::messages.Add(TEXT("Client_onReqAccountBindEmailCB"), new Message_Client_onReqAccountBindEmailCB(69, "Client_onReqAccountBindEmailCB", 2, 0, Client_onReqAccountBindEmailCB_argstypes));
+		Messages::clientMessages.Add(69, Messages::messages["Client_onReqAccountBindEmailCB"]);
 
 
 		TArray<uint8> Client_onReqAccountNewPasswordCB_argstypes;
 		Client_onReqAccountNewPasswordCB_argstypes.Add(3);
-		Messages::messages.Add(TEXT("Client_onReqAccountNewPasswordCB"), new Message_Client_onReqAccountNewPasswordCB(47, "Client_onReqAccountNewPasswordCB", 2, 0, Client_onReqAccountNewPasswordCB_argstypes));
-		Messages::clientMessages.Add(47, Messages::messages["Client_onReqAccountNewPasswordCB"]);
+		Messages::messages.Add(TEXT("Client_onReqAccountNewPasswordCB"), new Message_Client_onReqAccountNewPasswordCB(70, "Client_onReqAccountNewPasswordCB", 2, 0, Client_onReqAccountNewPasswordCB_argstypes));
+		Messages::clientMessages.Add(70, Messages::messages["Client_onReqAccountNewPasswordCB"]);
 
-		Messages::messages.Add(TEXT("Client_onReloginBaseappSuccessfully"), new Message_Client_onReloginBaseappSuccessfully(48, "Client_onReloginBaseappSuccessfully", -1, -1, TArray<uint8>()));
-		Messages::clientMessages.Add(48, Messages::messages["Client_onReloginBaseappSuccessfully"]);
+		Messages::messages.Add(TEXT("Client_onReloginBaseappSuccessfully"), new Message_Client_onReloginBaseappSuccessfully(71, "Client_onReloginBaseappSuccessfully", -1, -1, TArray<uint8>()));
+		Messages::clientMessages.Add(71, Messages::messages["Client_onReloginBaseappSuccessfully"]);
 
-		Messages::messages.Add(TEXT("Client_onAppActiveTickCB"), new Message_Client_onAppActiveTickCB(49, "Client_onAppActiveTickCB", 0, 0, TArray<uint8>()));
-		Messages::clientMessages.Add(49, Messages::messages["Client_onAppActiveTickCB"]);
+		Messages::messages.Add(TEXT("Client_onAppActiveTickCB"), new Message_Client_onAppActiveTickCB(72, "Client_onAppActiveTickCB", 0, 0, TArray<uint8>()));
+		Messages::clientMessages.Add(72, Messages::messages["Client_onAppActiveTickCB"]);
 
 		Messages::messages.Add(TEXT("Client_onCreateAccountResult"), new Message_Client_onCreateAccountResult(501, "Client_onCreateAccountResult", -1, -1, TArray<uint8>()));
 		Messages::clientMessages.Add(501, Messages::messages["Client_onCreateAccountResult"]);

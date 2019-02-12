@@ -55,6 +55,8 @@ void AccountBase::onRemoteMethodCall(MemoryStream& stream)
 	else
 	{
 		componentPropertyUType = stream.readUint16();
+	}
+
 	if (sm->useMethodDescrAlias)
 	{
 		methodUtype = stream.read<uint8>();

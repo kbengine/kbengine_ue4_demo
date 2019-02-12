@@ -217,7 +217,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("2.3.5");
+	clientVersion_ = TEXT("2.4.1");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 
@@ -556,6 +556,18 @@ void KBEngineApp::Client_onScriptVersionNotMatch(MemoryStream& stream)
 	pEventData->clientScriptVersion = clientScriptVersion_;
 	pEventData->serverScriptVersion = serverScriptVersion_;
 	KBENGINE_EVENT_FIRE(KBEventTypes::onScriptVersionNotMatch, pEventData);
+}
+
+void KBEngineApp::Client_onImportClientSDK(MemoryStream& stream)
+{
+	UKBEventData_onImportClientSDK* pEventData = NewObject<UKBEventData_onImportClientSDK>();
+
+	pEventData->remainingFiles = stream.readInt32();
+	pEventData->fileName = stream.readString();
+	pEventData->fileSize = stream.readInt32();
+	stream.readBlob(pEventData->fileDatas);
+
+	KBENGINE_EVENT_FIRE("onImportClientSDK", pEventData);
 }
 
 void KBEngineApp::Client_onKicked(uint16 failedcode)

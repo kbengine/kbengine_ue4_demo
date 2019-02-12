@@ -295,7 +295,7 @@ void Message_Client_onImportServerErrorsDescr::handleMessage(MemoryStream& msgst
 
 void Message_Client_onImportClientSDK::handleMessage(MemoryStream& msgstream)
 {
-	//KBEngineApp::getSingleton().Client_onImportClientSDK(msgstream);
+	KBEngineApp::getSingleton().Client_onImportClientSDK(msgstream);
 }
 
 void Message_Client_initSpaceData::handleMessage(MemoryStream& msgstream)

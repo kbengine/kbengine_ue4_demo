@@ -10,6 +10,14 @@
 #include "EntityComponent.h"
 
 
+void GateBase::onComponentsEnterworld()
+{
+}
+
+void GateBase::onComponentsLeaveworld()
+{
+}
+
 void GateBase::onGetBase()
 {
 	if(pBaseEntityCall)

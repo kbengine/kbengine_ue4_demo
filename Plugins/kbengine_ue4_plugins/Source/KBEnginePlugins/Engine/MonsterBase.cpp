@@ -10,6 +10,14 @@
 #include "EntityComponent.h"
 
 
+void MonsterBase::onComponentsEnterworld()
+{
+}
+
+void MonsterBase::onComponentsLeaveworld()
+{
+}
+
 void MonsterBase::onGetBase()
 {
 	if(pBaseEntityCall)

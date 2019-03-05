@@ -27,7 +27,7 @@ UKBEMain::UKBEMain(const FObjectInitializer& ObjectInitializer) : Super(ObjectIn
 	forceDisableUDP = false;
 	clientType = EKCLIENT_TYPE::CLIENT_TYPE_WIN;
 	networkEncryptType = NETWORK_ENCRYPT_TYPE::ENCRYPT_TYPE_NONE;
-	serverHeartbeatTick = 60;
+	serverHeartbeatTick = 0;
 	TCP_SEND_BUFFER_MAX = TCP_PACKET_MAX;
 	TCP_RECV_BUFFER_MAX = TCP_PACKET_MAX;
 	UDP_SEND_BUFFER_MAX = 128;

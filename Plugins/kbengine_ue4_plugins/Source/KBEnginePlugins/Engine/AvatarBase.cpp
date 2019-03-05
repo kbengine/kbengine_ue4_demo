@@ -12,6 +12,20 @@
 #include "Scripts/Components/TestNoBase.h"
 
 
+void AvatarBase::onComponentsEnterworld()
+{
+	component1->onEnterworld();
+	component2->onEnterworld();
+	component3->onEnterworld();
+}
+
+void AvatarBase::onComponentsLeaveworld()
+{
+	component1->onLeaveworld();
+	component2->onLeaveworld();
+	component3->onLeaveworld();
+}
+
 void AvatarBase::onGetBase()
 {
 	if(pBaseEntityCall)

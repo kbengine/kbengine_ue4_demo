@@ -10,6 +10,14 @@
 #include "EntityComponent.h"
 
 
+void SpawnPointBase::onComponentsEnterworld()
+{
+}
+
+void SpawnPointBase::onComponentsLeaveworld()
+{
+}
+
 void SpawnPointBase::onGetBase()
 {
 	if(pBaseEntityCall)

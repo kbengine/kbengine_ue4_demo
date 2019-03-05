@@ -10,6 +10,14 @@
 #include "EntityComponent.h"
 
 
+void NPCBase::onComponentsEnterworld()
+{
+}
+
+void NPCBase::onComponentsLeaveworld()
+{
+}
+
 void NPCBase::onGetBase()
 {
 	if(pBaseEntityCall)

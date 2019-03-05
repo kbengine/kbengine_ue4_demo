@@ -10,6 +10,14 @@
 #include "EntityComponent.h"
 
 
+void AccountBase::onComponentsEnterworld()
+{
+}
+
+void AccountBase::onComponentsLeaveworld()
+{
+}
+
 void AccountBase::onGetBase()
 {
 	if(pBaseEntityCall)

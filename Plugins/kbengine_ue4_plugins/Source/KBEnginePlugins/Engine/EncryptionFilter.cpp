@@ -11,8 +11,6 @@
 #include "secblock.h"
 #endif
 
-
-
 BlowfishFilter::BlowfishFilter(int keySize):
 	isGood_(false),
 	pPacket_(new MemoryStream()),

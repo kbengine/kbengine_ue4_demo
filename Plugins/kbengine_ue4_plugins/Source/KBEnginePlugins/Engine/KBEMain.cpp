@@ -79,8 +79,6 @@ void UKBEMain::BeginPlay()
 		ERROR_MSG("No module CryptoPP! Please use unreal engine source code to install");
 	}
 #endif
-
-
 }
 
 void UKBEMain::EndPlay(const EEndPlayReason::Type EndPlayReason)

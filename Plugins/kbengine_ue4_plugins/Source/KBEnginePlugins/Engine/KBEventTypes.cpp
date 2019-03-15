@@ -38,7 +38,6 @@ const FString KBEventTypes::onDelSpaceData = "onDelSpaceData";
 const FString KBEventTypes::onControlled = "onControlled";
 const FString KBEventTypes::onLoseControlledEntity = "onLoseControlledEntity";
 
-
 // ------------------------------------数据下载相关------------------------------------
 const FString KBEventTypes::onStreamDataStarted = "onStreamDataStarted";
 const FString KBEventTypes::onStreamDataRecv = "onStreamDataRecv";

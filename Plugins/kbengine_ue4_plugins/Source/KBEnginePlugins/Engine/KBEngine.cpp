@@ -37,7 +37,7 @@ KBEngineApp::KBEngineApp() :
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("78D6E7A3B539900D86F0C2145E44AEB3")),
+	serverProtocolMD5_(TEXT("F42554D167E152C876AC6EDC361151C2")),
 	serverEntitydefMD5_(TEXT("90AA620FCF194B85FBE7A8E4F4F8F938")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -78,7 +78,7 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("78D6E7A3B539900D86F0C2145E44AEB3")),
+	serverProtocolMD5_(TEXT("F42554D167E152C876AC6EDC361151C2")),
 	serverEntitydefMD5_(TEXT("90AA620FCF194B85FBE7A8E4F4F8F938")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -217,7 +217,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("2.4.1");
+	clientVersion_ = TEXT("2.4.3");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 
@@ -305,7 +305,7 @@ void KBEngineApp::sendTick()
 	// 更新玩家的位置与朝向到服务端
 	updatePlayerToServer();
 
-	if (span > pArgs_->serverHeartbeatTick)
+	if (pArgs_->serverHeartbeatTick > 0 && span > pArgs_->serverHeartbeatTick)
 	{
 		span = lastTickCBTime_ - lastTickTime_;
 

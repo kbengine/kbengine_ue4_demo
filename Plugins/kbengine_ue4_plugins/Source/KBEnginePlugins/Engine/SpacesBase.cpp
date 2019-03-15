@@ -10,6 +10,14 @@
 #include "EntityComponent.h"
 
 
+void SpacesBase::onComponentsEnterworld()
+{
+}
+
+void SpacesBase::onComponentsLeaveworld()
+{
+}
+
 void SpacesBase::onGetBase()
 {
 	if(pBaseEntityCall)

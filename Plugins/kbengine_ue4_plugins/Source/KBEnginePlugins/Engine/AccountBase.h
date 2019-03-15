@@ -30,6 +30,9 @@ public:
 	virtual void onRemoveAvatar(uint64 arg1) = 0; 
 	virtual void onReqAvatarList(const AVATAR_INFOS_LIST& arg1) = 0; 
 
+	void onComponentsEnterworld() override;
+	void onComponentsLeaveworld() override;
+
 	void onGetBase() override;
 	void onGetCell() override;
 	void onLoseCell() override;

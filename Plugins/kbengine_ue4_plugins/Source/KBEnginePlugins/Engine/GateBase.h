@@ -37,6 +37,9 @@ public:
 	virtual void onUtypeChanged(uint32 oldValue) {}
 
 
+	void onComponentsEnterworld() override;
+	void onComponentsLeaveworld() override;
+
 	void onGetBase() override;
 	void onGetCell() override;
 	void onLoseCell() override;

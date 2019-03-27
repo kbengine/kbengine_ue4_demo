@@ -35,7 +35,7 @@ KBEngineApp::KBEngineApp() :
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("7B8CCB9938E6E87ADB6E56C1148C0ABC")),
+	serverProtocolMD5_(TEXT("32C908A4C57D14B06827215433D82079")),
 	serverEntitydefMD5_(TEXT("D9BE27DA40153A58EFB4835189190B5D")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -77,7 +77,7 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("7B8CCB9938E6E87ADB6E56C1148C0ABC")),
+	serverProtocolMD5_(TEXT("32C908A4C57D14B06827215433D82079")),
 	serverEntitydefMD5_(TEXT("D9BE27DA40153A58EFB4835189190B5D")),
 	entity_uuid_(0),
 	entity_id_(0),
@@ -267,6 +267,7 @@ void KBEngineApp::uninstallUKBETicker()
 	if (pUKBETicker_)
 	{
 		pUKBETicker_->RemoveFromRoot();
+		pUKBETicker_->ConditionalBeginDestroy();
 		pUKBETicker_ = nullptr;
 	}
 }

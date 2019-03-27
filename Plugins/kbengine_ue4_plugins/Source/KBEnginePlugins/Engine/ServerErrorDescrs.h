@@ -84,7 +84,7 @@ public:
 			FKServerErr e;
 			e.id = 7;
 			e.name = TEXT("SERVER_ERR_ACCOUNT_CREATE_FAILED");
-			e.descr = TEXT("创建账号失败（已经存在一个相同的账号）。");
+			e.descr = TEXT("创建账号失败。");
 
 			serverErrs_.Add(e.id, e);
 		}

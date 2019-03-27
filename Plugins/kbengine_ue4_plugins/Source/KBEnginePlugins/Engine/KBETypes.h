@@ -55,7 +55,7 @@ typedef FVector4 VECTOR4;
 
 typedef int32 OBJECT_ID;
 
-typedef uint8 BOOL;
+typedef uint8 BOOL1;
 
 typedef int32 CONTROLLER_ID;
 

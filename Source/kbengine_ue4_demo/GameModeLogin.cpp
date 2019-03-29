@@ -15,12 +15,12 @@ void AGameModeLogin::installEvents()
 	Super::installEvents();
 
 	// login
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onCreateAccountResult, onCreateAccountResult);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onLoginFailed, onLoginFailed);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onVersionNotMatch, onVersionNotMatch);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onScriptVersionNotMatch, onScriptVersionNotMatch);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onLoginBaseappFailed, onLoginBaseappFailed);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onLoginBaseapp, onLoginBaseapp);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onCreateAccountResult, onCreateAccountResult);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onLoginFailed, onLoginFailed);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onVersionNotMatch, onVersionNotMatch);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onScriptVersionNotMatch, onScriptVersionNotMatch);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onLoginBaseappFailed, onLoginBaseappFailed);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onLoginBaseapp, onLoginBaseapp);
 	KBENGINE_REGISTER_EVENT("onLoginSuccessfully", onLoginSuccessfully);
 	KBENGINE_REGISTER_EVENT("Loginapp_importClientMessages", Loginapp_importClientMessages);
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientMessages", Baseapp_importClientMessages);
@@ -31,7 +31,7 @@ void AGameModeLogin::installEvents()
 void AGameModeLogin::BeginPlay()
 {
 	// 每次进入到这个界面时对KBE做一次清理，否则KBE插件内缓存的内容将一直存在
-	KBEngineApp::getSingleton().reset();
+	KBEngine::KBEngineApp::getSingleton().reset();
 
 	Super::BeginPlay();
 }
@@ -43,7 +43,7 @@ void AGameModeLogin::Destroyed()
 
 bool AGameModeLogin::validEmail(FString strEmail)
 {
-	return KBEngineApp::getSingleton().validEmail(strEmail);
+	return KBEngine::KBEngineApp::getSingleton().validEmail(strEmail);
 }
 
 void AGameModeLogin::onCreateAccountResult_Implementation(const UKBEventData* pEventData)

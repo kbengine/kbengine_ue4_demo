@@ -33,7 +33,7 @@ void AGameEntity::BeginPlay()
 	{
 		// 把自己注册到AGameModeWorld，方便后面查找
 		XGameMode->addGameEntity(this->entityID, this);
-		Entity* pEntity = KBEngineApp::getSingleton().findEntity(entityID);
+		KBEngine::Entity* pEntity = KBEngine::KBEngineApp::getSingleton().findEntity(entityID);
 
 		// 由于UE4可视化实体创建要晚于KBE的插件的逻辑实体，而KBE插件实体先前可能已经触发了一些属性设置事件
 		// 因此此时我们可能已经错过了一些事件，我们只能在此补救必要的触发了， 例如：名称和血量属性值

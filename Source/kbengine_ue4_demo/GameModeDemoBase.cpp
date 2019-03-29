@@ -42,9 +42,9 @@ void AGameModeDemoBase::Logout(AController* Exiting)
 void AGameModeDemoBase::installEvents()
 {
 	// common
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onKicked, onKicked);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onDisconnected, onDisconnected);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onConnectionState, onConnectionState);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onKicked, onKicked);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onDisconnected, onDisconnected);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onConnectionState, onConnectionState);
 }
 
 void AGameModeDemoBase::fire(const FString& eventName, UKBEventData* pEventData)

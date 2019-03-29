@@ -20,15 +20,15 @@ void AGameModeWorld::installEvents()
 
 	// in world
 	// 这个事件触发时我们需要切换地图到游戏世界地图
-	KBENGINE_REGISTER_EVENT(KBEventTypes::addSpaceGeometryMapping, addSpaceGeometryMapping);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onEnterWorld, onEnterWorld);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onLeaveWorld, onLeaveWorld);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onEnterSpace, onEnterSpace);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onLeaveSpace, onLeaveSpace);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::set_position, set_position);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::set_direction, set_direction);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::updatePosition, updatePosition);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onControlled, onControlled);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::addSpaceGeometryMapping, addSpaceGeometryMapping);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onEnterWorld, onEnterWorld);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onLeaveWorld, onLeaveWorld);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onEnterSpace, onEnterSpace);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onLeaveSpace, onLeaveSpace);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::set_position, set_position);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::set_direction, set_direction);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::updatePosition, updatePosition);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onControlled, onControlled);
 
 	// in world(register by scripts)
 	KBENGINE_REGISTER_EVENT("set_HP", set_HP);
@@ -55,18 +55,18 @@ void AGameModeWorld::BeginPlay()
 {
 	Super::BeginPlay();
 
-	check(KBEngineApp::getSingleton().isInitialized());
+	check(KBEngine::KBEngineApp::getSingleton().isInitialized());
 
 	// 如果已经有被创建的实体，说明他们在上一个场景未来得及跳转之前已经通知创建了，但由于我们的world场景并没有来得及创建，这部分实体进入世界事件已经漏掉
 	// 此时我们需要再次触发一次onEnterWorld，让表现层能够在游戏场景中创建出所有的实体
-	KBEngineApp::ENTITIES_MAP& entities = KBEngineApp::getSingleton().entities();
+	KBEngine::KBEngineApp::ENTITIES_MAP& entities = KBEngine::KBEngineApp::getSingleton().entities();
 	for (auto& item : entities)
 	{
-		Entity* pEntity = item.Value;
+		KBEngine::Entity* pEntity = item.Value;
 
 		UKBEventData_onEnterWorld* pEventData = NewObject<UKBEventData_onEnterWorld>();
 		pEventData->entityID = pEntity->id();
-		pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
+		pEventData->spaceID = KBEngine::KBEngineApp::getSingleton().spaceID();
 		KBPos2UE4Pos(pEventData->position, pEntity->position);
 		pEventData->direction = pEntity->direction;
 		pEventData->moveSpeed = pEntity->velocity();
@@ -74,7 +74,7 @@ void AGameModeWorld::BeginPlay()
 		pEventData->isPlayer = pEntity->isPlayer();
 		pEventData->entityClassName = pEntity->className();
 		pEventData->res = TEXT("");
-		KBENGINE_EVENT_FIRE(KBEventTypes::onEnterWorld, pEventData);
+		KBENGINE_EVENT_FIRE(KBEngine::KBEventTypes::onEnterWorld, pEventData);
 	}
 }
 

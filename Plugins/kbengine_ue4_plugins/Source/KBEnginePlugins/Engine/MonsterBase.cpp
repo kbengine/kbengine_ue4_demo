@@ -8,6 +8,10 @@
 #include "CustomDataTypes.h"
 #include "MemoryStream.h"
 
+namespace KBEngine
+{
+
+
 
 void MonsterBase::onGetBase()
 {
@@ -738,3 +742,4 @@ MonsterBase::~MonsterBase()
 		delete pCellEntityCall;
 }
 
+}

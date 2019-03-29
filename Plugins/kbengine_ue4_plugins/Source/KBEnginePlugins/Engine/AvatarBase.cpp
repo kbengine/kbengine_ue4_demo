@@ -8,6 +8,10 @@
 #include "CustomDataTypes.h"
 #include "MemoryStream.h"
 
+namespace KBEngine
+{
+
+
 
 void AvatarBase::onGetBase()
 {
@@ -858,3 +862,4 @@ AvatarBase::~AvatarBase()
 		delete pCellEntityCall;
 }
 
+}

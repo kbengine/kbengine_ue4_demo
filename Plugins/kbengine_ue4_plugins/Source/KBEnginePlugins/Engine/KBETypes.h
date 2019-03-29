@@ -8,6 +8,9 @@
 
 #include "KBECommon.h"
 
+namespace KBEngine
+{
+
 
 // defined in */scripts/entity_defs/types.xml
 
@@ -55,7 +58,7 @@ typedef FVector4 VECTOR4;
 
 typedef int32 OBJECT_ID;
 
-typedef uint8 BOOL1;
+typedef uint8 BOOL;
 
 typedef int32 CONTROLLER_ID;
 
@@ -191,3 +194,5 @@ public:
 
 };
 
+
+}

@@ -13,6 +13,9 @@
 #include "Scripts/NPC.h"
 #include "Scripts/Gate.h"
 
+namespace KBEngine
+{
+
 TMap<FString, uint16> EntityDef::datatype2id;
 TMap<FString, DATATYPE_BASE*> EntityDef::datatypes;
 TMap<uint16, DATATYPE_BASE*> EntityDef::id2datatypes;
@@ -1618,3 +1621,5 @@ void EntityDef::initDefTypes()
 	}
 }
 
+
+}

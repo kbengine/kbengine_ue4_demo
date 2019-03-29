@@ -12,6 +12,9 @@
 #include "ServerErrorDescrs.h"
 #include "EntityCallSpacesBase.h"
 
+namespace KBEngine
+{
+
 class Method;
 class Property;
 class MemoryStream;
@@ -51,3 +54,4 @@ public:
 
 };
 
+}

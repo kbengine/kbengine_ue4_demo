@@ -8,6 +8,10 @@
 #include "CustomDataTypes.h"
 #include "MemoryStream.h"
 
+namespace KBEngine
+{
+
+
 
 void GateBase::onGetBase()
 {
@@ -404,3 +408,4 @@ GateBase::~GateBase()
 		delete pCellEntityCall;
 }
 
+}

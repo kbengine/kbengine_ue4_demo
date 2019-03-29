@@ -8,6 +8,9 @@
 
 #include "KBECommon.h"
 
+namespace KBEngine
+{
+
 class Entity;
 class DATATYPE_BASE;
 class ScriptModule;
@@ -32,3 +35,5 @@ public:
 	static void initDefTypes();
 	static Entity* createEntity(int utype);
 };
+
+}

@@ -14,6 +14,9 @@
 
 // defined in */scripts/entity_defs/Space.def
 
+namespace KBEngine
+{
+
 class KBENGINEPLUGINS_API EntityBaseEntityCall_SpaceBase : public EntityCall
 {
 public:
@@ -33,3 +36,5 @@ public:
 	}
 
 };
+
+}

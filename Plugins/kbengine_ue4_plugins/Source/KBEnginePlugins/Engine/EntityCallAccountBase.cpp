@@ -1,6 +1,9 @@
 #include "EntityCallAccountBase.h"
 #include "Bundle.h"
 
+namespace KBEngine
+{
+
 void EntityBaseEntityCall_AccountBase::reqAvatarList()
 {
 	Bundle* pBundle = newCall("reqAvatarList");
@@ -52,3 +55,5 @@ void EntityBaseEntityCall_AccountBase::selectAvatarGame(uint64 arg1)
 }
 
 
+
+}

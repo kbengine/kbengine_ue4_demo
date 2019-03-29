@@ -12,6 +12,9 @@
 #include "ServerErrorDescrs.h"
 #include "EntityCallAvatarBase.h"
 
+namespace KBEngine
+{
+
 class Method;
 class Property;
 class MemoryStream;
@@ -80,3 +83,4 @@ public:
 
 };
 
+}

@@ -8,6 +8,10 @@
 #include "CustomDataTypes.h"
 #include "MemoryStream.h"
 
+namespace KBEngine
+{
+
+
 
 void SpacesBase::onGetBase()
 {
@@ -364,3 +368,4 @@ SpacesBase::~SpacesBase()
 		delete pCellEntityCall;
 }
 
+}

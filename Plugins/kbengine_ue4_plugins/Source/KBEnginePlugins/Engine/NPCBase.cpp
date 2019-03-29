@@ -8,6 +8,10 @@
 #include "CustomDataTypes.h"
 #include "MemoryStream.h"
 
+namespace KBEngine
+{
+
+
 
 void NPCBase::onGetBase()
 {
@@ -444,3 +448,4 @@ NPCBase::~NPCBase()
 		delete pCellEntityCall;
 }
 
+}

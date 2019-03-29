@@ -8,6 +8,8 @@
 
 #include "KBECommon.h"
 
+namespace KBEngine
+{
 
 // defined in */res/server/server_errors.xml
 
@@ -381,3 +383,4 @@ public:
 		TMap<uint16, FKServerErr> serverErrs_;
 };
 
+}

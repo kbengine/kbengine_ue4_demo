@@ -14,6 +14,9 @@
 
 // defined in */scripts/entity_defs/SpawnPoint.def
 
+namespace KBEngine
+{
+
 class KBENGINEPLUGINS_API EntityBaseEntityCall_SpawnPointBase : public EntityCall
 {
 public:
@@ -33,3 +36,5 @@ public:
 	}
 
 };
+
+}

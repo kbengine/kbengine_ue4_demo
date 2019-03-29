@@ -11,6 +11,9 @@
 
 // engine-c++ messages
 
+namespace KBEngine
+{
+
 class KBENGINEPLUGINS_API Message
 {
 public:
@@ -1826,4 +1829,6 @@ public:
 
 		return true;
 	}
-};
+}
+;
+}

@@ -8,6 +8,10 @@
 #include "CustomDataTypes.h"
 #include "MemoryStream.h"
 
+namespace KBEngine
+{
+
+
 
 void AccountBase::onGetBase()
 {
@@ -230,3 +234,4 @@ AccountBase::~AccountBase()
 		delete pCellEntityCall;
 }
 
+}

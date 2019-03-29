@@ -12,6 +12,9 @@
 #include "ServerErrorDescrs.h"
 #include "EntityCallNPCBase.h"
 
+namespace KBEngine
+{
+
 class Method;
 class Property;
 class MemoryStream;
@@ -55,3 +58,4 @@ public:
 
 };
 
+}

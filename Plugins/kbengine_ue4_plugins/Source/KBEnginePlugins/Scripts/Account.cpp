@@ -1,9 +1,11 @@
-#include "Account.h"
+ï»¿#include "Account.h"
 #include "Engine/Entity.h"
 #include "Engine/KBEngine.h"
 #include "Engine/KBDebug.h"
 #include "LogicEvents.h"
 
+namespace KBEngine
+{
 
 Account::Account():
 	AccountBase(),
@@ -17,7 +19,7 @@ Account::~Account()
 
 void Account::__init__()
 {
-	// ×¢²áÊÂ¼ş
+	// æ³¨å†Œäº‹ä»¶
 	KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("reqCreateAvatar", "reqCreateAvatar", [this](const UKBEventData* pEventData)
 	{
 		const UKBEventData_reqCreateAvatar& data = static_cast<const UKBEventData_reqCreateAvatar&>(*pEventData);
@@ -36,20 +38,20 @@ void Account::__init__()
 		selectAvatarGame(data.avatarInfos.dbid);
 	});
 
-	// ´¥·¢µÇÂ½³É¹¦ÊÂ¼ş
+	// è§¦å‘ç™»é™†æˆåŠŸäº‹ä»¶
 	UKBEventData_onLoginSuccessfully* pEventData = NewObject<UKBEventData_onLoginSuccessfully>();
 	pEventData->entity_uuid = KBEngineApp::getSingleton().entity_uuid();
 	pEventData->entity_id = id();
 	KBENGINE_EVENT_FIRE("onLoginSuccessfully", pEventData);
 
-	// Ïò·şÎñ¶ËÇëÇó»ñµÃ½ÇÉ«ÁĞ±í
+	// å‘æœåŠ¡ç«¯è¯·æ±‚è·å¾—è§’è‰²åˆ—è¡¨
 	pBaseEntityCall->reqAvatarList();
 
 }
 
 void Account::onDestroy()
 {
-	// ×¢Ïú×¢²áµÄËùÓĞÊÂ¼ş
+	// æ³¨é”€æ³¨å†Œçš„æ‰€æœ‰äº‹ä»¶
 	KBENGINE_DEREGISTER_ALL_EVENT();
 }
 
@@ -164,4 +166,6 @@ void Account::onRemoveAvatar(uint64 dbid)
 	KBENGINE_EVENT_FIRE("onRemoveAvatar", pEventData);
 
 	characters.values.RemoveAt(infosFind);
+}
+
 }

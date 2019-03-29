@@ -1,6 +1,9 @@
 #include "EntityCallAvatarBase.h"
 #include "Bundle.h"
 
+namespace KBEngine
+{
+
 
 void EntityCellEntityCall_AvatarBase::dialog(int32 arg1, uint32 arg2)
 {
@@ -52,3 +55,5 @@ void EntityCellEntityCall_AvatarBase::useTargetSkill(int32 arg1, int32 arg2)
 	sendCall(NULL);
 }
 
+
+}

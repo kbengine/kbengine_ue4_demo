@@ -12,6 +12,9 @@
 #include "ServerErrorDescrs.h"
 #include "EntityCallMonsterBase.h"
 
+namespace KBEngine
+{
+
 class Method;
 class Property;
 class MemoryStream;
@@ -70,3 +73,4 @@ public:
 
 };
 
+}

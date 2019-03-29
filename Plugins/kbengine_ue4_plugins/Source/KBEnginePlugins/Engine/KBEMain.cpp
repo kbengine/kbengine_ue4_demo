@@ -67,18 +67,9 @@ void UKBEMain::BeginPlay()
 	pArgs->UDP_SEND_BUFFER_MAX = UDP_SEND_BUFFER_MAX;
 	pArgs->UDP_RECV_BUFFER_MAX = UDP_RECV_BUFFER_MAX;
 
-	if (!KBEngineApp::getSingleton().initialize(pArgs))
-		delete pArgs;
+	KBEngineApp::getSingleton().initialize(pArgs);
 
 	installEvents();
-	
-#ifdef KBENGINE_NO_CRYPTO
-	if (pArgs->networkEncryptType == NETWORK_ENCRYPT_TYPE::ENCRYPT_TYPE_BLOWFISH)
-	{
-		pArgs->networkEncryptType = NETWORK_ENCRYPT_TYPE::ENCRYPT_TYPE_NONE;
-		ERROR_MSG("No module CryptoPP! Please use unreal engine source code to install");
-	}
-#endif
 }
 
 void UKBEMain::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -89,6 +80,7 @@ void UKBEMain::EndPlay(const EEndPlayReason::Type EndPlayReason)
 		pUpdaterObj = nullptr;
 	}
 
+	ClientSDKUpdateUI.Reset();
 	deregisterEvents();
 	Super::EndPlay(EndPlayReason);
 }
@@ -96,23 +88,7 @@ void UKBEMain::EndPlay(const EEndPlayReason::Type EndPlayReason)
 // Called every frame
 void UKBEMain::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
-	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
-
-	KBEvent::processOutEvents();
-
-	APawn* ue4_player = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-	Entity* kbe_player = KBEngineApp::getSingleton().player();
-
-	// 每个tick将UE4的玩家坐标写入到KBE插件中的玩家实体坐标，插件会定期同步给服务器
-	if (kbe_player && ue4_player)
-	{
-		UE4Pos2KBPos(kbe_player->position, ue4_player->GetActorLocation());
-		UE4Dir2KBDir(kbe_player->direction, ue4_player->GetActorRotation());
-
-		kbe_player->isOnGround(ue4_player->GetMovementComponent() && ue4_player->GetMovementComponent()->IsMovingOnGround());
-	}
-
-	KBEngineApp::getSingleton().process();
+	
 }
 
 void UKBEMain::installEvents()
@@ -120,6 +96,7 @@ void UKBEMain::installEvents()
 	KBENGINE_REGISTER_EVENT(KBEventTypes::onScriptVersionNotMatch, onScriptVersionNotMatch);
 	KBENGINE_REGISTER_EVENT(KBEventTypes::onVersionNotMatch, onVersionNotMatch);
 	KBENGINE_REGISTER_EVENT(KBEventTypes::onImportClientSDKSuccessfully, onImportClientSDKSuccessfully);
+	KBENGINE_REGISTER_EVENT(KBEventTypes::onDownloadSDK, onDownloadSDK);
 }
 
 void UKBEMain::deregisterEvents()
@@ -127,6 +104,7 @@ void UKBEMain::deregisterEvents()
 	KBENGINE_DEREGISTER_EVENT(KBEventTypes::onScriptVersionNotMatch);
 	KBENGINE_DEREGISTER_EVENT(KBEventTypes::onVersionNotMatch);
 	KBENGINE_DEREGISTER_EVENT(KBEventTypes::onImportClientSDKSuccessfully);
+	KBENGINE_DEREGISTER_EVENT(KBEventTypes::onDownloadSDK);
 }
 
 void UKBEMain::onVersionNotMatch(const UKBEventData* pEventData)
@@ -141,15 +119,52 @@ void UKBEMain::onScriptVersionNotMatch(const UKBEventData* pEventData)
 
 bool UKBEMain::isUpdateSDK()
 {
-	#if WITH_EDITOR
-		return automaticallyUpdateSDK;
-	#endif
-		return false;
+#if WITH_EDITOR
+	return automaticallyUpdateSDK;
+#endif
+
+	return false;
 }
 
 void UKBEMain::downloadSDKFromServer()
 {
+	if (GEngine->IsValidLowLevel())
+	{
+		GEngine->GameViewport->RemoveAllViewportWidgets();
+	}
+
 	if (isUpdateSDK())
+	{
+		ClientSDKUpdateUI = SNew(SClientSDKUpdateUI);
+
+		if (GEngine->IsValidLowLevel())
+		{
+			GEngine->GameViewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(ClientSDKUpdateUI.ToSharedRef()));
+		}
+
+		if (ClientSDKUpdateUI.IsValid())
+		{
+			ClientSDKUpdateUI->SetVisibility(EVisibility::Visible);
+		}
+	
+	}
+}
+
+void UKBEMain::onImportClientSDKSuccessfully(const UKBEventData* pEventData)
+{
+	UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
+}
+
+void UKBEMain::onDownloadSDK(const UKBEventData* pEventData)
+{
+	ClientSDKUpdateUI.Reset();
+	if (GEngine->IsValidLowLevel())
+	{
+		GEngine->GameViewport->RemoveAllViewportWidgets();
+	}
+
+	const UKBEventData_onDownloadSDK* pData = Cast<UKBEventData_onDownloadSDK>(pEventData);
+	if(pData->isDownload)
 	{
 		if (pUpdaterObj == nullptr)
 		{
@@ -160,16 +175,12 @@ void UKBEMain::downloadSDKFromServer()
 	}
 	else
 	{
-		if(pUpdaterObj != nullptr)
+		if (pUpdaterObj != nullptr)
 		{
 			delete pUpdaterObj;
+			pUpdaterObj = nullptr;
 		}
 	}
-}
-
-void UKBEMain::onImportClientSDKSuccessfully(const UKBEventData* pEventData)
-{
-	UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
 }
 
 FString UKBEMain::getClientVersion()

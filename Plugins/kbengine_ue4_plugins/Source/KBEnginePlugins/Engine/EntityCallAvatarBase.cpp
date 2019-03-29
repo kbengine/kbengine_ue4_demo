@@ -1,6 +1,8 @@
 #include "EntityCallAvatarBase.h"
 #include "Bundle.h"
 
+namespace KBEngine
+{
 
 EntityBaseEntityCall_AvatarBase::EntityBaseEntityCall_AvatarBase(int32 eid, const FString& ename) : EntityCall(eid, ename)
 {
@@ -96,3 +98,5 @@ void EntityCellEntityCall_AvatarBase::useTargetSkill(int32 arg1, int32 arg2)
 	sendCall(NULL);
 }
 
+
+}

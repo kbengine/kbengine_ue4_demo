@@ -9,7 +9,12 @@
 #include "MemoryStream.h"
 #include "EntityComponent.h"
 #include "Scripts/Components/Test.h"
+
 #include "Scripts/Components/TestNoBase.h"
+
+namespace KBEngine
+{
+
 
 
 void AvatarBase::onComponentsEnterworld()
@@ -1010,3 +1015,4 @@ void AvatarBase::detachComponents()
 	component3->onDetached(this);
 }
 
+}

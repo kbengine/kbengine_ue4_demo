@@ -1,10 +1,12 @@
-// Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
+﻿// Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 
 #pragma once
 #include "Engine/KBECommon.h"
 
 #include "Engine/AccountBase.h"
 
+namespace KBEngine
+{
 
 class Account : public AccountBase
 {
@@ -30,3 +32,5 @@ public:
 	AVATAR_INFOS_LIST characters;
 
 };
+
+}

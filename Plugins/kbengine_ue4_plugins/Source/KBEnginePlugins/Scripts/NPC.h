@@ -1,12 +1,12 @@
-// Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
+﻿// Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 
 #pragma once
 #include "Engine/KBECommon.h"
 
 #include "Engine/NPCBase.h"
 
-
-
+namespace KBEngine
+{
 
 class NPC : public NPCBase
 {
@@ -24,4 +24,6 @@ public:
 	virtual void onUtypeChanged(uint32 oldValue) override;
 
 };
+
+}
 

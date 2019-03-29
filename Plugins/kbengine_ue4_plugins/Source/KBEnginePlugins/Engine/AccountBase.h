@@ -11,6 +11,9 @@
 #include "KBETypes.h"
 #include "EntityCallAccountBase.h"
 
+namespace KBEngine
+{
+
 class Method;
 class Property;
 class MemoryStream;
@@ -53,3 +56,4 @@ public:
 
 };
 
+}

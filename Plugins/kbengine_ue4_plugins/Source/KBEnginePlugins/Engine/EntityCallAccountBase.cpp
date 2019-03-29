@@ -1,6 +1,8 @@
 #include "EntityCallAccountBase.h"
 #include "Bundle.h"
 
+namespace KBEngine
+{
 
 EntityBaseEntityCall_AccountBase::EntityBaseEntityCall_AccountBase(int32 eid, const FString& ename) : EntityCall(eid, ename)
 {
@@ -72,3 +74,5 @@ EntityCellEntityCall_AccountBase::~EntityCellEntityCall_AccountBase()
 {
 }
 
+
+}

@@ -1,6 +1,8 @@
 #include "EntityCallTestBase.h"
 #include "Bundle.h"
 
+namespace KBEngine
+{
 
 EntityBaseEntityCall_TestBase::EntityBaseEntityCall_TestBase(uint16 ecpID, int32 eid) : 
 EntityCall(eid, "Test"),
@@ -48,3 +50,5 @@ void EntityCellEntityCall_TestBase::hello(int32 arg1)
 	sendCall(NULL);
 }
 
+
+}

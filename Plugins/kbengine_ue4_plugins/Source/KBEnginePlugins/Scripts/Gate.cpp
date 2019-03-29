@@ -1,6 +1,9 @@
-#include "Gate.h"
+﻿#include "Gate.h"
 #include "Engine/Entity.h"
 #include "LogicEvents.h"
+
+namespace KBEngine
+{
 
 Gate::Gate():
 	GateBase()
@@ -41,4 +44,6 @@ void Gate::onEntityNOChanged(uint32 oldValue)
 	pEventData->entityNO = entityNO;
 	pEventData->entityID = id();
 	KBENGINE_EVENT_FIRE("set_entityNO", pEventData);
+}
+
 }

@@ -11,6 +11,9 @@
 #include "KBETypes.h"
 #include "EntityCallSpawnPointBase.h"
 
+namespace KBEngine
+{
+
 class Method;
 class Property;
 class MemoryStream;
@@ -58,3 +61,4 @@ public:
 
 };
 
+}

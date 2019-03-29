@@ -1,7 +1,9 @@
-#include "Avatar.h"
+ï»¿#include "Avatar.h"
 #include "Engine/Entity.h"
 #include "LogicEvents.h"
 
+namespace KBEngine
+{
 
 Avatar::Avatar():
 	AvatarBase()
@@ -14,7 +16,7 @@ Avatar::~Avatar()
 
 void Avatar::__init__()
 {
-	// ×¢²áÊÂ¼þ
+	// æ³¨å†Œäº‹ä»¶
 	if (isPlayer())
 	{
 		KBENGINE_REGISTER_EVENT_OVERRIDE_FUNC("relive", "relive", [this](const UKBEventData* pEventData)
@@ -36,7 +38,7 @@ void Avatar::onDestroy()
 {
 	AvatarBase::onDestroy();
 
-	// ×¢Ïú×¢²áµÄËùÓÐÊÂ¼þ
+	// æ³¨é”€æ³¨å†Œçš„æ‰€æœ‰äº‹ä»¶
 	KBENGINE_DEREGISTER_ALL_EVENT();
 }
 
@@ -198,5 +200,7 @@ void Avatar::onUidChanged(uint32 oldValue)
 
 void Avatar::onUtypeChanged(uint32 oldValue)
 {
+
+}
 
 }

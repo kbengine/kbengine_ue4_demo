@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GameModeWorld.h"
 #include "kbengine_ue4_demo.h"
@@ -19,16 +19,16 @@ void AGameModeWorld::installEvents()
 	Super::installEvents();
 
 	// in world
-	// Õâ¸öÊÂ¼ş´¥·¢Ê±ÎÒÃÇĞèÒªÇĞ»»µØÍ¼µ½ÓÎÏ·ÊÀ½çµØÍ¼
-	KBENGINE_REGISTER_EVENT(KBEventTypes::addSpaceGeometryMapping, addSpaceGeometryMapping);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onEnterWorld, onEnterWorld);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onLeaveWorld, onLeaveWorld);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onEnterSpace, onEnterSpace);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onLeaveSpace, onLeaveSpace);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::set_position, set_position);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::set_direction, set_direction);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::updatePosition, updatePosition);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onControlled, onControlled);
+	// è¿™ä¸ªäº‹ä»¶è§¦å‘æ—¶æˆ‘ä»¬éœ€è¦åˆ‡æ¢åœ°å›¾åˆ°æ¸¸æˆä¸–ç•Œåœ°å›¾
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::addSpaceGeometryMapping, addSpaceGeometryMapping);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onEnterWorld, onEnterWorld);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onLeaveWorld, onLeaveWorld);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onEnterSpace, onEnterSpace);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onLeaveSpace, onLeaveSpace);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::set_position, set_position);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::set_direction, set_direction);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::updatePosition, updatePosition);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onControlled, onControlled);
 
 	// in world(register by scripts)
 	KBENGINE_REGISTER_EVENT("set_HP", set_HP);
@@ -55,18 +55,18 @@ void AGameModeWorld::BeginPlay()
 {
 	Super::BeginPlay();
 
-	check(KBEngineApp::getSingleton().isInitialized());
+	check(KBEngine::KBEngineApp::getSingleton().isInitialized());
 
-	// Èç¹ûÒÑ¾­ÓĞ±»´´½¨µÄÊµÌå£¬ËµÃ÷ËûÃÇÔÚÉÏÒ»¸ö³¡¾°Î´À´µÃ¼°Ìø×ªÖ®Ç°ÒÑ¾­Í¨Öª´´½¨ÁË£¬µ«ÓÉÓÚÎÒÃÇµÄworld³¡¾°²¢Ã»ÓĞÀ´µÃ¼°´´½¨£¬Õâ²¿·ÖÊµÌå½øÈëÊÀ½çÊÂ¼şÒÑ¾­Â©µô
-	// ´ËÊ±ÎÒÃÇĞèÒªÔÙ´Î´¥·¢Ò»´ÎonEnterWorld£¬ÈÃ±íÏÖ²ãÄÜ¹»ÔÚÓÎÏ·³¡¾°ÖĞ´´½¨³öËùÓĞµÄÊµÌå
-	KBEngineApp::ENTITIES_MAP& entities = KBEngineApp::getSingleton().entities();
+	// å¦‚æœå·²ç»æœ‰è¢«åˆ›å»ºçš„å®ä½“ï¼Œè¯´æ˜ä»–ä»¬åœ¨ä¸Šä¸€ä¸ªåœºæ™¯æœªæ¥å¾—åŠè·³è½¬ä¹‹å‰å·²ç»é€šçŸ¥åˆ›å»ºäº†ï¼Œä½†ç”±äºæˆ‘ä»¬çš„worldåœºæ™¯å¹¶æ²¡æœ‰æ¥å¾—åŠåˆ›å»ºï¼Œè¿™éƒ¨åˆ†å®ä½“è¿›å…¥ä¸–ç•Œäº‹ä»¶å·²ç»æ¼æ‰
+	// æ­¤æ—¶æˆ‘ä»¬éœ€è¦å†æ¬¡è§¦å‘ä¸€æ¬¡onEnterWorldï¼Œè®©è¡¨ç°å±‚èƒ½å¤Ÿåœ¨æ¸¸æˆåœºæ™¯ä¸­åˆ›å»ºå‡ºæ‰€æœ‰çš„å®ä½“
+	KBEngine::KBEngineApp::ENTITIES_MAP& entities = KBEngine::KBEngineApp::getSingleton().entities();
 	for (auto& item : entities)
 	{
-		Entity* pEntity = item.Value;
+		KBEngine::Entity* pEntity = item.Value;
 
 		UKBEventData_onEnterWorld* pEventData = NewObject<UKBEventData_onEnterWorld>();
 		pEventData->entityID = pEntity->id();
-		pEventData->spaceID = KBEngineApp::getSingleton().spaceID();
+		pEventData->spaceID = KBEngine::KBEngineApp::getSingleton().spaceID();
 		KBPos2UE4Pos(pEventData->position, pEntity->position);
 		pEventData->direction = pEntity->direction;
 		pEventData->moveSpeed = pEntity->velocity();
@@ -74,13 +74,13 @@ void AGameModeWorld::BeginPlay()
 		pEventData->isPlayer = pEntity->isPlayer();
 		pEventData->entityClassName = pEntity->className();
 		pEventData->res = TEXT("");
-		KBENGINE_EVENT_FIRE(KBEventTypes::onEnterWorld, pEventData);
+		KBENGINE_EVENT_FIRE(KBEngine::KBEventTypes::onEnterWorld, pEventData);
 	}
 }
 
 void AGameModeWorld::reqRelive(int reliveType)
 {
-	// ÓÉÓÚÍæ¼ÒµÄAvatarÊµÌå×¢²áÁË¸ÃÊÂ¼ş£¬ Èç¹û´ËÊ±AvatarÊµÌå´æÔÚÄÇÃ´±ØÈ»»áÖ´ĞĞµ½¸ÃÊÂ¼ş 
+	// ç”±äºç©å®¶çš„Avatarå®ä½“æ³¨å†Œäº†è¯¥äº‹ä»¶ï¼Œ å¦‚æœæ­¤æ—¶Avatarå®ä½“å­˜åœ¨é‚£ä¹ˆå¿…ç„¶ä¼šæ‰§è¡Œåˆ°è¯¥äº‹ä»¶ 
 	UKBEventData_reqRelive* pEventData = NewObject<UKBEventData_reqRelive>();
 	pEventData->reliveType = reliveType;
 	KBENGINE_EVENT_FIRE("relive", pEventData);

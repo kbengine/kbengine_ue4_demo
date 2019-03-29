@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GameEntity.h"
 #include "kbengine_ue4_demo.h"
@@ -31,12 +31,12 @@ void AGameEntity::BeginPlay()
 	
 	if (XGameMode)
 	{
-		// °Ñ×Ô¼º×¢²áµ½AGameModeWorld£¬·½±ãºóÃæ²éÕÒ
+		// æŠŠè‡ªå·±æ³¨å†Œåˆ°AGameModeWorldï¼Œæ–¹ä¾¿åŽé¢æŸ¥æ‰¾
 		XGameMode->addGameEntity(this->entityID, this);
-		Entity* pEntity = KBEngineApp::getSingleton().findEntity(entityID);
+		KBEngine::Entity* pEntity = KBEngine::KBEngineApp::getSingleton().findEntity(entityID);
 
-		// ÓÉÓÚUE4¿ÉÊÓ»¯ÊµÌå´´½¨ÒªÍíÓÚKBEµÄ²å¼þµÄÂß¼­ÊµÌå£¬¶øKBE²å¼þÊµÌåÏÈÇ°¿ÉÄÜÒÑ¾­´¥·¢ÁËÒ»Ð©ÊôÐÔÉèÖÃÊÂ¼þ
-		// Òò´Ë´ËÊ±ÎÒÃÇ¿ÉÄÜÒÑ¾­´í¹ýÁËÒ»Ð©ÊÂ¼þ£¬ÎÒÃÇÖ»ÄÜÔÚ´Ë²¹¾È±ØÒªµÄ´¥·¢ÁË£¬ ÀýÈç£ºÃû³ÆºÍÑªÁ¿ÊôÐÔÖµ
+		// ç”±äºŽUE4å¯è§†åŒ–å®žä½“åˆ›å»ºè¦æ™šäºŽKBEçš„æ’ä»¶çš„é€»è¾‘å®žä½“ï¼Œè€ŒKBEæ’ä»¶å®žä½“å…ˆå‰å¯èƒ½å·²ç»è§¦å‘äº†ä¸€äº›å±žæ€§è®¾ç½®äº‹ä»¶
+		// å› æ­¤æ­¤æ—¶æˆ‘ä»¬å¯èƒ½å·²ç»é”™è¿‡äº†ä¸€äº›äº‹ä»¶ï¼Œæˆ‘ä»¬åªèƒ½åœ¨æ­¤è¡¥æ•‘å¿…è¦çš„è§¦å‘äº†ï¼Œ ä¾‹å¦‚ï¼šåç§°å’Œè¡€é‡å±žæ€§å€¼
 		if (pEntity)
 			pEntity->callPropertysSetMethods();
 	}
@@ -50,7 +50,7 @@ void AGameEntity::Destroyed()
 
 	if (XGameMode)
 	{
-		// °Ñ×Ô¼º×¢²áµ½AGameModeWorld£¬·½±ãºóÃæ²éÕÒ
+		// æŠŠè‡ªå·±æ³¨å†Œåˆ°AGameModeWorldï¼Œæ–¹ä¾¿åŽé¢æŸ¥æ‰¾
 		XGameMode->removeGameEntity(this->entityID);
 	}
 }
@@ -62,7 +62,7 @@ void AGameEntity::updateLocation(float DeltaTime)
 	//Direction from Self to targetPos
 	FVector vectorDirection = targetLocation - currLocation;
 	
-	float deltaSpeed = (moveSpeed * 10.f /*ÓÉÓÚ·þÎñ¶Ë½Å±¾moveSpeedµÄµ¥Î»ÊÇÀåÃ×£¬ÕâÀïÐèÒª×ª»»ÎªUE4µ¥Î»ºÁÃ×*/) * DeltaTime;
+	float deltaSpeed = (moveSpeed * 10.f /*ç”±äºŽæœåŠ¡ç«¯è„šæœ¬moveSpeedçš„å•ä½æ˜¯åŽ˜ç±³ï¼Œè¿™é‡Œéœ€è¦è½¬æ¢ä¸ºUE4å•ä½æ¯«ç±³*/) * DeltaTime;
 	if (vectorDirection.Size() > deltaSpeed)
 	{
 		//Normalize Vector so it is just a direction
@@ -123,20 +123,20 @@ void AGameEntity::createAvatar()
 	TArray<UActorComponent*> components = this->GetComponents().Array();
 	for (int i=0; i < components.Num(); i++)
 	{
-		if (components[i]->GetName() == "Scene")  //µ÷ÕûÑªÌõÎ»ÖÃ
+		if (components[i]->GetName() == "Scene")  //è°ƒæ•´è¡€æ¡ä½ç½®
 		{
 			UWidgetComponent* pWidget = (UWidgetComponent*)components[i];
 			pWidget->SetRelativeLocation(FVector(0.f, 0.f, 50.f));
 		}
 
-		if (components[i]->GetName() == "Sphere")	//Òþ²ØÕûÇò
+		if (components[i]->GetName() == "Sphere")	//éšè—æ•´çƒ
 		{
 			USphereComponent* pSphere = (USphereComponent*)components[i];
 			pSphere->SetActive(false);
 			pSphere->SetVisibility(false);
 		}
 
-		if (components[i]->GetName() == "Cone")		//Òþ²ØÔ²×¶Ìå
+		if (components[i]->GetName() == "Cone")		//éšè—åœ†é”¥ä½“
 		{
 			UStaticMeshComponent* pCone = (UStaticMeshComponent*)components[i];
 			pCone->SetActive(false);

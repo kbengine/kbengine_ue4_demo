@@ -1,6 +1,8 @@
 #include "EntityCallSpaceDuplicateBase.h"
 #include "Bundle.h"
 
+namespace KBEngine
+{
 
 EntityBaseEntityCall_SpaceDuplicateBase::EntityBaseEntityCall_SpaceDuplicateBase(int32 eid, const FString& ename) : EntityCall(eid, ename)
 {
@@ -22,3 +24,5 @@ EntityCellEntityCall_SpaceDuplicateBase::~EntityCellEntityCall_SpaceDuplicateBas
 {
 }
 
+
+}

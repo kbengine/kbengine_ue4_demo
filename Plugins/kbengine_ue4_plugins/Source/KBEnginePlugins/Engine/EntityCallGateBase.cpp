@@ -1,6 +1,8 @@
 #include "EntityCallGateBase.h"
 #include "Bundle.h"
 
+namespace KBEngine
+{
 
 EntityBaseEntityCall_GateBase::EntityBaseEntityCall_GateBase(int32 eid, const FString& ename) : EntityCall(eid, ename)
 {
@@ -22,3 +24,5 @@ EntityCellEntityCall_GateBase::~EntityCellEntityCall_GateBase()
 {
 }
 
+
+}

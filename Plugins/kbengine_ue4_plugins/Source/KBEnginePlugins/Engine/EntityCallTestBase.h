@@ -15,6 +15,9 @@
 
 // defined in */scripts/entity_defs/Test.def
 
+namespace KBEngine
+{
+
 class KBENGINEPLUGINS_API EntityBaseEntityCall_TestBase : public EntityCall
 {
 public:
@@ -36,3 +39,5 @@ public:
 	virtual ~EntityCellEntityCall_TestBase();
 	void hello(int32 arg1);
 };
+
+}

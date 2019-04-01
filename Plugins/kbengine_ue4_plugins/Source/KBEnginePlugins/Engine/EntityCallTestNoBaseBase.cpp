@@ -1,6 +1,8 @@
 #include "EntityCallTestNoBaseBase.h"
 #include "Bundle.h"
 
+namespace KBEngine
+{
 
 EntityBaseEntityCall_TestNoBaseBase::EntityBaseEntityCall_TestNoBaseBase(uint16 ecpID, int32 eid) : 
 EntityCall(eid, "TestNoBase"),
@@ -38,3 +40,5 @@ void EntityCellEntityCall_TestNoBaseBase::hello(int32 arg1)
 	sendCall(NULL);
 }
 
+
+}

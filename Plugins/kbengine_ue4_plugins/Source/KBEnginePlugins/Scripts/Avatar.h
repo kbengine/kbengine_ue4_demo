@@ -1,9 +1,12 @@
-// Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
+﻿// Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 
 #pragma once
 #include "Engine/KBECommon.h"
 
 #include "Engine/AvatarBase.h"
+
+namespace KBEngine
+{
 
 class Avatar : public AvatarBase
 {
@@ -51,3 +54,4 @@ public:
 	void recvDamage(int32 arg1, int32 arg2, int32 arg3, int32 arg4) override;
 };
 
+}

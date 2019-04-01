@@ -15,6 +15,9 @@
 
 // defined in */scripts/entity_defs/TestNoBase.def
 
+namespace KBEngine
+{
+
 class KBENGINEPLUGINS_API EntityBaseEntityCall_TestNoBaseBase : public EntityCall
 {
 public:
@@ -35,3 +38,5 @@ public:
 	virtual ~EntityCellEntityCall_TestNoBaseBase();
 	void hello(int32 arg1);
 };
+
+}

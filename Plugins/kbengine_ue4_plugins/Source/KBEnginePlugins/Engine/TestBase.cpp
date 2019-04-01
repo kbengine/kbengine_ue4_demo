@@ -9,6 +9,10 @@
 #include "CustomDataTypes.h"
 #include "MemoryStream.h"
 
+namespace KBEngine
+{
+
+
 
 void TestBase::createFromStream(MemoryStream& stream)
 {
@@ -174,5 +178,7 @@ TestBase::~TestBase()
 
 	if(pCellEntityCall)
 		delete pCellEntityCall;
+
+}
 
 }

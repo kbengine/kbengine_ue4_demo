@@ -10,6 +10,8 @@
 #include "MemoryStream.h"
 #include "Bundle.h"
 #include "DataTypes.h"
+namespace KBEngine
+{
 
 
 class KBENGINEPLUGINS_API DATATYPE_ENTITY_FORBID_COUNTER : DATATYPE_BASE
@@ -157,3 +159,4 @@ public:
 };
 
 
+}

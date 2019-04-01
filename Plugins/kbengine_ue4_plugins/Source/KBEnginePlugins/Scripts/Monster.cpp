@@ -1,6 +1,9 @@
-#include "Monster.h"
+﻿#include "Monster.h"
 #include "Engine/Entity.h"
 #include "LogicEvents.h"
+
+namespace KBEngine
+{
 
 Monster::Monster():
 	MonsterBase()
@@ -127,5 +130,7 @@ void Monster::onUidChanged(uint32 oldValue)
 
 void Monster::onUtypeChanged(uint32 oldValue)
 {
+
+}
 
 }

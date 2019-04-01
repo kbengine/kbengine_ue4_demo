@@ -1,6 +1,9 @@
-#include "TestNoBase.h"
+ï»¿#include "TestNoBase.h"
 #include "Scripts/Avatar.h"
 #include "Scripts/LogicEvents.h"
+
+namespace KBEngine
+{
 
 TestNoBase::TestNoBase():
 	TestNoBaseBase()
@@ -33,7 +36,9 @@ void TestNoBase::helloCB(int32 arg1)
 {
 	DEBUG_MSG("TestNoBase::helloCB: arg1(%d)!", arg1);
 
-	// ÓÐ¿ÉÄÜ»¹Ã»ÓÐ´´½¨cell£¬ËùÒÔpCellEntityCall¿ÉÄÜÎª¿Õ
+	// æœ‰å¯èƒ½è¿˜æ²¡æœ‰åˆ›å»ºcellï¼Œæ‰€ä»¥pCellEntityCallå¯èƒ½ä¸ºç©º
 	if(pCellEntityCall)
 		pCellEntityCall->hello(795);
+}
+
 }

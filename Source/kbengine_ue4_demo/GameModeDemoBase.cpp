@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GameModeDemoBase.h"
 #include "kbengine_ue4_demo.h"
@@ -32,7 +32,7 @@ void AGameModeDemoBase::Logout(AController* Exiting)
 {
 	Super::Logout(Exiting);
 
-	// ¿ÉÒÔÔÚÕâÀïÀí½âÎªÍæ¼Ò±à¼­Æ÷StopÓÎÏ·»òÕßÀë¿ªÁËÕâ¸ö³¡¾°
+	// å¯ä»¥åœ¨è¿™é‡Œç†è§£ä¸ºç©å®¶ç¼–è¾‘å™¨Stopæ¸¸æˆæˆ–è€…ç¦»å¼€äº†è¿™ä¸ªåœºæ™¯
 	if (Exiting)
 	{
 		KBENGINE_DEREGISTER_ALL_EVENT();
@@ -42,9 +42,9 @@ void AGameModeDemoBase::Logout(AController* Exiting)
 void AGameModeDemoBase::installEvents()
 {
 	// common
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onKicked, onKicked);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onDisconnected, onDisconnected);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onConnectionState, onConnectionState);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onKicked, onKicked);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onDisconnected, onDisconnected);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onConnectionState, onConnectionState);
 }
 
 void AGameModeDemoBase::fire(const FString& eventName, UKBEventData* pEventData)

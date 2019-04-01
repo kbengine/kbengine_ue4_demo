@@ -15,6 +15,9 @@
 
 // defined in */scripts/entity_defs/Account.def
 
+namespace KBEngine
+{
+
 class KBENGINEPLUGINS_API EntityBaseEntityCall_AccountBase : public EntityCall
 {
 public:
@@ -37,3 +40,5 @@ public:
 
 	virtual ~EntityCellEntityCall_AccountBase();
 };
+
+}

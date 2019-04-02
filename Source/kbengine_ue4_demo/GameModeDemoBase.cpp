@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GameModeDemoBase.h"
 #include "kbengine_ue4_demo.h"
@@ -18,21 +18,23 @@ void AGameModeDemoBase::InitGame(const FString& MapName, const FString& Options,
 // Called when the game starts or when spawned
 void AGameModeDemoBase::BeginPlay()
 {
+	startRelogin = false;
 	Super::BeginPlay();
 	installEvents();
 }
 
-void AGameModeDemoBase::Destroyed()
+
+void AGameModeDemoBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+	Super::EndPlay(EndPlayReason);
 	KBENGINE_DEREGISTER_ALL_EVENT();
-	Super::Destroyed();
 }
 
 void AGameModeDemoBase::Logout(AController* Exiting)
 {
 	Super::Logout(Exiting);
 
-	// ¿ÉÒÔÔÚÕâÀïÀí½âÎªÍæ¼Ò±à¼­Æ÷StopÓÎÏ·»òÕßÀë¿ªÁËÕâ¸ö³¡¾°
+	// å¯ä»¥åœ¨è¿™é‡Œç†è§£ä¸ºç©å®¶ç¼–è¾‘å™¨Stopæ¸¸æˆæˆ–è€…ç¦»å¼€äº†è¿™ä¸ªåœºæ™¯
 	if (Exiting)
 	{
 		KBENGINE_DEREGISTER_ALL_EVENT();
@@ -45,6 +47,8 @@ void AGameModeDemoBase::installEvents()
 	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onKicked, onKicked);
 	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onDisconnected, onDisconnected);
 	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onConnectionState, onConnectionState);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onReloginBaseappSuccessfully, onReloginBaseappSuccessfully);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onReloginBaseappFailed, onReloginBaseappFailed);
 }
 
 void AGameModeDemoBase::fire(const FString& eventName, UKBEventData* pEventData)
@@ -52,14 +56,58 @@ void AGameModeDemoBase::fire(const FString& eventName, UKBEventData* pEventData)
 	KBENGINE_EVENT_FIRE(eventName, pEventData);
 }
 
-void AGameModeDemoBase::onKicked_Implementation(const UKBEventData* pEventData)
+void AGameModeDemoBase::onKicked_Implementation(const UKBEventData * pEventData)
 {
 }
 
 void AGameModeDemoBase::onDisconnected_Implementation(const UKBEventData* pEventData)
 {
+
 }
 
 void AGameModeDemoBase::onConnectionState_Implementation(const UKBEventData* pEventData)
 {
+
 }
+
+void AGameModeDemoBase::onReloginBaseappSuccessfully_Implementation(const UKBEventData* pEventData)
+{
+}
+
+void AGameModeDemoBase::onReloginBaseappFailed_Implementation(const UKBEventData* pEventData)
+{
+}
+
+
+void AGameModeDemoBase::onReloginBaseappTimerBlueprintCallable()
+{
+	//ERROR_MSG("%s", "disconnect! will try to reconnect...(ä½ å·²æ‰çº¿ï¼Œå°è¯•é‡è¿ä¸­!)");
+	startRelogin = true;
+	GetWorldTimerManager().SetTimer(timerHandle, this, &AGameModeDemoBase::onReloginBaseappTimer, 1.0f, false, 1.0f);
+}
+
+void AGameModeDemoBase::stopTimerAndResetFlag()
+{
+	stopReloginBaseappTimer();
+	resetFlag();
+}
+
+void AGameModeDemoBase::onReloginBaseappTimer()
+{
+	KBEngine::KBEngineApp::getSingleton().reloginBaseapp();
+	if(startRelogin)
+		GetWorldTimerManager().SetTimer(timerHandle, this, &AGameModeDemoBase::onReloginBaseappTimer, 1.0f, false, 3.0f);
+}
+
+void AGameModeDemoBase::stopReloginBaseappTimer()
+{
+	GetWorldTimerManager().ClearTimer(timerHandle);
+}
+
+void AGameModeDemoBase::resetFlag()
+{
+	startRelogin = false;
+}
+
+
+

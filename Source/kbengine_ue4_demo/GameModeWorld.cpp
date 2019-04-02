@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GameModeWorld.h"
 #include "kbengine_ue4_demo.h"
@@ -19,7 +19,7 @@ void AGameModeWorld::installEvents()
 	Super::installEvents();
 
 	// in world
-	// Õâ¸öÊÂ¼ş´¥·¢Ê±ÎÒÃÇĞèÒªÇĞ»»µØÍ¼µ½ÓÎÏ·ÊÀ½çµØÍ¼
+	// è¿™ä¸ªäº‹ä»¶è§¦å‘æ—¶æˆ‘ä»¬éœ€è¦åˆ‡æ¢åœ°å›¾åˆ°æ¸¸æˆä¸–ç•Œåœ°å›¾
 	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::addSpaceGeometryMapping, addSpaceGeometryMapping);
 	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onEnterWorld, onEnterWorld);
 	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onLeaveWorld, onLeaveWorld);
@@ -57,8 +57,8 @@ void AGameModeWorld::BeginPlay()
 
 	check(KBEngine::KBEngineApp::getSingleton().isInitialized());
 
-	// Èç¹ûÒÑ¾­ÓĞ±»´´½¨µÄÊµÌå£¬ËµÃ÷ËûÃÇÔÚÉÏÒ»¸ö³¡¾°Î´À´µÃ¼°Ìø×ªÖ®Ç°ÒÑ¾­Í¨Öª´´½¨ÁË£¬µ«ÓÉÓÚÎÒÃÇµÄworld³¡¾°²¢Ã»ÓĞÀ´µÃ¼°´´½¨£¬Õâ²¿·ÖÊµÌå½øÈëÊÀ½çÊÂ¼şÒÑ¾­Â©µô
-	// ´ËÊ±ÎÒÃÇĞèÒªÔÙ´Î´¥·¢Ò»´ÎonEnterWorld£¬ÈÃ±íÏÖ²ãÄÜ¹»ÔÚÓÎÏ·³¡¾°ÖĞ´´½¨³öËùÓĞµÄÊµÌå
+	// å¦‚æœå·²ç»æœ‰è¢«åˆ›å»ºçš„å®ä½“ï¼Œè¯´æ˜ä»–ä»¬åœ¨ä¸Šä¸€ä¸ªåœºæ™¯æœªæ¥å¾—åŠè·³è½¬ä¹‹å‰å·²ç»é€šçŸ¥åˆ›å»ºäº†ï¼Œä½†ç”±äºæˆ‘ä»¬çš„worldåœºæ™¯å¹¶æ²¡æœ‰æ¥å¾—åŠåˆ›å»ºï¼Œè¿™éƒ¨åˆ†å®ä½“è¿›å…¥ä¸–ç•Œäº‹ä»¶å·²ç»æ¼æ‰
+	// æ­¤æ—¶æˆ‘ä»¬éœ€è¦å†æ¬¡è§¦å‘ä¸€æ¬¡onEnterWorldï¼Œè®©è¡¨ç°å±‚èƒ½å¤Ÿåœ¨æ¸¸æˆåœºæ™¯ä¸­åˆ›å»ºå‡ºæ‰€æœ‰çš„å®ä½“
 	KBEngine::KBEngineApp::ENTITIES_MAP& entities = KBEngine::KBEngineApp::getSingleton().entities();
 	for (auto& item : entities)
 	{
@@ -80,7 +80,7 @@ void AGameModeWorld::BeginPlay()
 
 void AGameModeWorld::reqRelive(int reliveType)
 {
-	// ÓÉÓÚÍæ¼ÒµÄAvatarÊµÌå×¢²áÁË¸ÃÊÂ¼ş£¬ Èç¹û´ËÊ±AvatarÊµÌå´æÔÚÄÇÃ´±ØÈ»»áÖ´ĞĞµ½¸ÃÊÂ¼ş 
+	// ç”±äºç©å®¶çš„Avatarå®ä½“æ³¨å†Œäº†è¯¥äº‹ä»¶ï¼Œ å¦‚æœæ­¤æ—¶Avatarå®ä½“å­˜åœ¨é‚£ä¹ˆå¿…ç„¶ä¼šæ‰§è¡Œåˆ°è¯¥äº‹ä»¶ 
 	UKBEventData_reqRelive* pEventData = NewObject<UKBEventData_reqRelive>();
 	pEventData->reliveType = reliveType;
 	KBENGINE_EVENT_FIRE("relive", pEventData);
@@ -280,7 +280,6 @@ void AGameModeWorld::set_modelID_Implementation(const UKBEventData* pEventData)
 {
 	const UKBEventData_set_modelID* pData = Cast<UKBEventData_set_modelID>(pEventData);
 	AGameEntity* pAGameEntity = findGameEntity(pData->entityID);
-
 	if (pAGameEntity)
 		pAGameEntity->setModelID(pData->modelID);
 }

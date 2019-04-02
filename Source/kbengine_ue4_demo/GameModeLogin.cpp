@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GameModeLogin.h"
 #include "kbengine_ue4_demo.h"
@@ -25,21 +25,18 @@ void AGameModeLogin::installEvents()
 	KBENGINE_REGISTER_EVENT("Loginapp_importClientMessages", Loginapp_importClientMessages);
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientMessages", Baseapp_importClientMessages);
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientEntityDef", Baseapp_importClientEntityDef);
+	
 }
 
 // Called when the game starts or when spawned
 void AGameModeLogin::BeginPlay()
 {
-	// Ã¿´Î½øÈëµ½Õâ¸ö½çÃæÊ±¶ÔKBE×öÒ»´ÎÇåÀí£¬·ñÔòKBE²å¼şÄÚ»º´æµÄÄÚÈİ½«Ò»Ö±´æÔÚ
+	// æ¯æ¬¡è¿›å…¥åˆ°è¿™ä¸ªç•Œé¢æ—¶å¯¹KBEåšä¸€æ¬¡æ¸…ç†ï¼Œå¦åˆ™KBEæ’ä»¶å†…ç¼“å­˜çš„å†…å®¹å°†ä¸€ç›´å­˜åœ¨
 	KBEngine::KBEngineApp::getSingleton().reset();
 
 	Super::BeginPlay();
 }
 
-void AGameModeLogin::Destroyed()
-{
-	Super::Destroyed();
-}
 
 bool AGameModeLogin::validEmail(FString strEmail)
 {

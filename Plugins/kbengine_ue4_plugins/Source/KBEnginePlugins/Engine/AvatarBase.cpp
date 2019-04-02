@@ -8,6 +8,7 @@
 #include "CustomDataTypes.h"
 #include "MemoryStream.h"
 #include "EntityComponent.h"
+
 #include "Scripts/Components/Test.h"
 
 #include "Scripts/Components/TestNoBase.h"

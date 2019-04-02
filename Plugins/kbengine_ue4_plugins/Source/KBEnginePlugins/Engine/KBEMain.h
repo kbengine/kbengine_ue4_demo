@@ -64,22 +64,22 @@ public:
 
 
 	UFUNCTION(BlueprintCallable, Category = "KBEngine")
-	static FString getClientVersion();
+	FString getClientVersion();
 
 	UFUNCTION(BlueprintCallable, Category = "KBEngine")
-	static FString getClientScriptVersion();
+	FString getClientScriptVersion();
 
 	UFUNCTION(BlueprintCallable, Category = "KBEngine")
-	static FString getServerVersion();
+	FString getServerVersion();
 
 	UFUNCTION(BlueprintCallable, Category = "KBEngine")
-	static FString getServerScriptVersion();
+	FString getServerScriptVersion();
 
 	/*
 		客户端属于KBE框架中的一个功能组件，这里获取将固定返回client
 	*/
 	UFUNCTION(BlueprintCallable, Category = "KBEngine")
-	static FString getComponentName();
+	FString getComponentName();
 
 	/**
 		在程序关闭时需要主动调用, 彻底销毁KBEngine

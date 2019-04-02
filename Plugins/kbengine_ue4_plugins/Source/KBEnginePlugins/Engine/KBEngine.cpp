@@ -1,4 +1,4 @@
-﻿
+
 #include "KBEngine.h"
 #include "KBEngineArgs.h"
 #include "Entity.h"

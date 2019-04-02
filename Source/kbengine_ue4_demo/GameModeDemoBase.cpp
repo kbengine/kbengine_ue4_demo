@@ -22,10 +22,11 @@ void AGameModeDemoBase::BeginPlay()
 	installEvents();
 }
 
-void AGameModeDemoBase::Destroyed()
+
+void AGameModeDemoBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+	Super::EndPlay(EndPlayReason);
 	KBENGINE_DEREGISTER_ALL_EVENT();
-	Super::Destroyed();
 }
 
 void AGameModeDemoBase::Logout(AController* Exiting)
@@ -45,6 +46,8 @@ void AGameModeDemoBase::installEvents()
 	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onKicked, onKicked);
 	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onDisconnected, onDisconnected);
 	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onConnectionState, onConnectionState);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onReloginBaseappSuccessfully, onReloginBaseappSuccessfully);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onReloginBaseappFailed, onReloginBaseappFailed);
 }
 
 void AGameModeDemoBase::fire(const FString& eventName, UKBEventData* pEventData)
@@ -52,14 +55,58 @@ void AGameModeDemoBase::fire(const FString& eventName, UKBEventData* pEventData)
 	KBENGINE_EVENT_FIRE(eventName, pEventData);
 }
 
-void AGameModeDemoBase::onKicked_Implementation(const UKBEventData* pEventData)
+void AGameModeDemoBase::onKicked_Implementation(const UKBEventData * pEventData)
 {
 }
 
 void AGameModeDemoBase::onDisconnected_Implementation(const UKBEventData* pEventData)
 {
+
 }
 
 void AGameModeDemoBase::onConnectionState_Implementation(const UKBEventData* pEventData)
 {
+
 }
+
+void AGameModeDemoBase::onReloginBaseappSuccessfully_Implementation(const UKBEventData* pEventData)
+{
+}
+
+void AGameModeDemoBase::onReloginBaseappFailed_Implementation(const UKBEventData* pEventData)
+{
+}
+
+
+void AGameModeDemoBase::onReloginBaseappTimerBlueprintCallable()
+{
+	//ERROR_MSG("%s", "disconnect! will try to reconnect...(你已掉线，尝试重连中!)");
+	startRelogin = true;
+	GetWorldTimerManager().SetTimer(timerHandle, this, &AGameModeDemoBase::onReloginBaseappTimer, 1.0f, false, 1.0f);
+}
+
+void AGameModeDemoBase::stopTimerAndResetFlag()
+{
+	stopReloginBaseappTimer();
+	resetFlag();
+}
+
+void AGameModeDemoBase::onReloginBaseappTimer()
+{
+	KBEngine::KBEngineApp::getSingleton().reloginBaseapp();
+	if(startRelogin)
+		GetWorldTimerManager().SetTimer(timerHandle, this, &AGameModeDemoBase::onReloginBaseappTimer, 1.0f, false, 3.0f);
+}
+
+void AGameModeDemoBase::stopReloginBaseappTimer()
+{
+	GetWorldTimerManager().ClearTimer(timerHandle);
+}
+
+void AGameModeDemoBase::resetFlag()
+{
+	startRelogin = false;
+}
+
+
+

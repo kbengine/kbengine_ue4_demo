@@ -25,6 +25,7 @@ void AGameModeLogin::installEvents()
 	KBENGINE_REGISTER_EVENT("Loginapp_importClientMessages", Loginapp_importClientMessages);
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientMessages", Baseapp_importClientMessages);
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientEntityDef", Baseapp_importClientEntityDef);
+	
 }
 
 // Called when the game starts or when spawned
@@ -36,10 +37,6 @@ void AGameModeLogin::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AGameModeLogin::Destroyed()
-{
-	Super::Destroyed();
-}
 
 bool AGameModeLogin::validEmail(FString strEmail)
 {

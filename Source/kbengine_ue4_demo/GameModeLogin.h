@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -16,66 +16,66 @@ class KBENGINE_UE4_DEMO_API AGameModeLogin : public AGameModeDemoBase
 	
 public:	
 	/*
-		°²×°µÇÂ½Ê±ĞèÒª¼àÌıµÄKBEÊÂ¼ş
+		å®‰è£…ç™»é™†æ—¶éœ€è¦ç›‘å¬çš„KBEäº‹ä»¶
 	*/
 	virtual void installEvents() override;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	/** Called once this actor has been deleted */
-	virtual void Destroyed() override;
 
 	UFUNCTION(BlueprintCallable, Category = "KBEngine")
 	bool validEmail(FString strEmail);
 
-	/* KBEÊÂ¼ş
+	/* KBEäº‹ä»¶
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onCreateAccountResult(const UKBEventData* pEventData);
 
-	/* KBEÊÂ¼ş
+	/* KBEäº‹ä»¶
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onLoginFailed(const UKBEventData* pEventData);
 
-	/* KBEÊÂ¼ş
+	/* KBEäº‹ä»¶
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onVersionNotMatch(const UKBEventData* pEventData);
 
-	/* KBEÊÂ¼ş
+	/* KBEäº‹ä»¶
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onScriptVersionNotMatch(const UKBEventData* pEventData);
 
-	/* KBEÊÂ¼ş
+	/* KBEäº‹ä»¶
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onLoginBaseappFailed(const UKBEventData* pEventData);
 
-	/* KBEÊÂ¼ş
+	/* KBEäº‹ä»¶
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onLoginSuccessfully(const UKBEventData* pEventData);
 
-	/* KBEÊÂ¼ş
+	/* KBEäº‹ä»¶
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onLoginBaseapp(const UKBEventData* pEventData);
 
-	/* KBEÊÂ¼ş
+	/* KBEäº‹ä»¶
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void Loginapp_importClientMessages(const UKBEventData* pEventData);
 
-	/* KBEÊÂ¼ş
+	/* KBEäº‹ä»¶
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void Baseapp_importClientMessages(const UKBEventData* pEventData);
 
-	/* KBEÊÂ¼ş
+	/* KBEäº‹ä»¶
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void Baseapp_importClientEntityDef(const UKBEventData* pEventData);
+
+
 };

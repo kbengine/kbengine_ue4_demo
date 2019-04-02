@@ -40,7 +40,7 @@ public:
 	virtual void installEvents();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
-	bool startRelogin = false;
+	bool startRelogin;
 
 	UFUNCTION(BlueprintCallable, Category = KBEngine)
 	void fire(const FString& eventName, UKBEventData* pEventData);

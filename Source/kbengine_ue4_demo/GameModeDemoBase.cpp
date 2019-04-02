@@ -18,6 +18,7 @@ void AGameModeDemoBase::InitGame(const FString& MapName, const FString& Options,
 // Called when the game starts or when spawned
 void AGameModeDemoBase::BeginPlay()
 {
+	startRelogin = false;
 	Super::BeginPlay();
 	installEvents();
 }

@@ -71,20 +71,14 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onReloginBaseappFailed(const UKBEventData* pEventData);
 
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	void startReloginBaseappTimer();
 
 	UFUNCTION(BlueprintCallable, Category = "KBEngine")
-	void onReloginBaseappTimerBlueprintCallable();
-
-	UFUNCTION(BlueprintCallable, Category = "KBEngine")
-	void stopTimerAndResetFlag();
+	void stopReloginBaseappTimer();
 
 	//重登baseapp项目
 	void onReloginBaseappTimer();
-
-	void resetFlag();
-	void stopReloginBaseappTimer();
-
-	
 
 	FTimerHandle timerHandle;
 };

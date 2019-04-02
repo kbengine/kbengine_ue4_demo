@@ -18,7 +18,6 @@ void AGameModeDemoBase::InitGame(const FString& MapName, const FString& Options,
 // Called when the game starts or when spawned
 void AGameModeDemoBase::BeginPlay()
 {
-	startRelogin = false;
 	Super::BeginPlay();
 	installEvents();
 }
@@ -78,25 +77,10 @@ void AGameModeDemoBase::onReloginBaseappFailed_Implementation(const UKBEventData
 {
 }
 
-
-void AGameModeDemoBase::onReloginBaseappTimerBlueprintCallable()
+void AGameModeDemoBase::startReloginBaseappTimer()
 {
-	//ERROR_MSG("%s", "disconnect! will try to reconnect...(你已掉线，尝试重连中!)");
-	startRelogin = true;
-	GetWorldTimerManager().SetTimer(timerHandle, this, &AGameModeDemoBase::onReloginBaseappTimer, 1.0f, false, 1.0f);
-}
-
-void AGameModeDemoBase::stopTimerAndResetFlag()
-{
-	stopReloginBaseappTimer();
-	resetFlag();
-}
-
-void AGameModeDemoBase::onReloginBaseappTimer()
-{
-	KBEngine::KBEngineApp::getSingleton().reloginBaseapp();
-	if(startRelogin)
-		GetWorldTimerManager().SetTimer(timerHandle, this, &AGameModeDemoBase::onReloginBaseappTimer, 1.0f, false, 3.0f);
+	if (!timerHandle.IsValid())
+		GetWorldTimerManager().SetTimer(timerHandle, this, &AGameModeDemoBase::onReloginBaseappTimer, 1.0f, false, 1.0f);
 }
 
 void AGameModeDemoBase::stopReloginBaseappTimer()
@@ -104,9 +88,12 @@ void AGameModeDemoBase::stopReloginBaseappTimer()
 	GetWorldTimerManager().ClearTimer(timerHandle);
 }
 
-void AGameModeDemoBase::resetFlag()
+void AGameModeDemoBase::onReloginBaseappTimer()
 {
-	startRelogin = false;
+	KBEngine::KBEngineApp::getSingleton().reloginBaseapp();
+
+	if (timerHandle.IsValid())
+		GetWorldTimerManager().SetTimer(timerHandle, this, &AGameModeDemoBase::onReloginBaseappTimer, 1.0f, false, 3.0f);
 }
 
 

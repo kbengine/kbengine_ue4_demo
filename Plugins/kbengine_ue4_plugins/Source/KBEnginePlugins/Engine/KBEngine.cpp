@@ -38,8 +38,8 @@ KBEngineApp::KBEngineApp() :
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("32C908A4C57D14B06827215433D82079")),
-	serverEntitydefMD5_(TEXT("D9BE27DA40153A58EFB4835189190B5D")),
+	serverProtocolMD5_(TEXT("13AF19B0A958067AEB2BC4ED1CD3B46F")),
+	serverEntitydefMD5_(TEXT("2B445B443EFC9427000733CD39EB2700")),
 	entity_uuid_(0),
 	entity_id_(0),
 	entity_type_(TEXT("")),
@@ -80,8 +80,8 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	clientVersion_(TEXT("")),
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
-	serverProtocolMD5_(TEXT("32C908A4C57D14B06827215433D82079")),
-	serverEntitydefMD5_(TEXT("D9BE27DA40153A58EFB4835189190B5D")),
+	serverProtocolMD5_(TEXT("13AF19B0A958067AEB2BC4ED1CD3B46F")),
+	serverEntitydefMD5_(TEXT("2B445B443EFC9427000733CD39EB2700")),
 	entity_uuid_(0),
 	entity_id_(0),
 	entity_type_(TEXT("")),
@@ -232,7 +232,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("1.3.3");
+	clientVersion_ = TEXT("1.3.4");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 
@@ -1329,7 +1329,6 @@ void KBEngineApp::newPassword(const FString& old_password, const FString& new_pa
 	Bundle* pBundle = Bundle::createObject();
 	pBundle->newMessage(Messages::messages[TEXT("Baseapp_reqAccountNewPassword"]));
 	(*pBundle) << entity_id_;
-	(*pBundle) << password_;
 	(*pBundle) << old_password;
 	(*pBundle) << new_password;
 	pBundle->send(pNetworkInterface_);

@@ -1,6 +1,9 @@
-#include "NPC.h"
+﻿#include "NPC.h"
 #include "Engine/Entity.h"
 #include "LogicEvents.h"
+
+namespace KBEngine
+{
 
 NPC::NPC():
 	NPCBase()
@@ -63,3 +66,4 @@ void NPC::onUtypeChanged(uint32 oldValue)
 
 }
 
+}

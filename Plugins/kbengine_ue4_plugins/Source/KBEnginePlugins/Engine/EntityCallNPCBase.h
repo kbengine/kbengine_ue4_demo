@@ -15,6 +15,9 @@
 
 // defined in */scripts/entity_defs/NPC.def
 
+namespace KBEngine
+{
+
 class KBENGINEPLUGINS_API EntityBaseEntityCall_NPCBase : public EntityCall
 {
 public:
@@ -32,3 +35,5 @@ public:
 
 	virtual ~EntityCellEntityCall_NPCBase();
 };
+
+}

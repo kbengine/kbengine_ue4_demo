@@ -9,6 +9,10 @@
 #include "MemoryStream.h"
 #include "EntityComponent.h"
 
+namespace KBEngine
+{
+
+
 
 void MonsterBase::onComponentsEnterworld()
 {
@@ -811,3 +815,4 @@ void MonsterBase::detachComponents()
 {
 }
 
+}

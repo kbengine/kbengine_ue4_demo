@@ -4,6 +4,9 @@
 #include "DataTypes.h"
 #include "Runtime/Core/Public/Misc/Variant.h"
 
+namespace KBEngine
+{
+
 void DATATYPE_ENTITY_FORBID_COUNTER::createFromStreamEx(MemoryStream& stream, ENTITY_FORBID_COUNTER& datas)
 {
 	uint32 size = stream.readUint32();
@@ -126,3 +129,5 @@ void DATATYPE_AnonymousArray_32::addToStreamEx(Bundle& stream, const TArray<int3
 	};
 }
 
+
+}

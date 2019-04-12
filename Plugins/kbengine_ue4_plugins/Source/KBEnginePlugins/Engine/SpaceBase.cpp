@@ -9,6 +9,10 @@
 #include "MemoryStream.h"
 #include "EntityComponent.h"
 
+namespace KBEngine
+{
+
+
 
 void SpaceBase::onComponentsEnterworld()
 {
@@ -406,3 +410,4 @@ void SpaceBase::detachComponents()
 {
 }
 
+}

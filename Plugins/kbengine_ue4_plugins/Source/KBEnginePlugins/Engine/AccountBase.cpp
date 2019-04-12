@@ -9,6 +9,10 @@
 #include "MemoryStream.h"
 #include "EntityComponent.h"
 
+namespace KBEngine
+{
+
+
 
 void AccountBase::onComponentsEnterworld()
 {
@@ -303,3 +307,4 @@ void AccountBase::detachComponents()
 {
 }
 
+}

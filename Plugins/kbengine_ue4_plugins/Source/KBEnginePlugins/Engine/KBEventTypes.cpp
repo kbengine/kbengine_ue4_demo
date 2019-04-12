@@ -1,6 +1,7 @@
-﻿#pragma once
-
 #include "KBEventTypes.h"
+
+namespace KBEngine
+{
 
 const FString KBEventTypes::createAccount = "createAccount";
 const FString KBEventTypes::login = "login";
@@ -44,3 +45,9 @@ const FString KBEventTypes::onLoseControlledEntity = "onLoseControlledEntity";
 const FString KBEventTypes::onStreamDataStarted = "onStreamDataStarted";
 const FString KBEventTypes::onStreamDataRecv = "onStreamDataRecv";
 const FString KBEventTypes::onStreamDataCompleted = "onStreamDataCompleted";
+
+// ------------------------------------SDK更新相关-------------------------------------
+const FString KBEventTypes::onImportClientSDKSuccessfully = "onImportClientSDKSuccessfully";
+const FString KBEventTypes::onDownloadSDK = "onDownloadSDK";
+
+}

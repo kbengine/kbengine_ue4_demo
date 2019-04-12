@@ -1,6 +1,8 @@
 #include "EntityCallNPCBase.h"
 #include "Bundle.h"
 
+namespace KBEngine
+{
 
 EntityBaseEntityCall_NPCBase::EntityBaseEntityCall_NPCBase(int32 eid, const FString& ename) : EntityCall(eid, ename)
 {
@@ -22,3 +24,5 @@ EntityCellEntityCall_NPCBase::~EntityCellEntityCall_NPCBase()
 {
 }
 
+
+}

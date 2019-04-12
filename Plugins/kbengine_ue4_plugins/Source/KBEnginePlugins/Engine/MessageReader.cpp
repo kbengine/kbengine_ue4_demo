@@ -4,6 +4,9 @@
 #include "KBDebug.h"
 #include "MemoryStream.h"
 
+namespace KBEngine
+{
+
 MessageReader::MessageReader():
 	msgid_(0),
 	msglen_(0),
@@ -140,18 +143,9 @@ void MessageReader::process(const uint8* datas, MessageLengthEx offset, MessageL
 					break;
 				}
 
-				MessageLengthEx frpos = pMemoryStream_->rpos() + expectSize_;
-
 				pMsg->handleMessage(*pMemoryStream_);
 
-				if (expectSize_ > 0 && frpos != pMemoryStream_->rpos())
-				{
-					WARNING_MSG("MessageReader::process(%s): rpos(%d) invalid, expect=%d. msgID=%d, msglen=%d.", 
-						*pMsg->name, pMemoryStream_->rpos(), frpos, msgid_, expectSize_);
-				}
-					
 				pMemoryStream_->clear(false);
-				
 				state_ = READ_STATE_MSGID;
 				expectSize_ = 2;
 			}
@@ -163,4 +157,6 @@ void MessageReader::process(const uint8* datas, MessageLengthEx offset, MessageL
 			}
 		}
 	}
+}
+
 }

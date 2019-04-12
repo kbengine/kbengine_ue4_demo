@@ -1,6 +1,8 @@
 #include "EntityCallSpacesBase.h"
 #include "Bundle.h"
 
+namespace KBEngine
+{
 
 EntityBaseEntityCall_SpacesBase::EntityBaseEntityCall_SpacesBase(int32 eid, const FString& ename) : EntityCall(eid, ename)
 {
@@ -22,3 +24,5 @@ EntityCellEntityCall_SpacesBase::~EntityCellEntityCall_SpacesBase()
 {
 }
 
+
+}

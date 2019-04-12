@@ -8,6 +8,9 @@
 
 #include "KBECommon.h"
 
+namespace KBEngine
+{
+
 
 // defined in */scripts/entity_defs/types.xml
 
@@ -191,3 +194,5 @@ public:
 
 };
 
+
+}

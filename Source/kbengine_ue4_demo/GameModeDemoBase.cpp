@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+Ôªø// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GameModeDemoBase.h"
 #include "kbengine_ue4_demo.h"
@@ -22,17 +22,18 @@ void AGameModeDemoBase::BeginPlay()
 	installEvents();
 }
 
-void AGameModeDemoBase::Destroyed()
+
+void AGameModeDemoBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+	Super::EndPlay(EndPlayReason);
 	KBENGINE_DEREGISTER_ALL_EVENT();
-	Super::Destroyed();
 }
 
 void AGameModeDemoBase::Logout(AController* Exiting)
 {
 	Super::Logout(Exiting);
 
-	// ø…“‘‘⁄’‚¿Ô¿ÌΩ‚Œ™ÕÊº“±‡º≠∆˜Stop”Œœ∑ªÚ’ﬂ¿Îø™¡À’‚∏ˆ≥°æ∞
+	// ÂèØ‰ª•Âú®ËøôÈáåÁêÜËß£‰∏∫Áé©ÂÆ∂ÁºñËæëÂô®StopÊ∏∏ÊàèÊàñËÄÖÁ¶ªÂºÄ‰∫ÜËøô‰∏™Âú∫ÊôØ
 	if (Exiting)
 	{
 		KBENGINE_DEREGISTER_ALL_EVENT();
@@ -42,9 +43,11 @@ void AGameModeDemoBase::Logout(AController* Exiting)
 void AGameModeDemoBase::installEvents()
 {
 	// common
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onKicked, onKicked);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onDisconnected, onDisconnected);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onConnectionState, onConnectionState);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onKicked, onKicked);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onDisconnected, onDisconnected);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onConnectionState, onConnectionState);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onReloginBaseappSuccessfully, onReloginBaseappSuccessfully);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onReloginBaseappFailed, onReloginBaseappFailed);
 }
 
 void AGameModeDemoBase::fire(const FString& eventName, UKBEventData* pEventData)
@@ -52,14 +55,46 @@ void AGameModeDemoBase::fire(const FString& eventName, UKBEventData* pEventData)
 	KBENGINE_EVENT_FIRE(eventName, pEventData);
 }
 
-void AGameModeDemoBase::onKicked_Implementation(const UKBEventData* pEventData)
+void AGameModeDemoBase::onKicked_Implementation(const UKBEventData * pEventData)
 {
 }
 
 void AGameModeDemoBase::onDisconnected_Implementation(const UKBEventData* pEventData)
 {
+
 }
 
 void AGameModeDemoBase::onConnectionState_Implementation(const UKBEventData* pEventData)
 {
+
 }
+
+void AGameModeDemoBase::onReloginBaseappSuccessfully_Implementation(const UKBEventData* pEventData)
+{
+}
+
+void AGameModeDemoBase::onReloginBaseappFailed_Implementation(const UKBEventData* pEventData)
+{
+}
+
+void AGameModeDemoBase::startReloginBaseappTimer()
+{
+	if (!timerHandle.IsValid())
+		GetWorldTimerManager().SetTimer(timerHandle, this, &AGameModeDemoBase::onReloginBaseappTimer, 1.0f, false, 1.0f);
+}
+
+void AGameModeDemoBase::stopReloginBaseappTimer()
+{
+	GetWorldTimerManager().ClearTimer(timerHandle);
+}
+
+void AGameModeDemoBase::onReloginBaseappTimer()
+{
+	KBEngine::KBEngineApp::getSingleton().reloginBaseapp();
+
+	if (timerHandle.IsValid())
+		GetWorldTimerManager().SetTimer(timerHandle, this, &AGameModeDemoBase::onReloginBaseappTimer, 1.0f, false, 3.0f);
+}
+
+
+

@@ -5,6 +5,10 @@
 #include "KBECommon.h"
 #include "ServerErrorDescrs.h"
 #include "Interfaces.h"
+#include "KBETicker.h"
+
+namespace KBEngine
+{
 
 class KBEngineArgs;
 class Entity;
@@ -29,7 +33,7 @@ public:
 	
 public:
 	static KBEngineApp& getSingleton();
-
+	static void destroyKBEngineApp();
 public:
 	bool isInitialized() const {
 		return pArgs_ != NULL;
@@ -38,6 +42,9 @@ public:
 	bool initialize(KBEngineArgs* pArgs);
 	void destroy();
 	void reset();
+	
+	void installUKBETicker();
+	void uninstallUKBETicker();
 
 	NetworkInterfaceBase* pNetworkInterface() const {
 		return pNetworkInterface_;
@@ -510,6 +517,8 @@ protected:
 	FString component_;
 
 	EncryptionFilter *pFilter_;
+	UKBETicker *pUKBETicker_;
 
 };
 
+}

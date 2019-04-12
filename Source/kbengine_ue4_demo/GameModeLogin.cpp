@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GameModeLogin.h"
 #include "kbengine_ue4_demo.h"
@@ -15,35 +15,32 @@ void AGameModeLogin::installEvents()
 	Super::installEvents();
 
 	// login
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onCreateAccountResult, onCreateAccountResult);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onLoginFailed, onLoginFailed);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onVersionNotMatch, onVersionNotMatch);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onScriptVersionNotMatch, onScriptVersionNotMatch);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onLoginBaseappFailed, onLoginBaseappFailed);
-	KBENGINE_REGISTER_EVENT(KBEventTypes::onLoginBaseapp, onLoginBaseapp);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onCreateAccountResult, onCreateAccountResult);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onLoginFailed, onLoginFailed);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onVersionNotMatch, onVersionNotMatch);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onScriptVersionNotMatch, onScriptVersionNotMatch);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onLoginBaseappFailed, onLoginBaseappFailed);
+	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onLoginBaseapp, onLoginBaseapp);
 	KBENGINE_REGISTER_EVENT("onLoginSuccessfully", onLoginSuccessfully);
 	KBENGINE_REGISTER_EVENT("Loginapp_importClientMessages", Loginapp_importClientMessages);
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientMessages", Baseapp_importClientMessages);
 	KBENGINE_REGISTER_EVENT("Baseapp_importClientEntityDef", Baseapp_importClientEntityDef);
+	
 }
 
 // Called when the game starts or when spawned
 void AGameModeLogin::BeginPlay()
 {
-	// Ã¿´Î½øÈëµ½Õâ¸ö½çÃæÊ±¶ÔKBE×öÒ»´ÎÇåÀí£¬·ñÔòKBE²å¼şÄÚ»º´æµÄÄÚÈİ½«Ò»Ö±´æÔÚ
-	KBEngineApp::getSingleton().reset();
+	// æ¯æ¬¡è¿›å…¥åˆ°è¿™ä¸ªç•Œé¢æ—¶å¯¹KBEåšä¸€æ¬¡æ¸…ç†ï¼Œå¦åˆ™KBEæ’ä»¶å†…ç¼“å­˜çš„å†…å®¹å°†ä¸€ç›´å­˜åœ¨
+	KBEngine::KBEngineApp::getSingleton().reset();
 
 	Super::BeginPlay();
 }
 
-void AGameModeLogin::Destroyed()
-{
-	Super::Destroyed();
-}
 
 bool AGameModeLogin::validEmail(FString strEmail)
 {
-	return KBEngineApp::getSingleton().validEmail(strEmail);
+	return KBEngine::KBEngineApp::getSingleton().validEmail(strEmail);
 }
 
 void AGameModeLogin::onCreateAccountResult_Implementation(const UKBEventData* pEventData)

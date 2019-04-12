@@ -2,6 +2,9 @@
 #include "MemoryStream.h"
 #include "KBEngine.h"
 
+namespace KBEngine
+{
+
 TMap<MessageID, Message*> Messages::loginappMessages;
 TMap<MessageID, Message*> Messages::baseappMessages;
 TMap<MessageID, Message*> Messages::clientMessages;
@@ -562,3 +565,5 @@ void Message_Entity_onRemoteMethodCall::handleMessage(MemoryStream& msgstream)
 {
 }
 
+
+}

@@ -17,6 +17,9 @@
 
 // defined in */scripts/entity_defs/Avatar.def
 
+namespace KBEngine
+{
+
 class KBENGINEPLUGINS_API EntityBaseEntityCall_AvatarBase : public EntityCall
 {
 public:
@@ -45,3 +48,5 @@ public:
 	void requestPull();
 	void useTargetSkill(int32 arg1, int32 arg2);
 };
+
+}

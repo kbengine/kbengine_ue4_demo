@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -20,7 +20,8 @@ public:
 	virtual void BeginPlay() override;
 
 	/** Called once this actor has been deleted */
-	virtual void Destroyed() override;
+	//virtual void Destroyed() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason)override;
 
 	/**
 	* Initialize the game.
@@ -34,29 +35,50 @@ public:
 	virtual void Logout(AController* Exiting) override;
 
 	/*
-		°²×°µÇÂ½Ê±ĞèÒª¼àÌıµÄKBEÊÂ¼ş
+		å®‰è£…ç™»é™†æ—¶éœ€è¦ç›‘å¬çš„KBEäº‹ä»¶
 	*/
 	virtual void installEvents();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = KBEngine)
+	bool startRelogin;
 
 	UFUNCTION(BlueprintCallable, Category = KBEngine)
 	void fire(const FString& eventName, UKBEventData* pEventData);
 
-	/* KBEÊÂ¼ş
-		Íæ¼Ò±»Ìß³ö·şÎñÆ÷
+	/* KBEäº‹ä»¶
+		ç©å®¶è¢«è¸¢å‡ºæœåŠ¡å™¨
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onKicked(const UKBEventData* pEventData);
 
-	/* KBEÊÂ¼ş
+	/* KBEäº‹ä»¶
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onDisconnected(const UKBEventData* pEventData);
 
-	/* KBEÊÂ¼ş
+	/* KBEäº‹ä»¶
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
 	void onConnectionState(const UKBEventData* pEventData);
 	
-	
+	/* KBEäº‹ä»¶
+	*/
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
+	void onReloginBaseappSuccessfully(const UKBEventData* pEventData);
+
+	/* KBEäº‹ä»¶
+	*/
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "KBEngine")
+	void onReloginBaseappFailed(const UKBEventData* pEventData);
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	void startReloginBaseappTimer();
+
+	UFUNCTION(BlueprintCallable, Category = "KBEngine")
+	void stopReloginBaseappTimer();
+
+	//é‡ç™»baseappé¡¹ç›®
+	void onReloginBaseappTimer();
+
+	FTimerHandle timerHandle;
 };

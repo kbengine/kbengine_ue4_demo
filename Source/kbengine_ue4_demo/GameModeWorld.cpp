@@ -115,6 +115,7 @@ void AGameModeWorld::onEnterWorld_Implementation(const UKBEventData* pEventData)
 	const UKBEventData_onEnterWorld* pData = Cast<UKBEventData_onEnterWorld>(pEventData);
 	
 	FRotator Rot(0.f, 0.f, 0.f);
+	KBDir2UE4Dir(Rot, pData->direction);
 	FTransform SpawnTransform(Rot, pData->position);
 
 	if (pData->isPlayer)
@@ -157,6 +158,7 @@ void AGameModeWorld::onEnterSpace_Implementation(const UKBEventData* pEventData)
 	const UKBEventData_onEnterSpace* pData = Cast<UKBEventData_onEnterSpace>(pEventData);
 
 	FRotator Rot(0.f, 0.f, 0.f);
+	KBDir2UE4Dir(Rot, pData->direction);
 	FTransform SpawnTransform(Rot, pData->position);
 
 	if (pData->isPlayer)

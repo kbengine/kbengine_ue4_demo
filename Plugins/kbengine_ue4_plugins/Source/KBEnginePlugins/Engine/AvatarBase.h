@@ -95,6 +95,7 @@ public:
 
 	void attachComponents() override;
 	void detachComponents() override;
+	TArray<EntityComponent*> getComponents(FString componentName, bool all) override;
 
 };
 

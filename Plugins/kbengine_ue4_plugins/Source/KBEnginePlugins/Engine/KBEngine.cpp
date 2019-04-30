@@ -235,7 +235,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("2.4.5");
+	clientVersion_ = TEXT("2.5.0");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 
@@ -475,7 +475,6 @@ void KBEngineApp::updatePlayerToServer()
 			pBundle->send(pNetworkInterface_);
 		}
 	}
-
 }
 
 void KBEngineApp::Client_onAppActiveTickCB()
@@ -741,6 +740,7 @@ void KBEngineApp::Client_onLoginFailed(MemoryStream& stream)
 	UKBEventData_onLoginFailed* pEventData = NewObject<UKBEventData_onLoginFailed>();
 	pEventData->failedcode = failedcode;
 	pEventData->errorStr = serverErr(failedcode);
+	pEventData->serverdatas = serverdatas_;
 	KBENGINE_EVENT_FIRE(KBEventTypes::onLoginFailed, pEventData);
 }
 

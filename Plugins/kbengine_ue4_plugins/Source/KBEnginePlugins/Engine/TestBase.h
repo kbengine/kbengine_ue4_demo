@@ -36,6 +36,10 @@ public:
 
 	void createFromStream(MemoryStream& stream) override;
 
+	void onGetBase() override;
+	void onGetCell() override;
+	void onLoseCell() override;
+
 	void onRemoteMethodCall(uint16 methodUtype, MemoryStream& stream) override;
 	void onUpdatePropertys(uint16 propUtype, MemoryStream& stream, int maxCount) override;
 	void callPropertysSetMethods() override;

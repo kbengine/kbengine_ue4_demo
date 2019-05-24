@@ -38,6 +38,9 @@ void AvatarBase::onGetBase()
 		delete pBaseEntityCall;
 
 	pBaseEntityCall = new EntityBaseEntityCall_AvatarBase(id(), className());
+	component1->onGetBase();
+	component2->onGetBase();
+	component3->onGetBase();
 }
 
 void AvatarBase::onGetCell()
@@ -46,12 +49,18 @@ void AvatarBase::onGetCell()
 		delete pCellEntityCall;
 
 	pCellEntityCall = new EntityCellEntityCall_AvatarBase(id(), className());
+	component1->onGetCell();
+	component2->onGetCell();
+	component3->onGetCell();
 }
 
 void AvatarBase::onLoseCell()
 {
 	delete pCellEntityCall;
 	pCellEntityCall = NULL;
+	component1->onLoseCell();
+	component2->onLoseCell();
+	component3->onLoseCell();
 }
 
 EntityCall* AvatarBase::getBaseEntityCall()

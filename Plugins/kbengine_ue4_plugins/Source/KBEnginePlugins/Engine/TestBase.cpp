@@ -17,9 +17,30 @@ namespace KBEngine
 void TestBase::createFromStream(MemoryStream& stream)
 {
 	EntityComponent::createFromStream(stream);
+}
+
+void TestBase::onGetBase()
+{
+	if(pBaseEntityCall)
+		delete pBaseEntityCall;
+
 	pBaseEntityCall = new EntityBaseEntityCall_TestBase(entityComponentPropertyID, ownerID);
+}
+
+void TestBase::onGetCell()
+{
+	if(pCellEntityCall)
+		delete pCellEntityCall;
+
 	pCellEntityCall = new EntityCellEntityCall_TestBase(entityComponentPropertyID, ownerID);
 }
+
+void TestBase::onLoseCell()
+{
+	delete pCellEntityCall;
+	pCellEntityCall = NULL;
+}
+
 
 ScriptModule* TestBase::getScriptModule()
 {

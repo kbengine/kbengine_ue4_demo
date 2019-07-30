@@ -21,6 +21,8 @@ void TestBase::createFromStream(MemoryStream& stream)
 
 void TestBase::onGetBase()
 {
+	ownerID = pOwner->id();
+
 	if(pBaseEntityCall)
 		delete pBaseEntityCall;
 
@@ -29,6 +31,8 @@ void TestBase::onGetBase()
 
 void TestBase::onGetCell()
 {
+	ownerID = pOwner->id();
+
 	if(pCellEntityCall)
 		delete pCellEntityCall;
 

@@ -102,7 +102,7 @@ typedef uint8 ENTITY_SUBSTATE;
 
 typedef int32 ENTITY_FORBIDS;
 
-class KBENGINEPLUGINS_API ENTITY_FORBID_COUNTER : public TArray<int8>
+class ENTITY_FORBID_COUNTER : public TArray<int8>
 {
 public:
 
@@ -112,7 +112,12 @@ public:
 
 };
 
-class KBENGINEPLUGINS_API ENTITYID_LIST : public TArray<int32>
+inline bool operator ==(const ENTITY_FORBID_COUNTER& a, const ENTITY_FORBID_COUNTER& b)
+{
+	return a == b;
+};
+
+class ENTITYID_LIST : public TArray<int32>
 {
 public:
 
@@ -122,7 +127,12 @@ public:
 
 };
 
-class KBENGINEPLUGINS_API AVATAR_DATA
+inline bool operator ==(const ENTITYID_LIST& a, const ENTITYID_LIST& b)
+{
+	return a == b;
+};
+
+class AVATAR_DATA
 {
 public:
 	int8 param1;
@@ -136,7 +146,12 @@ public:
 
 };
 
-class KBENGINEPLUGINS_API AVATAR_INFOS
+inline bool operator ==(const AVATAR_DATA& a, const AVATAR_DATA& b)
+{
+	return a.param1 == b.param1 && a.param2 == b.param2;
+};
+
+class AVATAR_INFOS
 {
 public:
 	uint64 dbid;
@@ -156,7 +171,12 @@ public:
 
 };
 
-class KBENGINEPLUGINS_API AVATAR_INFOS_LIST
+inline bool operator ==(const AVATAR_INFOS& a, const AVATAR_INFOS& b)
+{
+	return a.dbid == b.dbid && a.name == b.name && a.roleType == b.roleType && a.level == b.level && a.data == b.data;
+};
+
+class AVATAR_INFOS_LIST
 {
 public:
 	TArray<AVATAR_INFOS> values;
@@ -168,7 +188,12 @@ public:
 
 };
 
-class KBENGINEPLUGINS_API BAG
+inline bool operator ==(const AVATAR_INFOS_LIST& a, const AVATAR_INFOS_LIST& b)
+{
+	return a.values == b.values;
+};
+
+class BAG
 {
 public:
 	TArray<TArray<int64>> values22;
@@ -180,7 +205,12 @@ public:
 
 };
 
-class KBENGINEPLUGINS_API EXAMPLES
+inline bool operator ==(const BAG& a, const BAG& b)
+{
+	return a.values22 == b.values22;
+};
+
+class EXAMPLES
 {
 public:
 	int64 k1;
@@ -192,6 +222,11 @@ public:
 	{
 	}
 
+};
+
+inline bool operator ==(const EXAMPLES& a, const EXAMPLES& b)
+{
+	return a.k1 == b.k1 && a.k2 == b.k2;
 };
 
 

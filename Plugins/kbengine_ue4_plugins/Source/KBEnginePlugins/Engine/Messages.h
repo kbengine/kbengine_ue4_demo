@@ -1400,6 +1400,10 @@ public:
 		loginappMessages.Empty();
 		baseappMessages.Empty();
 		clientMessages.Empty();
+
+		for (auto item : messages)
+			delete item.Value;
+
 		messages.Empty();
 
 		initialize();

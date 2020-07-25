@@ -24,7 +24,7 @@ public:
 	virtual void onLeaveSpace() override;
 
 	void reqRelive(uint8 reliveType);
-
+	virtual void OnTeamData(uint8 arg1, const TArray<uint64>& arg2) {}
 public:
 	void onHPChanged(int32 oldValue) override;
 	void onHP_MaxChanged(int32 oldValue) override;

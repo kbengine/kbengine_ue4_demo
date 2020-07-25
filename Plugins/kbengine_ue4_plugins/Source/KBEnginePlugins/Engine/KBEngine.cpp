@@ -4,8 +4,8 @@
 #include "Entity.h"
 #include "EntityDef.h"
 #include "Messages.h"
-#include "NetworkInterfaceTcp.h"
-#include "NetworkInterfaceKcp.h"
+#include "NetworkInterfaceTCP.h"
+#include "NetworkInterfaceKCP.h"
 #include "Bundle.h"
 #include "MemoryStream.h"
 #include "DataTypes.h"
@@ -235,7 +235,7 @@ void KBEngineApp::reset()
 	serverdatas_.Empty();
 
 	serverVersion_ = TEXT("");
-	clientVersion_ = TEXT("2.5.8");
+	clientVersion_ = TEXT("2.5.10");
 	serverScriptVersion_ = TEXT("");
 	clientScriptVersion_ = TEXT("0.1.0");
 
